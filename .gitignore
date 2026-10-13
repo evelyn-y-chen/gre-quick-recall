@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.env*
+!.env.example
+.DS_Store
+*.tsbuildinfo
+/public/dictionary-v1/*.json
+/public/dictionary-v1/README.md

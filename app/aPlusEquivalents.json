@@ -1,0 +1,9178 @@
+[
+  {
+    "id": "a-plus-001",
+    "number": 1,
+    "word": "abandon",
+    "equivalents": [
+      "desert",
+      "forsake",
+      "relinquish",
+      "renounce",
+      "discard",
+      "uninhibited",
+      "unrestrained"
+    ],
+    "meaning": "v. 放弃/ 放纵",
+    "list": 1,
+    "page": 2
+  },
+  {
+    "id": "a-plus-002",
+    "number": 2,
+    "word": "abash",
+    "equivalents": [
+      "discomfit",
+      "disconcert",
+      "mortify",
+      "embarrass"
+    ],
+    "meaning": "v. 使窘迫、尴尬、局促不安",
+    "list": 1,
+    "page": 2
+  },
+  {
+    "id": "a-plus-003",
+    "number": 3,
+    "word": "abate",
+    "equivalents": [
+      "mitigate",
+      "lessen",
+      "subside",
+      "diminish",
+      "decrease"
+    ],
+    "meaning": "v. 减轻、减少、减缓",
+    "list": 1,
+    "page": 2
+  },
+  {
+    "id": "a-plus-004",
+    "number": 4,
+    "word": "abbreviate",
+    "equivalents": [
+      "abridge",
+      "shorten",
+      "curtail"
+    ],
+    "meaning": "v. 缩短/精简",
+    "list": 1,
+    "page": 2
+  },
+  {
+    "id": "a-plus-005",
+    "number": 5,
+    "word": "aberration",
+    "equivalents": [
+      "anomaly"
+    ],
+    "meaning": "n. 异常、异类",
+    "list": 1,
+    "page": 2
+  },
+  {
+    "id": "a-plus-006",
+    "number": 6,
+    "word": "abeyance",
+    "equivalents": [
+      "quiescence"
+    ],
+    "meaning": "n. 暂停、静止、搁置",
+    "list": 1,
+    "page": 2
+  },
+  {
+    "id": "a-plus-007",
+    "number": 7,
+    "word": "abjection",
+    "equivalents": [
+      "wretchedness"
+    ],
+    "meaning": "n. 悲惨、凄惨",
+    "list": 1,
+    "page": 2
+  },
+  {
+    "id": "a-plus-008",
+    "number": 8,
+    "word": "abound",
+    "equivalents": [
+      "proliferate"
+    ],
+    "meaning": "v. 大量存在",
+    "list": 1,
+    "page": 2
+  },
+  {
+    "id": "a-plus-009",
+    "number": 9,
+    "word": "absolve",
+    "equivalents": [
+      "exonerate"
+    ],
+    "meaning": "v. 免除、赦免",
+    "list": 1,
+    "page": 2
+  },
+  {
+    "id": "a-plus-010",
+    "number": 10,
+    "word": "abstract",
+    "equivalents": [
+      "general",
+      "abstruse"
+    ],
+    "meaning": "adj. 笼统的、概括性的、 抽象的、难懂的",
+    "list": 1,
+    "page": 2
+  },
+  {
+    "id": "a-plus-011",
+    "number": 11,
+    "word": "abundant",
+    "equivalents": [
+      "plentiful",
+      "dominant"
+    ],
+    "meaning": "adj. 丰富的",
+    "list": 2,
+    "page": 2
+  },
+  {
+    "id": "a-plus-012",
+    "number": 12,
+    "word": "abuse",
+    "equivalents": [
+      "misuse"
+    ],
+    "meaning": "v. 滥用",
+    "list": 2,
+    "page": 2
+  },
+  {
+    "id": "a-plus-013",
+    "number": 13,
+    "word": "accentuate",
+    "equivalents": [
+      "emphasize",
+      "highlight",
+      "foreground"
+    ],
+    "meaning": "v. 强调",
+    "list": 2,
+    "page": 2
+  },
+  {
+    "id": "a-plus-014",
+    "number": 14,
+    "word": "accession",
+    "equivalents": [
+      "acquiescence"
+    ],
+    "meaning": "n. 同意",
+    "list": 2,
+    "page": 2
+  },
+  {
+    "id": "a-plus-015",
+    "number": 15,
+    "word": "acclaim",
+    "equivalents": [
+      "hail",
+      "support",
+      "praise"
+    ],
+    "meaning": "v. 称赞",
+    "list": 2,
+    "page": 2
+  },
+  {
+    "id": "a-plus-016",
+    "number": 16,
+    "word": "accrete",
+    "equivalents": [
+      "accumulate",
+      "amass"
+    ],
+    "meaning": "v. 积累",
+    "list": 2,
+    "page": 2
+  },
+  {
+    "id": "a-plus-017",
+    "number": 17,
+    "word": "acerbic",
+    "equivalents": [
+      "acid",
+      "vitriolic",
+      "caustic",
+      "mordant"
+    ],
+    "meaning": "adj. 尖刻的",
+    "list": 2,
+    "page": 2
+  },
+  {
+    "id": "a-plus-018",
+    "number": 18,
+    "word": "achieved",
+    "equivalents": [
+      "realized"
+    ],
+    "meaning": "v. 实现",
+    "list": 2,
+    "page": 2
+  },
+  {
+    "id": "a-plus-019",
+    "number": 19,
+    "word": "acknowledge",
+    "equivalents": [
+      "concede"
+    ],
+    "meaning": "v. 承认、认可",
+    "list": 2,
+    "page": 2
+  },
+  {
+    "id": "a-plus-020",
+    "number": 20,
+    "word": "acme",
+    "equivalents": [
+      "apogee",
+      "pinnacle",
+      "apex",
+      "peak",
+      "zenith",
+      "summit"
+    ],
+    "meaning": "n.顶峰 / 极致",
+    "list": 2,
+    "page": 2
+  },
+  {
+    "id": "a-plus-021",
+    "number": 21,
+    "word": "acumen",
+    "equivalents": [
+      "shrewdness"
+    ],
+    "meaning": "n. 敏锐、精明",
+    "list": 3,
+    "page": 2
+  },
+  {
+    "id": "a-plus-022",
+    "number": 22,
+    "word": "acute",
+    "equivalents": [
+      "severe",
+      "critical"
+    ],
+    "meaning": "adj. 严重的",
+    "list": 3,
+    "page": 2
+  },
+  {
+    "id": "a-plus-023",
+    "number": 23,
+    "word": "admonish",
+    "equivalents": [
+      "scold"
+    ],
+    "meaning": "v. 警告",
+    "list": 3,
+    "page": 2
+  },
+  {
+    "id": "a-plus-024",
+    "number": 24,
+    "word": "adroit",
+    "equivalents": [
+      "skillful",
+      "deft"
+    ],
+    "meaning": "adj. 灵巧的、熟练的",
+    "list": 3,
+    "page": 3
+  },
+  {
+    "id": "a-plus-025",
+    "number": 25,
+    "word": "adulation",
+    "equivalents": [
+      "approbation",
+      "flattery"
+    ],
+    "meaning": "n. 奉承",
+    "list": 3,
+    "page": 3
+  },
+  {
+    "id": "a-plus-026",
+    "number": 26,
+    "word": "adversarial",
+    "equivalents": [
+      "antagonistic"
+    ],
+    "meaning": "adj. 对抗的、对立的",
+    "list": 3,
+    "page": 3
+  },
+  {
+    "id": "a-plus-027",
+    "number": 27,
+    "word": "adverse",
+    "equivalents": [
+      "unfavorable"
+    ],
+    "meaning": "adj. 不利的",
+    "list": 3,
+    "page": 3
+  },
+  {
+    "id": "a-plus-028",
+    "number": 28,
+    "word": "affable",
+    "equivalents": [
+      "easygoing"
+    ],
+    "meaning": "adj. 和蔼的",
+    "list": 3,
+    "page": 3
+  },
+  {
+    "id": "a-plus-029",
+    "number": 29,
+    "word": "aggravate",
+    "equivalents": [
+      "exacerbate",
+      "worsen"
+    ],
+    "meaning": "v. 加重",
+    "list": 3,
+    "page": 3
+  },
+  {
+    "id": "a-plus-030",
+    "number": 30,
+    "word": "all- encompassing",
+    "equivalents": [
+      "inclusive"
+    ],
+    "meaning": "adj. 包罗万象的",
+    "list": 3,
+    "page": 3
+  },
+  {
+    "id": "a-plus-031",
+    "number": 31,
+    "word": "alleviate",
+    "equivalents": [
+      "mitigate"
+    ],
+    "meaning": "v. 缓解",
+    "list": 4,
+    "page": 3
+  },
+  {
+    "id": "a-plus-032",
+    "number": 32,
+    "word": "allied",
+    "equivalents": [
+      "confederated",
+      "conflated"
+    ],
+    "meaning": "adj. 结盟的",
+    "list": 4,
+    "page": 3
+  },
+  {
+    "id": "a-plus-033",
+    "number": 33,
+    "word": "allure",
+    "equivalents": [
+      "charm"
+    ],
+    "meaning": "n. 吸引",
+    "list": 4,
+    "page": 3
+  },
+  {
+    "id": "a-plus-034",
+    "number": 34,
+    "word": "altruistic",
+    "equivalents": [
+      "benevolent"
+    ],
+    "meaning": "adj. 利他的",
+    "list": 4,
+    "page": 3
+  },
+  {
+    "id": "a-plus-035",
+    "number": 35,
+    "word": "amalgamation",
+    "equivalents": [
+      "fusion"
+    ],
+    "meaning": "n. 融合",
+    "list": 4,
+    "page": 3
+  },
+  {
+    "id": "a-plus-036",
+    "number": 36,
+    "word": "ambiguous",
+    "equivalents": [
+      "vague",
+      "unclear",
+      "mute"
+    ],
+    "meaning": "adj. 模糊的",
+    "list": 4,
+    "page": 3
+  },
+  {
+    "id": "a-plus-037",
+    "number": 37,
+    "word": "ambivalent",
+    "equivalents": [
+      "contradictory",
+      "dichotomous"
+    ],
+    "meaning": "adj. 矛盾的",
+    "list": 4,
+    "page": 3
+  },
+  {
+    "id": "a-plus-038",
+    "number": 38,
+    "word": "ameliorate",
+    "equivalents": [
+      "refine",
+      "improve"
+    ],
+    "meaning": "v. 改善",
+    "list": 4,
+    "page": 3
+  },
+  {
+    "id": "a-plus-039",
+    "number": 39,
+    "word": "amenable",
+    "equivalents": [
+      "compliant",
+      "submissive",
+      "obedient"
+    ],
+    "meaning": "adj. 顺从的",
+    "list": 4,
+    "page": 3
+  },
+  {
+    "id": "a-plus-040",
+    "number": 40,
+    "word": "assured",
+    "equivalents": [
+      "settled",
+      "certain"
+    ],
+    "meaning": "adj. 确定的",
+    "list": 4,
+    "page": 3
+  },
+  {
+    "id": "a-plus-041",
+    "number": 41,
+    "word": "esoteric",
+    "equivalents": [
+      "arcane"
+    ],
+    "meaning": "adj.晦涩的、小众的",
+    "list": 5,
+    "page": 3
+  },
+  {
+    "id": "a-plus-042",
+    "number": 42,
+    "word": "extensive",
+    "equivalents": [
+      "wide-ranging"
+    ],
+    "meaning": "adj. 广泛的",
+    "list": 5,
+    "page": 3
+  },
+  {
+    "id": "a-plus-043",
+    "number": 43,
+    "word": "unfolding",
+    "equivalents": [
+      "living"
+    ],
+    "meaning": "adj. 鲜活的",
+    "list": 5,
+    "page": 3
+  },
+  {
+    "id": "a-plus-044",
+    "number": 44,
+    "word": "analogous",
+    "equivalents": [
+      "comparable"
+    ],
+    "meaning": "adj. 类似的",
+    "list": 5,
+    "page": 3
+  },
+  {
+    "id": "a-plus-045",
+    "number": 45,
+    "word": "anathema",
+    "equivalents": [
+      "repellent （repulsion）",
+      "abomination",
+      "curse"
+    ],
+    "meaning": "n. 诅咒、极度令人讨厌",
+    "list": 5,
+    "page": 3
+  },
+  {
+    "id": "a-plus-046",
+    "number": 46,
+    "word": "ancillary",
+    "equivalents": [
+      "supplementary"
+    ],
+    "meaning": "adj. 辅助的",
+    "list": 5,
+    "page": 3
+  },
+  {
+    "id": "a-plus-047",
+    "number": 47,
+    "word": "animate",
+    "equivalents": [
+      "galvanize",
+      "rouse",
+      "inspire"
+    ],
+    "meaning": "v. 激励、唤醒、激活",
+    "list": 5,
+    "page": 3
+  },
+  {
+    "id": "a-plus-048",
+    "number": 48,
+    "word": "annihilate",
+    "equivalents": [
+      "destroy"
+    ],
+    "meaning": "v. 消灭",
+    "list": 5,
+    "page": 4
+  },
+  {
+    "id": "a-plus-049",
+    "number": 49,
+    "word": "anomalous",
+    "equivalents": [
+      "unusual",
+      "esoteric",
+      "singular",
+      "exceptional",
+      "exotic",
+      "abnormal"
+    ],
+    "meaning": "adj. 反常的、与众不同",
+    "list": 5,
+    "page": 4
+  },
+  {
+    "id": "a-plus-050",
+    "number": 50,
+    "word": "anonymous",
+    "equivalents": [
+      "obscure",
+      "unrecognized"
+    ],
+    "meaning": "adj. 匿名的",
+    "list": 5,
+    "page": 4
+  },
+  {
+    "id": "a-plus-051",
+    "number": 51,
+    "word": "anticipate",
+    "equivalents": [
+      "prefigure",
+      "foresee"
+    ],
+    "meaning": "v. 预期",
+    "list": 6,
+    "page": 4
+  },
+  {
+    "id": "a-plus-052",
+    "number": 52,
+    "word": "antics",
+    "equivalents": [
+      "capers"
+    ],
+    "meaning": "n. 胡闹、调皮",
+    "list": 6,
+    "page": 4
+  },
+  {
+    "id": "a-plus-053",
+    "number": 53,
+    "word": "apathy",
+    "equivalents": [
+      "passivity",
+      "indifference"
+    ],
+    "meaning": "n. 冷漠",
+    "list": 6,
+    "page": 4
+  },
+  {
+    "id": "a-plus-054",
+    "number": 54,
+    "word": "appreciate",
+    "equivalents": [
+      "understand",
+      "recognize"
+    ],
+    "meaning": "v. 理解",
+    "list": 6,
+    "page": 4
+  },
+  {
+    "id": "a-plus-055",
+    "number": 55,
+    "word": "appreciative",
+    "equivalents": [
+      "enthralled"
+    ],
+    "meaning": "adj.有好感的",
+    "list": 6,
+    "page": 4
+  },
+  {
+    "id": "a-plus-056",
+    "number": 56,
+    "word": "appropriate",
+    "equivalents": [
+      "borrow"
+    ],
+    "meaning": "v. 侵吞",
+    "list": 6,
+    "page": 4
+  },
+  {
+    "id": "a-plus-057",
+    "number": 57,
+    "word": "arbitrary",
+    "equivalents": [
+      "capricious"
+    ],
+    "meaning": "adj. 任意的、任性的",
+    "list": 6,
+    "page": 4
+  },
+  {
+    "id": "a-plus-058",
+    "number": 58,
+    "word": "archaic",
+    "equivalents": [
+      "antediluvian",
+      "outdated",
+      "fusty"
+    ],
+    "meaning": "adj. 古老的、过时的",
+    "list": 6,
+    "page": 4
+  },
+  {
+    "id": "a-plus-059",
+    "number": 59,
+    "word": "archetypical",
+    "equivalents": [
+      "classic"
+    ],
+    "meaning": "adj. 典型的",
+    "list": 6,
+    "page": 4
+  },
+  {
+    "id": "a-plus-060",
+    "number": 60,
+    "word": "aristocracy",
+    "equivalents": [
+      "patrician",
+      "noble"
+    ],
+    "meaning": "n. 贵族",
+    "list": 6,
+    "page": 4
+  },
+  {
+    "id": "a-plus-061",
+    "number": 61,
+    "word": "arrogant",
+    "equivalents": [
+      "hubristic"
+    ],
+    "meaning": "adj. 傲慢的",
+    "list": 7,
+    "page": 4
+  },
+  {
+    "id": "a-plus-062",
+    "number": 62,
+    "word": "artful",
+    "equivalents": [
+      "shrewd"
+    ],
+    "meaning": "adj. 精明的、狡猾的",
+    "list": 7,
+    "page": 4
+  },
+  {
+    "id": "a-plus-063",
+    "number": 63,
+    "word": "artificial",
+    "equivalents": [
+      "synthetic"
+    ],
+    "meaning": "adj. 人工的",
+    "list": 7,
+    "page": 4
+  },
+  {
+    "id": "a-plus-064",
+    "number": 64,
+    "word": "artless",
+    "equivalents": [
+      "simplistic"
+    ],
+    "meaning": "adj. 天真的",
+    "list": 7,
+    "page": 4
+  },
+  {
+    "id": "a-plus-065",
+    "number": 65,
+    "word": "aspersion",
+    "equivalents": [
+      "slur"
+    ],
+    "meaning": "n. 诽谤、诋毁",
+    "list": 7,
+    "page": 4
+  },
+  {
+    "id": "a-plus-066",
+    "number": 66,
+    "word": "assert",
+    "equivalents": [
+      "insist"
+    ],
+    "meaning": "v. 坚称",
+    "list": 7,
+    "page": 4
+  },
+  {
+    "id": "a-plus-067",
+    "number": 67,
+    "word": "asymmetrical",
+    "equivalents": [
+      "uneven"
+    ],
+    "meaning": "adj. 不对称的",
+    "list": 7,
+    "page": 4
+  },
+  {
+    "id": "a-plus-068",
+    "number": 68,
+    "word": "attenuate",
+    "equivalents": [
+      "dissipate"
+    ],
+    "meaning": "v. 减弱",
+    "list": 7,
+    "page": 4
+  },
+  {
+    "id": "a-plus-069",
+    "number": 69,
+    "word": "attributed to",
+    "equivalents": [
+      "explained by"
+    ],
+    "meaning": "v. 归因于",
+    "list": 7,
+    "page": 4
+  },
+  {
+    "id": "a-plus-070",
+    "number": 70,
+    "word": "augment",
+    "equivalents": [
+      "extend"
+    ],
+    "meaning": "v. 增加",
+    "list": 7,
+    "page": 4
+  },
+  {
+    "id": "a-plus-071",
+    "number": 71,
+    "word": "auspicious",
+    "equivalents": [
+      "favorable"
+    ],
+    "meaning": "adj. 吉利的",
+    "list": 8,
+    "page": 4
+  },
+  {
+    "id": "a-plus-072",
+    "number": 72,
+    "word": "authoritative",
+    "equivalents": [
+      "definitive",
+      "cogent"
+    ],
+    "meaning": "adj. 权威的",
+    "list": 8,
+    "page": 5
+  },
+  {
+    "id": "a-plus-073",
+    "number": 73,
+    "word": "avaricious",
+    "equivalents": [
+      "rapacious"
+    ],
+    "meaning": "adj. 贪婪的",
+    "list": 8,
+    "page": 5
+  },
+  {
+    "id": "a-plus-074",
+    "number": 74,
+    "word": "awkward",
+    "equivalents": [
+      "ungainly"
+    ],
+    "meaning": "adj. 别扭的、笨拙的",
+    "list": 8,
+    "page": 5
+  },
+  {
+    "id": "a-plus-075",
+    "number": 75,
+    "word": "banal",
+    "equivalents": [
+      "lackluster stale"
+    ],
+    "meaning": "adj. 陈腐的",
+    "list": 8,
+    "page": 5
+  },
+  {
+    "id": "a-plus-076",
+    "number": 76,
+    "word": "banish",
+    "equivalents": [
+      "expel",
+      "oust"
+    ],
+    "meaning": "v. 驱逐",
+    "list": 8,
+    "page": 5
+  },
+  {
+    "id": "a-plus-077",
+    "number": 77,
+    "word": "banter",
+    "equivalents": [
+      "raillery"
+    ],
+    "meaning": "n. 玩笑、打趣",
+    "list": 8,
+    "page": 5
+  },
+  {
+    "id": "a-plus-078",
+    "number": 78,
+    "word": "barefaced",
+    "equivalents": [
+      "brazen"
+    ],
+    "meaning": "adj. 厚颜无耻的",
+    "list": 8,
+    "page": 5
+  },
+  {
+    "id": "a-plus-079",
+    "number": 79,
+    "word": "bedrock",
+    "equivalents": [
+      "foundation"
+    ],
+    "meaning": "n. 基础",
+    "list": 8,
+    "page": 5
+  },
+  {
+    "id": "a-plus-080",
+    "number": 80,
+    "word": "beget",
+    "equivalents": [
+      "create"
+    ],
+    "meaning": "v. 产生",
+    "list": 8,
+    "page": 5
+  },
+  {
+    "id": "a-plus-081",
+    "number": 81,
+    "word": "beholden",
+    "equivalents": [
+      "indebted"
+    ],
+    "meaning": "adj. 欠债的",
+    "list": 9,
+    "page": 5
+  },
+  {
+    "id": "a-plus-082",
+    "number": 82,
+    "word": "belabor",
+    "equivalents": [
+      "overemphasize"
+    ],
+    "meaning": "v. 过分强调",
+    "list": 9,
+    "page": 5
+  },
+  {
+    "id": "a-plus-083",
+    "number": 83,
+    "word": "belie",
+    "equivalents": [
+      "mask"
+    ],
+    "meaning": "v. 掩盖",
+    "list": 9,
+    "page": 5
+  },
+  {
+    "id": "a-plus-084",
+    "number": 84,
+    "word": "belligerent",
+    "equivalents": [
+      "pugnacious"
+    ],
+    "meaning": "adj. 好斗的",
+    "list": 9,
+    "page": 5
+  },
+  {
+    "id": "a-plus-085",
+    "number": 85,
+    "word": "beneficence",
+    "equivalents": [
+      "altruism",
+      "benevolence"
+    ],
+    "meaning": "n. 仁慈",
+    "list": 9,
+    "page": 5
+  },
+  {
+    "id": "a-plus-086",
+    "number": 86,
+    "word": "bereft",
+    "equivalents": [
+      "shorn"
+    ],
+    "meaning": "adj. 被剥夺的",
+    "list": 9,
+    "page": 5
+  },
+  {
+    "id": "a-plus-087",
+    "number": 87,
+    "word": "betoken",
+    "equivalents": [
+      "signify"
+    ],
+    "meaning": "v. 预示、象征",
+    "list": 9,
+    "page": 5
+  },
+  {
+    "id": "a-plus-088",
+    "number": 88,
+    "word": "betray",
+    "equivalents": [
+      "evince"
+    ],
+    "meaning": "v.显露出",
+    "list": 9,
+    "page": 5
+  },
+  {
+    "id": "a-plus-089",
+    "number": 89,
+    "word": "blameless",
+    "equivalents": [
+      "unimpeachable"
+    ],
+    "meaning": "adj. 无可指责的",
+    "list": 9,
+    "page": 5
+  },
+  {
+    "id": "a-plus-090",
+    "number": 90,
+    "word": "bland",
+    "equivalents": [
+      "insipid"
+    ],
+    "meaning": "adj. 平淡的",
+    "list": 9,
+    "page": 5
+  },
+  {
+    "id": "a-plus-091",
+    "number": 91,
+    "word": "blemish",
+    "equivalents": [
+      "defect"
+    ],
+    "meaning": "n. 瑕疵",
+    "list": 10,
+    "page": 5
+  },
+  {
+    "id": "a-plus-092",
+    "number": 92,
+    "word": "boast",
+    "equivalents": [
+      "brag",
+      "vaunt"
+    ],
+    "meaning": "v. 吹嘘、自夸",
+    "list": 10,
+    "page": 5
+  },
+  {
+    "id": "a-plus-093",
+    "number": 93,
+    "word": "bolster",
+    "equivalents": [
+      "buttress"
+    ],
+    "meaning": "v. 支持",
+    "list": 10,
+    "page": 5
+  },
+  {
+    "id": "a-plus-094",
+    "number": 94,
+    "word": "boon",
+    "equivalents": [
+      "benefit",
+      "windfall"
+    ],
+    "meaning": "n. 好处",
+    "list": 10,
+    "page": 5
+  },
+  {
+    "id": "a-plus-095",
+    "number": 95,
+    "word": "bound",
+    "equivalents": [
+      "limit"
+    ],
+    "meaning": "n. 界限",
+    "list": 10,
+    "page": 5
+  },
+  {
+    "id": "a-plus-096",
+    "number": 96,
+    "word": "brandish",
+    "equivalents": [
+      "boast"
+    ],
+    "meaning": "v. 挥舞",
+    "list": 10,
+    "page": 6
+  },
+  {
+    "id": "a-plus-097",
+    "number": 97,
+    "word": "bridle",
+    "equivalents": [
+      "check",
+      "curb",
+      "restrain"
+    ],
+    "meaning": "v. 抑制",
+    "list": 10,
+    "page": 6
+  },
+  {
+    "id": "a-plus-098",
+    "number": 98,
+    "word": "bromide",
+    "equivalents": [
+      "platitude"
+    ],
+    "meaning": "n. 陈词滥调",
+    "list": 10,
+    "page": 6
+  },
+  {
+    "id": "a-plus-099",
+    "number": 99,
+    "word": "brook",
+    "equivalents": [
+      "tolerate"
+    ],
+    "meaning": "v. 容忍",
+    "list": 10,
+    "page": 6
+  },
+  {
+    "id": "a-plus-100",
+    "number": 100,
+    "word": "bucolic",
+    "equivalents": [
+      "pastoral",
+      "rustic"
+    ],
+    "meaning": "adj. 田园的",
+    "list": 10,
+    "page": 6
+  },
+  {
+    "id": "a-plus-101",
+    "number": 101,
+    "word": "budding",
+    "equivalents": [
+      "nascent",
+      "fledgling"
+    ],
+    "meaning": "adj. 新兴的",
+    "list": 11,
+    "page": 6
+  },
+  {
+    "id": "a-plus-102",
+    "number": 102,
+    "word": "buoy",
+    "equivalents": [
+      "help",
+      "sustain"
+    ],
+    "meaning": "v. 支持",
+    "list": 11,
+    "page": 6
+  },
+  {
+    "id": "a-plus-103",
+    "number": 103,
+    "word": "businesslike",
+    "equivalents": [
+      "no-nonsense"
+    ],
+    "meaning": "adj. 事务性的",
+    "list": 11,
+    "page": 6
+  },
+  {
+    "id": "a-plus-104",
+    "number": 104,
+    "word": "bypass",
+    "equivalents": [
+      "circumvent",
+      "skirt"
+    ],
+    "meaning": "v. 绕过",
+    "list": 11,
+    "page": 6
+  },
+  {
+    "id": "a-plus-105",
+    "number": 105,
+    "word": "calamity",
+    "equivalents": [
+      "disaster"
+    ],
+    "meaning": "n. 灾难",
+    "list": 11,
+    "page": 6
+  },
+  {
+    "id": "a-plus-106",
+    "number": 106,
+    "word": "callous",
+    "equivalents": [
+      "heartless"
+    ],
+    "meaning": "adj. 无情的",
+    "list": 11,
+    "page": 6
+  },
+  {
+    "id": "a-plus-107",
+    "number": 107,
+    "word": "calumny",
+    "equivalents": [
+      "defamation"
+    ],
+    "meaning": "n. 诽谤",
+    "list": 11,
+    "page": 6
+  },
+  {
+    "id": "a-plus-108",
+    "number": 108,
+    "word": "camouflaging",
+    "equivalents": [
+      "obscuring"
+    ],
+    "meaning": "adj. 伪装的",
+    "list": 11,
+    "page": 6
+  },
+  {
+    "id": "a-plus-109",
+    "number": 109,
+    "word": "capriciousness",
+    "equivalents": [
+      "volatility"
+    ],
+    "meaning": "n. 易变性",
+    "list": 11,
+    "page": 6
+  },
+  {
+    "id": "a-plus-110",
+    "number": 110,
+    "word": "captivate",
+    "equivalents": [
+      "enamor"
+    ],
+    "meaning": "v. 吸引",
+    "list": 11,
+    "page": 6
+  },
+  {
+    "id": "a-plus-111",
+    "number": 111,
+    "word": "complementary",
+    "equivalents": [
+      "supplemental"
+    ],
+    "meaning": "adj. 补充的",
+    "list": 12,
+    "page": 6
+  },
+  {
+    "id": "a-plus-112",
+    "number": 112,
+    "word": "capture",
+    "equivalents": [
+      "secure",
+      "earn"
+    ],
+    "meaning": "v. 获取",
+    "list": 12,
+    "page": 6
+  },
+  {
+    "id": "a-plus-113",
+    "number": 113,
+    "word": "caterwaul",
+    "equivalents": [
+      "shriek"
+    ],
+    "meaning": "v. 尖叫",
+    "list": 12,
+    "page": 6
+  },
+  {
+    "id": "a-plus-114",
+    "number": 114,
+    "word": "cause",
+    "equivalents": [
+      "trigger"
+    ],
+    "meaning": "v.引发",
+    "list": 12,
+    "page": 6
+  },
+  {
+    "id": "a-plus-115",
+    "number": 115,
+    "word": "cede to",
+    "equivalents": [
+      "yield to"
+    ],
+    "meaning": "v. 让步",
+    "list": 12,
+    "page": 6
+  },
+  {
+    "id": "a-plus-116",
+    "number": 116,
+    "word": "celerity",
+    "equivalents": [
+      "dispatch"
+    ],
+    "meaning": "n. 敏捷、迅速",
+    "list": 12,
+    "page": 6
+  },
+  {
+    "id": "a-plus-117",
+    "number": 117,
+    "word": "censure",
+    "equivalents": [
+      "reprehend"
+    ],
+    "meaning": "v. 责备",
+    "list": 12,
+    "page": 6
+  },
+  {
+    "id": "a-plus-118",
+    "number": 118,
+    "word": "chagrin",
+    "equivalents": [
+      "vexation"
+    ],
+    "meaning": "n. 苦恼",
+    "list": 12,
+    "page": 6
+  },
+  {
+    "id": "a-plus-119",
+    "number": 119,
+    "word": "challenges",
+    "equivalents": [
+      "undermines"
+    ],
+    "meaning": "v. 质疑",
+    "list": 12,
+    "page": 6
+  },
+  {
+    "id": "a-plus-120",
+    "number": 120,
+    "word": "characteristic",
+    "equivalents": [
+      "feature",
+      "emblem"
+    ],
+    "meaning": "n. 特征",
+    "list": 12,
+    "page": 7
+  },
+  {
+    "id": "a-plus-121",
+    "number": 121,
+    "word": "charitable",
+    "equivalents": [
+      "forbearing"
+    ],
+    "meaning": "adj. 宽容的",
+    "list": 13,
+    "page": 7
+  },
+  {
+    "id": "a-plus-122",
+    "number": 122,
+    "word": "chastening",
+    "equivalents": [
+      "humbling"
+    ],
+    "meaning": "adj. 令人谦卑的",
+    "list": 13,
+    "page": 7
+  },
+  {
+    "id": "a-plus-123",
+    "number": 123,
+    "word": "chastise",
+    "equivalents": [
+      "castigate"
+    ],
+    "meaning": "v. 责骂",
+    "list": 13,
+    "page": 7
+  },
+  {
+    "id": "a-plus-124",
+    "number": 124,
+    "word": "check",
+    "equivalents": [
+      "stem"
+    ],
+    "meaning": "v. 抑制",
+    "list": 13,
+    "page": 7
+  },
+  {
+    "id": "a-plus-125",
+    "number": 125,
+    "word": "cheerless",
+    "equivalents": [
+      "gloomy"
+    ],
+    "meaning": "adj. 忧郁的",
+    "list": 13,
+    "page": 7
+  },
+  {
+    "id": "a-plus-126",
+    "number": 126,
+    "word": "chic",
+    "equivalents": [
+      "elegant"
+    ],
+    "meaning": "adj. 时尚的",
+    "list": 13,
+    "page": 7
+  },
+  {
+    "id": "a-plus-127",
+    "number": 127,
+    "word": "chimera",
+    "equivalents": [
+      "illusion"
+    ],
+    "meaning": "n. 幻想",
+    "list": 13,
+    "page": 7
+  },
+  {
+    "id": "a-plus-128",
+    "number": 128,
+    "word": "chimerical",
+    "equivalents": [
+      "fanciful"
+    ],
+    "meaning": "adj. 空想的",
+    "list": 13,
+    "page": 7
+  },
+  {
+    "id": "a-plus-129",
+    "number": 129,
+    "word": "circuitous",
+    "equivalents": [
+      "indirect"
+    ],
+    "meaning": "adj. 迂回的",
+    "list": 13,
+    "page": 7
+  },
+  {
+    "id": "a-plus-130",
+    "number": 130,
+    "word": "circumscribe",
+    "equivalents": [
+      "confine",
+      "limit"
+    ],
+    "meaning": "v. 限制",
+    "list": 13,
+    "page": 7
+  },
+  {
+    "id": "a-plus-131",
+    "number": 131,
+    "word": "circumspect",
+    "equivalents": [
+      "prudent",
+      "chary",
+      "cautious",
+      "judicious",
+      "precise"
+    ],
+    "meaning": "adj. 小心的",
+    "list": 14,
+    "page": 7
+  },
+  {
+    "id": "a-plus-132",
+    "number": 132,
+    "word": "circumstantial",
+    "equivalents": [
+      "contingent"
+    ],
+    "meaning": "adj. 偶然的",
+    "list": 14,
+    "page": 7
+  },
+  {
+    "id": "a-plus-133",
+    "number": 133,
+    "word": "civility",
+    "equivalents": [
+      "comity"
+    ],
+    "meaning": "n. 礼貌",
+    "list": 14,
+    "page": 7
+  },
+  {
+    "id": "a-plus-134",
+    "number": 134,
+    "word": "clandestine",
+    "equivalents": [
+      "covert",
+      "surreptitious"
+    ],
+    "meaning": "adj. 秘密的",
+    "list": 14,
+    "page": 7
+  },
+  {
+    "id": "a-plus-135",
+    "number": 135,
+    "word": "coercive",
+    "equivalents": [
+      "imperious"
+    ],
+    "meaning": "adj. 强制的",
+    "list": 14,
+    "page": 7
+  },
+  {
+    "id": "a-plus-136",
+    "number": 136,
+    "word": "coherent",
+    "equivalents": [
+      "orderly"
+    ],
+    "meaning": "adj. 连贯的",
+    "list": 14,
+    "page": 7
+  },
+  {
+    "id": "a-plus-137",
+    "number": 137,
+    "word": "collapse",
+    "equivalents": [
+      "failure"
+    ],
+    "meaning": "n. 崩溃",
+    "list": 14,
+    "page": 7
+  },
+  {
+    "id": "a-plus-138",
+    "number": 138,
+    "word": "colossal",
+    "equivalents": [
+      "immense"
+    ],
+    "meaning": "adj. 巨大的",
+    "list": 14,
+    "page": 7
+  },
+  {
+    "id": "a-plus-139",
+    "number": 139,
+    "word": "commensurate",
+    "equivalents": [
+      "proportionate"
+    ],
+    "meaning": "adj. 相称的",
+    "list": 14,
+    "page": 7
+  },
+  {
+    "id": "a-plus-140",
+    "number": 140,
+    "word": "commonplace",
+    "equivalents": [
+      "pervasive",
+      "ubiquitous"
+    ],
+    "meaning": "adj. 普遍的",
+    "list": 14,
+    "page": 7
+  },
+  {
+    "id": "a-plus-141",
+    "number": 141,
+    "word": "compelling",
+    "equivalents": [
+      "interesting"
+    ],
+    "meaning": "adj. 引人注目的",
+    "list": 15,
+    "page": 7
+  },
+  {
+    "id": "a-plus-142",
+    "number": 142,
+    "word": "competing",
+    "equivalents": [
+      "contending"
+    ],
+    "meaning": "adj. 竞争的",
+    "list": 15,
+    "page": 7
+  },
+  {
+    "id": "a-plus-143",
+    "number": 143,
+    "word": "complex",
+    "equivalents": [
+      "multifarious"
+    ],
+    "meaning": "adj.复杂的",
+    "list": 15,
+    "page": 7
+  },
+  {
+    "id": "a-plus-144",
+    "number": 144,
+    "word": "complicated",
+    "equivalents": [
+      "knotty"
+    ],
+    "meaning": "adj. 复杂的",
+    "list": 15,
+    "page": 8
+  },
+  {
+    "id": "a-plus-145",
+    "number": 145,
+    "word": "composed",
+    "equivalents": [
+      "unperturbed",
+      "collected",
+      "coolheaded"
+    ],
+    "meaning": "adj. 镇定的",
+    "list": 15,
+    "page": 8
+  },
+  {
+    "id": "a-plus-146",
+    "number": 146,
+    "word": "comprehensive",
+    "equivalents": [
+      "exhaustive",
+      "sweeping",
+      "inclusive"
+    ],
+    "meaning": "adj. 全面的",
+    "list": 15,
+    "page": 8
+  },
+  {
+    "id": "a-plus-147",
+    "number": 147,
+    "word": "compromise",
+    "equivalents": [
+      "impair",
+      "sacrifice"
+    ],
+    "meaning": "v. 损害、危害",
+    "list": 15,
+    "page": 8
+  },
+  {
+    "id": "a-plus-148",
+    "number": 148,
+    "word": "conceivable",
+    "equivalents": [
+      "plausible",
+      "imaginable"
+    ],
+    "meaning": "adj. 可想象的",
+    "list": 15,
+    "page": 8
+  },
+  {
+    "id": "a-plus-149",
+    "number": 149,
+    "word": "conciliatory",
+    "equivalents": [
+      "placatory"
+    ],
+    "meaning": "adj. 和解的",
+    "list": 15,
+    "page": 8
+  },
+  {
+    "id": "a-plus-150",
+    "number": 150,
+    "word": "condemn",
+    "equivalents": [
+      "decry"
+    ],
+    "meaning": "v. 谴责",
+    "list": 15,
+    "page": 8
+  },
+  {
+    "id": "a-plus-151",
+    "number": 151,
+    "word": "condign",
+    "equivalents": [
+      "meet"
+    ],
+    "meaning": "adj. 适当的",
+    "list": 16,
+    "page": 8
+  },
+  {
+    "id": "a-plus-152",
+    "number": 152,
+    "word": "conducive",
+    "equivalents": [
+      "favorable"
+    ],
+    "meaning": "adj. 有利的",
+    "list": 16,
+    "page": 8
+  },
+  {
+    "id": "a-plus-153",
+    "number": 153,
+    "word": "conflicting",
+    "equivalents": [
+      "incompatible"
+    ],
+    "meaning": "adj. 矛盾的",
+    "list": 16,
+    "page": 8
+  },
+  {
+    "id": "a-plus-154",
+    "number": 154,
+    "word": "conform to",
+    "equivalents": [
+      "square with"
+    ],
+    "meaning": "v. 符合",
+    "list": 16,
+    "page": 8
+  },
+  {
+    "id": "a-plus-155",
+    "number": 155,
+    "word": "conformist",
+    "equivalents": [
+      "orthodox"
+    ],
+    "meaning": "adj. 守旧的",
+    "list": 16,
+    "page": 8
+  },
+  {
+    "id": "a-plus-156",
+    "number": 156,
+    "word": "confound",
+    "equivalents": [
+      "perplex"
+    ],
+    "meaning": "v. 使困惑",
+    "list": 16,
+    "page": 8
+  },
+  {
+    "id": "a-plus-157",
+    "number": 157,
+    "word": "confounded",
+    "equivalents": [
+      "flummoxed"
+    ],
+    "meaning": "adj. 困惑的、茫然的",
+    "list": 16,
+    "page": 8
+  },
+  {
+    "id": "a-plus-158",
+    "number": 158,
+    "word": "consensus",
+    "equivalents": [
+      "accord"
+    ],
+    "meaning": "n. 一致",
+    "list": 16,
+    "page": 8
+  },
+  {
+    "id": "a-plus-159",
+    "number": 159,
+    "word": "consequential",
+    "equivalents": [
+      "momentous"
+    ],
+    "meaning": "adj.具有重大意义的",
+    "list": 16,
+    "page": 8
+  },
+  {
+    "id": "a-plus-160",
+    "number": 160,
+    "word": "consideration",
+    "equivalents": [
+      "deliberation"
+    ],
+    "meaning": "n. 深思熟虑",
+    "list": 16,
+    "page": 8
+  },
+  {
+    "id": "a-plus-161",
+    "number": 161,
+    "word": "conspicuous",
+    "equivalents": [
+      "obtrusive",
+      "prominent",
+      "salient",
+      "remarkable",
+      "noticeable"
+    ],
+    "meaning": "adj. 显眼的、突出的",
+    "list": 17,
+    "page": 8
+  },
+  {
+    "id": "a-plus-162",
+    "number": 162,
+    "word": "constrain",
+    "equivalents": [
+      "deter"
+    ],
+    "meaning": "v. 限制",
+    "list": 17,
+    "page": 8
+  },
+  {
+    "id": "a-plus-163",
+    "number": 163,
+    "word": "construe",
+    "equivalents": [
+      "interpret"
+    ],
+    "meaning": "v. 解释",
+    "list": 17,
+    "page": 8
+  },
+  {
+    "id": "a-plus-164",
+    "number": 164,
+    "word": "contemplate",
+    "equivalents": [
+      "ponder"
+    ],
+    "meaning": "v. 沉思",
+    "list": 17,
+    "page": 8
+  },
+  {
+    "id": "a-plus-165",
+    "number": 165,
+    "word": "contemptuous",
+    "equivalents": [
+      "disdainful",
+      "derisive"
+    ],
+    "meaning": "adj. 轻蔑的",
+    "list": 17,
+    "page": 8
+  },
+  {
+    "id": "a-plus-166",
+    "number": 166,
+    "word": "contentious",
+    "equivalents": [
+      "fraught"
+    ],
+    "meaning": "adj. 有争议的",
+    "list": 17,
+    "page": 8
+  },
+  {
+    "id": "a-plus-167",
+    "number": 167,
+    "word": "contract",
+    "equivalents": [
+      "dwindle"
+    ],
+    "meaning": "v. 收缩",
+    "list": 17,
+    "page": 8
+  },
+  {
+    "id": "a-plus-168",
+    "number": 168,
+    "word": "contradicting",
+    "equivalents": [
+      "belying"
+    ],
+    "meaning": "v. 与…… 矛盾",
+    "list": 17,
+    "page": 9
+  },
+  {
+    "id": "a-plus-169",
+    "number": 169,
+    "word": "contravene",
+    "equivalents": [
+      "violate",
+      "challenge"
+    ],
+    "meaning": "v. 违反",
+    "list": 17,
+    "page": 9
+  },
+  {
+    "id": "a-plus-170",
+    "number": 170,
+    "word": "contrite",
+    "equivalents": [
+      "penitent"
+    ],
+    "meaning": "adj. 悔恨的、忏悔的",
+    "list": 17,
+    "page": 9
+  },
+  {
+    "id": "a-plus-171",
+    "number": 171,
+    "word": "contrived",
+    "equivalents": [
+      "artificial"
+    ],
+    "meaning": "adj. 人为的",
+    "list": 18,
+    "page": 9
+  },
+  {
+    "id": "a-plus-172",
+    "number": 172,
+    "word": "conundrum",
+    "equivalents": [
+      "riddle",
+      "puzzle",
+      "enigma",
+      "mystery"
+    ],
+    "meaning": "n. 谜题",
+    "list": 18,
+    "page": 9
+  },
+  {
+    "id": "a-plus-173",
+    "number": 173,
+    "word": "conversant",
+    "equivalents": [
+      "acquainted"
+    ],
+    "meaning": "adj. 熟悉的",
+    "list": 18,
+    "page": 9
+  },
+  {
+    "id": "a-plus-174",
+    "number": 174,
+    "word": "copious",
+    "equivalents": [
+      "plentiful"
+    ],
+    "meaning": "adj. 丰富的",
+    "list": 18,
+    "page": 9
+  },
+  {
+    "id": "a-plus-175",
+    "number": 175,
+    "word": "corrective",
+    "equivalents": [
+      "antidote"
+    ],
+    "meaning": "n. 矫正物",
+    "list": 18,
+    "page": 9
+  },
+  {
+    "id": "a-plus-176",
+    "number": 176,
+    "word": "corroborate",
+    "equivalents": [
+      "substantiate"
+    ],
+    "meaning": "v. 证实",
+    "list": 18,
+    "page": 9
+  },
+  {
+    "id": "a-plus-177",
+    "number": 177,
+    "word": "cosset",
+    "equivalents": [
+      "coddle"
+    ],
+    "meaning": "v. 宠爱",
+    "list": 18,
+    "page": 9
+  },
+  {
+    "id": "a-plus-178",
+    "number": 178,
+    "word": "counterfeit",
+    "equivalents": [
+      "spurious"
+    ],
+    "meaning": "adj. 伪造的",
+    "list": 18,
+    "page": 9
+  },
+  {
+    "id": "a-plus-179",
+    "number": 179,
+    "word": "counterintuitive",
+    "equivalents": [
+      "unexpected",
+      "unanticipated"
+    ],
+    "meaning": "adj. 超出常规预期",
+    "list": 18,
+    "page": 9
+  },
+  {
+    "id": "a-plus-180",
+    "number": 180,
+    "word": "counterpart",
+    "equivalents": [
+      "parallel",
+      "correlative"
+    ],
+    "meaning": "n. 对应物、对等物",
+    "list": 18,
+    "page": 9
+  },
+  {
+    "id": "a-plus-181",
+    "number": 181,
+    "word": "counterproducti ve",
+    "equivalents": [
+      "deleterious"
+    ],
+    "meaning": "adj. 适得其反的",
+    "list": 19,
+    "page": 9
+  },
+  {
+    "id": "a-plus-182",
+    "number": 182,
+    "word": "courageous",
+    "equivalents": [
+      "plucky"
+    ],
+    "meaning": "adj. 勇敢的",
+    "list": 19,
+    "page": 9
+  },
+  {
+    "id": "a-plus-183",
+    "number": 183,
+    "word": "court",
+    "equivalents": [
+      "woo"
+    ],
+    "meaning": "v. 追求爱情",
+    "list": 19,
+    "page": 9
+  },
+  {
+    "id": "a-plus-184",
+    "number": 184,
+    "word": "covet",
+    "equivalents": [
+      "envy"
+    ],
+    "meaning": "v. 垂涎",
+    "list": 19,
+    "page": 9
+  },
+  {
+    "id": "a-plus-185",
+    "number": 185,
+    "word": "cowardly",
+    "equivalents": [
+      "craven"
+    ],
+    "meaning": "adj.胆小的",
+    "list": 19,
+    "page": 9
+  },
+  {
+    "id": "a-plus-186",
+    "number": 186,
+    "word": "credulous",
+    "equivalents": [
+      "trusting"
+    ],
+    "meaning": "adj. 轻信的",
+    "list": 19,
+    "page": 9
+  },
+  {
+    "id": "a-plus-187",
+    "number": 187,
+    "word": "crestfallen",
+    "equivalents": [
+      "dejected"
+    ],
+    "meaning": "adj. 沮丧的",
+    "list": 19,
+    "page": 9
+  },
+  {
+    "id": "a-plus-188",
+    "number": 188,
+    "word": "crude",
+    "equivalents": [
+      "basic"
+    ],
+    "meaning": "adj. 粗糙的",
+    "list": 19,
+    "page": 9
+  },
+  {
+    "id": "a-plus-189",
+    "number": 189,
+    "word": "cruelty",
+    "equivalents": [
+      "barbarity"
+    ],
+    "meaning": "n. 残酷",
+    "list": 19,
+    "page": 9
+  },
+  {
+    "id": "a-plus-190",
+    "number": 190,
+    "word": "cryptic",
+    "equivalents": [
+      "elusive"
+    ],
+    "meaning": "adj. 神秘的",
+    "list": 19,
+    "page": 9
+  },
+  {
+    "id": "a-plus-191",
+    "number": 191,
+    "word": "cumbersome",
+    "equivalents": [
+      "unwieldy"
+    ],
+    "meaning": "adj. 笨重的",
+    "list": 20,
+    "page": 9
+  },
+  {
+    "id": "a-plus-192",
+    "number": 192,
+    "word": "cunning",
+    "equivalents": [
+      "crafty"
+    ],
+    "meaning": "adj. 狡猾的",
+    "list": 20,
+    "page": 10
+  },
+  {
+    "id": "a-plus-193",
+    "number": 193,
+    "word": "cure-all",
+    "equivalents": [
+      "panacea"
+    ],
+    "meaning": "n. 万能药",
+    "list": 20,
+    "page": 10
+  },
+  {
+    "id": "a-plus-194",
+    "number": 194,
+    "word": "cursory",
+    "equivalents": [
+      "perfunctory",
+      "casual"
+    ],
+    "meaning": "adj. 粗略的、草率的、敷衍的",
+    "list": 20,
+    "page": 10
+  },
+  {
+    "id": "a-plus-195",
+    "number": 195,
+    "word": "curtail",
+    "equivalents": [
+      "mitigate"
+    ],
+    "meaning": "v. 缩减",
+    "list": 20,
+    "page": 10
+  },
+  {
+    "id": "a-plus-196",
+    "number": 196,
+    "word": "dampen",
+    "equivalents": [
+      "impede"
+    ],
+    "meaning": "v. 阻碍",
+    "list": 20,
+    "page": 10
+  },
+  {
+    "id": "a-plus-197",
+    "number": 197,
+    "word": "darken",
+    "equivalents": [
+      "dim"
+    ],
+    "meaning": "v. 变暗",
+    "list": 20,
+    "page": 10
+  },
+  {
+    "id": "a-plus-198",
+    "number": 198,
+    "word": "daunting",
+    "equivalents": [
+      "formidable"
+    ],
+    "meaning": "adj. 令人生畏的",
+    "list": 20,
+    "page": 10
+  },
+  {
+    "id": "a-plus-199",
+    "number": 199,
+    "word": "dearth",
+    "equivalents": [
+      "paucity",
+      "modicum"
+    ],
+    "meaning": "n. 缺乏",
+    "list": 20,
+    "page": 10
+  },
+  {
+    "id": "a-plus-200",
+    "number": 200,
+    "word": "debacle",
+    "equivalents": [
+      "fiasco"
+    ],
+    "meaning": "n. 失败",
+    "list": 20,
+    "page": 10
+  },
+  {
+    "id": "a-plus-201",
+    "number": 201,
+    "word": "decisive",
+    "equivalents": [
+      "resolute",
+      "determined",
+      "unmistakable"
+    ],
+    "meaning": "adj. 决定性的/ 明确的",
+    "list": 21,
+    "page": 10
+  },
+  {
+    "id": "a-plus-202",
+    "number": 202,
+    "word": "decrepitude",
+    "equivalents": [
+      "senescence"
+    ],
+    "meaning": "n. 衰老",
+    "list": 21,
+    "page": 10
+  },
+  {
+    "id": "a-plus-203",
+    "number": 203,
+    "word": "decry",
+    "equivalents": [
+      "condemn",
+      "disparage"
+    ],
+    "meaning": "v. 谴责",
+    "list": 21,
+    "page": 10
+  },
+  {
+    "id": "a-plus-204",
+    "number": 204,
+    "word": "defend",
+    "equivalents": [
+      "champion"
+    ],
+    "meaning": "v. 支持、拥护、辩护",
+    "list": 21,
+    "page": 10
+  },
+  {
+    "id": "a-plus-205",
+    "number": 205,
+    "word": "defenders",
+    "equivalents": [
+      "proponents"
+    ],
+    "meaning": "n.某一观点、事物的支持者",
+    "list": 21,
+    "page": 10
+  },
+  {
+    "id": "a-plus-206",
+    "number": 206,
+    "word": "deferential",
+    "equivalents": [
+      "respectful"
+    ],
+    "meaning": "adj. 尊重的、恭敬的",
+    "list": 21,
+    "page": 10
+  },
+  {
+    "id": "a-plus-207",
+    "number": 207,
+    "word": "deflate",
+    "equivalents": [
+      "discourage"
+    ],
+    "meaning": "v. 使泄气",
+    "list": 21,
+    "page": 10
+  },
+  {
+    "id": "a-plus-208",
+    "number": 208,
+    "word": "deflect",
+    "equivalents": [
+      "shrug off"
+    ],
+    "meaning": "v. 转移（批评）、不予理会",
+    "list": 21,
+    "page": 10
+  },
+  {
+    "id": "a-plus-209",
+    "number": 209,
+    "word": "defraud",
+    "equivalents": [
+      "swindle"
+    ],
+    "meaning": "v. 诈骗",
+    "list": 21,
+    "page": 10
+  },
+  {
+    "id": "a-plus-210",
+    "number": 210,
+    "word": "defy",
+    "equivalents": [
+      "disregard",
+      "flout"
+    ],
+    "meaning": "v. 蔑视",
+    "list": 21,
+    "page": 10
+  },
+  {
+    "id": "a-plus-211",
+    "number": 211,
+    "word": "deleterious",
+    "equivalents": [
+      "counterproductive",
+      "detrimental",
+      "pernicious"
+    ],
+    "meaning": "adj. 有害的",
+    "list": 22,
+    "page": 10
+  },
+  {
+    "id": "a-plus-212",
+    "number": 212,
+    "word": "deliberate",
+    "equivalents": [
+      "calculated"
+    ],
+    "meaning": "adj. 深思熟虑的",
+    "list": 22,
+    "page": 10
+  },
+  {
+    "id": "a-plus-213",
+    "number": 213,
+    "word": "delight",
+    "equivalents": [
+      "relish"
+    ],
+    "meaning": "v. 高兴",
+    "list": 22,
+    "page": 10
+  },
+  {
+    "id": "a-plus-214",
+    "number": 214,
+    "word": "demarcation of",
+    "equivalents": [
+      "lines between"
+    ],
+    "meaning": "n. ... 之间的界限",
+    "list": 22,
+    "page": 10
+  },
+  {
+    "id": "a-plus-215",
+    "number": 215,
+    "word": "democratic",
+    "equivalents": [
+      "egalitarian"
+    ],
+    "meaning": "adj. 民主的",
+    "list": 22,
+    "page": 10
+  },
+  {
+    "id": "a-plus-216",
+    "number": 216,
+    "word": "demystifies",
+    "equivalents": [
+      "elucidates"
+    ],
+    "meaning": "v. 阐明",
+    "list": 22,
+    "page": 11
+  },
+  {
+    "id": "a-plus-217",
+    "number": 217,
+    "word": "denounce",
+    "equivalents": [
+      "lambast"
+    ],
+    "meaning": "v. 谴责",
+    "list": 22,
+    "page": 11
+  },
+  {
+    "id": "a-plus-218",
+    "number": 218,
+    "word": "dependent on",
+    "equivalents": [
+      "undergirded by"
+    ],
+    "meaning": "v. 依赖于",
+    "list": 22,
+    "page": 11
+  },
+  {
+    "id": "a-plus-219",
+    "number": 219,
+    "word": "deploy",
+    "equivalents": [
+      "marshal"
+    ],
+    "meaning": "v. 部署",
+    "list": 22,
+    "page": 11
+  },
+  {
+    "id": "a-plus-220",
+    "number": 220,
+    "word": "deprecatory",
+    "equivalents": [
+      "detracting"
+    ],
+    "meaning": "adj. 贬低的",
+    "list": 22,
+    "page": 11
+  },
+  {
+    "id": "a-plus-221",
+    "number": 221,
+    "word": "deride",
+    "equivalents": [
+      "scorn"
+    ],
+    "meaning": "v. 嘲笑",
+    "list": 23,
+    "page": 11
+  },
+  {
+    "id": "a-plus-222",
+    "number": 222,
+    "word": "design",
+    "equivalents": [
+      "purposefulness"
+    ],
+    "meaning": "n. 目的性",
+    "list": 23,
+    "page": 11
+  },
+  {
+    "id": "a-plus-223",
+    "number": 223,
+    "word": "destabilize",
+    "equivalents": [
+      "weaken"
+    ],
+    "meaning": "v. 破坏稳定",
+    "list": 23,
+    "page": 11
+  },
+  {
+    "id": "a-plus-224",
+    "number": 224,
+    "word": "deter",
+    "equivalents": [
+      "constrain"
+    ],
+    "meaning": "v. 威慑",
+    "list": 23,
+    "page": 11
+  },
+  {
+    "id": "a-plus-225",
+    "number": 225,
+    "word": "deterioration",
+    "equivalents": [
+      "decay",
+      "decline"
+    ],
+    "meaning": "n. 恶化/ 衰退",
+    "list": 23,
+    "page": 11
+  },
+  {
+    "id": "a-plus-226",
+    "number": 226,
+    "word": "detract",
+    "equivalents": [
+      "deprecate"
+    ],
+    "meaning": "v. 贬低",
+    "list": 23,
+    "page": 11
+  },
+  {
+    "id": "a-plus-227",
+    "number": 227,
+    "word": "devious",
+    "equivalents": [
+      "guileful",
+      "indirect"
+    ],
+    "meaning": "adj. 狡猾的",
+    "list": 23,
+    "page": 11
+  },
+  {
+    "id": "a-plus-228",
+    "number": 228,
+    "word": "dexterous",
+    "equivalents": [
+      "nimble"
+    ],
+    "meaning": "adj. 灵巧的",
+    "list": 23,
+    "page": 11
+  },
+  {
+    "id": "a-plus-229",
+    "number": 229,
+    "word": "diagnosed",
+    "equivalents": [
+      "identified"
+    ],
+    "meaning": "v. 识别",
+    "list": 23,
+    "page": 11
+  },
+  {
+    "id": "a-plus-230",
+    "number": 230,
+    "word": "diatribe",
+    "equivalents": [
+      "rant"
+    ],
+    "meaning": "n. 长篇大论的抨击",
+    "list": 23,
+    "page": 11
+  },
+  {
+    "id": "a-plus-231",
+    "number": 231,
+    "word": "dichotomous",
+    "equivalents": [
+      "contradictory"
+    ],
+    "meaning": "adj. 对立的、不一致的",
+    "list": 24,
+    "page": 11
+  },
+  {
+    "id": "a-plus-232",
+    "number": 232,
+    "word": "diffident",
+    "equivalents": [
+      "timorous"
+    ],
+    "meaning": "adj. 羞怯的",
+    "list": 24,
+    "page": 11
+  },
+  {
+    "id": "a-plus-233",
+    "number": 233,
+    "word": "dignify",
+    "equivalents": [
+      "ennoble"
+    ],
+    "meaning": "v. 使崇高",
+    "list": 24,
+    "page": 11
+  },
+  {
+    "id": "a-plus-234",
+    "number": 234,
+    "word": "dilatory",
+    "equivalents": [
+      "sluggish",
+      "remiss",
+      "laggard",
+      "listless"
+    ],
+    "meaning": "adj. 拖延的",
+    "list": 24,
+    "page": 11
+  },
+  {
+    "id": "a-plus-235",
+    "number": 235,
+    "word": "diligent",
+    "equivalents": [
+      "industrious"
+    ],
+    "meaning": "adj. 勤奋的",
+    "list": 24,
+    "page": 11
+  },
+  {
+    "id": "a-plus-236",
+    "number": 236,
+    "word": "dim",
+    "equivalents": [
+      "darken"
+    ],
+    "meaning": "v. 变暗",
+    "list": 24,
+    "page": 11
+  },
+  {
+    "id": "a-plus-237",
+    "number": 237,
+    "word": "diminutive",
+    "equivalents": [
+      "minuscular"
+    ],
+    "meaning": "adj. 微小的",
+    "list": 24,
+    "page": 11
+  },
+  {
+    "id": "a-plus-238",
+    "number": 238,
+    "word": "disallow",
+    "equivalents": [
+      "proscribe"
+    ],
+    "meaning": "v.禁止",
+    "list": 24,
+    "page": 11
+  },
+  {
+    "id": "a-plus-239",
+    "number": 239,
+    "word": "disapprobation",
+    "equivalents": [
+      "censure"
+    ],
+    "meaning": "n. 不赞成",
+    "list": 24,
+    "page": 11
+  },
+  {
+    "id": "a-plus-240",
+    "number": 240,
+    "word": "discern",
+    "equivalents": [
+      "detect",
+      "discover"
+    ],
+    "meaning": "v. 辨别",
+    "list": 24,
+    "page": 12
+  },
+  {
+    "id": "a-plus-241",
+    "number": 241,
+    "word": "disciple",
+    "equivalents": [
+      "adherent"
+    ],
+    "meaning": "n. 信徒、追随者",
+    "list": 25,
+    "page": 12
+  },
+  {
+    "id": "a-plus-242",
+    "number": 242,
+    "word": "discord",
+    "equivalents": [
+      "tension"
+    ],
+    "meaning": "n. 冲突",
+    "list": 25,
+    "page": 12
+  },
+  {
+    "id": "a-plus-243",
+    "number": 243,
+    "word": "discrepancy",
+    "equivalents": [
+      "incongruity"
+    ],
+    "meaning": "n. 不一致",
+    "list": 25,
+    "page": 12
+  },
+  {
+    "id": "a-plus-244",
+    "number": 244,
+    "word": "discretionary",
+    "equivalents": [
+      "optional"
+    ],
+    "meaning": "adj. 自由决定的",
+    "list": 25,
+    "page": 12
+  },
+  {
+    "id": "a-plus-245",
+    "number": 245,
+    "word": "disdain",
+    "equivalents": [
+      "opprobrium",
+      "contempt"
+    ],
+    "meaning": "n. 轻蔑",
+    "list": 25,
+    "page": 12
+  },
+  {
+    "id": "a-plus-246",
+    "number": 246,
+    "word": "disgorge",
+    "equivalents": [
+      "dump"
+    ],
+    "meaning": "v. 吐出",
+    "list": 25,
+    "page": 12
+  },
+  {
+    "id": "a-plus-247",
+    "number": 247,
+    "word": "disgruntle",
+    "equivalents": [
+      "crestfallen"
+    ],
+    "meaning": "adj. 不满的",
+    "list": 25,
+    "page": 12
+  },
+  {
+    "id": "a-plus-248",
+    "number": 248,
+    "word": "disintegrate",
+    "equivalents": [
+      "crumble"
+    ],
+    "meaning": "v. 解体",
+    "list": 25,
+    "page": 12
+  },
+  {
+    "id": "a-plus-249",
+    "number": 249,
+    "word": "disinterested",
+    "equivalents": [
+      "fair",
+      "objective",
+      "impartial",
+      "neutral",
+      "even-handed",
+      "neutral",
+      "evenhanded"
+    ],
+    "meaning": "adj. 公正的",
+    "list": 25,
+    "page": 12
+  },
+  {
+    "id": "a-plus-250",
+    "number": 250,
+    "word": "dismiss",
+    "equivalents": [
+      "ignore",
+      "dispel"
+    ],
+    "meaning": "v. 不予理会、消除",
+    "list": 25,
+    "page": 12
+  },
+  {
+    "id": "a-plus-251",
+    "number": 251,
+    "word": "disparage",
+    "equivalents": [
+      "slight"
+    ],
+    "meaning": "v. 贬低",
+    "list": 26,
+    "page": 12
+  },
+  {
+    "id": "a-plus-252",
+    "number": 252,
+    "word": "disparate",
+    "equivalents": [
+      "heterogeneous",
+      "diverse",
+      "dissimilar",
+      "variant",
+      "divergent",
+      "manifold"
+    ],
+    "meaning": "adj. 不同的",
+    "list": 26,
+    "page": 12
+  },
+  {
+    "id": "a-plus-253",
+    "number": 253,
+    "word": "dispassionate",
+    "equivalents": [
+      "temperate",
+      "analytical",
+      "cerebral"
+    ],
+    "meaning": "adj. 冷静的",
+    "list": 26,
+    "page": 12
+  },
+  {
+    "id": "a-plus-254",
+    "number": 254,
+    "word": "dispatch",
+    "equivalents": [
+      "celerity"
+    ],
+    "meaning": "n. 迅速、迅捷",
+    "list": 26,
+    "page": 12
+  },
+  {
+    "id": "a-plus-255",
+    "number": 255,
+    "word": "displace",
+    "equivalents": [
+      "supplant",
+      "obviate"
+    ],
+    "meaning": "v. 取代",
+    "list": 26,
+    "page": 12
+  },
+  {
+    "id": "a-plus-256",
+    "number": 256,
+    "word": "disputed",
+    "equivalents": [
+      "gainsaid"
+    ],
+    "meaning": "v. 质疑",
+    "list": 26,
+    "page": 12
+  },
+  {
+    "id": "a-plus-257",
+    "number": 257,
+    "word": "dissemble",
+    "equivalents": [
+      "dissimulate"
+    ],
+    "meaning": "v. 隐瞒",
+    "list": 26,
+    "page": 12
+  },
+  {
+    "id": "a-plus-258",
+    "number": 258,
+    "word": "dissimilar",
+    "equivalents": [
+      "heterogeneous"
+    ],
+    "meaning": "adj. 不同的",
+    "list": 26,
+    "page": 12
+  },
+  {
+    "id": "a-plus-259",
+    "number": 259,
+    "word": "distinct",
+    "equivalents": [
+      "apparent"
+    ],
+    "meaning": "adj. 明显的",
+    "list": 26,
+    "page": 12
+  },
+  {
+    "id": "a-plus-260",
+    "number": 260,
+    "word": "diversity",
+    "equivalents": [
+      "heterogeneity",
+      "disparateness"
+    ],
+    "meaning": "n. 多样性",
+    "list": 26,
+    "page": 12
+  },
+  {
+    "id": "a-plus-261",
+    "number": 261,
+    "word": "diverting",
+    "equivalents": [
+      "entertaining"
+    ],
+    "meaning": "adj. 娱乐的",
+    "list": 27,
+    "page": 12
+  },
+  {
+    "id": "a-plus-262",
+    "number": 262,
+    "word": "divorced",
+    "equivalents": [
+      "untethered",
+      "abstracted"
+    ],
+    "meaning": "adj. 脱离的",
+    "list": 27,
+    "page": 12
+  },
+  {
+    "id": "a-plus-263",
+    "number": 263,
+    "word": "doctrinaire",
+    "equivalents": [
+      "dogmatic",
+      "orthodox"
+    ],
+    "meaning": "adj. 教条的",
+    "list": 27,
+    "page": 12
+  },
+  {
+    "id": "a-plus-264",
+    "number": 264,
+    "word": "doubts",
+    "equivalents": [
+      "reservations"
+    ],
+    "meaning": "n. 疑虑",
+    "list": 27,
+    "page": 13
+  },
+  {
+    "id": "a-plus-265",
+    "number": 265,
+    "word": "douse",
+    "equivalents": [
+      "extinguish"
+    ],
+    "meaning": "v. 熄灭",
+    "list": 27,
+    "page": 13
+  },
+  {
+    "id": "a-plus-266",
+    "number": 266,
+    "word": "dramatic",
+    "equivalents": [
+      "spectacular"
+    ],
+    "meaning": "adj. 令人震惊的/ 引人注目的",
+    "list": 27,
+    "page": 13
+  },
+  {
+    "id": "a-plus-267",
+    "number": 267,
+    "word": "draw",
+    "equivalents": [
+      "elicit"
+    ],
+    "meaning": "v. 引出、得出（结论）",
+    "list": 27,
+    "page": 13
+  },
+  {
+    "id": "a-plus-268",
+    "number": 268,
+    "word": "dreary",
+    "equivalents": [
+      "tedious"
+    ],
+    "meaning": "adj. 沉闷的、阴郁的",
+    "list": 27,
+    "page": 13
+  },
+  {
+    "id": "a-plus-269",
+    "number": 269,
+    "word": "dubious",
+    "equivalents": [
+      "suspect",
+      "questionable"
+    ],
+    "meaning": "adj. 可疑的",
+    "list": 27,
+    "page": 13
+  },
+  {
+    "id": "a-plus-270",
+    "number": 270,
+    "word": "duplicity",
+    "equivalents": [
+      "dissemblance",
+      "fraud"
+    ],
+    "meaning": "n. 伪装",
+    "list": 27,
+    "page": 13
+  },
+  {
+    "id": "a-plus-271",
+    "number": 271,
+    "word": "durability",
+    "equivalents": [
+      "persistence",
+      "survival"
+    ],
+    "meaning": "n. 耐久性",
+    "list": 28,
+    "page": 13
+  },
+  {
+    "id": "a-plus-272",
+    "number": 272,
+    "word": "dwindle",
+    "equivalents": [
+      "contract"
+    ],
+    "meaning": "v. 减少",
+    "list": 28,
+    "page": 13
+  },
+  {
+    "id": "a-plus-273",
+    "number": 273,
+    "word": "eagerness",
+    "equivalents": [
+      "enthusiasm"
+    ],
+    "meaning": "n.热情、渴望、热切",
+    "list": 28,
+    "page": 13
+  },
+  {
+    "id": "a-plus-274",
+    "number": 274,
+    "word": "early",
+    "equivalents": [
+      "precocious"
+    ],
+    "meaning": "adj. 早期的",
+    "list": 28,
+    "page": 13
+  },
+  {
+    "id": "a-plus-275",
+    "number": 275,
+    "word": "ebb",
+    "equivalents": [
+      "wane",
+      "decline"
+    ],
+    "meaning": "v.逐渐减少",
+    "list": 28,
+    "page": 13
+  },
+  {
+    "id": "a-plus-276",
+    "number": 276,
+    "word": "eclipse",
+    "equivalents": [
+      "outdo"
+    ],
+    "meaning": "v. 超越",
+    "list": 28,
+    "page": 13
+  },
+  {
+    "id": "a-plus-277",
+    "number": 277,
+    "word": "economic",
+    "equivalents": [
+      "pecuniary"
+    ],
+    "meaning": "adj. 经济的",
+    "list": 28,
+    "page": 13
+  },
+  {
+    "id": "a-plus-278",
+    "number": 278,
+    "word": "economy",
+    "equivalents": [
+      "brevity",
+      "concision"
+    ],
+    "meaning": "n. 简洁",
+    "list": 28,
+    "page": 13
+  },
+  {
+    "id": "a-plus-279",
+    "number": 279,
+    "word": "effusive",
+    "equivalents": [
+      "emotional"
+    ],
+    "meaning": "adj. 热情的",
+    "list": 28,
+    "page": 13
+  },
+  {
+    "id": "a-plus-280",
+    "number": 280,
+    "word": "elegiac",
+    "equivalents": [
+      "plaintive"
+    ],
+    "meaning": "adj. 哀伤的",
+    "list": 28,
+    "page": 13
+  },
+  {
+    "id": "a-plus-281",
+    "number": 281,
+    "word": "elegy",
+    "equivalents": [
+      "requiem"
+    ],
+    "meaning": "n.悼念",
+    "list": 29,
+    "page": 13
+  },
+  {
+    "id": "a-plus-282",
+    "number": 282,
+    "word": "eliminate",
+    "equivalents": [
+      "extirpate",
+      "put to rest",
+      "eradicate"
+    ],
+    "meaning": "v. 消除",
+    "list": 29,
+    "page": 13
+  },
+  {
+    "id": "a-plus-283",
+    "number": 283,
+    "word": "elisions",
+    "equivalents": [
+      "lacunae",
+      "omissions"
+    ],
+    "meaning": "n. 省略",
+    "list": 29,
+    "page": 13
+  },
+  {
+    "id": "a-plus-284",
+    "number": 284,
+    "word": "eloquent",
+    "equivalents": [
+      "articulate"
+    ],
+    "meaning": "adj. 雄辩的",
+    "list": 29,
+    "page": 13
+  },
+  {
+    "id": "a-plus-285",
+    "number": 285,
+    "word": "elucidation",
+    "equivalents": [
+      "explication"
+    ],
+    "meaning": "n. 阐明",
+    "list": 29,
+    "page": 13
+  },
+  {
+    "id": "a-plus-286",
+    "number": 286,
+    "word": "elude",
+    "equivalents": [
+      "puzzle"
+    ],
+    "meaning": "v. 使...困惑",
+    "list": 29,
+    "page": 13
+  },
+  {
+    "id": "a-plus-287",
+    "number": 287,
+    "word": "elusive",
+    "equivalents": [
+      "slippery",
+      "evasive",
+      "cryptic"
+    ],
+    "meaning": "adj. 难以捉摸的",
+    "list": 29,
+    "page": 13
+  },
+  {
+    "id": "a-plus-288",
+    "number": 288,
+    "word": "emancipatory",
+    "equivalents": [
+      "liberating"
+    ],
+    "meaning": "adj.具有解放意义的",
+    "list": 29,
+    "page": 14
+  },
+  {
+    "id": "a-plus-289",
+    "number": 289,
+    "word": "emblematic",
+    "equivalents": [
+      "totemic",
+      "quintessential"
+    ],
+    "meaning": "adj. 象征性的",
+    "list": 29,
+    "page": 14
+  },
+  {
+    "id": "a-plus-290",
+    "number": 290,
+    "word": "embryonic",
+    "equivalents": [
+      "rudimentary"
+    ],
+    "meaning": "adj. 胚胎的、早期的、未完全发育的",
+    "list": 29,
+    "page": 14
+  },
+  {
+    "id": "a-plus-291",
+    "number": 291,
+    "word": "emendation",
+    "equivalents": [
+      "revision"
+    ],
+    "meaning": "n. 修订",
+    "list": 30,
+    "page": 14
+  },
+  {
+    "id": "a-plus-292",
+    "number": 292,
+    "word": "eminent",
+    "equivalents": [
+      "famous"
+    ],
+    "meaning": "adj. 杰出的",
+    "list": 30,
+    "page": 14
+  },
+  {
+    "id": "a-plus-293",
+    "number": 293,
+    "word": "emulate",
+    "equivalents": [
+      "imitate"
+    ],
+    "meaning": "v. 模仿",
+    "list": 30,
+    "page": 14
+  },
+  {
+    "id": "a-plus-294",
+    "number": 294,
+    "word": "enamor",
+    "equivalents": [
+      "favor",
+      "captivate",
+      "hooked on"
+    ],
+    "meaning": "v. 吸引、喜爱、着迷",
+    "list": 30,
+    "page": 14
+  },
+  {
+    "id": "a-plus-295",
+    "number": 295,
+    "word": "encomium",
+    "equivalents": [
+      "tribute"
+    ],
+    "meaning": "n. 颂词",
+    "list": 30,
+    "page": 14
+  },
+  {
+    "id": "a-plus-296",
+    "number": 296,
+    "word": "encyclopedic",
+    "equivalents": [
+      "exhaustive",
+      "polymathic"
+    ],
+    "meaning": "adj. 全面的",
+    "list": 30,
+    "page": 14
+  },
+  {
+    "id": "a-plus-297",
+    "number": 297,
+    "word": "endemic",
+    "equivalents": [
+      "native",
+      "domestic",
+      "indigenous",
+      "homegrown"
+    ],
+    "meaning": "adj. 本土的",
+    "list": 30,
+    "page": 14
+  },
+  {
+    "id": "a-plus-298",
+    "number": 298,
+    "word": "endorse",
+    "equivalents": [
+      "sanction",
+      "commend",
+      "support",
+      "authorize",
+      "underwritten"
+    ],
+    "meaning": "v. 支持",
+    "list": 30,
+    "page": 14
+  },
+  {
+    "id": "a-plus-299",
+    "number": 299,
+    "word": "endure",
+    "equivalents": [
+      "persist"
+    ],
+    "meaning": "v. 持续、坚持",
+    "list": 30,
+    "page": 14
+  },
+  {
+    "id": "a-plus-300",
+    "number": 300,
+    "word": "engaging",
+    "equivalents": [
+      "winning"
+    ],
+    "meaning": "adj. 吸引人的",
+    "list": 30,
+    "page": 14
+  },
+  {
+    "id": "a-plus-301",
+    "number": 301,
+    "word": "engender",
+    "equivalents": [
+      "yield",
+      "induce"
+    ],
+    "meaning": "v. 产生",
+    "list": 31,
+    "page": 14
+  },
+  {
+    "id": "a-plus-302",
+    "number": 302,
+    "word": "enhance",
+    "equivalents": [
+      "hone"
+    ],
+    "meaning": "v. 增强",
+    "list": 31,
+    "page": 14
+  },
+  {
+    "id": "a-plus-303",
+    "number": 303,
+    "word": "enigmatic",
+    "equivalents": [
+      "perplexing",
+      "inscrutable",
+      "mythical",
+      "cryptic"
+    ],
+    "meaning": "adj. 神秘的",
+    "list": 31,
+    "page": 14
+  },
+  {
+    "id": "a-plus-304",
+    "number": 304,
+    "word": "entailed by",
+    "equivalents": [
+      "inferable from"
+    ],
+    "meaning": "prep. 由...引起",
+    "list": 31,
+    "page": 14
+  },
+  {
+    "id": "a-plus-305",
+    "number": 305,
+    "word": "entrenched",
+    "equivalents": [
+      "obdurate"
+    ],
+    "meaning": "adj. 根深蒂固的",
+    "list": 31,
+    "page": 14
+  },
+  {
+    "id": "a-plus-306",
+    "number": 306,
+    "word": "enviable",
+    "equivalents": [
+      "coveted"
+    ],
+    "meaning": "adj. 令人羡慕的",
+    "list": 31,
+    "page": 14
+  },
+  {
+    "id": "a-plus-307",
+    "number": 307,
+    "word": "ephemeral",
+    "equivalents": [
+      "transitory",
+      "short-lived",
+      "evanescent",
+      "temporary"
+    ],
+    "meaning": "adj. 短暂的",
+    "list": 31,
+    "page": 14
+  },
+  {
+    "id": "a-plus-308",
+    "number": 308,
+    "word": "equivalent",
+    "equivalents": [
+      "commensurate"
+    ],
+    "meaning": "adj. 等同的",
+    "list": 31,
+    "page": 14
+  },
+  {
+    "id": "a-plus-309",
+    "number": 309,
+    "word": "equivocal",
+    "equivalents": [
+      "ambiguous"
+    ],
+    "meaning": "adj. 模棱两可的",
+    "list": 31,
+    "page": 14
+  },
+  {
+    "id": "a-plus-310",
+    "number": 310,
+    "word": "errant",
+    "equivalents": [
+      "wayward"
+    ],
+    "meaning": "adj. 任性的、误入歧途的",
+    "list": 31,
+    "page": 14
+  },
+  {
+    "id": "a-plus-311",
+    "number": 311,
+    "word": "erratic",
+    "equivalents": [
+      "fickle",
+      "volatile",
+      "flighty",
+      "capricious",
+      "inconsistent",
+      "mixed"
+    ],
+    "meaning": "adj. 不稳定的",
+    "list": 32,
+    "page": 14
+  },
+  {
+    "id": "a-plus-312",
+    "number": 312,
+    "word": "erroneous",
+    "equivalents": [
+      "inaccurate"
+    ],
+    "meaning": "adj. 错误的",
+    "list": 32,
+    "page": 15
+  },
+  {
+    "id": "a-plus-313",
+    "number": 313,
+    "word": "erstwhile",
+    "equivalents": [
+      "former"
+    ],
+    "meaning": "adj. 过去的",
+    "list": 32,
+    "page": 15
+  },
+  {
+    "id": "a-plus-314",
+    "number": 314,
+    "word": "erudite",
+    "equivalents": [
+      "learned"
+    ],
+    "meaning": "adj. 博学的",
+    "list": 32,
+    "page": 15
+  },
+  {
+    "id": "a-plus-315",
+    "number": 315,
+    "word": "eschew",
+    "equivalents": [
+      "shun",
+      "circumvent",
+      "sidestep",
+      "avoid"
+    ],
+    "meaning": "vt. 避免",
+    "list": 32,
+    "page": 15
+  },
+  {
+    "id": "a-plus-316",
+    "number": 316,
+    "word": "esoteric",
+    "equivalents": [
+      "recondite",
+      "arcane",
+      "abstruse"
+    ],
+    "meaning": "adj. 深奥的",
+    "list": 32,
+    "page": 15
+  },
+  {
+    "id": "a-plus-317",
+    "number": 317,
+    "word": "espouse",
+    "equivalents": [
+      "champion",
+      "advocate",
+      "defend"
+    ],
+    "meaning": "v. 支持",
+    "list": 32,
+    "page": 15
+  },
+  {
+    "id": "a-plus-318",
+    "number": 318,
+    "word": "essential",
+    "equivalents": [
+      "indispensable",
+      "foundational",
+      "consequential"
+    ],
+    "meaning": "adj. 必要的",
+    "list": 32,
+    "page": 15
+  },
+  {
+    "id": "a-plus-319",
+    "number": 319,
+    "word": "estimable",
+    "equivalents": [
+      "praiseworthy",
+      "superlative"
+    ],
+    "meaning": "adj. 值得尊敬的",
+    "list": 32,
+    "page": 15
+  },
+  {
+    "id": "a-plus-320",
+    "number": 320,
+    "word": "estrange",
+    "equivalents": [
+      "disaffect",
+      "alienate"
+    ],
+    "meaning": "v. 疏远",
+    "list": 32,
+    "page": 15
+  },
+  {
+    "id": "a-plus-321",
+    "number": 321,
+    "word": "estranged",
+    "equivalents": [
+      "unlinked"
+    ],
+    "meaning": "adj. 疏远的、关系破裂的；无关联的",
+    "list": 33,
+    "page": 15
+  },
+  {
+    "id": "a-plus-322",
+    "number": 322,
+    "word": "eulogize",
+    "equivalents": [
+      "lionize"
+    ],
+    "meaning": "v. 颂扬",
+    "list": 33,
+    "page": 15
+  },
+  {
+    "id": "a-plus-323",
+    "number": 323,
+    "word": "euphoria",
+    "equivalents": [
+      "ecstasy",
+      "jubilation"
+    ],
+    "meaning": "n. 狂喜",
+    "list": 33,
+    "page": 15
+  },
+  {
+    "id": "a-plus-324",
+    "number": 324,
+    "word": "evanescent",
+    "equivalents": [
+      "momentary"
+    ],
+    "meaning": "adj. 短暂的",
+    "list": 33,
+    "page": 15
+  },
+  {
+    "id": "a-plus-325",
+    "number": 325,
+    "word": "evasive",
+    "equivalents": [
+      "elusive",
+      "equivocal"
+    ],
+    "meaning": "adj. 回避的",
+    "list": 33,
+    "page": 15
+  },
+  {
+    "id": "a-plus-326",
+    "number": 326,
+    "word": "exacerbate",
+    "equivalents": [
+      "aggravate"
+    ],
+    "meaning": "v. 加剧",
+    "list": 33,
+    "page": 15
+  },
+  {
+    "id": "a-plus-327",
+    "number": 327,
+    "word": "exacting",
+    "equivalents": [
+      "proscriptive",
+      "rigorous",
+      "stringent",
+      "faithful"
+    ],
+    "meaning": "adj. 严格的",
+    "list": 33,
+    "page": 15
+  },
+  {
+    "id": "a-plus-328",
+    "number": 328,
+    "word": "exaction",
+    "equivalents": [
+      "rapacity"
+    ],
+    "meaning": "n.强行索取",
+    "list": 33,
+    "page": 15
+  },
+  {
+    "id": "a-plus-329",
+    "number": 329,
+    "word": "exactitude",
+    "equivalents": [
+      "meticulousness"
+    ],
+    "meaning": "n. 精确性",
+    "list": 33,
+    "page": 15
+  },
+  {
+    "id": "a-plus-330",
+    "number": 330,
+    "word": "exaggerate",
+    "equivalents": [
+      "overrate",
+      "overestimate",
+      "overstated"
+    ],
+    "meaning": "v. 夸大",
+    "list": 33,
+    "page": 15
+  },
+  {
+    "id": "a-plus-331",
+    "number": 331,
+    "word": "exalt",
+    "equivalents": [
+      "promote",
+      "elevate"
+    ],
+    "meaning": "v. 提升",
+    "list": 34,
+    "page": 15
+  },
+  {
+    "id": "a-plus-332",
+    "number": 332,
+    "word": "exasperation",
+    "equivalents": [
+      "irascibility"
+    ],
+    "meaning": "n. 恼怒",
+    "list": 34,
+    "page": 15
+  },
+  {
+    "id": "a-plus-333",
+    "number": 333,
+    "word": "exceptional",
+    "equivalents": [
+      "preternatural",
+      "rare"
+    ],
+    "meaning": "adj. 不同寻常的、罕见的",
+    "list": 34,
+    "page": 15
+  },
+  {
+    "id": "a-plus-334",
+    "number": 334,
+    "word": "excoriate",
+    "equivalents": [
+      "indict",
+      "crab"
+    ],
+    "meaning": "v. 严厉批评",
+    "list": 34,
+    "page": 15
+  },
+  {
+    "id": "a-plus-335",
+    "number": 335,
+    "word": "excoriating",
+    "equivalents": [
+      "lambasting"
+    ],
+    "meaning": "adj./ v. 严厉批评的",
+    "list": 34,
+    "page": 15
+  },
+  {
+    "id": "a-plus-336",
+    "number": 336,
+    "word": "exculpate",
+    "equivalents": [
+      "vindicate",
+      "absolve"
+    ],
+    "meaning": "v. 证明无罪",
+    "list": 34,
+    "page": 16
+  },
+  {
+    "id": "a-plus-337",
+    "number": 337,
+    "word": "exemplary",
+    "equivalents": [
+      "model"
+    ],
+    "meaning": "adj. 模范的",
+    "list": 34,
+    "page": 16
+  },
+  {
+    "id": "a-plus-338",
+    "number": 338,
+    "word": "exigent",
+    "equivalents": [
+      "pressing"
+    ],
+    "meaning": "adj. 紧迫的",
+    "list": 34,
+    "page": 16
+  },
+  {
+    "id": "a-plus-339",
+    "number": 339,
+    "word": "exonerate",
+    "equivalents": [
+      "absolve"
+    ],
+    "meaning": "v. 免除",
+    "list": 34,
+    "page": 16
+  },
+  {
+    "id": "a-plus-340",
+    "number": 340,
+    "word": "exorbitant",
+    "equivalents": [
+      "unconscionable"
+    ],
+    "meaning": "adj. 过高的",
+    "list": 34,
+    "page": 16
+  },
+  {
+    "id": "a-plus-341",
+    "number": 341,
+    "word": "expansion",
+    "equivalents": [
+      "augmentation",
+      "burgeoning"
+    ],
+    "meaning": "n. 扩展",
+    "list": 35,
+    "page": 16
+  },
+  {
+    "id": "a-plus-342",
+    "number": 342,
+    "word": "expedient",
+    "equivalents": [
+      "convenient",
+      "advantageous"
+    ],
+    "meaning": "adj. 方便的",
+    "list": 35,
+    "page": 16
+  },
+  {
+    "id": "a-plus-343",
+    "number": 343,
+    "word": "expedite",
+    "equivalents": [
+      "facilitate"
+    ],
+    "meaning": "v. 加快",
+    "list": 35,
+    "page": 16
+  },
+  {
+    "id": "a-plus-344",
+    "number": 344,
+    "word": "expel",
+    "equivalents": [
+      "oust"
+    ],
+    "meaning": "v. 驱逐",
+    "list": 35,
+    "page": 16
+  },
+  {
+    "id": "a-plus-345",
+    "number": 345,
+    "word": "expendable",
+    "equivalents": [
+      "superfluous"
+    ],
+    "meaning": "adj. 可支配的",
+    "list": 35,
+    "page": 16
+  },
+  {
+    "id": "a-plus-346",
+    "number": 346,
+    "word": "experimental",
+    "equivalents": [
+      "innovative"
+    ],
+    "meaning": "adj. 实验的/ 创新的",
+    "list": 35,
+    "page": 16
+  },
+  {
+    "id": "a-plus-347",
+    "number": 347,
+    "word": "expostulate",
+    "equivalents": [
+      "demur"
+    ],
+    "meaning": "v. 反对",
+    "list": 35,
+    "page": 16
+  },
+  {
+    "id": "a-plus-348",
+    "number": 348,
+    "word": "expurgate",
+    "equivalents": [
+      "censor"
+    ],
+    "meaning": "v. 删除",
+    "list": 35,
+    "page": 16
+  },
+  {
+    "id": "a-plus-349",
+    "number": 349,
+    "word": "extirpated",
+    "equivalents": [
+      "eliminated"
+    ],
+    "meaning": "v. 根除、消灭",
+    "list": 35,
+    "page": 16
+  },
+  {
+    "id": "a-plus-350",
+    "number": 350,
+    "word": "extol",
+    "equivalents": [
+      "applaud"
+    ],
+    "meaning": "v. 赞美",
+    "list": 35,
+    "page": 16
+  },
+  {
+    "id": "a-plus-351",
+    "number": 351,
+    "word": "extract",
+    "equivalents": [
+      "distill"
+    ],
+    "meaning": "v.提炼",
+    "list": 36,
+    "page": 16
+  },
+  {
+    "id": "a-plus-352",
+    "number": 352,
+    "word": "extrapolate",
+    "equivalents": [
+      "deduce"
+    ],
+    "meaning": "v. 推断",
+    "list": 36,
+    "page": 16
+  },
+  {
+    "id": "a-plus-353",
+    "number": 353,
+    "word": "extravagant",
+    "equivalents": [
+      "excessive",
+      "wearisome"
+    ],
+    "meaning": "adj. 奢侈的",
+    "list": 36,
+    "page": 16
+  },
+  {
+    "id": "a-plus-354",
+    "number": 354,
+    "word": "factious",
+    "equivalents": [
+      "schism",
+      "fractiousness"
+    ],
+    "meaning": "adj. 党派的",
+    "list": 36,
+    "page": 16
+  },
+  {
+    "id": "a-plus-355",
+    "number": 355,
+    "word": "fad",
+    "equivalents": [
+      "trend"
+    ],
+    "meaning": "n. 时尚",
+    "list": 36,
+    "page": 16
+  },
+  {
+    "id": "a-plus-356",
+    "number": 356,
+    "word": "fairness",
+    "equivalents": [
+      "objectivity"
+    ],
+    "meaning": "n. 公正",
+    "list": 36,
+    "page": 16
+  },
+  {
+    "id": "a-plus-357",
+    "number": 357,
+    "word": "fathomed",
+    "equivalents": [
+      "comprehended"
+    ],
+    "meaning": "v. 理解、领悟",
+    "list": 36,
+    "page": 16
+  },
+  {
+    "id": "a-plus-358",
+    "number": 358,
+    "word": "faultless",
+    "equivalents": [
+      "perfect"
+    ],
+    "meaning": "adj. 无瑕疵的",
+    "list": 36,
+    "page": 16
+  },
+  {
+    "id": "a-plus-359",
+    "number": 359,
+    "word": "faultlessness",
+    "equivalents": [
+      "perfection"
+    ],
+    "meaning": "n. 完美无缺、尽善尽美",
+    "list": 36,
+    "page": 16
+  },
+  {
+    "id": "a-plus-360",
+    "number": 360,
+    "word": "favorable",
+    "equivalents": [
+      "auspicious"
+    ],
+    "meaning": "adj. 有利的",
+    "list": 36,
+    "page": 17
+  },
+  {
+    "id": "a-plus-361",
+    "number": 361,
+    "word": "fecund",
+    "equivalents": [
+      "fertile"
+    ],
+    "meaning": "adj.肥沃的",
+    "list": 37,
+    "page": 17
+  },
+  {
+    "id": "a-plus-362",
+    "number": 362,
+    "word": "figurative",
+    "equivalents": [
+      "symbolic"
+    ],
+    "meaning": "adj. 暗喻的",
+    "list": 37,
+    "page": 17
+  },
+  {
+    "id": "a-plus-363",
+    "number": 363,
+    "word": "finicky",
+    "equivalents": [
+      "fastidious"
+    ],
+    "meaning": "adj. 挑剔的",
+    "list": 37,
+    "page": 17
+  },
+  {
+    "id": "a-plus-364",
+    "number": 364,
+    "word": "fitting",
+    "equivalents": [
+      "apposite"
+    ],
+    "meaning": "adj. 适合的",
+    "list": 37,
+    "page": 17
+  },
+  {
+    "id": "a-plus-365",
+    "number": 365,
+    "word": "fixated",
+    "equivalents": [
+      "obsessed"
+    ],
+    "meaning": "adj. 固执的、痴迷的",
+    "list": 37,
+    "page": 17
+  },
+  {
+    "id": "a-plus-366",
+    "number": 366,
+    "word": "flagrant",
+    "equivalents": [
+      "egregious"
+    ],
+    "meaning": "adj. 极其恶劣的",
+    "list": 37,
+    "page": 17
+  },
+  {
+    "id": "a-plus-367",
+    "number": 367,
+    "word": "fleeting",
+    "equivalents": [
+      "momentary"
+    ],
+    "meaning": "adj. 短暂的",
+    "list": 37,
+    "page": 17
+  },
+  {
+    "id": "a-plus-368",
+    "number": 368,
+    "word": "flexibility",
+    "equivalents": [
+      "adaptability",
+      "suppleness",
+      "malleability"
+    ],
+    "meaning": "n. 灵活性、适应性",
+    "list": 37,
+    "page": 17
+  },
+  {
+    "id": "a-plus-369",
+    "number": 369,
+    "word": "flout",
+    "equivalents": [
+      "spurn",
+      "defy",
+      "disregard"
+    ],
+    "meaning": "v. 蔑视",
+    "list": 37,
+    "page": 17
+  },
+  {
+    "id": "a-plus-370",
+    "number": 370,
+    "word": "flouted",
+    "equivalents": [
+      "challenged"
+    ],
+    "meaning": "v. 公然违抗",
+    "list": 37,
+    "page": 17
+  },
+  {
+    "id": "a-plus-371",
+    "number": 371,
+    "word": "fluctuate",
+    "equivalents": [
+      "vary",
+      "vacillate"
+    ],
+    "meaning": "v. 波动",
+    "list": 38,
+    "page": 17
+  },
+  {
+    "id": "a-plus-372",
+    "number": 372,
+    "word": "fluid",
+    "equivalents": [
+      "unstable",
+      "transient"
+    ],
+    "meaning": "adj. 不稳定的",
+    "list": 38,
+    "page": 17
+  },
+  {
+    "id": "a-plus-373",
+    "number": 373,
+    "word": "forerunner",
+    "equivalents": [
+      "precursor"
+    ],
+    "meaning": "n. 先驱",
+    "list": 38,
+    "page": 17
+  },
+  {
+    "id": "a-plus-374",
+    "number": 374,
+    "word": "foresee",
+    "equivalents": [
+      "anticipate"
+    ],
+    "meaning": "v. 预见",
+    "list": 38,
+    "page": 17
+  },
+  {
+    "id": "a-plus-375",
+    "number": 375,
+    "word": "foresighted",
+    "equivalents": [
+      "prescient"
+    ],
+    "meaning": "adj. 有先见之明的",
+    "list": 38,
+    "page": 17
+  },
+  {
+    "id": "a-plus-376",
+    "number": 376,
+    "word": "forestall",
+    "equivalents": [
+      "stave off",
+      "avert",
+      "prevent"
+    ],
+    "meaning": "v. 预防",
+    "list": 38,
+    "page": 17
+  },
+  {
+    "id": "a-plus-377",
+    "number": 377,
+    "word": "foretell",
+    "equivalents": [
+      "presage"
+    ],
+    "meaning": "v. 预示",
+    "list": 38,
+    "page": 17
+  },
+  {
+    "id": "a-plus-378",
+    "number": 378,
+    "word": "forge",
+    "equivalents": [
+      "fabricate"
+    ],
+    "meaning": "v. 伪造",
+    "list": 38,
+    "page": 17
+  },
+  {
+    "id": "a-plus-379",
+    "number": 379,
+    "word": "formulaic",
+    "equivalents": [
+      "canned"
+    ],
+    "meaning": "adj. 公式化的",
+    "list": 38,
+    "page": 17
+  },
+  {
+    "id": "a-plus-380",
+    "number": 380,
+    "word": "forsake",
+    "equivalents": [
+      "abandon",
+      "desert",
+      "neglect",
+      "ignore"
+    ],
+    "meaning": "v. 放弃",
+    "list": 38,
+    "page": 17
+  },
+  {
+    "id": "a-plus-381",
+    "number": 381,
+    "word": "foundation",
+    "equivalents": [
+      "inception",
+      "bedrock"
+    ],
+    "meaning": "n. 基础",
+    "list": 39,
+    "page": 17
+  },
+  {
+    "id": "a-plus-382",
+    "number": 382,
+    "word": "fractious",
+    "equivalents": [
+      "restive",
+      "skittish"
+    ],
+    "meaning": "adj. 易怒的",
+    "list": 39,
+    "page": 17
+  },
+  {
+    "id": "a-plus-383",
+    "number": 383,
+    "word": "fringe",
+    "equivalents": [
+      "marginal",
+      "peripheral",
+      "incidental"
+    ],
+    "meaning": "adj. 边缘的/ 非核心的",
+    "list": 39,
+    "page": 17
+  },
+  {
+    "id": "a-plus-384",
+    "number": 384,
+    "word": "frugal",
+    "equivalents": [
+      "thrifty",
+      "stinting"
+    ],
+    "meaning": "adj. 节俭的",
+    "list": 39,
+    "page": 18
+  },
+  {
+    "id": "a-plus-385",
+    "number": 385,
+    "word": "fungible",
+    "equivalents": [
+      "interchangeable"
+    ],
+    "meaning": "adj. 可替代的",
+    "list": 39,
+    "page": 18
+  },
+  {
+    "id": "a-plus-386",
+    "number": 386,
+    "word": "furnished",
+    "equivalents": [
+      "provided"
+    ],
+    "meaning": "v. 提供",
+    "list": 39,
+    "page": 18
+  },
+  {
+    "id": "a-plus-387",
+    "number": 387,
+    "word": "futile",
+    "equivalents": [
+      "pointless",
+      "unsuccessful",
+      "fruitless"
+    ],
+    "meaning": "adj. 无用的",
+    "list": 39,
+    "page": 18
+  },
+  {
+    "id": "a-plus-388",
+    "number": 388,
+    "word": "futility",
+    "equivalents": [
+      "pointlessness"
+    ],
+    "meaning": "n. 无用",
+    "list": 39,
+    "page": 18
+  },
+  {
+    "id": "a-plus-389",
+    "number": 389,
+    "word": "galvanize",
+    "equivalents": [
+      "animate",
+      "rouse"
+    ],
+    "meaning": "v. 激励",
+    "list": 39,
+    "page": 18
+  },
+  {
+    "id": "a-plus-390",
+    "number": 390,
+    "word": "garrulous",
+    "equivalents": [
+      "loquacious"
+    ],
+    "meaning": "adj. 多话的",
+    "list": 39,
+    "page": 18
+  },
+  {
+    "id": "a-plus-391",
+    "number": 391,
+    "word": "gauge",
+    "equivalents": [
+      "reckon"
+    ],
+    "meaning": "v. 评估",
+    "list": 40,
+    "page": 18
+  },
+  {
+    "id": "a-plus-392",
+    "number": 392,
+    "word": "general",
+    "equivalents": [
+      "common",
+      "universal"
+    ],
+    "meaning": "adj. 普遍的",
+    "list": 40,
+    "page": 18
+  },
+  {
+    "id": "a-plus-393",
+    "number": 393,
+    "word": "generality",
+    "equivalents": [
+      "abstraction"
+    ],
+    "meaning": "n. 概括性表述、抽象概念",
+    "list": 40,
+    "page": 18
+  },
+  {
+    "id": "a-plus-394",
+    "number": 394,
+    "word": "generate",
+    "equivalents": [
+      "originate"
+    ],
+    "meaning": "v. 产生",
+    "list": 40,
+    "page": 18
+  },
+  {
+    "id": "a-plus-395",
+    "number": 395,
+    "word": "generic",
+    "equivalents": [
+      "overall"
+    ],
+    "meaning": "adj. 通用的",
+    "list": 40,
+    "page": 18
+  },
+  {
+    "id": "a-plus-396",
+    "number": 396,
+    "word": "genial",
+    "equivalents": [
+      "friendly"
+    ],
+    "meaning": "adj. 友好的",
+    "list": 40,
+    "page": 18
+  },
+  {
+    "id": "a-plus-397",
+    "number": 397,
+    "word": "germane",
+    "equivalents": [
+      "relevant",
+      "аpropos"
+    ],
+    "meaning": "adj. 相关的",
+    "list": 40,
+    "page": 18
+  },
+  {
+    "id": "a-plus-398",
+    "number": 398,
+    "word": "glean",
+    "equivalents": [
+      "obtain"
+    ],
+    "meaning": "v. 收集",
+    "list": 40,
+    "page": 18
+  },
+  {
+    "id": "a-plus-399",
+    "number": 399,
+    "word": "gloomy",
+    "equivalents": [
+      "lugubrious",
+      "cheerless",
+      "dismal"
+    ],
+    "meaning": "adj. 忧郁的",
+    "list": 40,
+    "page": 18
+  },
+  {
+    "id": "a-plus-400",
+    "number": 400,
+    "word": "govern",
+    "equivalents": [
+      "determine"
+    ],
+    "meaning": "v. 统治",
+    "list": 40,
+    "page": 18
+  },
+  {
+    "id": "a-plus-401",
+    "number": 401,
+    "word": "gratify",
+    "equivalents": [
+      "please"
+    ],
+    "meaning": "v. 使满意、满足",
+    "list": 41,
+    "page": 18
+  },
+  {
+    "id": "a-plus-402",
+    "number": 402,
+    "word": "gregarious",
+    "equivalents": [
+      "sociable",
+      "convivial",
+      "companionable"
+    ],
+    "meaning": "adj. 社交的",
+    "list": 41,
+    "page": 18
+  },
+  {
+    "id": "a-plus-403",
+    "number": 403,
+    "word": "groundless",
+    "equivalents": [
+      "unwarranted"
+    ],
+    "meaning": "adj. 无根据的",
+    "list": 41,
+    "page": 18
+  },
+  {
+    "id": "a-plus-404",
+    "number": 404,
+    "word": "hackneyed",
+    "equivalents": [
+      "pedestrian"
+    ],
+    "meaning": "adj. 陈腐的",
+    "list": 41,
+    "page": 18
+  },
+  {
+    "id": "a-plus-405",
+    "number": 405,
+    "word": "halfhearted",
+    "equivalents": [
+      "tepid",
+      "lukewarm"
+    ],
+    "meaning": "adj. 没兴趣的",
+    "list": 41,
+    "page": 18
+  },
+  {
+    "id": "a-plus-406",
+    "number": 406,
+    "word": "hallow",
+    "equivalents": [
+      "respect"
+    ],
+    "meaning": "v. 尊敬",
+    "list": 41,
+    "page": 18
+  },
+  {
+    "id": "a-plus-407",
+    "number": 407,
+    "word": "hamper",
+    "equivalents": [
+      "impede"
+    ],
+    "meaning": "v. 妨碍",
+    "list": 41,
+    "page": 18
+  },
+  {
+    "id": "a-plus-408",
+    "number": 408,
+    "word": "hamstring",
+    "equivalents": [
+      "impair"
+    ],
+    "meaning": "v. 削弱",
+    "list": 41,
+    "page": 19
+  },
+  {
+    "id": "a-plus-409",
+    "number": 409,
+    "word": "haphazard",
+    "equivalents": [
+      "random",
+      "arbitrary"
+    ],
+    "meaning": "adj. 随意的",
+    "list": 41,
+    "page": 19
+  },
+  {
+    "id": "a-plus-410",
+    "number": 410,
+    "word": "hardly",
+    "equivalents": [
+      "scarcely"
+    ],
+    "meaning": "adv. 几乎不",
+    "list": 41,
+    "page": 19
+  },
+  {
+    "id": "a-plus-411",
+    "number": 411,
+    "word": "hasty",
+    "equivalents": [
+      "impulsive",
+      "rapid"
+    ],
+    "meaning": "adj. 匆忙的",
+    "list": 42,
+    "page": 19
+  },
+  {
+    "id": "a-plus-412",
+    "number": 412,
+    "word": "hazardous",
+    "equivalents": [
+      "perilous"
+    ],
+    "meaning": "adj. 危险的",
+    "list": 42,
+    "page": 19
+  },
+  {
+    "id": "a-plus-413",
+    "number": 413,
+    "word": "hedonistic",
+    "equivalents": [
+      "sybaritic"
+    ],
+    "meaning": "adj. 享乐主义的",
+    "list": 42,
+    "page": 19
+  },
+  {
+    "id": "a-plus-414",
+    "number": 414,
+    "word": "helter-skelter",
+    "equivalents": [
+      "haphazard"
+    ],
+    "meaning": "adj. 杂乱的",
+    "list": 42,
+    "page": 19
+  },
+  {
+    "id": "a-plus-415",
+    "number": 415,
+    "word": "heterodox",
+    "equivalents": [
+      "iconoclastic"
+    ],
+    "meaning": "adj. 非正统的",
+    "list": 42,
+    "page": 19
+  },
+  {
+    "id": "a-plus-416",
+    "number": 416,
+    "word": "heterogeneous",
+    "equivalents": [
+      "disparate",
+      "dissimilar"
+    ],
+    "meaning": "adj. 异质的",
+    "list": 42,
+    "page": 19
+  },
+  {
+    "id": "a-plus-417",
+    "number": 417,
+    "word": "hew to",
+    "equivalents": [
+      "conform to"
+    ],
+    "meaning": "v. 严格遵守",
+    "list": 42,
+    "page": 19
+  },
+  {
+    "id": "a-plus-418",
+    "number": 418,
+    "word": "hideous",
+    "equivalents": [
+      "monstrous"
+    ],
+    "meaning": "adj. 可怕的",
+    "list": 42,
+    "page": 19
+  },
+  {
+    "id": "a-plus-419",
+    "number": 419,
+    "word": "histrionic",
+    "equivalents": [
+      "melodramatic",
+      "theatrical"
+    ],
+    "meaning": "adj. 夸张的",
+    "list": 42,
+    "page": 19
+  },
+  {
+    "id": "a-plus-420",
+    "number": 420,
+    "word": "hitch",
+    "equivalents": [
+      "snag"
+    ],
+    "meaning": "n. 障碍",
+    "list": 42,
+    "page": 19
+  },
+  {
+    "id": "a-plus-421",
+    "number": 421,
+    "word": "hodgepodge",
+    "equivalents": [
+      "patchwork",
+      "welter",
+      "pastiche"
+    ],
+    "meaning": "n. 大杂烩",
+    "list": 43,
+    "page": 19
+  },
+  {
+    "id": "a-plus-422",
+    "number": 422,
+    "word": "homogeneity",
+    "equivalents": [
+      "resemblance"
+    ],
+    "meaning": "n. 同质性",
+    "list": 43,
+    "page": 19
+  },
+  {
+    "id": "a-plus-423",
+    "number": 423,
+    "word": "honor",
+    "equivalents": [
+      "venerate"
+    ],
+    "meaning": "v. 尊敬",
+    "list": 43,
+    "page": 19
+  },
+  {
+    "id": "a-plus-424",
+    "number": 424,
+    "word": "hubris",
+    "equivalents": [
+      "arrogance"
+    ],
+    "meaning": "n. 傲慢",
+    "list": 43,
+    "page": 19
+  },
+  {
+    "id": "a-plus-425",
+    "number": 425,
+    "word": "humdrum",
+    "equivalents": [
+      "dull"
+    ],
+    "meaning": "adj. 单调的",
+    "list": 43,
+    "page": 19
+  },
+  {
+    "id": "a-plus-426",
+    "number": 426,
+    "word": "humility",
+    "equivalents": [
+      "modesty"
+    ],
+    "meaning": "n. 谦逊",
+    "list": 43,
+    "page": 19
+  },
+  {
+    "id": "a-plus-427",
+    "number": 427,
+    "word": "hybridity",
+    "equivalents": [
+      "eclecticism"
+    ],
+    "meaning": "n. 折中",
+    "list": 43,
+    "page": 19
+  },
+  {
+    "id": "a-plus-428",
+    "number": 428,
+    "word": "hyperbole",
+    "equivalents": [
+      "exaggeration"
+    ],
+    "meaning": "n. 言过其实",
+    "list": 43,
+    "page": 19
+  },
+  {
+    "id": "a-plus-429",
+    "number": 429,
+    "word": "hypocrisy",
+    "equivalents": [
+      "mendacity",
+      "insincerity",
+      "dissembling"
+    ],
+    "meaning": "n. 虚伪、伪善",
+    "list": 43,
+    "page": 19
+  },
+  {
+    "id": "a-plus-430",
+    "number": 430,
+    "word": "ineptitude at",
+    "equivalents": [
+      "maladroitness in"
+    ],
+    "meaning": "n.不擅长",
+    "list": 43,
+    "page": 19
+  },
+  {
+    "id": "a-plus-431",
+    "number": 431,
+    "word": "inequality",
+    "equivalents": [
+      "disparity"
+    ],
+    "meaning": "n.差距、不一致、不平衡",
+    "list": 44,
+    "page": 19
+  },
+  {
+    "id": "a-plus-432",
+    "number": 432,
+    "word": "iconoclastic",
+    "equivalents": [
+      "subversive"
+    ],
+    "meaning": "adj. 反传统的",
+    "list": 44,
+    "page": 20
+  },
+  {
+    "id": "a-plus-433",
+    "number": 433,
+    "word": "idealistic",
+    "equivalents": [
+      "quixotic"
+    ],
+    "meaning": "adj. 理想主义的",
+    "list": 44,
+    "page": 20
+  },
+  {
+    "id": "a-plus-434",
+    "number": 434,
+    "word": "identify",
+    "equivalents": [
+      "diagnose"
+    ],
+    "meaning": "v. 识别",
+    "list": 44,
+    "page": 20
+  },
+  {
+    "id": "a-plus-435",
+    "number": 435,
+    "word": "ideologue",
+    "equivalents": [
+      "zealot"
+    ],
+    "meaning": "n. 狂热分子",
+    "list": 44,
+    "page": 20
+  },
+  {
+    "id": "a-plus-436",
+    "number": 436,
+    "word": "idiosyncratic",
+    "equivalents": [
+      "distinctive",
+      "peculiar",
+      "curious"
+    ],
+    "meaning": "adj. 特殊的",
+    "list": 44,
+    "page": 20
+  },
+  {
+    "id": "a-plus-437",
+    "number": 437,
+    "word": "ignorance",
+    "equivalents": [
+      "unfamiliarity"
+    ],
+    "meaning": "n. 无知",
+    "list": 44,
+    "page": 20
+  },
+  {
+    "id": "a-plus-438",
+    "number": 438,
+    "word": "illustrious",
+    "equivalents": [
+      "distinguished"
+    ],
+    "meaning": "adj. 杰出的",
+    "list": 44,
+    "page": 20
+  },
+  {
+    "id": "a-plus-439",
+    "number": 439,
+    "word": "imbibe",
+    "equivalents": [
+      "quaff"
+    ],
+    "meaning": "v. 饮用",
+    "list": 44,
+    "page": 20
+  },
+  {
+    "id": "a-plus-440",
+    "number": 440,
+    "word": "imbued with",
+    "equivalents": [
+      "permeated by"
+    ],
+    "meaning": "使充满",
+    "list": 44,
+    "page": 20
+  },
+  {
+    "id": "a-plus-441",
+    "number": 441,
+    "word": "immaterial",
+    "equivalents": [
+      "inconsequential",
+      "irrelevant"
+    ],
+    "meaning": "adj. 无关紧要的",
+    "list": 45,
+    "page": 20
+  },
+  {
+    "id": "a-plus-442",
+    "number": 442,
+    "word": "immense",
+    "equivalents": [
+      "colossal"
+    ],
+    "meaning": "adj. 巨大的",
+    "list": 45,
+    "page": 20
+  },
+  {
+    "id": "a-plus-443",
+    "number": 443,
+    "word": "imminent",
+    "equivalents": [
+      "impending"
+    ],
+    "meaning": "adj. 即将发生的",
+    "list": 45,
+    "page": 20
+  },
+  {
+    "id": "a-plus-444",
+    "number": 444,
+    "word": "immune",
+    "equivalents": [
+      "insusceptible"
+    ],
+    "meaning": "adj. 免疫的",
+    "list": 45,
+    "page": 20
+  },
+  {
+    "id": "a-plus-445",
+    "number": 445,
+    "word": "immutable",
+    "equivalents": [
+      "fixed"
+    ],
+    "meaning": "adj. 状态稳定的、不变的",
+    "list": 45,
+    "page": 20
+  },
+  {
+    "id": "a-plus-446",
+    "number": 446,
+    "word": "impair",
+    "equivalents": [
+      "hamstring",
+      "undermine",
+      "compromise",
+      "undercut"
+    ],
+    "meaning": "v. 损害",
+    "list": 45,
+    "page": 20
+  },
+  {
+    "id": "a-plus-447",
+    "number": 447,
+    "word": "impassioned",
+    "equivalents": [
+      "fiery",
+      "fervent"
+    ],
+    "meaning": "adj. 热情的",
+    "list": 45,
+    "page": 20
+  },
+  {
+    "id": "a-plus-448",
+    "number": 448,
+    "word": "impecunious",
+    "equivalents": [
+      "indigent",
+      "impoverished"
+    ],
+    "meaning": "adj. 贫穷的",
+    "list": 45,
+    "page": 20
+  },
+  {
+    "id": "a-plus-449",
+    "number": 449,
+    "word": "impetuous",
+    "equivalents": [
+      "precipitate"
+    ],
+    "meaning": "adj. 冲动的",
+    "list": 45,
+    "page": 20
+  },
+  {
+    "id": "a-plus-450",
+    "number": 450,
+    "word": "implacable",
+    "equivalents": [
+      "unyielding",
+      "inexorable"
+    ],
+    "meaning": "adj. 不屈的、阻挡不了的",
+    "list": 45,
+    "page": 20
+  },
+  {
+    "id": "a-plus-451",
+    "number": 451,
+    "word": "impolitic",
+    "equivalents": [
+      "tactless"
+    ],
+    "meaning": "adj. 不明智的",
+    "list": 46,
+    "page": 20
+  },
+  {
+    "id": "a-plus-452",
+    "number": 452,
+    "word": "improvised",
+    "equivalents": [
+      "extemporized"
+    ],
+    "meaning": "adj. 即兴的、临时准备的",
+    "list": 46,
+    "page": 20
+  },
+  {
+    "id": "a-plus-453",
+    "number": 453,
+    "word": "imprudent",
+    "equivalents": [
+      "foolhardy"
+    ],
+    "meaning": "adj. 轻率的、鲁莽的",
+    "list": 46,
+    "page": 20
+  },
+  {
+    "id": "a-plus-454",
+    "number": 454,
+    "word": "impulsive",
+    "equivalents": [
+      "capricious",
+      "unpredictable"
+    ],
+    "meaning": "adj. 冲动的",
+    "list": 46,
+    "page": 20
+  },
+  {
+    "id": "a-plus-455",
+    "number": 455,
+    "word": "inception",
+    "equivalents": [
+      "commencement",
+      "outset"
+    ],
+    "meaning": "n. 开端",
+    "list": 46,
+    "page": 20
+  },
+  {
+    "id": "a-plus-456",
+    "number": 456,
+    "word": "incomprehensibl e",
+    "equivalents": [
+      "inexplicable"
+    ],
+    "meaning": "adj. 难以理解的",
+    "list": 46,
+    "page": 21
+  },
+  {
+    "id": "a-plus-457",
+    "number": 457,
+    "word": "inconclusive",
+    "equivalents": [
+      "indecisive",
+      "unsettled"
+    ],
+    "meaning": "adj. 不确定的",
+    "list": 46,
+    "page": 21
+  },
+  {
+    "id": "a-plus-458",
+    "number": 458,
+    "word": "incongruity",
+    "equivalents": [
+      "discrepancy"
+    ],
+    "meaning": "n. 不一致",
+    "list": 46,
+    "page": 21
+  },
+  {
+    "id": "a-plus-459",
+    "number": 459,
+    "word": "inconspicuous",
+    "equivalents": [
+      "unobtrusive",
+      "subtle"
+    ],
+    "meaning": "adj. 不显眼的",
+    "list": 46,
+    "page": 21
+  },
+  {
+    "id": "a-plus-460",
+    "number": 460,
+    "word": "incredible",
+    "equivalents": [
+      "improbable",
+      "unlikely"
+    ],
+    "meaning": "adj. 难以置信的",
+    "list": 46,
+    "page": 21
+  },
+  {
+    "id": "a-plus-461",
+    "number": 461,
+    "word": "indebted",
+    "equivalents": [
+      "beholden"
+    ],
+    "meaning": "adj. 亏欠的",
+    "list": 47,
+    "page": 21
+  },
+  {
+    "id": "a-plus-462",
+    "number": 462,
+    "word": "independence",
+    "equivalents": [
+      "autonomy"
+    ],
+    "meaning": "n. 独立性",
+    "list": 47,
+    "page": 21
+  },
+  {
+    "id": "a-plus-463",
+    "number": 463,
+    "word": "indict",
+    "equivalents": [
+      "accuse",
+      "prosecute"
+    ],
+    "meaning": "v. 起诉",
+    "list": 47,
+    "page": 21
+  },
+  {
+    "id": "a-plus-464",
+    "number": 464,
+    "word": "indictments",
+    "equivalents": [
+      "denunciations"
+    ],
+    "meaning": "n. 谴责",
+    "list": 47,
+    "page": 21
+  },
+  {
+    "id": "a-plus-465",
+    "number": 465,
+    "word": "indubitable",
+    "equivalents": [
+      "incontrovertible"
+    ],
+    "meaning": "adj. 不容置疑的",
+    "list": 47,
+    "page": 21
+  },
+  {
+    "id": "a-plus-466",
+    "number": 466,
+    "word": "industry",
+    "equivalents": [
+      "assiduousness"
+    ],
+    "meaning": "n. 勤奋",
+    "list": 47,
+    "page": 21
+  },
+  {
+    "id": "a-plus-467",
+    "number": 467,
+    "word": "inept",
+    "equivalents": [
+      "incompetent"
+    ],
+    "meaning": "adj. 无能的",
+    "list": 47,
+    "page": 21
+  },
+  {
+    "id": "a-plus-468",
+    "number": 468,
+    "word": "inert",
+    "equivalents": [
+      "passive",
+      "dormant"
+    ],
+    "meaning": "adj. 缺乏活力的、静止的",
+    "list": 47,
+    "page": 21
+  },
+  {
+    "id": "a-plus-469",
+    "number": 469,
+    "word": "inertia",
+    "equivalents": [
+      "stasis"
+    ],
+    "meaning": "n. 停滞、静止状态",
+    "list": 47,
+    "page": 21
+  },
+  {
+    "id": "a-plus-470",
+    "number": 470,
+    "word": "inevitable",
+    "equivalents": [
+      "unavoidable",
+      "preordained",
+      "ineluctable",
+      "requisite"
+    ],
+    "meaning": "adj. 不可避免的",
+    "list": 47,
+    "page": 21
+  },
+  {
+    "id": "a-plus-471",
+    "number": 471,
+    "word": "inflammatory",
+    "equivalents": [
+      "provocative",
+      "intriguing"
+    ],
+    "meaning": "adj. 煽动性的",
+    "list": 48,
+    "page": 21
+  },
+  {
+    "id": "a-plus-472",
+    "number": 472,
+    "word": "inflated",
+    "equivalents": [
+      "overblown"
+    ],
+    "meaning": "adj.被夸大的",
+    "list": 48,
+    "page": 21
+  },
+  {
+    "id": "a-plus-473",
+    "number": 473,
+    "word": "inhibit",
+    "equivalents": [
+      "hinder",
+      "bridle",
+      "suppress"
+    ],
+    "meaning": "v. 抑制",
+    "list": 48,
+    "page": 21
+  },
+  {
+    "id": "a-plus-474",
+    "number": 474,
+    "word": "inhospitable to",
+    "equivalents": [
+      "unreceptive to"
+    ],
+    "meaning": "对…不友好的",
+    "list": 48,
+    "page": 21
+  },
+  {
+    "id": "a-plus-475",
+    "number": 475,
+    "word": "inimical",
+    "equivalents": [
+      "antagonistic",
+      "deleterious",
+      "adversarial"
+    ],
+    "meaning": "adj. 敌对的",
+    "list": 48,
+    "page": 21
+  },
+  {
+    "id": "a-plus-476",
+    "number": 476,
+    "word": "inimical to",
+    "equivalents": [
+      "adverse to",
+      "antipathetic toward"
+    ],
+    "meaning": "对...不利/ 对...反感",
+    "list": 48,
+    "page": 21
+  },
+  {
+    "id": "a-plus-477",
+    "number": 477,
+    "word": "injudicious",
+    "equivalents": [
+      "indiscreet"
+    ],
+    "meaning": "adj. 不明智的",
+    "list": 48,
+    "page": 21
+  },
+  {
+    "id": "a-plus-478",
+    "number": 478,
+    "word": "innate",
+    "equivalents": [
+      "inborn"
+    ],
+    "meaning": "adj. 天生的",
+    "list": 48,
+    "page": 21
+  },
+  {
+    "id": "a-plus-479",
+    "number": 479,
+    "word": "innocuous",
+    "equivalents": [
+      "harmless",
+      "benign",
+      "inoffensive"
+    ],
+    "meaning": "adj. 无害的",
+    "list": 48,
+    "page": 21
+  },
+  {
+    "id": "a-plus-480",
+    "number": 480,
+    "word": "innovation",
+    "equivalents": [
+      "originality"
+    ],
+    "meaning": "n.创新性",
+    "list": 48,
+    "page": 22
+  },
+  {
+    "id": "a-plus-481",
+    "number": 481,
+    "word": "insatiable",
+    "equivalents": [
+      "voracious",
+      "quenchless"
+    ],
+    "meaning": "adj. 不满足的",
+    "list": 49,
+    "page": 22
+  },
+  {
+    "id": "a-plus-482",
+    "number": 482,
+    "word": "inscrutability",
+    "equivalents": [
+      "mystery"
+    ],
+    "meaning": "n. 难以捉摸",
+    "list": 49,
+    "page": 22
+  },
+  {
+    "id": "a-plus-483",
+    "number": 483,
+    "word": "inscrutable",
+    "equivalents": [
+      "uninformative",
+      "impenetrable",
+      "abstruse",
+      "inexplicable"
+    ],
+    "meaning": "adj. 难以理解的",
+    "list": 49,
+    "page": 22
+  },
+  {
+    "id": "a-plus-484",
+    "number": 484,
+    "word": "insightful",
+    "equivalents": [
+      "sagacious",
+      "discriminating"
+    ],
+    "meaning": "adj. 富有洞察力的",
+    "list": 49,
+    "page": 22
+  },
+  {
+    "id": "a-plus-485",
+    "number": 485,
+    "word": "insipid",
+    "equivalents": [
+      "bland"
+    ],
+    "meaning": "adj. 乏味的、枯燥的、清淡的",
+    "list": 49,
+    "page": 22
+  },
+  {
+    "id": "a-plus-486",
+    "number": 486,
+    "word": "insouciance",
+    "equivalents": [
+      "detachment"
+    ],
+    "meaning": "n. 漠不关心",
+    "list": 49,
+    "page": 22
+  },
+  {
+    "id": "a-plus-487",
+    "number": 487,
+    "word": "insufficient",
+    "equivalents": [
+      "meager"
+    ],
+    "meaning": "adj. 贫乏的",
+    "list": 49,
+    "page": 22
+  },
+  {
+    "id": "a-plus-488",
+    "number": 488,
+    "word": "insular",
+    "equivalents": [
+      "provincial",
+      "parochial",
+      "private",
+      "narrow-minded"
+    ],
+    "meaning": "adj. 狭隘的",
+    "list": 49,
+    "page": 22
+  },
+  {
+    "id": "a-plus-489",
+    "number": 489,
+    "word": "insulated from",
+    "equivalents": [
+      "buffered against"
+    ],
+    "meaning": "adj. 隔离的",
+    "list": 49,
+    "page": 22
+  },
+  {
+    "id": "a-plus-490",
+    "number": 490,
+    "word": "intellectualism",
+    "equivalents": [
+      "logicism"
+    ],
+    "meaning": "n. 理智主义",
+    "list": 49,
+    "page": 22
+  },
+  {
+    "id": "a-plus-491",
+    "number": 491,
+    "word": "intelligible",
+    "equivalents": [
+      "readable",
+      "lucid"
+    ],
+    "meaning": "adj. 可理解的",
+    "list": 50,
+    "page": 22
+  },
+  {
+    "id": "a-plus-492",
+    "number": 492,
+    "word": "intemperate",
+    "equivalents": [
+      "excessive"
+    ],
+    "meaning": "adj. 不节制的",
+    "list": 50,
+    "page": 22
+  },
+  {
+    "id": "a-plus-493",
+    "number": 493,
+    "word": "interdependent",
+    "equivalents": [
+      "interrelated"
+    ],
+    "meaning": "adj. 相互依赖的",
+    "list": 50,
+    "page": 22
+  },
+  {
+    "id": "a-plus-494",
+    "number": 494,
+    "word": "intransigent",
+    "equivalents": [
+      "obdurate",
+      "resolute"
+    ],
+    "meaning": "adj. 不妥协的",
+    "list": 50,
+    "page": 22
+  },
+  {
+    "id": "a-plus-495",
+    "number": 495,
+    "word": "intrinsic",
+    "equivalents": [
+      "inherent"
+    ],
+    "meaning": "adj. 内在的",
+    "list": 50,
+    "page": 22
+  },
+  {
+    "id": "a-plus-496",
+    "number": 496,
+    "word": "intuitive",
+    "equivalents": [
+      "spontaneous",
+      "instinctive"
+    ],
+    "meaning": "adj. 直觉的",
+    "list": 50,
+    "page": 22
+  },
+  {
+    "id": "a-plus-497",
+    "number": 497,
+    "word": "invalidated",
+    "equivalents": [
+      "precluded",
+      "prevented"
+    ],
+    "meaning": "v.使阻止",
+    "list": 50,
+    "page": 22
+  },
+  {
+    "id": "a-plus-498",
+    "number": 498,
+    "word": "invariable",
+    "equivalents": [
+      "static",
+      "unvarying"
+    ],
+    "meaning": "adj. 不变的",
+    "list": 50,
+    "page": 22
+  },
+  {
+    "id": "a-plus-499",
+    "number": 499,
+    "word": "invention",
+    "equivalents": [
+      "contrivance"
+    ],
+    "meaning": "n. 发明",
+    "list": 50,
+    "page": 22
+  },
+  {
+    "id": "a-plus-500",
+    "number": 500,
+    "word": "irascible",
+    "equivalents": [
+      "choleric"
+    ],
+    "meaning": "adj. 易怒的",
+    "list": 50,
+    "page": 22
+  },
+  {
+    "id": "a-plus-501",
+    "number": 501,
+    "word": "ironic",
+    "equivalents": [
+      "satirical",
+      "sardonic"
+    ],
+    "meaning": "adj. 讽刺的",
+    "list": 51,
+    "page": 22
+  },
+  {
+    "id": "a-plus-502",
+    "number": 502,
+    "word": "irrefutable",
+    "equivalents": [
+      "undeniable"
+    ],
+    "meaning": "adj. 不可反驳的",
+    "list": 51,
+    "page": 22
+  },
+  {
+    "id": "a-plus-503",
+    "number": 503,
+    "word": "irregularity",
+    "equivalents": [
+      "anomaly"
+    ],
+    "meaning": "n. 不规则性",
+    "list": 51,
+    "page": 22
+  },
+  {
+    "id": "a-plus-504",
+    "number": 504,
+    "word": "irrelevant",
+    "equivalents": [
+      "extraneous"
+    ],
+    "meaning": "adj. 无关的",
+    "list": 51,
+    "page": 23
+  },
+  {
+    "id": "a-plus-505",
+    "number": 505,
+    "word": "irresistible",
+    "equivalents": [
+      "overwhelming"
+    ],
+    "meaning": "adj.难以抵挡的",
+    "list": 51,
+    "page": 23
+  },
+  {
+    "id": "a-plus-506",
+    "number": 506,
+    "word": "irresolution",
+    "equivalents": [
+      "vacillation"
+    ],
+    "meaning": "n. 犹豫",
+    "list": 51,
+    "page": 23
+  },
+  {
+    "id": "a-plus-507",
+    "number": 507,
+    "word": "itinerant",
+    "equivalents": [
+      "peripatetic"
+    ],
+    "meaning": "adj. 巡回的",
+    "list": 51,
+    "page": 23
+  },
+  {
+    "id": "a-plus-508",
+    "number": 508,
+    "word": "jaded",
+    "equivalents": [
+      "cynical"
+    ],
+    "meaning": "adj. 厌倦的",
+    "list": 51,
+    "page": 23
+  },
+  {
+    "id": "a-plus-509",
+    "number": 509,
+    "word": "jejune",
+    "equivalents": [
+      "vapid"
+    ],
+    "meaning": "adj. 幼稚的",
+    "list": 51,
+    "page": 23
+  },
+  {
+    "id": "a-plus-510",
+    "number": 510,
+    "word": "judgment",
+    "equivalents": [
+      "discretion"
+    ],
+    "meaning": "n. 判断",
+    "list": 51,
+    "page": 23
+  },
+  {
+    "id": "a-plus-511",
+    "number": 511,
+    "word": "justified",
+    "equivalents": [
+      "rationalized"
+    ],
+    "meaning": "adj. 合理的",
+    "list": 52,
+    "page": 23
+  },
+  {
+    "id": "a-plus-512",
+    "number": 512,
+    "word": "keen",
+    "equivalents": [
+      "eager"
+    ],
+    "meaning": "adj. 渴望的",
+    "list": 52,
+    "page": 23
+  },
+  {
+    "id": "a-plus-513",
+    "number": 513,
+    "word": "kindred",
+    "equivalents": [
+      "affiliated"
+    ],
+    "meaning": "adj. 相关的",
+    "list": 52,
+    "page": 23
+  },
+  {
+    "id": "a-plus-514",
+    "number": 514,
+    "word": "kinfolk",
+    "equivalents": [
+      "relative"
+    ],
+    "meaning": "n. 亲戚",
+    "list": 52,
+    "page": 23
+  },
+  {
+    "id": "a-plus-515",
+    "number": 515,
+    "word": "laborious",
+    "equivalents": [
+      "arduous"
+    ],
+    "meaning": "adj. 辛苦的",
+    "list": 52,
+    "page": 23
+  },
+  {
+    "id": "a-plus-516",
+    "number": 516,
+    "word": "laconic",
+    "equivalents": [
+      "taciturn",
+      "terse",
+      "curt",
+      "spare"
+    ],
+    "meaning": "adj. 简洁的",
+    "list": 52,
+    "page": 23
+  },
+  {
+    "id": "a-plus-517",
+    "number": 517,
+    "word": "lamentable",
+    "equivalents": [
+      "deplorable"
+    ],
+    "meaning": "adj. 可悲的",
+    "list": 52,
+    "page": 23
+  },
+  {
+    "id": "a-plus-518",
+    "number": 518,
+    "word": "languishing",
+    "equivalents": [
+      "flagging"
+    ],
+    "meaning": "adj. 衰弱的",
+    "list": 52,
+    "page": 23
+  },
+  {
+    "id": "a-plus-519",
+    "number": 519,
+    "word": "latitude",
+    "equivalents": [
+      "leeway"
+    ],
+    "meaning": "n. 自由/ 行动的余地",
+    "list": 52,
+    "page": 23
+  },
+  {
+    "id": "a-plus-520",
+    "number": 520,
+    "word": "lay",
+    "equivalents": [
+      "avocational"
+    ],
+    "meaning": "adj. 业余的",
+    "list": 52,
+    "page": 23
+  },
+  {
+    "id": "a-plus-521",
+    "number": 521,
+    "word": "layperson",
+    "equivalents": [
+      "nonspecialist"
+    ],
+    "meaning": "n. 外行人",
+    "list": 53,
+    "page": 23
+  },
+  {
+    "id": "a-plus-522",
+    "number": 522,
+    "word": "legendary",
+    "equivalents": [
+      "fabulous"
+    ],
+    "meaning": "adj.传奇的",
+    "list": 53,
+    "page": 23
+  },
+  {
+    "id": "a-plus-523",
+    "number": 523,
+    "word": "lethargic",
+    "equivalents": [
+      "somnolent",
+      "slumberous"
+    ],
+    "meaning": "adj. 昏昏欲睡的",
+    "list": 53,
+    "page": 23
+  },
+  {
+    "id": "a-plus-524",
+    "number": 524,
+    "word": "liberation",
+    "equivalents": [
+      "emancipation"
+    ],
+    "meaning": "n. 解放",
+    "list": 53,
+    "page": 23
+  },
+  {
+    "id": "a-plus-525",
+    "number": 525,
+    "word": "limpid",
+    "equivalents": [
+      "pellucid"
+    ],
+    "meaning": "adj. 清澈的",
+    "list": 53,
+    "page": 23
+  },
+  {
+    "id": "a-plus-526",
+    "number": 526,
+    "word": "list",
+    "equivalents": [
+      "catalog"
+    ],
+    "meaning": "v. 列出",
+    "list": 53,
+    "page": 23
+  },
+  {
+    "id": "a-plus-527",
+    "number": 527,
+    "word": "loath",
+    "equivalents": [
+      "reluctant",
+      "unwilling",
+      "disinclined"
+    ],
+    "meaning": "adj. 不情愿的",
+    "list": 53,
+    "page": 23
+  },
+  {
+    "id": "a-plus-528",
+    "number": 528,
+    "word": "long-winded",
+    "equivalents": [
+      "verbose",
+      "prolix"
+    ],
+    "meaning": "adj. 冗长的",
+    "list": 53,
+    "page": 24
+  },
+  {
+    "id": "a-plus-529",
+    "number": 529,
+    "word": "ludicrous",
+    "equivalents": [
+      "risible"
+    ],
+    "meaning": "adj. 荒谬的",
+    "list": 53,
+    "page": 24
+  },
+  {
+    "id": "a-plus-530",
+    "number": 530,
+    "word": "lugubrious",
+    "equivalents": [
+      "gloomy",
+      "dolorous"
+    ],
+    "meaning": "adj. 忧郁的",
+    "list": 53,
+    "page": 24
+  },
+  {
+    "id": "a-plus-531",
+    "number": 531,
+    "word": "lure",
+    "equivalents": [
+      "allure"
+    ],
+    "meaning": "v. 吸引、引诱",
+    "list": 54,
+    "page": 24
+  },
+  {
+    "id": "a-plus-532",
+    "number": 532,
+    "word": "lurk",
+    "equivalents": [
+      "ambush"
+    ],
+    "meaning": "v. 潜伏",
+    "list": 54,
+    "page": 24
+  },
+  {
+    "id": "a-plus-533",
+    "number": 533,
+    "word": "luxuriant",
+    "equivalents": [
+      "rampant"
+    ],
+    "meaning": "adj. 繁茂的",
+    "list": 54,
+    "page": 24
+  },
+  {
+    "id": "a-plus-534",
+    "number": 534,
+    "word": "magnanimous",
+    "equivalents": [
+      "generous",
+      "unstinting"
+    ],
+    "meaning": "adj. 宽宏大量的",
+    "list": 54,
+    "page": 24
+  },
+  {
+    "id": "a-plus-535",
+    "number": 535,
+    "word": "magnitude",
+    "equivalents": [
+      "enormity"
+    ],
+    "meaning": "n. 巨大",
+    "list": 54,
+    "page": 24
+  },
+  {
+    "id": "a-plus-536",
+    "number": 536,
+    "word": "mainstream",
+    "equivalents": [
+      "prevailing"
+    ],
+    "meaning": "n. 主流",
+    "list": 54,
+    "page": 24
+  },
+  {
+    "id": "a-plus-537",
+    "number": 537,
+    "word": "maintain",
+    "equivalents": [
+      "sustain"
+    ],
+    "meaning": "v. 维持",
+    "list": 54,
+    "page": 24
+  },
+  {
+    "id": "a-plus-538",
+    "number": 538,
+    "word": "maintains",
+    "equivalents": [
+      "asserts"
+    ],
+    "meaning": "v. 断言",
+    "list": 54,
+    "page": 24
+  },
+  {
+    "id": "a-plus-539",
+    "number": 539,
+    "word": "makeshift",
+    "equivalents": [
+      "expedient"
+    ],
+    "meaning": "adj. 权宜的",
+    "list": 54,
+    "page": 24
+  },
+  {
+    "id": "a-plus-540",
+    "number": 540,
+    "word": "malfeasance",
+    "equivalents": [
+      "fraudulence",
+      "incompetence"
+    ],
+    "meaning": "n. 渎职",
+    "list": 54,
+    "page": 24
+  },
+  {
+    "id": "a-plus-541",
+    "number": 541,
+    "word": "manifest",
+    "equivalents": [
+      "reveal",
+      "display",
+      "exhibit"
+    ],
+    "meaning": "v. 展现、展露",
+    "list": 55,
+    "page": 24
+  },
+  {
+    "id": "a-plus-542",
+    "number": 542,
+    "word": "maritime",
+    "equivalents": [
+      "nautical"
+    ],
+    "meaning": "adj.与海洋相关的",
+    "list": 55,
+    "page": 24
+  },
+  {
+    "id": "a-plus-543",
+    "number": 543,
+    "word": "mask",
+    "equivalents": [
+      "belie"
+    ],
+    "meaning": "v. 掩盖",
+    "list": 55,
+    "page": 24
+  },
+  {
+    "id": "a-plus-544",
+    "number": 544,
+    "word": "maverick",
+    "equivalents": [
+      "nonconformist"
+    ],
+    "meaning": "n. 特立独行者",
+    "list": 55,
+    "page": 24
+  },
+  {
+    "id": "a-plus-545",
+    "number": 545,
+    "word": "meager",
+    "equivalents": [
+      "insufficient",
+      "paltry"
+    ],
+    "meaning": "adj. 微薄的",
+    "list": 55,
+    "page": 24
+  },
+  {
+    "id": "a-plus-546",
+    "number": 546,
+    "word": "mediated",
+    "equivalents": [
+      "influenced"
+    ],
+    "meaning": "adj.被影响的",
+    "list": 55,
+    "page": 24
+  },
+  {
+    "id": "a-plus-547",
+    "number": 547,
+    "word": "meet",
+    "equivalents": [
+      "fulfill"
+    ],
+    "meaning": "v. 适合",
+    "list": 55,
+    "page": 24
+  },
+  {
+    "id": "a-plus-548",
+    "number": 548,
+    "word": "meld",
+    "equivalents": [
+      "combine"
+    ],
+    "meaning": "v. 融合、混合",
+    "list": 55,
+    "page": 24
+  },
+  {
+    "id": "a-plus-549",
+    "number": 549,
+    "word": "mendacity",
+    "equivalents": [
+      "hypocrisy disinformation"
+    ],
+    "meaning": "n. 虚伪",
+    "list": 55,
+    "page": 24
+  },
+  {
+    "id": "a-plus-550",
+    "number": 550,
+    "word": "mercurial",
+    "equivalents": [
+      "volatile",
+      "inconstant",
+      "capricious"
+    ],
+    "meaning": "adj. 多变的",
+    "list": 55,
+    "page": 24
+  },
+  {
+    "id": "a-plus-551",
+    "number": 551,
+    "word": "meticulous",
+    "equivalents": [
+      "thorough",
+      "exact",
+      "painstaking"
+    ],
+    "meaning": "adj. 一丝不苟的",
+    "list": 56,
+    "page": 24
+  },
+  {
+    "id": "a-plus-552",
+    "number": 552,
+    "word": "mimic",
+    "equivalents": [
+      "replicate"
+    ],
+    "meaning": "v. 模仿",
+    "list": 56,
+    "page": 25
+  },
+  {
+    "id": "a-plus-553",
+    "number": 553,
+    "word": "minimal",
+    "equivalents": [
+      "trifling"
+    ],
+    "meaning": "adj. 极小的",
+    "list": 56,
+    "page": 25
+  },
+  {
+    "id": "a-plus-554",
+    "number": 554,
+    "word": "minutiae",
+    "equivalents": [
+      "particular"
+    ],
+    "meaning": "n. 细节",
+    "list": 56,
+    "page": 25
+  },
+  {
+    "id": "a-plus-555",
+    "number": 555,
+    "word": "misgivings",
+    "equivalents": [
+      "trepidation",
+      "qualm"
+    ],
+    "meaning": "n. 担忧",
+    "list": 56,
+    "page": 25
+  },
+  {
+    "id": "a-plus-556",
+    "number": 556,
+    "word": "misguided",
+    "equivalents": [
+      "unwise"
+    ],
+    "meaning": "adj. 不明智的",
+    "list": 56,
+    "page": 25
+  },
+  {
+    "id": "a-plus-557",
+    "number": 557,
+    "word": "mitigate",
+    "equivalents": [
+      "allay",
+      "mollify",
+      "palliate",
+      "damp"
+    ],
+    "meaning": "v. 缓解",
+    "list": 56,
+    "page": 25
+  },
+  {
+    "id": "a-plus-558",
+    "number": 558,
+    "word": "mitigate",
+    "equivalents": [
+      "relieve",
+      "tempere",
+      "abate",
+      "moderate"
+    ],
+    "meaning": "v.使...减弱",
+    "list": 56,
+    "page": 25
+  },
+  {
+    "id": "a-plus-559",
+    "number": 559,
+    "word": "mockery",
+    "equivalents": [
+      "derision",
+      "ridicule"
+    ],
+    "meaning": "n. 嘲弄",
+    "list": 56,
+    "page": 25
+  },
+  {
+    "id": "a-plus-560",
+    "number": 560,
+    "word": "modicum",
+    "equivalents": [
+      "mite",
+      "iota"
+    ],
+    "meaning": "n. 少量",
+    "list": 56,
+    "page": 25
+  },
+  {
+    "id": "a-plus-561",
+    "number": 561,
+    "word": "modulate",
+    "equivalents": [
+      "temper"
+    ],
+    "meaning": "v. 调节",
+    "list": 57,
+    "page": 25
+  },
+  {
+    "id": "a-plus-562",
+    "number": 562,
+    "word": "muddle",
+    "equivalents": [
+      "confuse"
+    ],
+    "meaning": "v. 使困惑",
+    "list": 57,
+    "page": 25
+  },
+  {
+    "id": "a-plus-563",
+    "number": 563,
+    "word": "muddled",
+    "equivalents": [
+      "turbid confused"
+    ],
+    "meaning": "adj. 混乱的",
+    "list": 57,
+    "page": 25
+  },
+  {
+    "id": "a-plus-564",
+    "number": 564,
+    "word": "mundane",
+    "equivalents": [
+      "commonplace"
+    ],
+    "meaning": "adj. 平凡的",
+    "list": 57,
+    "page": 25
+  },
+  {
+    "id": "a-plus-565",
+    "number": 565,
+    "word": "mutability",
+    "equivalents": [
+      "fluidity"
+    ],
+    "meaning": "n. 易变性",
+    "list": 57,
+    "page": 25
+  },
+  {
+    "id": "a-plus-566",
+    "number": 566,
+    "word": "mutable",
+    "equivalents": [
+      "fluid",
+      "variable",
+      "alterable"
+    ],
+    "meaning": "adj. 可变的",
+    "list": 57,
+    "page": 25
+  },
+  {
+    "id": "a-plus-567",
+    "number": 567,
+    "word": "mutes",
+    "equivalents": [
+      "attenuates"
+    ],
+    "meaning": "v.减弱/ 降低",
+    "list": 57,
+    "page": 25
+  },
+  {
+    "id": "a-plus-568",
+    "number": 568,
+    "word": "naivete",
+    "equivalents": [
+      "callowness"
+    ],
+    "meaning": "n. 天真",
+    "list": 57,
+    "page": 25
+  },
+  {
+    "id": "a-plus-569",
+    "number": 569,
+    "word": "narcissism",
+    "equivalents": [
+      "self-flattery"
+    ],
+    "meaning": "n. 自恋",
+    "list": 57,
+    "page": 25
+  },
+  {
+    "id": "a-plus-570",
+    "number": 570,
+    "word": "nascent",
+    "equivalents": [
+      "budding",
+      "unformed"
+    ],
+    "meaning": "adj. 新兴的",
+    "list": 57,
+    "page": 25
+  },
+  {
+    "id": "a-plus-571",
+    "number": 571,
+    "word": "naïveté",
+    "equivalents": [
+      "credulity"
+    ],
+    "meaning": "n.轻信",
+    "list": 58,
+    "page": 25
+  },
+  {
+    "id": "a-plus-572",
+    "number": 572,
+    "word": "nebulous",
+    "equivalents": [
+      "vague",
+      "amorphous"
+    ],
+    "meaning": "adj. 模糊的",
+    "list": 58,
+    "page": 25
+  },
+  {
+    "id": "a-plus-573",
+    "number": 573,
+    "word": "neutrality",
+    "equivalents": [
+      "impartiality",
+      "evenhandedness"
+    ],
+    "meaning": "n. 中立",
+    "list": 58,
+    "page": 25
+  },
+  {
+    "id": "a-plus-574",
+    "number": 574,
+    "word": "neutralize",
+    "equivalents": [
+      "offset",
+      "nullify",
+      "abrogate"
+    ],
+    "meaning": "v. 中和",
+    "list": 58,
+    "page": 25
+  },
+  {
+    "id": "a-plus-575",
+    "number": 575,
+    "word": "nimble",
+    "equivalents": [
+      "adroit",
+      "dexterous",
+      "skillful"
+    ],
+    "meaning": "adj. 灵活的",
+    "list": 58,
+    "page": 25
+  },
+  {
+    "id": "a-plus-576",
+    "number": 576,
+    "word": "noisome",
+    "equivalents": [
+      "malodorous"
+    ],
+    "meaning": "adj. 恶臭的",
+    "list": 58,
+    "page": 26
+  },
+  {
+    "id": "a-plus-577",
+    "number": 577,
+    "word": "nonchalant",
+    "equivalents": [
+      "insouciant"
+    ],
+    "meaning": "adj. 漠不关心的",
+    "list": 58,
+    "page": 26
+  },
+  {
+    "id": "a-plus-578",
+    "number": 578,
+    "word": "no-nonsense",
+    "equivalents": [
+      "businesslike"
+    ],
+    "meaning": "adj. 务实的/ 高效率的",
+    "list": 58,
+    "page": 26
+  },
+  {
+    "id": "a-plus-579",
+    "number": 579,
+    "word": "nonsensical",
+    "equivalents": [
+      "preposterous"
+    ],
+    "meaning": "adj. 荒谬的",
+    "list": 58,
+    "page": 26
+  },
+  {
+    "id": "a-plus-580",
+    "number": 580,
+    "word": "novel",
+    "equivalents": [
+      "original",
+      "unexampled",
+      "unprecedented",
+      "abnormal"
+    ],
+    "meaning": "adj. 新颖的",
+    "list": 58,
+    "page": 26
+  },
+  {
+    "id": "a-plus-581",
+    "number": 581,
+    "word": "novice",
+    "equivalents": [
+      "tyro"
+    ],
+    "meaning": "n. 新手",
+    "list": 59,
+    "page": 26
+  },
+  {
+    "id": "a-plus-582",
+    "number": 582,
+    "word": "nuance",
+    "equivalents": [
+      "subtlety"
+    ],
+    "meaning": "n. 细微差别",
+    "list": 59,
+    "page": 26
+  },
+  {
+    "id": "a-plus-583",
+    "number": 583,
+    "word": "nuanced",
+    "equivalents": [
+      "subtle"
+    ],
+    "meaning": "adj. 微妙的",
+    "list": 59,
+    "page": 26
+  },
+  {
+    "id": "a-plus-584",
+    "number": 584,
+    "word": "obedience",
+    "equivalents": [
+      "submission"
+    ],
+    "meaning": "n. 服从",
+    "list": 59,
+    "page": 26
+  },
+  {
+    "id": "a-plus-585",
+    "number": 585,
+    "word": "obfuscate",
+    "equivalents": [
+      "obscure",
+      "mystify"
+    ],
+    "meaning": "v. 使模糊、使困惑",
+    "list": 59,
+    "page": 26
+  },
+  {
+    "id": "a-plus-586",
+    "number": 586,
+    "word": "obscure",
+    "equivalents": [
+      "opaque"
+    ],
+    "meaning": "adj. 难以理解的、晦涩的",
+    "list": 59,
+    "page": 26
+  },
+  {
+    "id": "a-plus-587",
+    "number": 587,
+    "word": "obsequious",
+    "equivalents": [
+      "sycophantic"
+    ],
+    "meaning": "adj. 奉承的",
+    "list": 59,
+    "page": 26
+  },
+  {
+    "id": "a-plus-588",
+    "number": 588,
+    "word": "obsessed",
+    "equivalents": [
+      "fixated"
+    ],
+    "meaning": "adj. 着迷的",
+    "list": 59,
+    "page": 26
+  },
+  {
+    "id": "a-plus-589",
+    "number": 589,
+    "word": "obtuse",
+    "equivalents": [
+      "dull"
+    ],
+    "meaning": "adj. 迟钝的",
+    "list": 59,
+    "page": 26
+  },
+  {
+    "id": "a-plus-590",
+    "number": 590,
+    "word": "obviated",
+    "equivalents": [
+      "excluded"
+    ],
+    "meaning": "v. 排除",
+    "list": 59,
+    "page": 26
+  },
+  {
+    "id": "a-plus-591",
+    "number": 591,
+    "word": "occult",
+    "equivalents": [
+      "numinous",
+      "arcane"
+    ],
+    "meaning": "adj. 神秘的",
+    "list": 60,
+    "page": 26
+  },
+  {
+    "id": "a-plus-592",
+    "number": 592,
+    "word": "offset",
+    "equivalents": [
+      "compensate",
+      "counterbalance"
+    ],
+    "meaning": "v. 抵消",
+    "list": 60,
+    "page": 26
+  },
+  {
+    "id": "a-plus-593",
+    "number": 593,
+    "word": "onerous",
+    "equivalents": [
+      "burdensome",
+      "wearisome",
+      "discriminating"
+    ],
+    "meaning": "adj. 繁重的",
+    "list": 60,
+    "page": 26
+  },
+  {
+    "id": "a-plus-594",
+    "number": 594,
+    "word": "onetime",
+    "equivalents": [
+      "erstwhile"
+    ],
+    "meaning": "adj. 曾经的",
+    "list": 60,
+    "page": 26
+  },
+  {
+    "id": "a-plus-595",
+    "number": 595,
+    "word": "opaque",
+    "equivalents": [
+      "cloudy"
+    ],
+    "meaning": "adj. 不透明的",
+    "list": 60,
+    "page": 26
+  },
+  {
+    "id": "a-plus-596",
+    "number": 596,
+    "word": "opportune",
+    "equivalents": [
+      "timely"
+    ],
+    "meaning": "adj. 适时的",
+    "list": 60,
+    "page": 26
+  },
+  {
+    "id": "a-plus-597",
+    "number": 597,
+    "word": "opprobrium",
+    "equivalents": [
+      "disdain",
+      "vitriol",
+      "obloquy",
+      "infamy"
+    ],
+    "meaning": "n. 侮辱",
+    "list": 60,
+    "page": 26
+  },
+  {
+    "id": "a-plus-598",
+    "number": 598,
+    "word": "opulent",
+    "equivalents": [
+      "affluent"
+    ],
+    "meaning": "adj. 富裕的",
+    "list": 60,
+    "page": 26
+  },
+  {
+    "id": "a-plus-599",
+    "number": 599,
+    "word": "orderly",
+    "equivalents": [
+      "tidy",
+      "systematic"
+    ],
+    "meaning": "adj. 有序的",
+    "list": 60,
+    "page": 26
+  },
+  {
+    "id": "a-plus-600",
+    "number": 600,
+    "word": "orientation",
+    "equivalents": [
+      "position"
+    ],
+    "meaning": "n. 立场、定位",
+    "list": 60,
+    "page": 27
+  },
+  {
+    "id": "a-plus-601",
+    "number": 601,
+    "word": "outmoded",
+    "equivalents": [
+      "unfashionable",
+      "obsolete",
+      "fusty"
+    ],
+    "meaning": "adj. 过时的",
+    "list": 61,
+    "page": 27
+  },
+  {
+    "id": "a-plus-602",
+    "number": 602,
+    "word": "overshadow",
+    "equivalents": [
+      "obscure"
+    ],
+    "meaning": "v. 遮蔽",
+    "list": 61,
+    "page": 27
+  },
+  {
+    "id": "a-plus-603",
+    "number": 603,
+    "word": "overused",
+    "equivalents": [
+      "trite"
+    ],
+    "meaning": "adj. 陈腐的",
+    "list": 61,
+    "page": 27
+  },
+  {
+    "id": "a-plus-604",
+    "number": 604,
+    "word": "pacific",
+    "equivalents": [
+      "dovish"
+    ],
+    "meaning": "adj. 和平的",
+    "list": 61,
+    "page": 27
+  },
+  {
+    "id": "a-plus-605",
+    "number": 605,
+    "word": "palatable",
+    "equivalents": [
+      "appetizing"
+    ],
+    "meaning": "adj. 美味的",
+    "list": 61,
+    "page": 27
+  },
+  {
+    "id": "a-plus-606",
+    "number": 606,
+    "word": "panacea",
+    "equivalents": [
+      "remedy",
+      "cure-all"
+    ],
+    "meaning": "n. 万能药",
+    "list": 61,
+    "page": 27
+  },
+  {
+    "id": "a-plus-607",
+    "number": 607,
+    "word": "paradigm",
+    "equivalents": [
+      "model"
+    ],
+    "meaning": "n. 范例",
+    "list": 61,
+    "page": 27
+  },
+  {
+    "id": "a-plus-608",
+    "number": 608,
+    "word": "paradigmatic",
+    "equivalents": [
+      "archetypal"
+    ],
+    "meaning": "adj. 典范的",
+    "list": 61,
+    "page": 27
+  },
+  {
+    "id": "a-plus-609",
+    "number": 609,
+    "word": "paradox",
+    "equivalents": [
+      "irony"
+    ],
+    "meaning": "n. 悖论；反讽",
+    "list": 61,
+    "page": 27
+  },
+  {
+    "id": "a-plus-610",
+    "number": 610,
+    "word": "paradoxical",
+    "equivalents": [
+      "ironic"
+    ],
+    "meaning": "adj. 矛盾的",
+    "list": 61,
+    "page": 27
+  },
+  {
+    "id": "a-plus-611",
+    "number": 611,
+    "word": "paragon",
+    "equivalents": [
+      "exemplar"
+    ],
+    "meaning": "n. 模范、典范",
+    "list": 62,
+    "page": 27
+  },
+  {
+    "id": "a-plus-612",
+    "number": 612,
+    "word": "parsimonious",
+    "equivalents": [
+      "stingy",
+      "illiberal"
+    ],
+    "meaning": "adj. 吝啬的",
+    "list": 62,
+    "page": 27
+  },
+  {
+    "id": "a-plus-613",
+    "number": 613,
+    "word": "pastoral",
+    "equivalents": [
+      "bucolic"
+    ],
+    "meaning": "adj. 田园的",
+    "list": 62,
+    "page": 27
+  },
+  {
+    "id": "a-plus-614",
+    "number": 614,
+    "word": "patchwork",
+    "equivalents": [
+      "hodgepodge"
+    ],
+    "meaning": "n. 拼凑物",
+    "list": 62,
+    "page": 27
+  },
+  {
+    "id": "a-plus-615",
+    "number": 615,
+    "word": "patent",
+    "equivalents": [
+      "evident",
+      "manifest"
+    ],
+    "meaning": "adj. 明显的",
+    "list": 62,
+    "page": 27
+  },
+  {
+    "id": "a-plus-616",
+    "number": 616,
+    "word": "paucity",
+    "equivalents": [
+      "dearth"
+    ],
+    "meaning": "n. 稀缺",
+    "list": 62,
+    "page": 27
+  },
+  {
+    "id": "a-plus-617",
+    "number": 617,
+    "word": "pecuniary",
+    "equivalents": [
+      "economic"
+    ],
+    "meaning": "adj. 经济的",
+    "list": 62,
+    "page": 27
+  },
+  {
+    "id": "a-plus-618",
+    "number": 618,
+    "word": "pedantic",
+    "equivalents": [
+      "scholastic"
+    ],
+    "meaning": "adj. 学究气的、迂腐的",
+    "list": 62,
+    "page": 27
+  },
+  {
+    "id": "a-plus-619",
+    "number": 619,
+    "word": "pedigree",
+    "equivalents": [
+      "origin",
+      "provenance"
+    ],
+    "meaning": "n. 来源",
+    "list": 62,
+    "page": 27
+  },
+  {
+    "id": "a-plus-620",
+    "number": 620,
+    "word": "perceptible",
+    "equivalents": [
+      "discernible"
+    ],
+    "meaning": "adj. 可察觉的",
+    "list": 62,
+    "page": 27
+  },
+  {
+    "id": "a-plus-621",
+    "number": 621,
+    "word": "perennial",
+    "equivalents": [
+      "long-standing",
+      "constant"
+    ],
+    "meaning": "adj. 常年的、长期的",
+    "list": 63,
+    "page": 27
+  },
+  {
+    "id": "a-plus-622",
+    "number": 622,
+    "word": "perfunctory",
+    "equivalents": [
+      "cursory",
+      "casual",
+      "brief"
+    ],
+    "meaning": "adj. 敷衍的",
+    "list": 63,
+    "page": 27
+  },
+  {
+    "id": "a-plus-623",
+    "number": 623,
+    "word": "perilous",
+    "equivalents": [
+      "dangerous"
+    ],
+    "meaning": "adj. 危险的",
+    "list": 63,
+    "page": 27
+  },
+  {
+    "id": "a-plus-624",
+    "number": 624,
+    "word": "peripatetic",
+    "equivalents": [
+      "itinerant"
+    ],
+    "meaning": "adj. 巡回的",
+    "list": 63,
+    "page": 28
+  },
+  {
+    "id": "a-plus-625",
+    "number": 625,
+    "word": "permeable",
+    "equivalents": [
+      "porous"
+    ],
+    "meaning": "adj. 可渗透的",
+    "list": 63,
+    "page": 28
+  },
+  {
+    "id": "a-plus-626",
+    "number": 626,
+    "word": "permeate",
+    "equivalents": [
+      "penetrate"
+    ],
+    "meaning": "v. 渗透",
+    "list": 63,
+    "page": 28
+  },
+  {
+    "id": "a-plus-627",
+    "number": 627,
+    "word": "persevered",
+    "equivalents": [
+      "persisted"
+    ],
+    "meaning": "v. 坚持",
+    "list": 63,
+    "page": 28
+  },
+  {
+    "id": "a-plus-628",
+    "number": 628,
+    "word": "perspicacious",
+    "equivalents": [
+      "sharp",
+      "clever"
+    ],
+    "meaning": "adj. 敏锐的",
+    "list": 63,
+    "page": 28
+  },
+  {
+    "id": "a-plus-629",
+    "number": 629,
+    "word": "pertinacity",
+    "equivalents": [
+      "doggedness"
+    ],
+    "meaning": "n. 坚韧",
+    "list": 63,
+    "page": 28
+  },
+  {
+    "id": "a-plus-630",
+    "number": 630,
+    "word": "pigeonhole",
+    "equivalents": [
+      "stereotype"
+    ],
+    "meaning": "v. 刻板归类",
+    "list": 63,
+    "page": 28
+  },
+  {
+    "id": "a-plus-631",
+    "number": 631,
+    "word": "pilfer",
+    "equivalents": [
+      "appropriate"
+    ],
+    "meaning": "v. 偷窃、侵占",
+    "list": 64,
+    "page": 28
+  },
+  {
+    "id": "a-plus-632",
+    "number": 632,
+    "word": "placate",
+    "equivalents": [
+      "appease"
+    ],
+    "meaning": "v. 安抚",
+    "list": 64,
+    "page": 28
+  },
+  {
+    "id": "a-plus-633",
+    "number": 633,
+    "word": "plaintive",
+    "equivalents": [
+      "elegiac"
+    ],
+    "meaning": "adj. 悲伤的",
+    "list": 64,
+    "page": 28
+  },
+  {
+    "id": "a-plus-634",
+    "number": 634,
+    "word": "plastic",
+    "equivalents": [
+      "malleable",
+      "pliable"
+    ],
+    "meaning": "adj. 可塑的",
+    "list": 64,
+    "page": 28
+  },
+  {
+    "id": "a-plus-635",
+    "number": 635,
+    "word": "plausible",
+    "equivalents": [
+      "conceivable"
+    ],
+    "meaning": "adj. 合理的",
+    "list": 64,
+    "page": 28
+  },
+  {
+    "id": "a-plus-636",
+    "number": 636,
+    "word": "plebeian",
+    "equivalents": [
+      "humble"
+    ],
+    "meaning": "adj. 平民的",
+    "list": 64,
+    "page": 28
+  },
+  {
+    "id": "a-plus-637",
+    "number": 637,
+    "word": "plethora",
+    "equivalents": [
+      "surfeit",
+      "glut",
+      "abundance"
+    ],
+    "meaning": "n. 过剩",
+    "list": 64,
+    "page": 28
+  },
+  {
+    "id": "a-plus-638",
+    "number": 638,
+    "word": "polemic",
+    "equivalents": [
+      "disputation",
+      "controversy"
+    ],
+    "meaning": "n. 争论",
+    "list": 64,
+    "page": 28
+  },
+  {
+    "id": "a-plus-639",
+    "number": 639,
+    "word": "polymath",
+    "equivalents": [
+      "savant"
+    ],
+    "meaning": "n. 博学者",
+    "list": 64,
+    "page": 28
+  },
+  {
+    "id": "a-plus-640",
+    "number": 640,
+    "word": "ponder",
+    "equivalents": [
+      "contemplate"
+    ],
+    "meaning": "v. 深思",
+    "list": 64,
+    "page": 28
+  },
+  {
+    "id": "a-plus-641",
+    "number": 641,
+    "word": "portend",
+    "equivalents": [
+      "predict",
+      "presage"
+    ],
+    "meaning": "v. 预示",
+    "list": 65,
+    "page": 28
+  },
+  {
+    "id": "a-plus-642",
+    "number": 642,
+    "word": "pragmatic",
+    "equivalents": [
+      "realistic"
+    ],
+    "meaning": "adj. 实际的",
+    "list": 65,
+    "page": 28
+  },
+  {
+    "id": "a-plus-643",
+    "number": 643,
+    "word": "precarious",
+    "equivalents": [
+      "perilous",
+      "insecure",
+      "risky"
+    ],
+    "meaning": "adj. 不稳定的",
+    "list": 65,
+    "page": 28
+  },
+  {
+    "id": "a-plus-644",
+    "number": 644,
+    "word": "precede",
+    "equivalents": [
+      "predate",
+      "antedate"
+    ],
+    "meaning": "v. 在...之前",
+    "list": 65,
+    "page": 28
+  },
+  {
+    "id": "a-plus-645",
+    "number": 645,
+    "word": "precocious",
+    "equivalents": [
+      "forward"
+    ],
+    "meaning": "adj. 早熟的",
+    "list": 65,
+    "page": 28
+  },
+  {
+    "id": "a-plus-646",
+    "number": 646,
+    "word": "preconception",
+    "equivalents": [
+      "prejudice",
+      "hypotheses"
+    ],
+    "meaning": "n. 先入之见、预设观念",
+    "list": 65,
+    "page": 28
+  },
+  {
+    "id": "a-plus-647",
+    "number": 647,
+    "word": "predilection",
+    "equivalents": [
+      "proclivity",
+      "preference",
+      "affinity",
+      "partiality"
+    ],
+    "meaning": "n. 偏好",
+    "list": 65,
+    "page": 28
+  },
+  {
+    "id": "a-plus-648",
+    "number": 648,
+    "word": "predilection for",
+    "equivalents": [
+      "proclivity toward"
+    ],
+    "meaning": "n.对...偏好的",
+    "list": 65,
+    "page": 29
+  },
+  {
+    "id": "a-plus-649",
+    "number": 649,
+    "word": "prophylactic",
+    "equivalents": [
+      "inhibitory"
+    ],
+    "meaning": "adj. 抑制性的",
+    "list": 65,
+    "page": 29
+  },
+  {
+    "id": "a-plus-650",
+    "number": 650,
+    "word": "preoccupation",
+    "equivalents": [
+      "foregrounding"
+    ],
+    "meaning": "n. 关注、全神贯注",
+    "list": 65,
+    "page": 29
+  },
+  {
+    "id": "a-plus-651",
+    "number": 651,
+    "word": "prescient",
+    "equivalents": [
+      "prophetic",
+      "foresighted"
+    ],
+    "meaning": "adj. 预知的",
+    "list": 66,
+    "page": 29
+  },
+  {
+    "id": "a-plus-652",
+    "number": 652,
+    "word": "pressing",
+    "equivalents": [
+      "exigent",
+      "critical"
+    ],
+    "meaning": "adj. 紧迫的",
+    "list": 66,
+    "page": 29
+  },
+  {
+    "id": "a-plus-653",
+    "number": 653,
+    "word": "preternatural",
+    "equivalents": [
+      "prodigious"
+    ],
+    "meaning": "adj. 超自然的 / 异常惊人的",
+    "list": 66,
+    "page": 29
+  },
+  {
+    "id": "a-plus-654",
+    "number": 654,
+    "word": "prevalent",
+    "equivalents": [
+      "common",
+      "widespread"
+    ],
+    "meaning": "adj. 普遍的、流行的",
+    "list": 66,
+    "page": 29
+  },
+  {
+    "id": "a-plus-655",
+    "number": 655,
+    "word": "primitive",
+    "equivalents": [
+      "rudimentary",
+      "ancient"
+    ],
+    "meaning": "adj. 原始的、古老的",
+    "list": 66,
+    "page": 29
+  },
+  {
+    "id": "a-plus-656",
+    "number": 656,
+    "word": "pristine",
+    "equivalents": [
+      "unblemished",
+      "untouched"
+    ],
+    "meaning": "adj. 崭新的 / 未受污染的 / 纯洁原生态的",
+    "list": 66,
+    "page": 29
+  },
+  {
+    "id": "a-plus-657",
+    "number": 657,
+    "word": "proclaim",
+    "equivalents": [
+      "profess"
+    ],
+    "meaning": "v. 宣布、宣告",
+    "list": 66,
+    "page": 29
+  },
+  {
+    "id": "a-plus-658",
+    "number": 658,
+    "word": "prodigious",
+    "equivalents": [
+      "huge",
+      "enormous",
+      "immense",
+      "voracious"
+    ],
+    "meaning": "adj. 巨大的",
+    "list": 66,
+    "page": 29
+  },
+  {
+    "id": "a-plus-659",
+    "number": 659,
+    "word": "proficient",
+    "equivalents": [
+      "adept"
+    ],
+    "meaning": "adj. 熟练的",
+    "list": 66,
+    "page": 29
+  },
+  {
+    "id": "a-plus-660",
+    "number": 660,
+    "word": "profligate",
+    "equivalents": [
+      "extravagant",
+      "prodigal"
+    ],
+    "meaning": "adj. 挥霍的、奢侈的",
+    "list": 66,
+    "page": 29
+  },
+  {
+    "id": "a-plus-661",
+    "number": 661,
+    "word": "profound",
+    "equivalents": [
+      "insightful",
+      "weighty"
+    ],
+    "meaning": "adj. 深刻的",
+    "list": 67,
+    "page": 29
+  },
+  {
+    "id": "a-plus-662",
+    "number": 662,
+    "word": "profusion",
+    "equivalents": [
+      "wealth"
+    ],
+    "meaning": "n. 丰富",
+    "list": 67,
+    "page": 29
+  },
+  {
+    "id": "a-plus-663",
+    "number": 663,
+    "word": "projection",
+    "equivalents": [
+      "extrapolation"
+    ],
+    "meaning": "n.推测/ 推断",
+    "list": 67,
+    "page": 29
+  },
+  {
+    "id": "a-plus-664",
+    "number": 664,
+    "word": "proliferate",
+    "equivalents": [
+      "abound"
+    ],
+    "meaning": "v. 激增",
+    "list": 67,
+    "page": 29
+  },
+  {
+    "id": "a-plus-665",
+    "number": 665,
+    "word": "prolix",
+    "equivalents": [
+      "verbose"
+    ],
+    "meaning": "adj. 冗长的",
+    "list": 67,
+    "page": 29
+  },
+  {
+    "id": "a-plus-666",
+    "number": 666,
+    "word": "prominent",
+    "equivalents": [
+      "conspicuous",
+      "salient"
+    ],
+    "meaning": "adj. 突出的",
+    "list": 67,
+    "page": 29
+  },
+  {
+    "id": "a-plus-667",
+    "number": 667,
+    "word": "promoter",
+    "equivalents": [
+      "advocate",
+      "champion"
+    ],
+    "meaning": "n. 倡导者、支持者、拥护者",
+    "list": 67,
+    "page": 29
+  },
+  {
+    "id": "a-plus-668",
+    "number": 668,
+    "word": "propagate",
+    "equivalents": [
+      "spread"
+    ],
+    "meaning": "v. 传播",
+    "list": 67,
+    "page": 29
+  },
+  {
+    "id": "a-plus-669",
+    "number": 669,
+    "word": "propriety",
+    "equivalents": [
+      "sufficiency"
+    ],
+    "meaning": "n. 适当(得体) / 充足(够用)",
+    "list": 67,
+    "page": 29
+  },
+  {
+    "id": "a-plus-670",
+    "number": 670,
+    "word": "protean",
+    "equivalents": [
+      "versatile"
+    ],
+    "meaning": "adj. 多变的",
+    "list": 67,
+    "page": 29
+  },
+  {
+    "id": "a-plus-671",
+    "number": 671,
+    "word": "provenance",
+    "equivalents": [
+      "origin",
+      "pedigree"
+    ],
+    "meaning": "n. 来源",
+    "list": 68,
+    "page": 29
+  },
+  {
+    "id": "a-plus-672",
+    "number": 672,
+    "word": "provisional",
+    "equivalents": [
+      "tentative"
+    ],
+    "meaning": "adj. 临时的、暂定的",
+    "list": 68,
+    "page": 30
+  },
+  {
+    "id": "a-plus-673",
+    "number": 673,
+    "word": "prudent",
+    "equivalents": [
+      "circumspect",
+      "provident"
+    ],
+    "meaning": "adj. 谨慎的",
+    "list": 68,
+    "page": 30
+  },
+  {
+    "id": "a-plus-674",
+    "number": 674,
+    "word": "pugnacious",
+    "equivalents": [
+      "truculent",
+      "belligerent"
+    ],
+    "meaning": "adj. 好斗的",
+    "list": 68,
+    "page": 30
+  },
+  {
+    "id": "a-plus-675",
+    "number": 675,
+    "word": "punctuated",
+    "equivalents": [
+      "intermittent"
+    ],
+    "meaning": "v. 不时打断",
+    "list": 68,
+    "page": 30
+  },
+  {
+    "id": "a-plus-676",
+    "number": 676,
+    "word": "purveyors",
+    "equivalents": [
+      "suppliers"
+    ],
+    "meaning": "n. 供应商",
+    "list": 68,
+    "page": 30
+  },
+  {
+    "id": "a-plus-677",
+    "number": 677,
+    "word": "put to rest",
+    "equivalents": [
+      "lay to rest"
+    ],
+    "meaning": "v. 平息 / 终结 / 消除 （疑虑等）",
+    "list": 68,
+    "page": 30
+  },
+  {
+    "id": "a-plus-678",
+    "number": 678,
+    "word": "quaff",
+    "equivalents": [
+      "imbibe"
+    ],
+    "meaning": "v. 饮用",
+    "list": 68,
+    "page": 30
+  },
+  {
+    "id": "a-plus-679",
+    "number": 679,
+    "word": "qualification",
+    "equivalents": [
+      "nuancing"
+    ],
+    "meaning": "n. 资格",
+    "list": 68,
+    "page": 30
+  },
+  {
+    "id": "a-plus-680",
+    "number": 680,
+    "word": "quiescent",
+    "equivalents": [
+      "abeyant",
+      "calm",
+      "invariant"
+    ],
+    "meaning": "adj. 静止的",
+    "list": 68,
+    "page": 30
+  },
+  {
+    "id": "a-plus-681",
+    "number": 681,
+    "word": "quirky",
+    "equivalents": [
+      "unconventional"
+    ],
+    "meaning": "adj. 古怪的",
+    "list": 69,
+    "page": 30
+  },
+  {
+    "id": "a-plus-682",
+    "number": 682,
+    "word": "quotidian",
+    "equivalents": [
+      "workaday"
+    ],
+    "meaning": "adj. 日常的",
+    "list": 69,
+    "page": 30
+  },
+  {
+    "id": "a-plus-683",
+    "number": 683,
+    "word": "raillery",
+    "equivalents": [
+      "banter"
+    ],
+    "meaning": "n. 轻松的玩笑",
+    "list": 69,
+    "page": 30
+  },
+  {
+    "id": "a-plus-684",
+    "number": 684,
+    "word": "rampant",
+    "equivalents": [
+      "epidemic"
+    ],
+    "meaning": "adj. 猖獗的",
+    "list": 69,
+    "page": 30
+  },
+  {
+    "id": "a-plus-685",
+    "number": 685,
+    "word": "rant",
+    "equivalents": [
+      "diatribe"
+    ],
+    "meaning": "n. 长篇大论",
+    "list": 69,
+    "page": 30
+  },
+  {
+    "id": "a-plus-686",
+    "number": 686,
+    "word": "rapprochement",
+    "equivalents": [
+      "reconciliation"
+    ],
+    "meaning": "n. 和解",
+    "list": 69,
+    "page": 30
+  },
+  {
+    "id": "a-plus-687",
+    "number": 687,
+    "word": "rapturous",
+    "equivalents": [
+      "ecstatic"
+    ],
+    "meaning": "adj. 狂喜的",
+    "list": 69,
+    "page": 30
+  },
+  {
+    "id": "a-plus-688",
+    "number": 688,
+    "word": "rebellious",
+    "equivalents": [
+      "contrarian"
+    ],
+    "meaning": "adj.不遵从主流的",
+    "list": 69,
+    "page": 30
+  },
+  {
+    "id": "a-plus-689",
+    "number": 689,
+    "word": "rebuffed",
+    "equivalents": [
+      "spurned"
+    ],
+    "meaning": "v. 拒绝",
+    "list": 69,
+    "page": 30
+  },
+  {
+    "id": "a-plus-690",
+    "number": 690,
+    "word": "rebuke",
+    "equivalents": [
+      "scold",
+      "reproach",
+      "mockery"
+    ],
+    "meaning": "n. 责备",
+    "list": 69,
+    "page": 30
+  },
+  {
+    "id": "a-plus-691",
+    "number": 691,
+    "word": "recalcitrant",
+    "equivalents": [
+      "intractable"
+    ],
+    "meaning": "adj. 顽固的",
+    "list": 70,
+    "page": 30
+  },
+  {
+    "id": "a-plus-692",
+    "number": 692,
+    "word": "recant",
+    "equivalents": [
+      "repudiate"
+    ],
+    "meaning": "v. 撤回（立场、发言等）",
+    "list": 70,
+    "page": 30
+  },
+  {
+    "id": "a-plus-693",
+    "number": 693,
+    "word": "recognizable",
+    "equivalents": [
+      "familiar"
+    ],
+    "meaning": "adj. 熟悉的",
+    "list": 70,
+    "page": 30
+  },
+  {
+    "id": "a-plus-694",
+    "number": 694,
+    "word": "recoil",
+    "equivalents": [
+      "shrink"
+    ],
+    "meaning": "v. 退缩",
+    "list": 70,
+    "page": 30
+  },
+  {
+    "id": "a-plus-695",
+    "number": 695,
+    "word": "recrudescent",
+    "equivalents": [
+      "resurgent"
+    ],
+    "meaning": "adj. 复发的",
+    "list": 70,
+    "page": 30
+  },
+  {
+    "id": "a-plus-696",
+    "number": 696,
+    "word": "redressing",
+    "equivalents": [
+      "correcting"
+    ],
+    "meaning": "v. 纠正",
+    "list": 70,
+    "page": 31
+  },
+  {
+    "id": "a-plus-697",
+    "number": 697,
+    "word": "redundant",
+    "equivalents": [
+      "unnecessary"
+    ],
+    "meaning": "adj.多余的 / 累赘的 / 不必要的",
+    "list": 70,
+    "page": 31
+  },
+  {
+    "id": "a-plus-698",
+    "number": 698,
+    "word": "reflexive",
+    "equivalents": [
+      "automatic"
+    ],
+    "meaning": "adj. 本能反应的 / 自动的 / 条件反射式的",
+    "list": 70,
+    "page": 31
+  },
+  {
+    "id": "a-plus-699",
+    "number": 699,
+    "word": "refreshing",
+    "equivalents": [
+      "invigorating"
+    ],
+    "meaning": "adj. 耳目一新的 / 令人振奋的 / 恢复精力的",
+    "list": 70,
+    "page": 31
+  },
+  {
+    "id": "a-plus-700",
+    "number": 700,
+    "word": "regular",
+    "equivalents": [
+      "steady",
+      "consistent"
+    ],
+    "meaning": "adj. 有规律的 / 稳定的 / 始终如一的",
+    "list": 70,
+    "page": 31
+  },
+  {
+    "id": "a-plus-701",
+    "number": 701,
+    "word": "rehabilitate",
+    "equivalents": [
+      "restore"
+    ],
+    "meaning": "v. 恢复",
+    "list": 71,
+    "page": 31
+  },
+  {
+    "id": "a-plus-702",
+    "number": 702,
+    "word": "rehash",
+    "equivalents": [
+      "recycle"
+    ],
+    "meaning": "v. 炒冷饭 / 重新使用（缺乏新意）",
+    "list": 71,
+    "page": 31
+  },
+  {
+    "id": "a-plus-703",
+    "number": 703,
+    "word": "reinforce",
+    "equivalents": [
+      "buttress",
+      "complement"
+    ],
+    "meaning": "v. 加强",
+    "list": 71,
+    "page": 31
+  },
+  {
+    "id": "a-plus-704",
+    "number": 704,
+    "word": "rejection",
+    "equivalents": [
+      "refusal",
+      "disdain"
+    ],
+    "meaning": "n. 拒绝",
+    "list": 71,
+    "page": 31
+  },
+  {
+    "id": "a-plus-705",
+    "number": 705,
+    "word": "relic",
+    "equivalents": [
+      "vestige"
+    ],
+    "meaning": "n. 遗迹 / 残余 / 历史遗留物",
+    "list": 71,
+    "page": 31
+  },
+  {
+    "id": "a-plus-706",
+    "number": 706,
+    "word": "relinquish",
+    "equivalents": [
+      "cede"
+    ],
+    "meaning": "v. 放弃、交出、让步",
+    "list": 71,
+    "page": 31
+  },
+  {
+    "id": "a-plus-707",
+    "number": 707,
+    "word": "relish",
+    "equivalents": [
+      "delight in"
+    ],
+    "meaning": "v. 享受",
+    "list": 71,
+    "page": 31
+  },
+  {
+    "id": "a-plus-708",
+    "number": 708,
+    "word": "remedy",
+    "equivalents": [
+      "panacea"
+    ],
+    "meaning": "n. 治疗方法 / 救济方案",
+    "list": 71,
+    "page": 31
+  },
+  {
+    "id": "a-plus-709",
+    "number": 709,
+    "word": "remiss",
+    "equivalents": [
+      "dilatory"
+    ],
+    "meaning": "adj. 疏忽的",
+    "list": 71,
+    "page": 31
+  },
+  {
+    "id": "a-plus-710",
+    "number": 710,
+    "word": "remunerative",
+    "equivalents": [
+      "lucrative"
+    ],
+    "meaning": "adj. 有利可图的",
+    "list": 71,
+    "page": 31
+  },
+  {
+    "id": "a-plus-711",
+    "number": 711,
+    "word": "renaissance",
+    "equivalents": [
+      "revival"
+    ],
+    "meaning": "n. 复兴",
+    "list": 72,
+    "page": 31
+  },
+  {
+    "id": "a-plus-712",
+    "number": 712,
+    "word": "renegade",
+    "equivalents": [
+      "apostate"
+    ],
+    "meaning": "n. 叛徒",
+    "list": 72,
+    "page": 31
+  },
+  {
+    "id": "a-plus-713",
+    "number": 713,
+    "word": "repellent",
+    "equivalents": [
+      "off-putting",
+      "anathema"
+    ],
+    "meaning": "adj. 令人厌恶的",
+    "list": 72,
+    "page": 31
+  },
+  {
+    "id": "a-plus-714",
+    "number": 714,
+    "word": "replaced by",
+    "equivalents": [
+      "substituted for"
+    ],
+    "meaning": "v. 替代",
+    "list": 72,
+    "page": 31
+  },
+  {
+    "id": "a-plus-715",
+    "number": 715,
+    "word": "reprehend",
+    "equivalents": [
+      "decry"
+    ],
+    "meaning": "n. 责备",
+    "list": 72,
+    "page": 31
+  },
+  {
+    "id": "a-plus-716",
+    "number": 716,
+    "word": "reprehensible",
+    "equivalents": [
+      "deplorable",
+      "ignoble"
+    ],
+    "meaning": "adj. 应受谴责的",
+    "list": 72,
+    "page": 31
+  },
+  {
+    "id": "a-plus-717",
+    "number": 717,
+    "word": "reproduce",
+    "equivalents": [
+      "breed"
+    ],
+    "meaning": "v. 繁殖",
+    "list": 72,
+    "page": 31
+  },
+  {
+    "id": "a-plus-718",
+    "number": 718,
+    "word": "repudiate",
+    "equivalents": [
+      "recant",
+      "abjure"
+    ],
+    "meaning": "v. 否认",
+    "list": 72,
+    "page": 31
+  },
+  {
+    "id": "a-plus-719",
+    "number": 719,
+    "word": "requisite",
+    "equivalents": [
+      "essential"
+    ],
+    "meaning": "adj. 必要的",
+    "list": 72,
+    "page": 31
+  },
+  {
+    "id": "a-plus-720",
+    "number": 720,
+    "word": "resemblance",
+    "equivalents": [
+      "similarity"
+    ],
+    "meaning": "n. 相似性",
+    "list": 72,
+    "page": 32
+  },
+  {
+    "id": "a-plus-721",
+    "number": 721,
+    "word": "resented",
+    "equivalents": [
+      "begrudged"
+    ],
+    "meaning": "v. 怨恨",
+    "list": 73,
+    "page": 32
+  },
+  {
+    "id": "a-plus-722",
+    "number": 722,
+    "word": "resolve",
+    "equivalents": [
+      "tenacity",
+      "determination"
+    ],
+    "meaning": "n. 决心",
+    "list": 73,
+    "page": 32
+  },
+  {
+    "id": "a-plus-723",
+    "number": 723,
+    "word": "resonate",
+    "equivalents": [
+      "ring true"
+    ],
+    "meaning": "v. 产生共鸣",
+    "list": 73,
+    "page": 32
+  },
+  {
+    "id": "a-plus-724",
+    "number": 724,
+    "word": "respite",
+    "equivalents": [
+      "lull",
+      "relief",
+      "break"
+    ],
+    "meaning": "n. 休息/ 缓解",
+    "list": 73,
+    "page": 32
+  },
+  {
+    "id": "a-plus-725",
+    "number": 725,
+    "word": "restive",
+    "equivalents": [
+      "fractious"
+    ],
+    "meaning": "adj. 不安的",
+    "list": 73,
+    "page": 32
+  },
+  {
+    "id": "a-plus-726",
+    "number": 726,
+    "word": "restorative",
+    "equivalents": [
+      "tonic"
+    ],
+    "meaning": "adj. 恢复的",
+    "list": 73,
+    "page": 32
+  },
+  {
+    "id": "a-plus-727",
+    "number": 727,
+    "word": "restraint",
+    "equivalents": [
+      "self-control"
+    ],
+    "meaning": "n. 克制",
+    "list": 73,
+    "page": 32
+  },
+  {
+    "id": "a-plus-728",
+    "number": 728,
+    "word": "reverence",
+    "equivalents": [
+      "veneration"
+    ],
+    "meaning": "n. 尊敬",
+    "list": 73,
+    "page": 32
+  },
+  {
+    "id": "a-plus-729",
+    "number": 729,
+    "word": "riddle",
+    "equivalents": [
+      "conundrum",
+      "enigma"
+    ],
+    "meaning": "n. 谜语、谜团",
+    "list": 73,
+    "page": 32
+  },
+  {
+    "id": "a-plus-730",
+    "number": 730,
+    "word": "robust",
+    "equivalents": [
+      "strong",
+      "reliable",
+      "healthy"
+    ],
+    "meaning": "adj. 强健的",
+    "list": 73,
+    "page": 32
+  },
+  {
+    "id": "a-plus-731",
+    "number": 731,
+    "word": "routine",
+    "equivalents": [
+      "grind"
+    ],
+    "meaning": "n. 日常重复做的事",
+    "list": 74,
+    "page": 32
+  },
+  {
+    "id": "a-plus-732",
+    "number": 732,
+    "word": "rule out",
+    "equivalents": [
+      "preclude"
+    ],
+    "meaning": "v. 排除",
+    "list": 74,
+    "page": 32
+  },
+  {
+    "id": "a-plus-733",
+    "number": 733,
+    "word": "sacrosanct",
+    "equivalents": [
+      "inviolable"
+    ],
+    "meaning": "adj. 神圣不可侵犯的",
+    "list": 74,
+    "page": 32
+  },
+  {
+    "id": "a-plus-734",
+    "number": 734,
+    "word": "safeguard",
+    "equivalents": [
+      "preserve"
+    ],
+    "meaning": "v. 保护",
+    "list": 74,
+    "page": 32
+  },
+  {
+    "id": "a-plus-735",
+    "number": 735,
+    "word": "salience",
+    "equivalents": [
+      "prominence"
+    ],
+    "meaning": "n. 重要性高",
+    "list": 74,
+    "page": 32
+  },
+  {
+    "id": "a-plus-736",
+    "number": 736,
+    "word": "sanction",
+    "equivalents": [
+      "endorse",
+      "countenance"
+    ],
+    "meaning": "v. 批准、允许",
+    "list": 74,
+    "page": 32
+  },
+  {
+    "id": "a-plus-737",
+    "number": 737,
+    "word": "sanguine",
+    "equivalents": [
+      "optimistic"
+    ],
+    "meaning": "adj. 乐观的",
+    "list": 74,
+    "page": 32
+  },
+  {
+    "id": "a-plus-738",
+    "number": 738,
+    "word": "scandalous",
+    "equivalents": [
+      "unseemly"
+    ],
+    "meaning": "adj. 可耻的",
+    "list": 74,
+    "page": 32
+  },
+  {
+    "id": "a-plus-739",
+    "number": 739,
+    "word": "scant",
+    "equivalents": [
+      "limited",
+      "little"
+    ],
+    "meaning": "adj. 稀少的",
+    "list": 74,
+    "page": 32
+  },
+  {
+    "id": "a-plus-740",
+    "number": 740,
+    "word": "scarce",
+    "equivalents": [
+      "deficient",
+      "inadequate"
+    ],
+    "meaning": "adj. 缺乏的",
+    "list": 74,
+    "page": 32
+  },
+  {
+    "id": "a-plus-741",
+    "number": 741,
+    "word": "scary",
+    "equivalents": [
+      "intimidating"
+    ],
+    "meaning": "adj. 吓人的",
+    "list": 75,
+    "page": 32
+  },
+  {
+    "id": "a-plus-742",
+    "number": 742,
+    "word": "schism",
+    "equivalents": [
+      "factiousness"
+    ],
+    "meaning": "n. 分裂",
+    "list": 75,
+    "page": 32
+  },
+  {
+    "id": "a-plus-743",
+    "number": 743,
+    "word": "scorn",
+    "equivalents": [
+      "deride"
+    ],
+    "meaning": "v. 嘲笑",
+    "list": 75,
+    "page": 32
+  },
+  {
+    "id": "a-plus-744",
+    "number": 744,
+    "word": "secure",
+    "equivalents": [
+      "earn"
+    ],
+    "meaning": "v. 确保",
+    "list": 75,
+    "page": 33
+  },
+  {
+    "id": "a-plus-745",
+    "number": 745,
+    "word": "seed",
+    "equivalents": [
+      "germ"
+    ],
+    "meaning": "n. 种子",
+    "list": 75,
+    "page": 33
+  },
+  {
+    "id": "a-plus-746",
+    "number": 746,
+    "word": "senescence",
+    "equivalents": [
+      "decrepitude"
+    ],
+    "meaning": "n. 衰老",
+    "list": 75,
+    "page": 33
+  },
+  {
+    "id": "a-plus-747",
+    "number": 747,
+    "word": "sensible",
+    "equivalents": [
+      "judicious"
+    ],
+    "meaning": "adj.合理的",
+    "list": 75,
+    "page": 33
+  },
+  {
+    "id": "a-plus-748",
+    "number": 748,
+    "word": "sensibly",
+    "equivalents": [
+      "soberly",
+      "levelheadedly"
+    ],
+    "meaning": "adv.理智地/ 清醒地/ 镇定地",
+    "list": 75,
+    "page": 33
+  },
+  {
+    "id": "a-plus-749",
+    "number": 749,
+    "word": "sensitive to",
+    "equivalents": [
+      "reactive to"
+    ],
+    "meaning": "对...敏感/ 对...有反应",
+    "list": 75,
+    "page": 33
+  },
+  {
+    "id": "a-plus-750",
+    "number": 750,
+    "word": "sequential",
+    "equivalents": [
+      "successive"
+    ],
+    "meaning": "adj. 连续的",
+    "list": 75,
+    "page": 33
+  },
+  {
+    "id": "a-plus-751",
+    "number": 751,
+    "word": "shackle",
+    "equivalents": [
+      "stifle"
+    ],
+    "meaning": "v. 束缚",
+    "list": 76,
+    "page": 33
+  },
+  {
+    "id": "a-plus-752",
+    "number": 752,
+    "word": "sham",
+    "equivalents": [
+      "travesty"
+    ],
+    "meaning": "n. 虚假、拙劣的模仿",
+    "list": 76,
+    "page": 33
+  },
+  {
+    "id": "a-plus-753",
+    "number": 753,
+    "word": "shortcoming",
+    "equivalents": [
+      "fault"
+    ],
+    "meaning": "n. 缺点",
+    "list": 76,
+    "page": 33
+  },
+  {
+    "id": "a-plus-754",
+    "number": 754,
+    "word": "showy",
+    "equivalents": [
+      "meretricious"
+    ],
+    "meaning": "adj. 艳俗的、华而不实的",
+    "list": 76,
+    "page": 33
+  },
+  {
+    "id": "a-plus-755",
+    "number": 755,
+    "word": "shriek",
+    "equivalents": [
+      "caterwaul"
+    ],
+    "meaning": "v. 尖叫",
+    "list": 76,
+    "page": 33
+  },
+  {
+    "id": "a-plus-756",
+    "number": 756,
+    "word": "shrill",
+    "equivalents": [
+      "strident"
+    ],
+    "meaning": "adj.尖锐刺耳的",
+    "list": 76,
+    "page": 33
+  },
+  {
+    "id": "a-plus-757",
+    "number": 757,
+    "word": "signify",
+    "equivalents": [
+      "betoken"
+    ],
+    "meaning": "v. 表示、预示",
+    "list": 76,
+    "page": 33
+  },
+  {
+    "id": "a-plus-758",
+    "number": 758,
+    "word": "simpleminded",
+    "equivalents": [
+      "unsophisticated"
+    ],
+    "meaning": "adj. 幼稚的",
+    "list": 76,
+    "page": 33
+  },
+  {
+    "id": "a-plus-759",
+    "number": 759,
+    "word": "simplicity",
+    "equivalents": [
+      "artlessness",
+      "intelligibility"
+    ],
+    "meaning": "n. 简单、纯真、明了",
+    "list": 76,
+    "page": 33
+  },
+  {
+    "id": "a-plus-760",
+    "number": 760,
+    "word": "singular",
+    "equivalents": [
+      "unique"
+    ],
+    "meaning": "adj. 独特的",
+    "list": 76,
+    "page": 33
+  },
+  {
+    "id": "a-plus-761",
+    "number": 761,
+    "word": "singularity",
+    "equivalents": [
+      "uniqueness"
+    ],
+    "meaning": "n.独特性",
+    "list": 77,
+    "page": 33
+  },
+  {
+    "id": "a-plus-762",
+    "number": 762,
+    "word": "skeptical",
+    "equivalents": [
+      "doubtful"
+    ],
+    "meaning": "adj. 怀疑的",
+    "list": 77,
+    "page": 33
+  },
+  {
+    "id": "a-plus-763",
+    "number": 763,
+    "word": "skepticism",
+    "equivalents": [
+      "doubt"
+    ],
+    "meaning": "n. 怀疑",
+    "list": 77,
+    "page": 33
+  },
+  {
+    "id": "a-plus-764",
+    "number": 764,
+    "word": "sketchy",
+    "equivalents": [
+      "rudimentary",
+      "superficial"
+    ],
+    "meaning": "adj. 粗略的、肤浅的",
+    "list": 77,
+    "page": 33
+  },
+  {
+    "id": "a-plus-765",
+    "number": 765,
+    "word": "skittish",
+    "equivalents": [
+      "restive",
+      "fractious"
+    ],
+    "meaning": "adj. 不安的",
+    "list": 77,
+    "page": 33
+  },
+  {
+    "id": "a-plus-766",
+    "number": 766,
+    "word": "slanted",
+    "equivalents": [
+      "tendentious",
+      "prejudicial"
+    ],
+    "meaning": "adj. 片面的",
+    "list": 77,
+    "page": 33
+  },
+  {
+    "id": "a-plus-767",
+    "number": 767,
+    "word": "sleazy",
+    "equivalents": [
+      "sordid"
+    ],
+    "meaning": "adj. 肮脏的",
+    "list": 77,
+    "page": 33
+  },
+  {
+    "id": "a-plus-768",
+    "number": 768,
+    "word": "slight",
+    "equivalents": [
+      "disparage",
+      "discount"
+    ],
+    "meaning": "v. 贬低",
+    "list": 77,
+    "page": 34
+  },
+  {
+    "id": "a-plus-769",
+    "number": 769,
+    "word": "slippery",
+    "equivalents": [
+      "elusive"
+    ],
+    "meaning": "adj. 滑的",
+    "list": 77,
+    "page": 34
+  },
+  {
+    "id": "a-plus-770",
+    "number": 770,
+    "word": "sloth",
+    "equivalents": [
+      "indolence"
+    ],
+    "meaning": "n. 懒惰",
+    "list": 77,
+    "page": 34
+  },
+  {
+    "id": "a-plus-771",
+    "number": 771,
+    "word": "slumberous",
+    "equivalents": [
+      "lethargic"
+    ],
+    "meaning": "adj. 昏昏欲睡的",
+    "list": 78,
+    "page": 34
+  },
+  {
+    "id": "a-plus-772",
+    "number": 772,
+    "word": "slur",
+    "equivalents": [
+      "aspersion"
+    ],
+    "meaning": "n. 诽谤",
+    "list": 78,
+    "page": 34
+  },
+  {
+    "id": "a-plus-773",
+    "number": 773,
+    "word": "snub",
+    "equivalents": [
+      "slight"
+    ],
+    "meaning": "v. 轻视",
+    "list": 78,
+    "page": 34
+  },
+  {
+    "id": "a-plus-774",
+    "number": 774,
+    "word": "sobering",
+    "equivalents": [
+      "serious"
+    ],
+    "meaning": "adj. 令人警醒的",
+    "list": 78,
+    "page": 34
+  },
+  {
+    "id": "a-plus-775",
+    "number": 775,
+    "word": "sociable",
+    "equivalents": [
+      "gregarious"
+    ],
+    "meaning": "adj. 爱交际的、群居的",
+    "list": 78,
+    "page": 34
+  },
+  {
+    "id": "a-plus-776",
+    "number": 776,
+    "word": "sole",
+    "equivalents": [
+      "exclusive"
+    ],
+    "meaning": "adj. 唯一的",
+    "list": 78,
+    "page": 34
+  },
+  {
+    "id": "a-plus-777",
+    "number": 777,
+    "word": "solemn",
+    "equivalents": [
+      "somber"
+    ],
+    "meaning": "adj. 严肃的",
+    "list": 78,
+    "page": 34
+  },
+  {
+    "id": "a-plus-778",
+    "number": 778,
+    "word": "solidarity",
+    "equivalents": [
+      "camaraderie"
+    ],
+    "meaning": "n. 团结",
+    "list": 78,
+    "page": 34
+  },
+  {
+    "id": "a-plus-779",
+    "number": 779,
+    "word": "somnolence",
+    "equivalents": [
+      "lethargy"
+    ],
+    "meaning": "n. 困倦",
+    "list": 78,
+    "page": 34
+  },
+  {
+    "id": "a-plus-780",
+    "number": 780,
+    "word": "somnolent",
+    "equivalents": [
+      "lethargic"
+    ],
+    "meaning": "adj. 催眠的",
+    "list": 78,
+    "page": 34
+  },
+  {
+    "id": "a-plus-781",
+    "number": 781,
+    "word": "soothe",
+    "equivalents": [
+      "calm",
+      "comfort"
+    ],
+    "meaning": "v. 安抚",
+    "list": 79,
+    "page": 34
+  },
+  {
+    "id": "a-plus-782",
+    "number": 782,
+    "word": "soundness",
+    "equivalents": [
+      "substantiality"
+    ],
+    "meaning": "n. 可靠性",
+    "list": 79,
+    "page": 34
+  },
+  {
+    "id": "a-plus-783",
+    "number": 783,
+    "word": "spartan",
+    "equivalents": [
+      "austere"
+    ],
+    "meaning": "adj. 朴素的",
+    "list": 79,
+    "page": 34
+  },
+  {
+    "id": "a-plus-784",
+    "number": 784,
+    "word": "spectacular",
+    "equivalents": [
+      "dramatic"
+    ],
+    "meaning": "adj. 壮观的",
+    "list": 79,
+    "page": 34
+  },
+  {
+    "id": "a-plus-785",
+    "number": 785,
+    "word": "speculation",
+    "equivalents": [
+      "conjecture"
+    ],
+    "meaning": "n. 推测",
+    "list": 79,
+    "page": 34
+  },
+  {
+    "id": "a-plus-786",
+    "number": 786,
+    "word": "speculative",
+    "equivalents": [
+      "conjectural",
+      "unsubstantiated"
+    ],
+    "meaning": "adj. 推测的",
+    "list": 79,
+    "page": 34
+  },
+  {
+    "id": "a-plus-787",
+    "number": 787,
+    "word": "splendor",
+    "equivalents": [
+      "brilliance",
+      "sumptuousness"
+    ],
+    "meaning": "n. 光辉",
+    "list": 79,
+    "page": 34
+  },
+  {
+    "id": "a-plus-788",
+    "number": 788,
+    "word": "spontaneous",
+    "equivalents": [
+      "intuitive"
+    ],
+    "meaning": "adj. 自发的",
+    "list": 79,
+    "page": 34
+  },
+  {
+    "id": "a-plus-789",
+    "number": 789,
+    "word": "sporadic",
+    "equivalents": [
+      "occasional",
+      "fitful"
+    ],
+    "meaning": "adj. 偶发的",
+    "list": 79,
+    "page": 34
+  },
+  {
+    "id": "a-plus-790",
+    "number": 790,
+    "word": "spur",
+    "equivalents": [
+      "foster"
+    ],
+    "meaning": "v. 促进",
+    "list": 79,
+    "page": 34
+  },
+  {
+    "id": "a-plus-791",
+    "number": 791,
+    "word": "spurn",
+    "equivalents": [
+      "flout",
+      "rebuff"
+    ],
+    "meaning": "v. 蔑视",
+    "list": 80,
+    "page": 34
+  },
+  {
+    "id": "a-plus-792",
+    "number": 792,
+    "word": "spurred",
+    "equivalents": [
+      "stimulated"
+    ],
+    "meaning": "v. 激励",
+    "list": 80,
+    "page": 35
+  },
+  {
+    "id": "a-plus-793",
+    "number": 793,
+    "word": "square with",
+    "equivalents": [
+      "conform to"
+    ],
+    "meaning": "v. 符合",
+    "list": 80,
+    "page": 35
+  },
+  {
+    "id": "a-plus-794",
+    "number": 794,
+    "word": "stability",
+    "equivalents": [
+      "order"
+    ],
+    "meaning": "n. 稳定性",
+    "list": 80,
+    "page": 35
+  },
+  {
+    "id": "a-plus-795",
+    "number": 795,
+    "word": "staid",
+    "equivalents": [
+      "sober"
+    ],
+    "meaning": "adj. 端庄的",
+    "list": 80,
+    "page": 35
+  },
+  {
+    "id": "a-plus-796",
+    "number": 796,
+    "word": "stationary",
+    "equivalents": [
+      "static"
+    ],
+    "meaning": "adj. 静止的",
+    "list": 80,
+    "page": 35
+  },
+  {
+    "id": "a-plus-797",
+    "number": 797,
+    "word": "steadfast",
+    "equivalents": [
+      "staunch"
+    ],
+    "meaning": "adj. 坚定的",
+    "list": 80,
+    "page": 35
+  },
+  {
+    "id": "a-plus-798",
+    "number": 798,
+    "word": "stem",
+    "equivalents": [
+      "check"
+    ],
+    "meaning": "v. 阻止",
+    "list": 80,
+    "page": 35
+  },
+  {
+    "id": "a-plus-799",
+    "number": 799,
+    "word": "stilted",
+    "equivalents": [
+      "wooden"
+    ],
+    "meaning": "adj. 呆板的",
+    "list": 80,
+    "page": 35
+  },
+  {
+    "id": "a-plus-800",
+    "number": 800,
+    "word": "stingy",
+    "equivalents": [
+      "parsimonious"
+    ],
+    "meaning": "adj. 吝啬的",
+    "list": 80,
+    "page": 35
+  }
+]

@@ -6,3 +6,9 @@ dist/
 *.tsbuildinfo
 /public/dictionary-v1/*.json
 /public/dictionary-v1/README.md
+
+/dictionary-data/*.json
+
+/dictionary-data/*.json
+
+/dictionary-data/*.json

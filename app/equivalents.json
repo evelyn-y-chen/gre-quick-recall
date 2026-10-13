@@ -1,0 +1,9130 @@
+[
+  {
+    "left": "false",
+    "right": "feigned",
+    "meaning": "虚假的",
+    "set": 1,
+    "page": 3,
+    "id": "e0001"
+  },
+  {
+    "left": "a break from",
+    "right": "a respite from",
+    "meaning": "休息",
+    "set": 1,
+    "page": 3,
+    "id": "e0002"
+  },
+  {
+    "left": "a diatribe on",
+    "right": "a rant against",
+    "meaning": "指责",
+    "set": 1,
+    "page": 3,
+    "id": "e0003"
+  },
+  {
+    "left": "abandon",
+    "right": "relinquish",
+    "meaning": "放弃",
+    "set": 1,
+    "page": 3,
+    "id": "e0004"
+  },
+  {
+    "left": "abate",
+    "right": "mitigate",
+    "meaning": "减轻",
+    "set": 1,
+    "page": 3,
+    "id": "e0005"
+  },
+  {
+    "left": "abate",
+    "right": "dissipate",
+    "meaning": "减轻，消失",
+    "set": 1,
+    "page": 3,
+    "id": "e0006"
+  },
+  {
+    "left": "aberrant",
+    "right": "anomalous",
+    "meaning": "异常的",
+    "set": 1,
+    "page": 3,
+    "id": "e0007"
+  },
+  {
+    "left": "aberrant",
+    "right": "unusual",
+    "meaning": "异常的",
+    "set": 1,
+    "page": 3,
+    "id": "e0008"
+  },
+  {
+    "left": "aberration",
+    "right": "anomaly",
+    "meaning": "异常",
+    "set": 1,
+    "page": 3,
+    "id": "e0009"
+  },
+  {
+    "left": "abet",
+    "right": "instigate",
+    "meaning": "教唆，煽动",
+    "set": 1,
+    "page": 3,
+    "id": "e0010"
+  },
+  {
+    "left": "abeyance",
+    "right": "pause",
+    "meaning": "暂停，中止",
+    "set": 1,
+    "page": 3,
+    "id": "e0011"
+  },
+  {
+    "left": "abeyant",
+    "right": "quiescent",
+    "meaning": "不活跃的",
+    "set": 1,
+    "page": 3,
+    "id": "e0012"
+  },
+  {
+    "left": "abhorrent",
+    "right": "repugnant",
+    "meaning": "令人憎恶的",
+    "set": 1,
+    "page": 3,
+    "id": "e0013"
+  },
+  {
+    "left": "abjection",
+    "right": "wretchedness",
+    "meaning": "可怜，悲惨",
+    "set": 1,
+    "page": 3,
+    "id": "e0014"
+  },
+  {
+    "left": "abnegation",
+    "right": "repudiation",
+    "meaning": "否认",
+    "set": 1,
+    "page": 3,
+    "id": "e0015"
+  },
+  {
+    "left": "abound",
+    "right": "proliferate",
+    "meaning": "大量增加",
+    "set": 1,
+    "page": 3,
+    "id": "e0016"
+  },
+  {
+    "left": "absolve",
+    "right": "exculpate",
+    "meaning": "宣告……无罪，脱罪",
+    "set": 1,
+    "page": 3,
+    "id": "e0017"
+  },
+  {
+    "left": "abstract",
+    "right": "conceptual",
+    "meaning": "抽象的",
+    "set": 1,
+    "page": 3,
+    "id": "e0018"
+  },
+  {
+    "left": "abstract from",
+    "right": "divorce from",
+    "meaning": "脱离",
+    "set": 1,
+    "page": 3,
+    "id": "e0019"
+  },
+  {
+    "left": "abstraction",
+    "right": "generality",
+    "meaning": "概述",
+    "set": 1,
+    "page": 3,
+    "id": "e0020"
+  },
+  {
+    "left": "abstruse",
+    "right": "recondite",
+    "meaning": "深奥的，晦涩的",
+    "set": 1,
+    "page": 3,
+    "id": "e0021"
+  },
+  {
+    "left": "abundance",
+    "right": "profusion",
+    "meaning": "大量",
+    "set": 1,
+    "page": 3,
+    "id": "e0022"
+  },
+  {
+    "left": "abundant",
+    "right": "copious",
+    "meaning": "大量的",
+    "set": 1,
+    "page": 3,
+    "id": "e0023"
+  },
+  {
+    "left": "abused",
+    "right": "misused",
+    "meaning": "滥用的",
+    "set": 1,
+    "page": 3,
+    "id": "e0024"
+  },
+  {
+    "left": "accede to",
+    "right": "defer to",
+    "meaning": "同意",
+    "set": 1,
+    "page": 3,
+    "id": "e0025"
+  },
+  {
+    "left": "accelerate",
+    "right": "intensify",
+    "meaning": "加剧",
+    "set": 1,
+    "page": 3,
+    "id": "e0026"
+  },
+  {
+    "left": "accelerate",
+    "right": "compound",
+    "meaning": "加重",
+    "set": 1,
+    "page": 3,
+    "id": "e0027"
+  },
+  {
+    "left": "accentuate",
+    "right": "highlight",
+    "meaning": "强调",
+    "set": 1,
+    "page": 3,
+    "id": "e0028"
+  },
+  {
+    "left": "accept",
+    "right": "comply with",
+    "meaning": "遵守",
+    "set": 1,
+    "page": 3,
+    "id": "e0029"
+  },
+  {
+    "left": "accession to",
+    "right": "acquiescence to",
+    "meaning": "同意",
+    "set": 1,
+    "page": 3,
+    "id": "e0030"
+  },
+  {
+    "left": "acclaim",
+    "right": "extol",
+    "meaning": "称赞，赞美",
+    "set": 1,
+    "page": 3,
+    "id": "e0031"
+  },
+  {
+    "left": "acclaim",
+    "right": "hail",
+    "meaning": "称赞，为…喝彩",
+    "set": 1,
+    "page": 3,
+    "id": "e0032"
+  },
+  {
+    "left": "accord",
+    "right": "consensus",
+    "meaning": "一致意见",
+    "set": 1,
+    "page": 3,
+    "id": "e0033"
+  },
+  {
+    "left": "accurate",
+    "right": "discerning",
+    "meaning": "精准的，敏锐的",
+    "set": 1,
+    "page": 3,
+    "id": "e0034"
+  },
+  {
+    "left": "acerbic",
+    "right": "cutting",
+    "meaning": "尖酸刻薄的",
+    "set": 1,
+    "page": 3,
+    "id": "e0035"
+  },
+  {
+    "left": "acerbic",
+    "right": "harsh",
+    "meaning": "尖酸刻薄的",
+    "set": 1,
+    "page": 3,
+    "id": "e0036"
+  },
+  {
+    "left": "acerbic",
+    "right": "vitriolic",
+    "meaning": "尖酸刻薄的",
+    "set": 1,
+    "page": 3,
+    "id": "e0037"
+  },
+  {
+    "left": "acerbic",
+    "right": "caustic",
+    "meaning": "刻薄的",
+    "set": 1,
+    "page": 3,
+    "id": "e0038"
+  },
+  {
+    "left": "achieve",
+    "right": "realize",
+    "meaning": "实现",
+    "set": 1,
+    "page": 3,
+    "id": "e0039"
+  },
+  {
+    "left": "acknowledge",
+    "right": "recognize",
+    "meaning": "承认",
+    "set": 1,
+    "page": 3,
+    "id": "e0040"
+  },
+  {
+    "left": "acknowledge",
+    "right": "concede",
+    "meaning": "承认",
+    "set": 2,
+    "page": 4,
+    "id": "e0041"
+  },
+  {
+    "left": "acme",
+    "right": "apogee",
+    "meaning": "最高点",
+    "set": 2,
+    "page": 4,
+    "id": "e0042"
+  },
+  {
+    "left": "acquired",
+    "right": "learned",
+    "meaning": "后天习得的",
+    "set": 2,
+    "page": 4,
+    "id": "e0043"
+  },
+  {
+    "left": "acrimony",
+    "right": "bitterness",
+    "meaning": "尖酸刻薄",
+    "set": 2,
+    "page": 4,
+    "id": "e0044"
+  },
+  {
+    "left": "acuity",
+    "right": "perspicacity",
+    "meaning": "敏锐",
+    "set": 2,
+    "page": 4,
+    "id": "e0045"
+  },
+  {
+    "left": "acute",
+    "right": "penetrating",
+    "meaning": "敏锐的，有洞察力的",
+    "set": 2,
+    "page": 4,
+    "id": "e0046"
+  },
+  {
+    "left": "adaptability",
+    "right": "flexibility",
+    "meaning": "灵活",
+    "set": 2,
+    "page": 4,
+    "id": "e0047"
+  },
+  {
+    "left": "additive",
+    "right": "cumulative",
+    "meaning": "增加的，累积的，渐增的",
+    "set": 2,
+    "page": 4,
+    "id": "e0048"
+  },
+  {
+    "left": "adept at",
+    "right": "proficient in",
+    "meaning": "熟练的，精通的",
+    "set": 2,
+    "page": 4,
+    "id": "e0049"
+  },
+  {
+    "left": "admonishment",
+    "right": "scolding",
+    "meaning": "训诫，指责",
+    "set": 2,
+    "page": 4,
+    "id": "e0050"
+  },
+  {
+    "left": "adopt",
+    "right": "foster",
+    "meaning": "养育",
+    "set": 2,
+    "page": 4,
+    "id": "e0051"
+  },
+  {
+    "left": "adroitly",
+    "right": "deftly",
+    "meaning": "敏捷地",
+    "set": 2,
+    "page": 4,
+    "id": "e0052"
+  },
+  {
+    "left": "adulation",
+    "right": "approbation",
+    "meaning": "赞美",
+    "set": 2,
+    "page": 4,
+    "id": "e0053"
+  },
+  {
+    "left": "advanced",
+    "right": "modern",
+    "meaning": "先进，走在前列",
+    "set": 2,
+    "page": 4,
+    "id": "e0054"
+  },
+  {
+    "left": "advantageous",
+    "right": "expedient",
+    "meaning": "有利的",
+    "set": 2,
+    "page": 4,
+    "id": "e0055"
+  },
+  {
+    "left": "adversarial",
+    "right": "antagonistic",
+    "meaning": "敌对的",
+    "set": 2,
+    "page": 4,
+    "id": "e0056"
+  },
+  {
+    "left": "adverse",
+    "right": "unfavorable",
+    "meaning": "不利的",
+    "set": 2,
+    "page": 4,
+    "id": "e0057"
+  },
+  {
+    "left": "adverse to",
+    "right": "inimical to",
+    "meaning": "不利于……的",
+    "set": 2,
+    "page": 4,
+    "id": "e0058"
+  },
+  {
+    "left": "advocate",
+    "right": "apologist",
+    "meaning": "倡导者，支持者，辩护者",
+    "set": 2,
+    "page": 4,
+    "id": "e0059"
+  },
+  {
+    "left": "affable",
+    "right": "easygoing",
+    "meaning": "友善的",
+    "set": 2,
+    "page": 4,
+    "id": "e0060"
+  },
+  {
+    "left": "affable",
+    "right": "genteel",
+    "meaning": "友好的",
+    "set": 2,
+    "page": 4,
+    "id": "e0061"
+  },
+  {
+    "left": "affect",
+    "right": "influence",
+    "meaning": "影响",
+    "set": 2,
+    "page": 4,
+    "id": "e0062"
+  },
+  {
+    "left": "affirm",
+    "right": "validate",
+    "meaning": "证实",
+    "set": 2,
+    "page": 4,
+    "id": "e0063"
+  },
+  {
+    "left": "affirmative",
+    "right": "positive",
+    "meaning": "正面的，积极的",
+    "set": 2,
+    "page": 4,
+    "id": "e0064"
+  },
+  {
+    "left": "affluence",
+    "right": "opulence",
+    "meaning": "富裕",
+    "set": 2,
+    "page": 4,
+    "id": "e0065"
+  },
+  {
+    "left": "aggravate",
+    "right": "exacerbate",
+    "meaning": "加重",
+    "set": 2,
+    "page": 4,
+    "id": "e0066"
+  },
+  {
+    "left": "agreeable",
+    "right": "amicable",
+    "meaning": "友好的",
+    "set": 2,
+    "page": 4,
+    "id": "e0067"
+  },
+  {
+    "left": "airtight",
+    "right": "unassailable",
+    "meaning": "无懈可击的，攻不破的",
+    "set": 2,
+    "page": 4,
+    "id": "e0068"
+  },
+  {
+    "left": "alarm",
+    "right": "unsettle",
+    "meaning": "使不安",
+    "set": 2,
+    "page": 4,
+    "id": "e0069"
+  },
+  {
+    "left": "allay",
+    "right": "palliate",
+    "meaning": "减轻",
+    "set": 2,
+    "page": 4,
+    "id": "e0070"
+  },
+  {
+    "left": "altruism",
+    "right": "beneficence",
+    "meaning": "利他",
+    "set": 2,
+    "page": 4,
+    "id": "e0071"
+  },
+  {
+    "left": "altruistic",
+    "right": "selfless",
+    "meaning": "无私的",
+    "set": 2,
+    "page": 4,
+    "id": "e0072"
+  },
+  {
+    "left": "altruistic",
+    "right": "benevolent",
+    "meaning": "无私的",
+    "set": 2,
+    "page": 4,
+    "id": "e0073"
+  },
+  {
+    "left": "amazing",
+    "right": "wondrous",
+    "meaning": "令人惊奇的",
+    "set": 2,
+    "page": 4,
+    "id": "e0074"
+  },
+  {
+    "left": "ambiguity",
+    "right": "indeterminacy",
+    "meaning": "模糊",
+    "set": 2,
+    "page": 4,
+    "id": "e0075"
+  },
+  {
+    "left": "ambiguous",
+    "right": "equivocal",
+    "meaning": "模糊的",
+    "set": 2,
+    "page": 4,
+    "id": "e0076"
+  },
+  {
+    "left": "ambiguous",
+    "right": "mute",
+    "meaning": "模糊的",
+    "set": 2,
+    "page": 4,
+    "id": "e0077"
+  },
+  {
+    "left": "ambivalence",
+    "right": "equivocation",
+    "meaning": "模棱两可",
+    "set": 2,
+    "page": 4,
+    "id": "e0078"
+  },
+  {
+    "left": "amorphous",
+    "right": "diffuse",
+    "meaning": "乱七八糟的",
+    "set": 2,
+    "page": 4,
+    "id": "e0079"
+  },
+  {
+    "left": "an affinity for",
+    "right": "an attraction to",
+    "meaning": "吸引",
+    "set": 2,
+    "page": 4,
+    "id": "e0080"
+  },
+  {
+    "left": "an affinity for",
+    "right": "a proclivity for",
+    "meaning": "倾向",
+    "set": 3,
+    "page": 5,
+    "id": "e0081"
+  },
+  {
+    "left": "an indifference toward",
+    "right": "a detachment from",
+    "meaning": "冷漠",
+    "set": 3,
+    "page": 5,
+    "id": "e0082"
+  },
+  {
+    "left": "analogous",
+    "right": "comparable",
+    "meaning": "类似的",
+    "set": 3,
+    "page": 5,
+    "id": "e0083"
+  },
+  {
+    "left": "analytically",
+    "right": "dispassionately",
+    "meaning": "客观地，理性地",
+    "set": 3,
+    "page": 5,
+    "id": "e0084"
+  },
+  {
+    "left": "anathema",
+    "right": "repellent",
+    "meaning": "令人讨厌的",
+    "set": 3,
+    "page": 5,
+    "id": "e0085"
+  },
+  {
+    "left": "ancillary",
+    "right": "supplementary",
+    "meaning": "辅助的，补充的",
+    "set": 3,
+    "page": 5,
+    "id": "e0086"
+  },
+  {
+    "left": "ancillary",
+    "right": "subsidiary",
+    "meaning": "辅助的，附属的",
+    "set": 3,
+    "page": 5,
+    "id": "e0087"
+  },
+  {
+    "left": "animate",
+    "right": "galvanize",
+    "meaning": "刺激，使有活力",
+    "set": 3,
+    "page": 5,
+    "id": "e0088"
+  },
+  {
+    "left": "animate",
+    "right": "rouse",
+    "meaning": "激起，唤起，推动",
+    "set": 3,
+    "page": 5,
+    "id": "e0089"
+  },
+  {
+    "left": "animus",
+    "right": "hostility",
+    "meaning": "敌意",
+    "set": 3,
+    "page": 5,
+    "id": "e0090"
+  },
+  {
+    "left": "annihilate",
+    "right": "destroy",
+    "meaning": "毁灭",
+    "set": 3,
+    "page": 5,
+    "id": "e0091"
+  },
+  {
+    "left": "annoying",
+    "right": "irritating",
+    "meaning": "令人生气的",
+    "set": 3,
+    "page": 5,
+    "id": "e0092"
+  },
+  {
+    "left": "anodyne",
+    "right": "benign",
+    "meaning": "温和的",
+    "set": 3,
+    "page": 5,
+    "id": "e0093"
+  },
+  {
+    "left": "anomalous",
+    "right": "unusual",
+    "meaning": "异常的",
+    "set": 3,
+    "page": 5,
+    "id": "e0094"
+  },
+  {
+    "left": "anomalous",
+    "right": "uncommon",
+    "meaning": "异常的",
+    "set": 3,
+    "page": 5,
+    "id": "e0095"
+  },
+  {
+    "left": "anomaly",
+    "right": "irregularity",
+    "meaning": "异常",
+    "set": 3,
+    "page": 5,
+    "id": "e0096"
+  },
+  {
+    "left": "anonymous",
+    "right": "obscure",
+    "meaning": "不出名的，没有名气的",
+    "set": 3,
+    "page": 5,
+    "id": "e0097"
+  },
+  {
+    "left": "antagonistic",
+    "right": "inimical",
+    "meaning": "敌对的",
+    "set": 3,
+    "page": 5,
+    "id": "e0098"
+  },
+  {
+    "left": "antecedent",
+    "right": "precursor",
+    "meaning": "前身",
+    "set": 3,
+    "page": 5,
+    "id": "e0099"
+  },
+  {
+    "left": "antediluvian",
+    "right": "archaic",
+    "meaning": "过时的",
+    "set": 3,
+    "page": 5,
+    "id": "e0100"
+  },
+  {
+    "left": "anticipate",
+    "right": "foresee",
+    "meaning": "预期",
+    "set": 3,
+    "page": 5,
+    "id": "e0101"
+  },
+  {
+    "left": "anticipate",
+    "right": "prefigure",
+    "meaning": "预示",
+    "set": 3,
+    "page": 5,
+    "id": "e0102"
+  },
+  {
+    "left": "antipathetic to",
+    "right": "inconsistent with",
+    "meaning": "与……不一致的",
+    "set": 3,
+    "page": 5,
+    "id": "e0103"
+  },
+  {
+    "left": "antithetical to",
+    "right": "oppositional to",
+    "meaning": "与……对立",
+    "set": 3,
+    "page": 5,
+    "id": "e0104"
+  },
+  {
+    "left": "apathetic",
+    "right": "indifferent",
+    "meaning": "冷漠的",
+    "set": 3,
+    "page": 5,
+    "id": "e0105"
+  },
+  {
+    "left": "apathetic about",
+    "right": "indifferent to",
+    "meaning": "冷漠无情的",
+    "set": 3,
+    "page": 5,
+    "id": "e0106"
+  },
+  {
+    "left": "apathy",
+    "right": "indifference",
+    "meaning": "冷漠，不关心",
+    "set": 3,
+    "page": 5,
+    "id": "e0107"
+  },
+  {
+    "left": "apathy",
+    "right": "passivity",
+    "meaning": "冷漠",
+    "set": 3,
+    "page": 5,
+    "id": "e0108"
+  },
+  {
+    "left": "apathy",
+    "right": "unconcern",
+    "meaning": "不关注，冷漠",
+    "set": 3,
+    "page": 5,
+    "id": "e0109"
+  },
+  {
+    "left": "apathy",
+    "right": "indifference",
+    "meaning": "冷漠",
+    "set": 3,
+    "page": 5,
+    "id": "e0110"
+  },
+  {
+    "left": "apparent",
+    "right": "clear",
+    "meaning": "明显的",
+    "set": 3,
+    "page": 5,
+    "id": "e0111"
+  },
+  {
+    "left": "appealing",
+    "right": "interesting",
+    "meaning": "令人感兴趣的",
+    "set": 3,
+    "page": 5,
+    "id": "e0112"
+  },
+  {
+    "left": "appear",
+    "right": "emerge",
+    "meaning": "出现",
+    "set": 3,
+    "page": 5,
+    "id": "e0113"
+  },
+  {
+    "left": "appease",
+    "right": "placate",
+    "meaning": "安抚",
+    "set": 3,
+    "page": 5,
+    "id": "e0114"
+  },
+  {
+    "left": "appease",
+    "right": "mollify",
+    "meaning": "安抚，使平静",
+    "set": 3,
+    "page": 5,
+    "id": "e0115"
+  },
+  {
+    "left": "appetizing",
+    "right": "palatable",
+    "meaning": "可口的",
+    "set": 3,
+    "page": 5,
+    "id": "e0116"
+  },
+  {
+    "left": "applaud",
+    "right": "extol",
+    "meaning": "赞美",
+    "set": 3,
+    "page": 5,
+    "id": "e0117"
+  },
+  {
+    "left": "applicability",
+    "right": "pertinence",
+    "meaning": "相关性，适用性",
+    "set": 3,
+    "page": 5,
+    "id": "e0118"
+  },
+  {
+    "left": "apposite",
+    "right": "fitting",
+    "meaning": "合适的",
+    "set": 3,
+    "page": 5,
+    "id": "e0119"
+  },
+  {
+    "left": "appreciation",
+    "right": "satisfaction",
+    "meaning": "欣赏，满意",
+    "set": 3,
+    "page": 5,
+    "id": "e0120"
+  },
+  {
+    "left": "apprehension",
+    "right": "trepidation",
+    "meaning": "恐惧",
+    "set": 4,
+    "page": 6,
+    "id": "e0121"
+  },
+  {
+    "left": "apprehension",
+    "right": "timidity",
+    "meaning": "害怕，担心",
+    "set": 4,
+    "page": 6,
+    "id": "e0122"
+  },
+  {
+    "left": "approbation",
+    "right": "commendation",
+    "meaning": "赞许",
+    "set": 4,
+    "page": 6,
+    "id": "e0123"
+  },
+  {
+    "left": "aptitude",
+    "right": "talent",
+    "meaning": "天赋，天才",
+    "set": 4,
+    "page": 6,
+    "id": "e0124"
+  },
+  {
+    "left": "arbitrary",
+    "right": "capricious",
+    "meaning": "随意的",
+    "set": 4,
+    "page": 6,
+    "id": "e0125"
+  },
+  {
+    "left": "arbitrary",
+    "right": "impulsive",
+    "meaning": "随意的",
+    "set": 4,
+    "page": 6,
+    "id": "e0126"
+  },
+  {
+    "left": "arcane",
+    "right": "esoteric",
+    "meaning": "难懂的",
+    "set": 4,
+    "page": 6,
+    "id": "e0127"
+  },
+  {
+    "left": "arcane",
+    "right": "occult",
+    "meaning": "难懂的",
+    "set": 4,
+    "page": 6,
+    "id": "e0128"
+  },
+  {
+    "left": "archaic",
+    "right": "outdated",
+    "meaning": "过时的",
+    "set": 4,
+    "page": 6,
+    "id": "e0129"
+  },
+  {
+    "left": "archaic",
+    "right": "primitive",
+    "meaning": "远古的，古老的",
+    "set": 4,
+    "page": 6,
+    "id": "e0130"
+  },
+  {
+    "left": "arduous",
+    "right": "onerous",
+    "meaning": "繁重的，费力的",
+    "set": 4,
+    "page": 6,
+    "id": "e0131"
+  },
+  {
+    "left": "arduous",
+    "right": "taxing",
+    "meaning": "费力的",
+    "set": 4,
+    "page": 6,
+    "id": "e0132"
+  },
+  {
+    "left": "arduous",
+    "right": "strenuous",
+    "meaning": "艰苦的",
+    "set": 4,
+    "page": 6,
+    "id": "e0133"
+  },
+  {
+    "left": "arrogant",
+    "right": "hubristic",
+    "meaning": "自大的，傲慢的",
+    "set": 4,
+    "page": 6,
+    "id": "e0134"
+  },
+  {
+    "left": "articulate",
+    "right": "eloquent",
+    "meaning": "表达能力强的",
+    "set": 4,
+    "page": 6,
+    "id": "e0135"
+  },
+  {
+    "left": "inauthentic",
+    "right": "spurious",
+    "meaning": "虚假的",
+    "set": 4,
+    "page": 6,
+    "id": "e0136"
+  },
+  {
+    "left": "artificial",
+    "right": "contrived",
+    "meaning": "人造的，虚假的，人故意而为之的",
+    "set": 4,
+    "page": 6,
+    "id": "e0137"
+  },
+  {
+    "left": "artificial",
+    "right": "factitious",
+    "meaning": "虚假的",
+    "set": 4,
+    "page": 6,
+    "id": "e0138"
+  },
+  {
+    "left": "artificial",
+    "right": "spurious",
+    "meaning": "虚假的",
+    "set": 4,
+    "page": 6,
+    "id": "e0139"
+  },
+  {
+    "left": "artlessness",
+    "right": "simplicity",
+    "meaning": "简单",
+    "set": 4,
+    "page": 6,
+    "id": "e0140"
+  },
+  {
+    "left": "ascribed to",
+    "right": "attributed to",
+    "meaning": "归因给……",
+    "set": 4,
+    "page": 6,
+    "id": "e0141"
+  },
+  {
+    "left": "aspersion",
+    "right": "slur",
+    "meaning": "诽谤，中伤",
+    "set": 4,
+    "page": 6,
+    "id": "e0142"
+  },
+  {
+    "left": "assert",
+    "right": "maintain",
+    "meaning": "声称",
+    "set": 4,
+    "page": 6,
+    "id": "e0143"
+  },
+  {
+    "left": "assert",
+    "right": "insist",
+    "meaning": "坚持认为",
+    "set": 4,
+    "page": 6,
+    "id": "e0144"
+  },
+  {
+    "left": "assume",
+    "right": "shoulder",
+    "meaning": "承担",
+    "set": 4,
+    "page": 6,
+    "id": "e0145"
+  },
+  {
+    "left": "assume",
+    "right": "take for granted",
+    "meaning": "预设，认为……理所应当",
+    "set": 4,
+    "page": 6,
+    "id": "e0146"
+  },
+  {
+    "left": "assured",
+    "right": "settled",
+    "meaning": "确定的",
+    "set": 4,
+    "page": 6,
+    "id": "e0147"
+  },
+  {
+    "left": "astute",
+    "right": "shrewd",
+    "meaning": "精明的",
+    "set": 4,
+    "page": 6,
+    "id": "e0148"
+  },
+  {
+    "left": "atomized",
+    "right": "fragmented",
+    "meaning": "分裂的，碎片的",
+    "set": 4,
+    "page": 6,
+    "id": "e0149"
+  },
+  {
+    "left": "attention",
+    "right": "publicity",
+    "meaning": "（媒体的）关注",
+    "set": 4,
+    "page": 6,
+    "id": "e0150"
+  },
+  {
+    "left": "attenuate",
+    "right": "reduce",
+    "meaning": "减少",
+    "set": 4,
+    "page": 6,
+    "id": "e0151"
+  },
+  {
+    "left": "attenuate",
+    "right": "dissipate",
+    "meaning": "变弱",
+    "set": 4,
+    "page": 6,
+    "id": "e0152"
+  },
+  {
+    "left": "attributed to",
+    "right": "explained by",
+    "meaning": "被归因为, 由…所解释",
+    "set": 4,
+    "page": 6,
+    "id": "e0153"
+  },
+  {
+    "left": "atypical",
+    "right": "idiosyncratic",
+    "meaning": "独特的",
+    "set": 4,
+    "page": 6,
+    "id": "e0154"
+  },
+  {
+    "left": "augment",
+    "right": "extend",
+    "meaning": "扩大",
+    "set": 4,
+    "page": 6,
+    "id": "e0155"
+  },
+  {
+    "left": "augment",
+    "right": "enhance",
+    "meaning": "提高",
+    "set": 4,
+    "page": 6,
+    "id": "e0156"
+  },
+  {
+    "left": "augmentation",
+    "right": "expansion",
+    "meaning": "扩张",
+    "set": 4,
+    "page": 6,
+    "id": "e0157"
+  },
+  {
+    "left": "august",
+    "right": "majestic",
+    "meaning": "威严的",
+    "set": 4,
+    "page": 6,
+    "id": "e0158"
+  },
+  {
+    "left": "auspicious",
+    "right": "favorable",
+    "meaning": "有利的",
+    "set": 4,
+    "page": 6,
+    "id": "e0159"
+  },
+  {
+    "left": "austerity",
+    "right": "starkness",
+    "meaning": "朴实无华",
+    "set": 4,
+    "page": 6,
+    "id": "e0160"
+  },
+  {
+    "left": "authoritarian",
+    "right": "despotic",
+    "meaning": "独裁的，专制的",
+    "set": 5,
+    "page": 7,
+    "id": "e0161"
+  },
+  {
+    "left": "authoritative",
+    "right": "cogent",
+    "meaning": "使人信服的",
+    "set": 5,
+    "page": 7,
+    "id": "e0162"
+  },
+  {
+    "left": "authorize",
+    "right": "endorse",
+    "meaning": "认可",
+    "set": 5,
+    "page": 7,
+    "id": "e0163"
+  },
+  {
+    "left": "autonomy",
+    "right": "independence",
+    "meaning": "独立",
+    "set": 5,
+    "page": 7,
+    "id": "e0164"
+  },
+  {
+    "left": "avaricious",
+    "right": "rapacious",
+    "meaning": "贪婪的",
+    "set": 5,
+    "page": 7,
+    "id": "e0165"
+  },
+  {
+    "left": "average",
+    "right": "undistinguished",
+    "meaning": "普通的",
+    "set": 5,
+    "page": 7,
+    "id": "e0166"
+  },
+  {
+    "left": "avert",
+    "right": "forestall",
+    "meaning": "阻止",
+    "set": 5,
+    "page": 7,
+    "id": "e0167"
+  },
+  {
+    "left": "avocational",
+    "right": "lay",
+    "meaning": "业余的，外行的",
+    "set": 5,
+    "page": 7,
+    "id": "e0168"
+  },
+  {
+    "left": "avoid",
+    "right": "eschew",
+    "meaning": "避免",
+    "set": 5,
+    "page": 7,
+    "id": "e0169"
+  },
+  {
+    "left": "awkward",
+    "right": "ungainly",
+    "meaning": "笨拙的",
+    "set": 5,
+    "page": 7,
+    "id": "e0170"
+  },
+  {
+    "left": "balance",
+    "right": "symmetry",
+    "meaning": "相称",
+    "set": 5,
+    "page": 7,
+    "id": "e0171"
+  },
+  {
+    "left": "ban",
+    "right": "proscribe",
+    "meaning": "禁止",
+    "set": 5,
+    "page": 7,
+    "id": "e0172"
+  },
+  {
+    "left": "banal",
+    "right": "vapid",
+    "meaning": "乏味的",
+    "set": 5,
+    "page": 7,
+    "id": "e0173"
+  },
+  {
+    "left": "banal",
+    "right": "hackneyed",
+    "meaning": "陈腐的",
+    "set": 5,
+    "page": 7,
+    "id": "e0174"
+  },
+  {
+    "left": "banal",
+    "right": "trite",
+    "meaning": "过时的",
+    "set": 5,
+    "page": 7,
+    "id": "e0175"
+  },
+  {
+    "left": "banality",
+    "right": "triteness",
+    "meaning": "平凡，陈腐",
+    "set": 5,
+    "page": 7,
+    "id": "e0176"
+  },
+  {
+    "left": "bane",
+    "right": "scourge",
+    "meaning": "祸害",
+    "set": 5,
+    "page": 7,
+    "id": "e0177"
+  },
+  {
+    "left": "bankruptcy",
+    "right": "exhaustion",
+    "meaning": "彻底失败，丧失",
+    "set": 5,
+    "page": 7,
+    "id": "e0178"
+  },
+  {
+    "left": "bar",
+    "right": "preclude",
+    "meaning": "阻止",
+    "set": 5,
+    "page": 7,
+    "id": "e0179"
+  },
+  {
+    "left": "base",
+    "right": "vile",
+    "meaning": "卑鄙的",
+    "set": 5,
+    "page": 7,
+    "id": "e0180"
+  },
+  {
+    "left": "baseless",
+    "right": "untenable",
+    "meaning": "没有依据的",
+    "set": 5,
+    "page": 7,
+    "id": "e0181"
+  },
+  {
+    "left": "baseless",
+    "right": "unfounded",
+    "meaning": "没有依据的",
+    "set": 5,
+    "page": 7,
+    "id": "e0182"
+  },
+  {
+    "left": "bedrock",
+    "right": "foundation",
+    "meaning": "基础",
+    "set": 5,
+    "page": 7,
+    "id": "e0183"
+  },
+  {
+    "left": "beget",
+    "right": "create",
+    "meaning": "产生",
+    "set": 5,
+    "page": 7,
+    "id": "e0184"
+  },
+  {
+    "left": "belie",
+    "right": "mask",
+    "meaning": "掩盖",
+    "set": 5,
+    "page": 7,
+    "id": "e0185"
+  },
+  {
+    "left": "belie",
+    "right": "contradict",
+    "meaning": "反驳",
+    "set": 5,
+    "page": 7,
+    "id": "e0186"
+  },
+  {
+    "left": "belittler",
+    "right": "vilifier",
+    "meaning": "诽谤者",
+    "set": 5,
+    "page": 7,
+    "id": "e0187"
+  },
+  {
+    "left": "belligerence",
+    "right": "pugnacity",
+    "meaning": "好斗",
+    "set": 5,
+    "page": 7,
+    "id": "e0188"
+  },
+  {
+    "left": "benevolence",
+    "right": "mercy",
+    "meaning": "善意",
+    "set": 5,
+    "page": 7,
+    "id": "e0189"
+  },
+  {
+    "left": "benign",
+    "right": "innocuous",
+    "meaning": "安全的，无害的",
+    "set": 5,
+    "page": 7,
+    "id": "e0190"
+  },
+  {
+    "left": "betoken",
+    "right": "signify",
+    "meaning": "预示",
+    "set": 5,
+    "page": 7,
+    "id": "e0191"
+  },
+  {
+    "left": "bias",
+    "right": "orientation",
+    "meaning": "倾向",
+    "set": 5,
+    "page": 7,
+    "id": "e0192"
+  },
+  {
+    "left": "bias",
+    "right": "prejudice",
+    "meaning": "偏见",
+    "set": 5,
+    "page": 7,
+    "id": "e0193"
+  },
+  {
+    "left": "blame",
+    "right": "reproach",
+    "meaning": "责备",
+    "set": 5,
+    "page": 7,
+    "id": "e0194"
+  },
+  {
+    "left": "blameless",
+    "right": "unimpeachable",
+    "meaning": "无可指责的",
+    "set": 5,
+    "page": 7,
+    "id": "e0195"
+  },
+  {
+    "left": "block",
+    "right": "hinder",
+    "meaning": "阻碍",
+    "set": 5,
+    "page": 7,
+    "id": "e0196"
+  },
+  {
+    "left": "bolster",
+    "right": "buttress",
+    "meaning": "支持",
+    "set": 5,
+    "page": 7,
+    "id": "e0197"
+  },
+  {
+    "left": "boon",
+    "right": "windfall",
+    "meaning": "优势",
+    "set": 5,
+    "page": 7,
+    "id": "e0198"
+  },
+  {
+    "left": "bootless",
+    "right": "feckless",
+    "meaning": "无用的",
+    "set": 5,
+    "page": 7,
+    "id": "e0199"
+  },
+  {
+    "left": "bound",
+    "right": "limit",
+    "meaning": "边界，界限",
+    "set": 5,
+    "page": 7,
+    "id": "e0200"
+  },
+  {
+    "left": "brevity",
+    "right": "economy",
+    "meaning": "简洁，简短",
+    "set": 6,
+    "page": 8,
+    "id": "e0201"
+  },
+  {
+    "left": "brief",
+    "right": "perfunctory",
+    "meaning": "草率的",
+    "set": 6,
+    "page": 8,
+    "id": "e0202"
+  },
+  {
+    "left": "broach",
+    "right": "propose",
+    "meaning": "提出，开始讨论",
+    "set": 6,
+    "page": 8,
+    "id": "e0203"
+  },
+  {
+    "left": "broadcast",
+    "right": "propagate",
+    "meaning": "宣传",
+    "set": 6,
+    "page": 8,
+    "id": "e0204"
+  },
+  {
+    "left": "bromide",
+    "right": "platitude",
+    "meaning": "陈词滥调，老生常谈",
+    "set": 6,
+    "page": 8,
+    "id": "e0205"
+  },
+  {
+    "left": "brook",
+    "right": "tolerate",
+    "meaning": "容忍，忍受",
+    "set": 6,
+    "page": 8,
+    "id": "e0206"
+  },
+  {
+    "left": "burdensome",
+    "right": "onerous",
+    "meaning": "费力的",
+    "set": 6,
+    "page": 8,
+    "id": "e0207"
+  },
+  {
+    "left": "burgeon",
+    "right": "expand",
+    "meaning": "壮大",
+    "set": 6,
+    "page": 8,
+    "id": "e0208"
+  },
+  {
+    "left": "buttress",
+    "right": "reinforce",
+    "meaning": "支持，增强，强化",
+    "set": 6,
+    "page": 8,
+    "id": "e0209"
+  },
+  {
+    "left": "bypass",
+    "right": "circumvent",
+    "meaning": "避开",
+    "set": 6,
+    "page": 8,
+    "id": "e0210"
+  },
+  {
+    "left": "calamitous",
+    "right": "destructive",
+    "meaning": "灾难性的，破坏性的",
+    "set": 6,
+    "page": 8,
+    "id": "e0211"
+  },
+  {
+    "left": "calamity",
+    "right": "disaster",
+    "meaning": "大灾难",
+    "set": 6,
+    "page": 8,
+    "id": "e0212"
+  },
+  {
+    "left": "calm",
+    "right": "quiescence",
+    "meaning": "平静",
+    "set": 6,
+    "page": 8,
+    "id": "e0213"
+  },
+  {
+    "left": "calm",
+    "right": "reassure",
+    "meaning": "使放心",
+    "set": 6,
+    "page": 8,
+    "id": "e0214"
+  },
+  {
+    "left": "calm",
+    "right": "tranquil",
+    "meaning": "平静的，宁静的",
+    "set": 6,
+    "page": 8,
+    "id": "e0215"
+  },
+  {
+    "left": "camaraderie",
+    "right": "solidarity",
+    "meaning": "团结",
+    "set": 6,
+    "page": 8,
+    "id": "e0216"
+  },
+  {
+    "left": "canned",
+    "right": "formulaic",
+    "meaning": "套路的",
+    "set": 6,
+    "page": 8,
+    "id": "e0217"
+  },
+  {
+    "left": "canny",
+    "right": "shrewd",
+    "meaning": "精明的",
+    "set": 6,
+    "page": 8,
+    "id": "e0218"
+  },
+  {
+    "left": "capricious",
+    "right": "flighty",
+    "meaning": "变化无常的",
+    "set": 6,
+    "page": 8,
+    "id": "e0219"
+  },
+  {
+    "left": "capricious",
+    "right": "unpredictable",
+    "meaning": "变化无常的",
+    "set": 6,
+    "page": 8,
+    "id": "e0220"
+  },
+  {
+    "left": "capricious",
+    "right": "impulsive",
+    "meaning": "随意的",
+    "set": 6,
+    "page": 8,
+    "id": "e0221"
+  },
+  {
+    "left": "capricious",
+    "right": "inconstant",
+    "meaning": "多变的",
+    "set": 6,
+    "page": 8,
+    "id": "e0222"
+  },
+  {
+    "left": "capricious",
+    "right": "cavalier",
+    "meaning": "随意的",
+    "set": 6,
+    "page": 8,
+    "id": "e0223"
+  },
+  {
+    "left": "capriciousness",
+    "right": "impulsivenss",
+    "meaning": "随意",
+    "set": 6,
+    "page": 8,
+    "id": "e0224"
+  },
+  {
+    "left": "capriciousness",
+    "right": "whimsicality",
+    "meaning": "随意",
+    "set": 6,
+    "page": 8,
+    "id": "e0225"
+  },
+  {
+    "left": "captivated by",
+    "right": "enamored of",
+    "meaning": "喜欢",
+    "set": 6,
+    "page": 8,
+    "id": "e0226"
+  },
+  {
+    "left": "capture",
+    "right": "secure",
+    "meaning": "抓住，获得",
+    "set": 6,
+    "page": 8,
+    "id": "e0227"
+  },
+  {
+    "left": "carefully",
+    "right": "cautiously",
+    "meaning": "小心谨慎地",
+    "set": 6,
+    "page": 8,
+    "id": "e0228"
+  },
+  {
+    "left": "carelessness",
+    "right": "negligence",
+    "meaning": "疏忽，草率",
+    "set": 6,
+    "page": 8,
+    "id": "e0229"
+  },
+  {
+    "left": "castigate",
+    "right": "chastise",
+    "meaning": "严厉谴责",
+    "set": 6,
+    "page": 8,
+    "id": "e0230"
+  },
+  {
+    "left": "caterwaul",
+    "right": "shriek",
+    "meaning": "发出难听的声音",
+    "set": 6,
+    "page": 8,
+    "id": "e0231"
+  },
+  {
+    "left": "casual",
+    "right": "cursory",
+    "meaning": "随意的",
+    "set": 6,
+    "page": 8,
+    "id": "e0232"
+  },
+  {
+    "left": "cautious",
+    "right": "circumspect",
+    "meaning": "谨慎的",
+    "set": 6,
+    "page": 8,
+    "id": "e0233"
+  },
+  {
+    "left": "cede",
+    "right": "relinquish",
+    "meaning": "放弃",
+    "set": 6,
+    "page": 8,
+    "id": "e0234"
+  },
+  {
+    "left": "cede to",
+    "right": "leave to",
+    "meaning": "让与",
+    "set": 6,
+    "page": 8,
+    "id": "e0235"
+  },
+  {
+    "left": "ceded to",
+    "right": "left to",
+    "meaning": "交给……",
+    "set": 6,
+    "page": 8,
+    "id": "e0236"
+  },
+  {
+    "left": "celebrated",
+    "right": "renowned",
+    "meaning": "著名的",
+    "set": 6,
+    "page": 8,
+    "id": "e0237"
+  },
+  {
+    "left": "censure",
+    "right": "reprehend",
+    "meaning": "谴责",
+    "set": 6,
+    "page": 8,
+    "id": "e0238"
+  },
+  {
+    "left": "censure",
+    "right": "lambaste",
+    "meaning": "严厉批评，指责",
+    "set": 6,
+    "page": 8,
+    "id": "e0239"
+  },
+  {
+    "left": "central",
+    "right": "fundamental",
+    "meaning": "核心的，重要的",
+    "set": 7,
+    "page": 9,
+    "id": "e0240"
+  },
+  {
+    "left": "cerebral",
+    "right": "dispassionate",
+    "meaning": "理智的",
+    "set": 7,
+    "page": 9,
+    "id": "e0241"
+  },
+  {
+    "left": "certain",
+    "right": "inevitable",
+    "meaning": "必然的",
+    "set": 7,
+    "page": 9,
+    "id": "e0242"
+  },
+  {
+    "left": "certainty",
+    "right": "conviction",
+    "meaning": "坚信，肯定",
+    "set": 7,
+    "page": 9,
+    "id": "e0243"
+  },
+  {
+    "left": "challenge",
+    "right": "oppose",
+    "meaning": "反对",
+    "set": 7,
+    "page": 9,
+    "id": "e0244"
+  },
+  {
+    "left": "challenge",
+    "right": "difficulty",
+    "meaning": "困难",
+    "set": 7,
+    "page": 9,
+    "id": "e0245"
+  },
+  {
+    "left": "champion",
+    "right": "defend",
+    "meaning": "支持",
+    "set": 7,
+    "page": 9,
+    "id": "e0246"
+  },
+  {
+    "left": "champion",
+    "right": "support",
+    "meaning": "支持",
+    "set": 7,
+    "page": 9,
+    "id": "e0247"
+  },
+  {
+    "left": "champion",
+    "right": "promoter",
+    "meaning": "支持者，出资者",
+    "set": 7,
+    "page": 9,
+    "id": "e0248"
+  },
+  {
+    "left": "changeable",
+    "right": "variable",
+    "meaning": "变化的",
+    "set": 7,
+    "page": 9,
+    "id": "e0249"
+  },
+  {
+    "left": "characteristic",
+    "right": "typical",
+    "meaning": "典型的",
+    "set": 7,
+    "page": 9,
+    "id": "e0250"
+  },
+  {
+    "left": "characteristic",
+    "right": "emblematic",
+    "meaning": "象征的，标志的",
+    "set": 7,
+    "page": 9,
+    "id": "e0251"
+  },
+  {
+    "left": "characterization",
+    "right": "individualization",
+    "meaning": "个性化",
+    "set": 7,
+    "page": 9,
+    "id": "e0252"
+  },
+  {
+    "left": "check",
+    "right": "stem",
+    "meaning": "阻止",
+    "set": 7,
+    "page": 9,
+    "id": "e0253"
+  },
+  {
+    "left": "check",
+    "right": "limit",
+    "meaning": "限制，阻止",
+    "set": 7,
+    "page": 9,
+    "id": "e0254"
+  },
+  {
+    "left": "cheer",
+    "right": "enliven",
+    "meaning": "使活跃",
+    "set": 7,
+    "page": 9,
+    "id": "e0255"
+  },
+  {
+    "left": "cheerfully",
+    "right": "blithely",
+    "meaning": "愉快地",
+    "set": 7,
+    "page": 9,
+    "id": "e0256"
+  },
+  {
+    "left": "cheerless",
+    "right": "gloomy",
+    "meaning": "阴郁的",
+    "set": 7,
+    "page": 9,
+    "id": "e0257"
+  },
+  {
+    "left": "chimera",
+    "right": "illusion",
+    "meaning": "虚构的事物",
+    "set": 7,
+    "page": 9,
+    "id": "e0258"
+  },
+  {
+    "left": "chimerical",
+    "right": "fanciful",
+    "meaning": "想象的，不真实的，奇幻的",
+    "set": 7,
+    "page": 9,
+    "id": "e0259"
+  },
+  {
+    "left": "choleric",
+    "right": "irascible",
+    "meaning": "易怒的，脾气暴躁的",
+    "set": 7,
+    "page": 9,
+    "id": "e0260"
+  },
+  {
+    "left": "churlish",
+    "right": "ungracious",
+    "meaning": "不礼貌的",
+    "set": 7,
+    "page": 9,
+    "id": "e0261"
+  },
+  {
+    "left": "circuitous",
+    "right": "indirect",
+    "meaning": "迂回的",
+    "set": 7,
+    "page": 9,
+    "id": "e0262"
+  },
+  {
+    "left": "circumscribed",
+    "right": "confined",
+    "meaning": "有限制的",
+    "set": 7,
+    "page": 9,
+    "id": "e0263"
+  },
+  {
+    "left": "circumscribed",
+    "right": "restricted",
+    "meaning": "有限制的",
+    "set": 7,
+    "page": 9,
+    "id": "e0264"
+  },
+  {
+    "left": "circumspect",
+    "right": "precise",
+    "meaning": "一丝不苟的，谨慎的",
+    "set": 7,
+    "page": 9,
+    "id": "e0265"
+  },
+  {
+    "left": "circumstantial",
+    "right": "contingent",
+    "meaning": "依情况而定的",
+    "set": 7,
+    "page": 9,
+    "id": "e0266"
+  },
+  {
+    "left": "circumvent",
+    "right": "sidestep",
+    "meaning": "避开",
+    "set": 7,
+    "page": 9,
+    "id": "e0267"
+  },
+  {
+    "left": "civility",
+    "right": "comity",
+    "meaning": "友好",
+    "set": 7,
+    "page": 9,
+    "id": "e0268"
+  },
+  {
+    "left": "clandestine",
+    "right": "covert",
+    "meaning": "秘密的",
+    "set": 7,
+    "page": 9,
+    "id": "e0269"
+  },
+  {
+    "left": "clear-cut",
+    "right": "unambiguous",
+    "meaning": "清晰的",
+    "set": 7,
+    "page": 9,
+    "id": "e0270"
+  },
+  {
+    "left": "clement",
+    "right": "merciful",
+    "meaning": "仁慈的",
+    "set": 7,
+    "page": 9,
+    "id": "e0271"
+  },
+  {
+    "left": "clever",
+    "right": "ingenious",
+    "meaning": "机敏的",
+    "set": 7,
+    "page": 9,
+    "id": "e0272"
+  },
+  {
+    "left": "clever",
+    "right": "deft",
+    "meaning": "聪明的",
+    "set": 7,
+    "page": 9,
+    "id": "e0273"
+  },
+  {
+    "left": "closemouthed",
+    "right": "reticent",
+    "meaning": "沉默寡言的",
+    "set": 7,
+    "page": 9,
+    "id": "e0274"
+  },
+  {
+    "left": "cloying",
+    "right": "saccharine",
+    "meaning": "故做多情的，甜得发腻的",
+    "set": 7,
+    "page": 9,
+    "id": "e0275"
+  },
+  {
+    "left": "coherent",
+    "right": "orderly",
+    "meaning": "连贯的，有序的",
+    "set": 7,
+    "page": 9,
+    "id": "e0276"
+  },
+  {
+    "left": "combine",
+    "right": "meld",
+    "meaning": "结合",
+    "set": 7,
+    "page": 9,
+    "id": "e0277"
+  },
+  {
+    "left": "commence",
+    "right": "initiate",
+    "meaning": "开始，着手",
+    "set": 7,
+    "page": 9,
+    "id": "e0278"
+  },
+  {
+    "left": "commend",
+    "right": "endorse",
+    "meaning": "赞同",
+    "set": 8,
+    "page": 10,
+    "id": "e0279"
+  },
+  {
+    "left": "commend",
+    "right": "laud",
+    "meaning": "赞美",
+    "set": 8,
+    "page": 10,
+    "id": "e0280"
+  },
+  {
+    "left": "commendation of",
+    "right": "tribute to",
+    "meaning": "赞美",
+    "set": 8,
+    "page": 10,
+    "id": "e0281"
+  },
+  {
+    "left": "commensurate",
+    "right": "tantamount",
+    "meaning": "相等的，相当的",
+    "set": 8,
+    "page": 10,
+    "id": "e0282"
+  },
+  {
+    "left": "commercial",
+    "right": "pecuniary",
+    "meaning": "金钱的，商业的",
+    "set": 8,
+    "page": 10,
+    "id": "e0283"
+  },
+  {
+    "left": "commonplace",
+    "right": "unexceptional",
+    "meaning": "平常的，非例外的",
+    "set": 8,
+    "page": 10,
+    "id": "e0284"
+  },
+  {
+    "left": "commonplace",
+    "right": "unremarkable",
+    "meaning": "平凡的, 普遍的",
+    "set": 8,
+    "page": 10,
+    "id": "e0285"
+  },
+  {
+    "left": "commonplace",
+    "right": "ubiquitous",
+    "meaning": "普遍的",
+    "set": 8,
+    "page": 10,
+    "id": "e0286"
+  },
+  {
+    "left": "comparable to",
+    "right": "equal to",
+    "meaning": "与…相似，与…不相上下",
+    "set": 8,
+    "page": 10,
+    "id": "e0287"
+  },
+  {
+    "left": "comparatively",
+    "right": "relatively",
+    "meaning": "相对地",
+    "set": 8,
+    "page": 10,
+    "id": "e0288"
+  },
+  {
+    "left": "compelling",
+    "right": "interesting",
+    "meaning": "吸引人的",
+    "set": 8,
+    "page": 10,
+    "id": "e0289"
+  },
+  {
+    "left": "compensate for",
+    "right": "offset",
+    "meaning": "弥补",
+    "set": 8,
+    "page": 10,
+    "id": "e0290"
+  },
+  {
+    "left": "complacency",
+    "right": "placidity",
+    "meaning": "平静",
+    "set": 8,
+    "page": 10,
+    "id": "e0291"
+  },
+  {
+    "left": "complaisant",
+    "right": "deferential",
+    "meaning": "恭敬的",
+    "set": 8,
+    "page": 10,
+    "id": "e0292"
+  },
+  {
+    "left": "complex",
+    "right": "intricate",
+    "meaning": "复杂的",
+    "set": 8,
+    "page": 10,
+    "id": "e0293"
+  },
+  {
+    "left": "complexity",
+    "right": "intricacy",
+    "meaning": "复杂",
+    "set": 8,
+    "page": 10,
+    "id": "e0294"
+  },
+  {
+    "left": "compliant",
+    "right": "tractable",
+    "meaning": "顺从的",
+    "set": 8,
+    "page": 10,
+    "id": "e0295"
+  },
+  {
+    "left": "complicated",
+    "right": "knotty",
+    "meaning": "复杂的",
+    "set": 8,
+    "page": 10,
+    "id": "e0296"
+  },
+  {
+    "left": "comprehend",
+    "right": "fathom",
+    "meaning": "理解",
+    "set": 8,
+    "page": 10,
+    "id": "e0297"
+  },
+  {
+    "left": "comprehensive",
+    "right": "exhaustive",
+    "meaning": "全面的",
+    "set": 8,
+    "page": 10,
+    "id": "e0298"
+  },
+  {
+    "left": "compromise",
+    "right": "concession",
+    "meaning": "让步，妥协",
+    "set": 8,
+    "page": 10,
+    "id": "e0299"
+  },
+  {
+    "left": "conceal",
+    "right": "mask",
+    "meaning": "掩盖",
+    "set": 8,
+    "page": 10,
+    "id": "e0300"
+  },
+  {
+    "left": "concede",
+    "right": "grant",
+    "meaning": "承认",
+    "set": 8,
+    "page": 10,
+    "id": "e0301"
+  },
+  {
+    "left": "conceivable",
+    "right": "plausible",
+    "meaning": "可能的",
+    "set": 8,
+    "page": 10,
+    "id": "e0302"
+  },
+  {
+    "left": "conciliatory",
+    "right": "placatory",
+    "meaning": "安抚性的",
+    "set": 8,
+    "page": 10,
+    "id": "e0303"
+  },
+  {
+    "left": "concise",
+    "right": "succinct",
+    "meaning": "简洁的",
+    "set": 8,
+    "page": 10,
+    "id": "e0304"
+  },
+  {
+    "left": "concision",
+    "right": "succinctness",
+    "meaning": "简洁",
+    "set": 8,
+    "page": 10,
+    "id": "e0305"
+  },
+  {
+    "left": "concision",
+    "right": "economy",
+    "meaning": "简洁",
+    "set": 8,
+    "page": 10,
+    "id": "e0306"
+  },
+  {
+    "left": "condemn",
+    "right": "decry",
+    "meaning": "谴责",
+    "set": 8,
+    "page": 10,
+    "id": "e0307"
+  },
+  {
+    "left": "confidence in",
+    "right": "faith in",
+    "meaning": "相信",
+    "set": 8,
+    "page": 10,
+    "id": "e0308"
+  },
+  {
+    "left": "confident",
+    "right": "positive",
+    "meaning": "肯定的",
+    "set": 8,
+    "page": 10,
+    "id": "e0309"
+  },
+  {
+    "left": "confident",
+    "right": "sanguine",
+    "meaning": "自信的",
+    "set": 8,
+    "page": 10,
+    "id": "e0310"
+  },
+  {
+    "left": "confined",
+    "right": "limited",
+    "meaning": "受限于",
+    "set": 8,
+    "page": 10,
+    "id": "e0311"
+  },
+  {
+    "left": "confining",
+    "right": "limiting",
+    "meaning": "限制性的",
+    "set": 8,
+    "page": 10,
+    "id": "e0312"
+  },
+  {
+    "left": "conflicting",
+    "right": "incompatible",
+    "meaning": "不兼容的，矛盾的",
+    "set": 8,
+    "page": 10,
+    "id": "e0313"
+  },
+  {
+    "left": "conform to",
+    "right": "square with",
+    "meaning": "符合",
+    "set": 8,
+    "page": 10,
+    "id": "e0314"
+  },
+  {
+    "left": "confound",
+    "right": "perplex",
+    "meaning": "使困惑",
+    "set": 8,
+    "page": 10,
+    "id": "e0315"
+  },
+  {
+    "left": "confound",
+    "right": "stymie",
+    "meaning": "混淆，阻碍，破坏",
+    "set": 8,
+    "page": 10,
+    "id": "e0316"
+  },
+  {
+    "left": "confounded",
+    "right": "flummoxed",
+    "meaning": "困惑的",
+    "set": 8,
+    "page": 10,
+    "id": "e0317"
+  },
+  {
+    "left": "confounding",
+    "right": "perplexing",
+    "meaning": "令人困惑的",
+    "set": 9,
+    "page": 11,
+    "id": "e0318"
+  },
+  {
+    "left": "confuse",
+    "right": "perplex",
+    "meaning": "使困惑",
+    "set": 9,
+    "page": 11,
+    "id": "e0319"
+  },
+  {
+    "left": "confused",
+    "right": "muddled",
+    "meaning": "混合的",
+    "set": 9,
+    "page": 11,
+    "id": "e0320"
+  },
+  {
+    "left": "congruent",
+    "right": "consistent",
+    "meaning": "一致的",
+    "set": 9,
+    "page": 11,
+    "id": "e0321"
+  },
+  {
+    "left": "conjectural",
+    "right": "speculative",
+    "meaning": "猜测的",
+    "set": 9,
+    "page": 11,
+    "id": "e0322"
+  },
+  {
+    "left": "conjecture",
+    "right": "speculation",
+    "meaning": "猜测",
+    "set": 9,
+    "page": 11,
+    "id": "e0323"
+  },
+  {
+    "left": "conjure up",
+    "right": "imagine",
+    "meaning": "使想起",
+    "set": 9,
+    "page": 11,
+    "id": "e0324"
+  },
+  {
+    "left": "consequence",
+    "right": "cause",
+    "meaning": "结果",
+    "set": 9,
+    "page": 11,
+    "id": "e0325"
+  },
+  {
+    "left": "consequential",
+    "right": "indispensable",
+    "meaning": "重要的",
+    "set": 9,
+    "page": 11,
+    "id": "e0326"
+  },
+  {
+    "left": "consideration",
+    "right": "deliberation",
+    "meaning": "深思熟虑",
+    "set": 9,
+    "page": 11,
+    "id": "e0327"
+  },
+  {
+    "left": "consistent",
+    "right": "regular",
+    "meaning": "稳定的",
+    "set": 9,
+    "page": 11,
+    "id": "e0328"
+  },
+  {
+    "left": "conspicuous",
+    "right": "marked",
+    "meaning": "明显的",
+    "set": 9,
+    "page": 11,
+    "id": "e0329"
+  },
+  {
+    "left": "conspicuous",
+    "right": "salient",
+    "meaning": "明显的",
+    "set": 9,
+    "page": 11,
+    "id": "e0330"
+  },
+  {
+    "left": "conspicuous",
+    "right": "obtrusive",
+    "meaning": "明显的",
+    "set": 9,
+    "page": 11,
+    "id": "e0331"
+  },
+  {
+    "left": "conspicuous",
+    "right": "prominent",
+    "meaning": "显著的",
+    "set": 9,
+    "page": 11,
+    "id": "e0332"
+  },
+  {
+    "left": "conspicuous",
+    "right": "noticeable",
+    "meaning": "明显的，显而易见的",
+    "set": 9,
+    "page": 11,
+    "id": "e0333"
+  },
+  {
+    "left": "constant",
+    "right": "immutable",
+    "meaning": "不变的",
+    "set": 9,
+    "page": 11,
+    "id": "e0334"
+  },
+  {
+    "left": "constrain",
+    "right": "constrict",
+    "meaning": "限制",
+    "set": 9,
+    "page": 11,
+    "id": "e0335"
+  },
+  {
+    "left": "constrain",
+    "right": "deter",
+    "meaning": "遏制",
+    "set": 9,
+    "page": 11,
+    "id": "e0336"
+  },
+  {
+    "left": "constrain",
+    "right": "inhibit",
+    "meaning": "阻止",
+    "set": 9,
+    "page": 11,
+    "id": "e0337"
+  },
+  {
+    "left": "contempt",
+    "right": "disdain",
+    "meaning": "鄙视",
+    "set": 9,
+    "page": 11,
+    "id": "e0338"
+  },
+  {
+    "left": "contention",
+    "right": "discordance",
+    "meaning": "争论",
+    "set": 9,
+    "page": 11,
+    "id": "e0339"
+  },
+  {
+    "left": "contentious",
+    "right": "controversial",
+    "meaning": "有争议的",
+    "set": 9,
+    "page": 11,
+    "id": "e0340"
+  },
+  {
+    "left": "contentious",
+    "right": "questionable",
+    "meaning": "有争议的",
+    "set": 9,
+    "page": 11,
+    "id": "e0341"
+  },
+  {
+    "left": "contentious",
+    "right": "fraught",
+    "meaning": "有争议的",
+    "set": 9,
+    "page": 11,
+    "id": "e0342"
+  },
+  {
+    "left": "contested",
+    "right": "disputed",
+    "meaning": "有争议的",
+    "set": 9,
+    "page": 11,
+    "id": "e0343"
+  },
+  {
+    "left": "continue",
+    "right": "persist in",
+    "meaning": "坚持",
+    "set": 9,
+    "page": 11,
+    "id": "e0344"
+  },
+  {
+    "left": "continuous",
+    "right": "ongoing",
+    "meaning": "持续的",
+    "set": 9,
+    "page": 11,
+    "id": "e0345"
+  },
+  {
+    "left": "continuous",
+    "right": "unremitting",
+    "meaning": "连续的，不停歇的",
+    "set": 9,
+    "page": 11,
+    "id": "e0346"
+  },
+  {
+    "left": "contract",
+    "right": "dwindle",
+    "meaning": "缩小",
+    "set": 9,
+    "page": 11,
+    "id": "e0347"
+  },
+  {
+    "left": "contract",
+    "right": "shrink",
+    "meaning": "收缩",
+    "set": 9,
+    "page": 11,
+    "id": "e0348"
+  },
+  {
+    "left": "contracting",
+    "right": "dwindling",
+    "meaning": "收缩的，变小的",
+    "set": 9,
+    "page": 11,
+    "id": "e0349"
+  },
+  {
+    "left": "contradict",
+    "right": "gainsay",
+    "meaning": "否认",
+    "set": 9,
+    "page": 11,
+    "id": "e0350"
+  },
+  {
+    "left": "contradictory",
+    "right": "dichotomous",
+    "meaning": "矛盾的",
+    "set": 9,
+    "page": 11,
+    "id": "e0351"
+  },
+  {
+    "left": "contravene",
+    "right": "violate",
+    "meaning": "违反，违背",
+    "set": 9,
+    "page": 11,
+    "id": "e0352"
+  },
+  {
+    "left": "contrite",
+    "right": "penitent",
+    "meaning": "忏悔的",
+    "set": 9,
+    "page": 11,
+    "id": "e0353"
+  },
+  {
+    "left": "contrive",
+    "right": "devise",
+    "meaning": "设计，发明",
+    "set": 9,
+    "page": 11,
+    "id": "e0354"
+  },
+  {
+    "left": "controversial",
+    "right": "provocative",
+    "meaning": "引起争议的",
+    "set": 9,
+    "page": 11,
+    "id": "e0355"
+  },
+  {
+    "left": "controversy",
+    "right": "disagreement",
+    "meaning": "分歧",
+    "set": 9,
+    "page": 11,
+    "id": "e0356"
+  },
+  {
+    "left": "controvert",
+    "right": "refute",
+    "meaning": "反驳",
+    "set": 9,
+    "page": 11,
+    "id": "e0357"
+  },
+  {
+    "left": "conundrum",
+    "right": "puzzle",
+    "meaning": "谜",
+    "set": 10,
+    "page": 12,
+    "id": "e0358"
+  },
+  {
+    "left": "conundrum",
+    "right": "riddle",
+    "meaning": "谜",
+    "set": 10,
+    "page": 12,
+    "id": "e0359"
+  },
+  {
+    "left": "conventional",
+    "right": "popular",
+    "meaning": "主流的",
+    "set": 10,
+    "page": 12,
+    "id": "e0360"
+  },
+  {
+    "left": "conventional",
+    "right": "traditional",
+    "meaning": "传统的",
+    "set": 10,
+    "page": 12,
+    "id": "e0361"
+  },
+  {
+    "left": "conventional",
+    "right": "mainstream",
+    "meaning": "主流的，传统的",
+    "set": 10,
+    "page": 12,
+    "id": "e0362"
+  },
+  {
+    "left": "convince",
+    "right": "persuade",
+    "meaning": "说服",
+    "set": 10,
+    "page": 12,
+    "id": "e0363"
+  },
+  {
+    "left": "conviviality",
+    "right": "cordiality",
+    "meaning": "友好",
+    "set": 10,
+    "page": 12,
+    "id": "e0364"
+  },
+  {
+    "left": "convoluted",
+    "right": "tortuous",
+    "meaning": "复杂的",
+    "set": 10,
+    "page": 12,
+    "id": "e0365"
+  },
+  {
+    "left": "convoluted",
+    "right": "intricate",
+    "meaning": "复杂的",
+    "set": 10,
+    "page": 12,
+    "id": "e0366"
+  },
+  {
+    "left": "convulsion",
+    "right": "upheaval",
+    "meaning": "剧变",
+    "set": 10,
+    "page": 12,
+    "id": "e0367"
+  },
+  {
+    "left": "cooperation",
+    "right": "symbiosis",
+    "meaning": "合作",
+    "set": 10,
+    "page": 12,
+    "id": "e0368"
+  },
+  {
+    "left": "copious",
+    "right": "superabundant",
+    "meaning": "极多的，丰富的",
+    "set": 10,
+    "page": 12,
+    "id": "e0369"
+  },
+  {
+    "left": "counterbalance",
+    "right": "offset",
+    "meaning": "抵消",
+    "set": 10,
+    "page": 12,
+    "id": "e0370"
+  },
+  {
+    "left": "counterfeit",
+    "right": "fake",
+    "meaning": "伪造的",
+    "set": 10,
+    "page": 12,
+    "id": "e0371"
+  },
+  {
+    "left": "counterintuitive",
+    "right": "inexplicable",
+    "meaning": "难以理解的",
+    "set": 10,
+    "page": 12,
+    "id": "e0372"
+  },
+  {
+    "left": "counterpart",
+    "right": "parallel",
+    "meaning": "相似物",
+    "set": 10,
+    "page": 12,
+    "id": "e0373"
+  },
+  {
+    "left": "coveted",
+    "right": "enviable",
+    "meaning": "令人羡慕的",
+    "set": 10,
+    "page": 12,
+    "id": "e0374"
+  },
+  {
+    "left": "craven",
+    "right": "timorous",
+    "meaning": "胆小的",
+    "set": 10,
+    "page": 12,
+    "id": "e0375"
+  },
+  {
+    "left": "creative",
+    "right": "imaginative",
+    "meaning": "有创造力的",
+    "set": 10,
+    "page": 12,
+    "id": "e0376"
+  },
+  {
+    "left": "credulous",
+    "right": "trusting",
+    "meaning": "轻信的",
+    "set": 10,
+    "page": 12,
+    "id": "e0377"
+  },
+  {
+    "left": "critique",
+    "right": "evaluation",
+    "meaning": "评价",
+    "set": 10,
+    "page": 12,
+    "id": "e0378"
+  },
+  {
+    "left": "cronyism",
+    "right": "nepotism",
+    "meaning": "任用亲信",
+    "set": 10,
+    "page": 12,
+    "id": "e0379"
+  },
+  {
+    "left": "crucial",
+    "right": "indispensable",
+    "meaning": "重要的",
+    "set": 10,
+    "page": 12,
+    "id": "e0380"
+  },
+  {
+    "left": "crucial",
+    "right": "essential",
+    "meaning": "重要的，必不可少的",
+    "set": 10,
+    "page": 12,
+    "id": "e0381"
+  },
+  {
+    "left": "cruelty",
+    "right": "truculence",
+    "meaning": "野蛮，残酷",
+    "set": 10,
+    "page": 12,
+    "id": "e0382"
+  },
+  {
+    "left": "cryptic",
+    "right": "elusive",
+    "meaning": "神秘难懂的",
+    "set": 10,
+    "page": 12,
+    "id": "e0383"
+  },
+  {
+    "left": "cumbersome",
+    "right": "unwieldy",
+    "meaning": "笨重的",
+    "set": 10,
+    "page": 12,
+    "id": "e0384"
+  },
+  {
+    "left": "cunning",
+    "right": "devious",
+    "meaning": "不直率的",
+    "set": 10,
+    "page": 12,
+    "id": "e0385"
+  },
+  {
+    "left": "cure-all",
+    "right": "panacea",
+    "meaning": "万灵药",
+    "set": 10,
+    "page": 12,
+    "id": "e0386"
+  },
+  {
+    "left": "cursory",
+    "right": "perfunctory",
+    "meaning": "草率的",
+    "set": 10,
+    "page": 12,
+    "id": "e0387"
+  },
+  {
+    "left": "cursory",
+    "right": "superficial",
+    "meaning": "粗略的",
+    "set": 10,
+    "page": 12,
+    "id": "e0388"
+  },
+  {
+    "left": "cursory",
+    "right": "fleeting",
+    "meaning": "仓促的",
+    "set": 10,
+    "page": 12,
+    "id": "e0389"
+  },
+  {
+    "left": "curt",
+    "right": "laconic",
+    "meaning": "话少的",
+    "set": 10,
+    "page": 12,
+    "id": "e0390"
+  },
+  {
+    "left": "curtail",
+    "right": "mitigate",
+    "meaning": "减少",
+    "set": 10,
+    "page": 12,
+    "id": "e0391"
+  },
+  {
+    "left": "curtailment",
+    "right": "retrenchment",
+    "meaning": "削减",
+    "set": 10,
+    "page": 12,
+    "id": "e0392"
+  },
+  {
+    "left": "customary",
+    "right": "habitual",
+    "meaning": "习惯的",
+    "set": 10,
+    "page": 12,
+    "id": "e0393"
+  },
+  {
+    "left": "damp",
+    "right": "palliate",
+    "meaning": "抑制；减轻",
+    "set": 10,
+    "page": 12,
+    "id": "e0394"
+  },
+  {
+    "left": "dampen",
+    "right": "deaden",
+    "meaning": "减弱",
+    "set": 10,
+    "page": 12,
+    "id": "e0395"
+  },
+  {
+    "left": "dampen",
+    "right": "impede",
+    "meaning": "抑制；阻碍",
+    "set": 10,
+    "page": 12,
+    "id": "e0396"
+  },
+  {
+    "left": "dangerous",
+    "right": "perilous",
+    "meaning": "危险的",
+    "set": 10,
+    "page": 12,
+    "id": "e0397"
+  },
+  {
+    "left": "darkening",
+    "right": "dimming",
+    "meaning": "变暗",
+    "set": 11,
+    "page": 13,
+    "id": "e0398"
+  },
+  {
+    "left": "daunting",
+    "right": "forbidding",
+    "meaning": "可怕的，十分困难的",
+    "set": 11,
+    "page": 13,
+    "id": "e0399"
+  },
+  {
+    "left": "daunting",
+    "right": "formidable",
+    "meaning": "可怕的，十分困难的",
+    "set": 11,
+    "page": 13,
+    "id": "e0400"
+  },
+  {
+    "left": "deadening",
+    "right": "soporific",
+    "meaning": "催眠的，令人麻木的",
+    "set": 11,
+    "page": 13,
+    "id": "e0401"
+  },
+  {
+    "left": "dearth",
+    "right": "paucity",
+    "meaning": "缺乏，稀少",
+    "set": 11,
+    "page": 13,
+    "id": "e0402"
+  },
+  {
+    "left": "dearth",
+    "right": "modicum",
+    "meaning": "少量",
+    "set": 11,
+    "page": 13,
+    "id": "e0403"
+  },
+  {
+    "left": "dearth",
+    "right": "deficiency",
+    "meaning": "不足，缺乏",
+    "set": 11,
+    "page": 13,
+    "id": "e0404"
+  },
+  {
+    "left": "decadence",
+    "right": "degeneracy",
+    "meaning": "衰退",
+    "set": 11,
+    "page": 13,
+    "id": "e0405"
+  },
+  {
+    "left": "decay",
+    "right": "deterioration",
+    "meaning": "衰败",
+    "set": 11,
+    "page": 13,
+    "id": "e0406"
+  },
+  {
+    "left": "deceptive",
+    "right": "slippery",
+    "meaning": "欺骗性的",
+    "set": 11,
+    "page": 13,
+    "id": "e0407"
+  },
+  {
+    "left": "deceptive",
+    "right": "specious",
+    "meaning": "欺骗性的，错误的，假的",
+    "set": 11,
+    "page": 13,
+    "id": "e0408"
+  },
+  {
+    "left": "decisive",
+    "right": "unmistakable",
+    "meaning": "确定无疑的",
+    "set": 11,
+    "page": 13,
+    "id": "e0409"
+  },
+  {
+    "left": "decline",
+    "right": "wane",
+    "meaning": "下降",
+    "set": 11,
+    "page": 13,
+    "id": "e0410"
+  },
+  {
+    "left": "decorative",
+    "right": "ornamental",
+    "meaning": "装饰的",
+    "set": 11,
+    "page": 13,
+    "id": "e0411"
+  },
+  {
+    "left": "decrepitude",
+    "right": "senescence",
+    "meaning": "衰老",
+    "set": 11,
+    "page": 13,
+    "id": "e0412"
+  },
+  {
+    "left": "decry",
+    "right": "reprehend",
+    "meaning": "谴责，责难",
+    "set": 11,
+    "page": 13,
+    "id": "e0413"
+  },
+  {
+    "left": "de-emphasize",
+    "right": "downplay",
+    "meaning": "不予重视",
+    "set": 11,
+    "page": 13,
+    "id": "e0414"
+  },
+  {
+    "left": "defend",
+    "right": "support",
+    "meaning": "支持",
+    "set": 11,
+    "page": 13,
+    "id": "e0415"
+  },
+  {
+    "left": "defender",
+    "right": "proponent",
+    "meaning": "支持者",
+    "set": 11,
+    "page": 13,
+    "id": "e0416"
+  },
+  {
+    "left": "defense",
+    "right": "vindication",
+    "meaning": "辩护",
+    "set": 11,
+    "page": 13,
+    "id": "e0417"
+  },
+  {
+    "left": "defensible",
+    "right": "justifiable",
+    "meaning": "合理的",
+    "set": 11,
+    "page": 13,
+    "id": "e0418"
+  },
+  {
+    "left": "defer",
+    "right": "shelve",
+    "meaning": "搁置，推迟",
+    "set": 11,
+    "page": 13,
+    "id": "e0419"
+  },
+  {
+    "left": "deferential",
+    "right": "respectful",
+    "meaning": "恭敬的",
+    "set": 11,
+    "page": 13,
+    "id": "e0420"
+  },
+  {
+    "left": "deflate",
+    "right": "soothe",
+    "meaning": "平息",
+    "set": 11,
+    "page": 13,
+    "id": "e0421"
+  },
+  {
+    "left": "defraud",
+    "right": "swindle",
+    "meaning": "诈骗",
+    "set": 11,
+    "page": 13,
+    "id": "e0422"
+  },
+  {
+    "left": "defray",
+    "right": "pay",
+    "meaning": "支付",
+    "set": 11,
+    "page": 13,
+    "id": "e0423"
+  },
+  {
+    "left": "defy",
+    "right": "disregard",
+    "meaning": "忽视",
+    "set": 11,
+    "page": 13,
+    "id": "e0424"
+  },
+  {
+    "left": "defy",
+    "right": "flout",
+    "meaning": "不遵守",
+    "set": 11,
+    "page": 13,
+    "id": "e0425"
+  },
+  {
+    "left": "deleterious",
+    "right": "pernicious",
+    "meaning": "有害的",
+    "set": 11,
+    "page": 13,
+    "id": "e0426"
+  },
+  {
+    "left": "deleterious",
+    "right": "inimical",
+    "meaning": "有害的",
+    "set": 11,
+    "page": 13,
+    "id": "e0427"
+  },
+  {
+    "left": "deleterious to",
+    "right": "inimical to",
+    "meaning": "对……有害的",
+    "set": 11,
+    "page": 13,
+    "id": "e0428"
+  },
+  {
+    "left": "deliberate",
+    "right": "purposeful",
+    "meaning": "有目的性的",
+    "set": 11,
+    "page": 13,
+    "id": "e0429"
+  },
+  {
+    "left": "delight",
+    "right": "joy",
+    "meaning": "高兴",
+    "set": 11,
+    "page": 13,
+    "id": "e0430"
+  },
+  {
+    "left": "delighted in",
+    "right": "relished",
+    "meaning": "乐意于",
+    "set": 11,
+    "page": 13,
+    "id": "e0431"
+  },
+  {
+    "left": "delusive",
+    "right": "erroneous",
+    "meaning": "错误的",
+    "set": 11,
+    "page": 13,
+    "id": "e0432"
+  },
+  {
+    "left": "demand",
+    "right": "exact",
+    "meaning": "要求",
+    "set": 11,
+    "page": 13,
+    "id": "e0433"
+  },
+  {
+    "left": "democratic",
+    "right": "egalitarian",
+    "meaning": "平等的，民主的",
+    "set": 11,
+    "page": 13,
+    "id": "e0434"
+  },
+  {
+    "left": "demystify",
+    "right": "elucidate",
+    "meaning": "阐明，使明白易懂",
+    "set": 11,
+    "page": 13,
+    "id": "e0435"
+  },
+  {
+    "left": "denounce",
+    "right": "lambast",
+    "meaning": "谴责",
+    "set": 11,
+    "page": 13,
+    "id": "e0436"
+  },
+  {
+    "left": "denunciation",
+    "right": "indictment",
+    "meaning": "谴责，指责，控告",
+    "set": 11,
+    "page": 13,
+    "id": "e0437"
+  },
+  {
+    "left": "denunciation of",
+    "right": "indictment of",
+    "meaning": "斥责",
+    "set": 12,
+    "page": 14,
+    "id": "e0438"
+  },
+  {
+    "left": "depict",
+    "right": "illustrate",
+    "meaning": "描述，说明",
+    "set": 12,
+    "page": 14,
+    "id": "e0439"
+  },
+  {
+    "left": "deplorable",
+    "right": "reprehensible",
+    "meaning": "令人愤慨的",
+    "set": 12,
+    "page": 14,
+    "id": "e0440"
+  },
+  {
+    "left": "deprecatory",
+    "right": "detracting",
+    "meaning": "贬低的",
+    "set": 12,
+    "page": 14,
+    "id": "e0441"
+  },
+  {
+    "left": "depressing",
+    "right": "dishearting",
+    "meaning": "令人沮丧的",
+    "set": 12,
+    "page": 14,
+    "id": "e0442"
+  },
+  {
+    "left": "deride",
+    "right": "lambaste",
+    "meaning": "斥责",
+    "set": 12,
+    "page": 14,
+    "id": "e0443"
+  },
+  {
+    "left": "derision",
+    "right": "ridicule",
+    "meaning": "嘲笑，嘲弄",
+    "set": 12,
+    "page": 14,
+    "id": "e0444"
+  },
+  {
+    "left": "derision",
+    "right": "mockery",
+    "meaning": "嘲弄",
+    "set": 12,
+    "page": 14,
+    "id": "e0445"
+  },
+  {
+    "left": "design",
+    "right": "purposefulness",
+    "meaning": "故意",
+    "set": 12,
+    "page": 14,
+    "id": "e0446"
+  },
+  {
+    "left": "despotic",
+    "right": "tyrannical",
+    "meaning": "专横的，暴虐的",
+    "set": 12,
+    "page": 14,
+    "id": "e0447"
+  },
+  {
+    "left": "destined",
+    "right": "keen",
+    "meaning": "热衷的",
+    "set": 12,
+    "page": 14,
+    "id": "e0448"
+  },
+  {
+    "left": "detached from",
+    "right": "divorced from",
+    "meaning": "与……脱离",
+    "set": 12,
+    "page": 14,
+    "id": "e0449"
+  },
+  {
+    "left": "detachment",
+    "right": "impartiality",
+    "meaning": "客观",
+    "set": 12,
+    "page": 14,
+    "id": "e0450"
+  },
+  {
+    "left": "detect",
+    "right": "discern",
+    "meaning": "发现",
+    "set": 12,
+    "page": 14,
+    "id": "e0451"
+  },
+  {
+    "left": "deteriorate",
+    "right": "worsen",
+    "meaning": "使恶化",
+    "set": 12,
+    "page": 14,
+    "id": "e0452"
+  },
+  {
+    "left": "determination",
+    "right": "resolve",
+    "meaning": "决心",
+    "set": 12,
+    "page": 14,
+    "id": "e0453"
+  },
+  {
+    "left": "determine",
+    "right": "govern",
+    "meaning": "控制",
+    "set": 12,
+    "page": 14,
+    "id": "e0454"
+  },
+  {
+    "left": "detrimental",
+    "right": "pernicious",
+    "meaning": "有害的",
+    "set": 12,
+    "page": 14,
+    "id": "e0455"
+  },
+  {
+    "left": "diagnose",
+    "right": "identify",
+    "meaning": "诊断，断定",
+    "set": 12,
+    "page": 14,
+    "id": "e0456"
+  },
+  {
+    "left": "differentiate",
+    "right": "stratify",
+    "meaning": "分层",
+    "set": 12,
+    "page": 14,
+    "id": "e0457"
+  },
+  {
+    "left": "difficult",
+    "right": "enigmatic",
+    "meaning": "难以理解的",
+    "set": 12,
+    "page": 14,
+    "id": "e0458"
+  },
+  {
+    "left": "diffuse",
+    "right": "spread",
+    "meaning": "扩散",
+    "set": 12,
+    "page": 14,
+    "id": "e0459"
+  },
+  {
+    "left": "dignify",
+    "right": "ennoble",
+    "meaning": "使……高贵",
+    "set": 12,
+    "page": 14,
+    "id": "e0460"
+  },
+  {
+    "left": "dilatory",
+    "right": "sluggish",
+    "meaning": "缓慢的",
+    "set": 12,
+    "page": 14,
+    "id": "e0461"
+  },
+  {
+    "left": "dilatory",
+    "right": "remiss",
+    "meaning": "拖拉的，缓慢的",
+    "set": 12,
+    "page": 14,
+    "id": "e0462"
+  },
+  {
+    "left": "dilemma",
+    "right": "quandary",
+    "meaning": "两难的抉择",
+    "set": 12,
+    "page": 14,
+    "id": "e0463"
+  },
+  {
+    "left": "diligent",
+    "right": "industrious",
+    "meaning": "勤奋的，刻苦的",
+    "set": 12,
+    "page": 14,
+    "id": "e0464"
+  },
+  {
+    "left": "diminish",
+    "right": "mitigate",
+    "meaning": "减轻",
+    "set": 12,
+    "page": 14,
+    "id": "e0465"
+  },
+  {
+    "left": "diminutive",
+    "right": "minuscule",
+    "meaning": "极小的",
+    "set": 12,
+    "page": 14,
+    "id": "e0466"
+  },
+  {
+    "left": "diminutive",
+    "right": "minuscular",
+    "meaning": "微小的",
+    "set": 12,
+    "page": 14,
+    "id": "e0467"
+  },
+  {
+    "left": "disallow",
+    "right": "proscribe",
+    "meaning": "不允许，禁止",
+    "set": 12,
+    "page": 14,
+    "id": "e0468"
+  },
+  {
+    "left": "disarray",
+    "right": "unruliness",
+    "meaning": "无秩序",
+    "set": 12,
+    "page": 14,
+    "id": "e0469"
+  },
+  {
+    "left": "discern",
+    "right": "discover",
+    "meaning": "发现，识别",
+    "set": 12,
+    "page": 14,
+    "id": "e0470"
+  },
+  {
+    "left": "discerning",
+    "right": "perceptive",
+    "meaning": "敏锐的",
+    "set": 12,
+    "page": 14,
+    "id": "e0471"
+  },
+  {
+    "left": "discerning",
+    "right": "selective",
+    "meaning": "有识别力的，有感知力的，精心挑选的",
+    "set": 12,
+    "page": 14,
+    "id": "e0472"
+  },
+  {
+    "left": "discerning",
+    "right": "perceptive",
+    "meaning": "有洞察力的，敏锐的",
+    "set": 12,
+    "page": 14,
+    "id": "e0473"
+  },
+  {
+    "left": "discernment",
+    "right": "perspicacity",
+    "meaning": "洞察力",
+    "set": 12,
+    "page": 14,
+    "id": "e0474"
+  },
+  {
+    "left": "disclose",
+    "right": "divulge",
+    "meaning": "揭露",
+    "set": 12,
+    "page": 14,
+    "id": "e0475"
+  },
+  {
+    "left": "disconcerting",
+    "right": "unsettling",
+    "meaning": "令人不安的",
+    "set": 12,
+    "page": 14,
+    "id": "e0476"
+  },
+  {
+    "left": "discounted",
+    "right": "undervalued",
+    "meaning": "被低估的",
+    "set": 13,
+    "page": 15,
+    "id": "e0477"
+  },
+  {
+    "left": "discrepancy",
+    "right": "incongruity",
+    "meaning": "不一致",
+    "set": 13,
+    "page": 15,
+    "id": "e0478"
+  },
+  {
+    "left": "discrete",
+    "right": "isolated",
+    "meaning": "分离的，孤立的，单独的",
+    "set": 13,
+    "page": 15,
+    "id": "e0479"
+  },
+  {
+    "left": "discriminating",
+    "right": "judicious",
+    "meaning": "有鉴别能力的，明智的",
+    "set": 13,
+    "page": 15,
+    "id": "e0480"
+  },
+  {
+    "left": "disdain",
+    "right": "reject",
+    "meaning": "拒绝",
+    "set": 13,
+    "page": 15,
+    "id": "e0481"
+  },
+  {
+    "left": "disdain",
+    "right": "opprobrium",
+    "meaning": "鄙视",
+    "set": 13,
+    "page": 15,
+    "id": "e0482"
+  },
+  {
+    "left": "disdain",
+    "right": "scorn",
+    "meaning": "鄙视，瞧不起",
+    "set": 13,
+    "page": 15,
+    "id": "e0483"
+  },
+  {
+    "left": "dishonest",
+    "right": "unscrupulous",
+    "meaning": "不诚实的",
+    "set": 13,
+    "page": 15,
+    "id": "e0484"
+  },
+  {
+    "left": "disinclined",
+    "right": "loath",
+    "meaning": "不情愿的",
+    "set": 13,
+    "page": 15,
+    "id": "e0485"
+  },
+  {
+    "left": "disinformation",
+    "right": "mendacity",
+    "meaning": "虚假信息",
+    "set": 13,
+    "page": 15,
+    "id": "e0486"
+  },
+  {
+    "left": "disingenuous",
+    "right": "insincere",
+    "meaning": "不真诚的",
+    "set": 13,
+    "page": 15,
+    "id": "e0487"
+  },
+  {
+    "left": "dismiss",
+    "right": "dispel",
+    "meaning": "打消",
+    "set": 13,
+    "page": 15,
+    "id": "e0488"
+  },
+  {
+    "left": "dismiss",
+    "right": "ignore",
+    "meaning": "忽视",
+    "set": 13,
+    "page": 15,
+    "id": "e0489"
+  },
+  {
+    "left": "dismissal",
+    "right": "impeachment",
+    "meaning": "弹劾",
+    "set": 13,
+    "page": 15,
+    "id": "e0490"
+  },
+  {
+    "left": "disown",
+    "right": "reject",
+    "meaning": "否认",
+    "set": 13,
+    "page": 15,
+    "id": "e0491"
+  },
+  {
+    "left": "disparage",
+    "right": "slight",
+    "meaning": "轻视",
+    "set": 13,
+    "page": 15,
+    "id": "e0492"
+  },
+  {
+    "left": "disparage",
+    "right": "scorn",
+    "meaning": "轻视，贬低",
+    "set": 13,
+    "page": 15,
+    "id": "e0493"
+  },
+  {
+    "left": "disparate",
+    "right": "divergent",
+    "meaning": "不同的，发散的，有分歧的",
+    "set": 13,
+    "page": 15,
+    "id": "e0494"
+  },
+  {
+    "left": "disparate",
+    "right": "heterogeneous",
+    "meaning": "不同的",
+    "set": 13,
+    "page": 15,
+    "id": "e0495"
+  },
+  {
+    "left": "disparateness",
+    "right": "heterogeneity",
+    "meaning": "不同",
+    "set": 13,
+    "page": 15,
+    "id": "e0496"
+  },
+  {
+    "left": "disparity",
+    "right": "variance",
+    "meaning": "不同",
+    "set": 13,
+    "page": 15,
+    "id": "e0497"
+  },
+  {
+    "left": "dispassionate",
+    "right": "temperate",
+    "meaning": "温和的",
+    "set": 13,
+    "page": 15,
+    "id": "e0498"
+  },
+  {
+    "left": "displace",
+    "right": "supplant",
+    "meaning": "取代，代替",
+    "set": 13,
+    "page": 15,
+    "id": "e0499"
+  },
+  {
+    "left": "disposition",
+    "right": "proclivity",
+    "meaning": "倾向",
+    "set": 13,
+    "page": 15,
+    "id": "e0500"
+  },
+  {
+    "left": "disregard",
+    "right": "ignore",
+    "meaning": "忽视",
+    "set": 13,
+    "page": 15,
+    "id": "e0501"
+  },
+  {
+    "left": "dissemblance",
+    "right": "duplicity",
+    "meaning": "伪装",
+    "set": 13,
+    "page": 15,
+    "id": "e0502"
+  },
+  {
+    "left": "dissimilar",
+    "right": "heterogeneous",
+    "meaning": "不同的",
+    "set": 13,
+    "page": 15,
+    "id": "e0503"
+  },
+  {
+    "left": "dissimilar",
+    "right": "divergent",
+    "meaning": "不同的",
+    "set": 13,
+    "page": 15,
+    "id": "e0504"
+  },
+  {
+    "left": "distinct",
+    "right": "idiosyncratic",
+    "meaning": "独特的",
+    "set": 13,
+    "page": 15,
+    "id": "e0505"
+  },
+  {
+    "left": "distort",
+    "right": "misjudge",
+    "meaning": "曲解",
+    "set": 13,
+    "page": 15,
+    "id": "e0506"
+  },
+  {
+    "left": "distort",
+    "right": "garble",
+    "meaning": "歪曲",
+    "set": 13,
+    "page": 15,
+    "id": "e0507"
+  },
+  {
+    "left": "distortion",
+    "right": "misrepresentation",
+    "meaning": "歪曲",
+    "set": 13,
+    "page": 15,
+    "id": "e0508"
+  },
+  {
+    "left": "diverse",
+    "right": "heterogeneous",
+    "meaning": "不同的",
+    "set": 13,
+    "page": 15,
+    "id": "e0509"
+  },
+  {
+    "left": "diversity",
+    "right": "heterogeneity",
+    "meaning": "不同",
+    "set": 13,
+    "page": 15,
+    "id": "e0510"
+  },
+  {
+    "left": "diverse",
+    "right": "varied",
+    "meaning": "不同的",
+    "set": 13,
+    "page": 15,
+    "id": "e0511"
+  },
+  {
+    "left": "divert",
+    "right": "entertain",
+    "meaning": "使娱乐",
+    "set": 13,
+    "page": 15,
+    "id": "e0512"
+  },
+  {
+    "left": "divested of",
+    "right": "stripped of",
+    "meaning": "剥夺……",
+    "set": 13,
+    "page": 15,
+    "id": "e0513"
+  },
+  {
+    "left": "divorced from",
+    "right": "untethered from",
+    "meaning": "与……脱离",
+    "set": 13,
+    "page": 15,
+    "id": "e0514"
+  },
+  {
+    "left": "doggedness",
+    "right": "pertinacity",
+    "meaning": "顽固，坚持",
+    "set": 13,
+    "page": 15,
+    "id": "e0515"
+  },
+  {
+    "left": "domestication",
+    "right": "husbandry",
+    "meaning": "驯养，饲养",
+    "set": 13,
+    "page": 15,
+    "id": "e0516"
+  },
+  {
+    "left": "doubt",
+    "right": "question",
+    "meaning": "质疑",
+    "set": 14,
+    "page": 16,
+    "id": "e0517"
+  },
+  {
+    "left": "doubt about",
+    "right": "skepticism regarding",
+    "meaning": "质疑……",
+    "set": 14,
+    "page": 16,
+    "id": "e0518"
+  },
+  {
+    "left": "dovish",
+    "right": "pacific",
+    "meaning": "和平的",
+    "set": 14,
+    "page": 16,
+    "id": "e0519"
+  },
+  {
+    "left": "dramatic",
+    "right": "impressive",
+    "meaning": "引人注目的",
+    "set": 14,
+    "page": 16,
+    "id": "e0520"
+  },
+  {
+    "left": "draw",
+    "right": "elicit",
+    "meaning": "引起",
+    "set": 14,
+    "page": 16,
+    "id": "e0521"
+  },
+  {
+    "left": "dreary",
+    "right": "tedious",
+    "meaning": "无聊的",
+    "set": 14,
+    "page": 16,
+    "id": "e0522"
+  },
+  {
+    "left": "dubious",
+    "right": "suspect",
+    "meaning": "可疑的",
+    "set": 14,
+    "page": 16,
+    "id": "e0523"
+  },
+  {
+    "left": "dubious",
+    "right": "questionable",
+    "meaning": "可疑的",
+    "set": 14,
+    "page": 16,
+    "id": "e0524"
+  },
+  {
+    "left": "dull",
+    "right": "lackluster",
+    "meaning": "不鲜明的，无聊的",
+    "set": 14,
+    "page": 16,
+    "id": "e0525"
+  },
+  {
+    "left": "duplicity",
+    "right": "falsehoods",
+    "meaning": "说谎",
+    "set": 14,
+    "page": 16,
+    "id": "e0526"
+  },
+  {
+    "left": "duplicity",
+    "right": "fraud",
+    "meaning": "欺诈，欺骗",
+    "set": 14,
+    "page": 16,
+    "id": "e0527"
+  },
+  {
+    "left": "durability",
+    "right": "persistence",
+    "meaning": "持续",
+    "set": 14,
+    "page": 16,
+    "id": "e0528"
+  },
+  {
+    "left": "durable",
+    "right": "tenacious",
+    "meaning": "持久的",
+    "set": 14,
+    "page": 16,
+    "id": "e0529"
+  },
+  {
+    "left": "dynamism",
+    "right": "vitality",
+    "meaning": "活力",
+    "set": 14,
+    "page": 16,
+    "id": "e0530"
+  },
+  {
+    "left": "eager",
+    "right": "keen",
+    "meaning": "渴望的，热切的",
+    "set": 14,
+    "page": 16,
+    "id": "e0531"
+  },
+  {
+    "left": "earn",
+    "right": "secure",
+    "meaning": "获得",
+    "set": 14,
+    "page": 16,
+    "id": "e0532"
+  },
+  {
+    "left": "ebb",
+    "right": "wane",
+    "meaning": "下降",
+    "set": 14,
+    "page": 16,
+    "id": "e0533"
+  },
+  {
+    "left": "ebbing",
+    "right": "waning",
+    "meaning": "衰退",
+    "set": 14,
+    "page": 16,
+    "id": "e0534"
+  },
+  {
+    "left": "eccentricity",
+    "right": "quirk",
+    "meaning": "古怪",
+    "set": 14,
+    "page": 16,
+    "id": "e0535"
+  },
+  {
+    "left": "eclectic",
+    "right": "heterogeneous",
+    "meaning": "混合的",
+    "set": 14,
+    "page": 16,
+    "id": "e0536"
+  },
+  {
+    "left": "eclipse",
+    "right": "outdo",
+    "meaning": "超过",
+    "set": 14,
+    "page": 16,
+    "id": "e0537"
+  },
+  {
+    "left": "economic",
+    "right": "pecuniary",
+    "meaning": "金钱的",
+    "set": 14,
+    "page": 16,
+    "id": "e0538"
+  },
+  {
+    "left": "effective",
+    "right": "useful",
+    "meaning": "有用的",
+    "set": 14,
+    "page": 16,
+    "id": "e0539"
+  },
+  {
+    "left": "effusive",
+    "right": "emotional",
+    "meaning": "感情洋溢的",
+    "set": 14,
+    "page": 16,
+    "id": "e0540"
+  },
+  {
+    "left": "elegant",
+    "right": "urbane",
+    "meaning": "优雅的",
+    "set": 14,
+    "page": 16,
+    "id": "e0541"
+  },
+  {
+    "left": "elementary",
+    "right": "rudimentary",
+    "meaning": "基础的",
+    "set": 14,
+    "page": 16,
+    "id": "e0542"
+  },
+  {
+    "left": "eliminate",
+    "right": "extirpate",
+    "meaning": "根除",
+    "set": 14,
+    "page": 16,
+    "id": "e0543"
+  },
+  {
+    "left": "eliminate",
+    "right": "put to rest",
+    "meaning": "消失",
+    "set": 14,
+    "page": 16,
+    "id": "e0544"
+  },
+  {
+    "left": "eliminate",
+    "right": "foreclose",
+    "meaning": "排除",
+    "set": 14,
+    "page": 16,
+    "id": "e0545"
+  },
+  {
+    "left": "elision",
+    "right": "lacuna",
+    "meaning": "缺漏，空白",
+    "set": 14,
+    "page": 16,
+    "id": "e0546"
+  },
+  {
+    "left": "eloquence",
+    "right": "rhetoric",
+    "meaning": "能言善辩",
+    "set": 14,
+    "page": 16,
+    "id": "e0547"
+  },
+  {
+    "left": "elude",
+    "right": "puzzle",
+    "meaning": "使困惑",
+    "set": 14,
+    "page": 16,
+    "id": "e0548"
+  },
+  {
+    "left": "elusive",
+    "right": "slippery",
+    "meaning": "捉摸不透的",
+    "set": 14,
+    "page": 16,
+    "id": "e0549"
+  },
+  {
+    "left": "elusive",
+    "right": "evasive",
+    "meaning": "逃避的",
+    "set": 14,
+    "page": 16,
+    "id": "e0550"
+  },
+  {
+    "left": "emblematic",
+    "right": "totemic",
+    "meaning": "象征的",
+    "set": 14,
+    "page": 16,
+    "id": "e0551"
+  },
+  {
+    "left": "embrace",
+    "right": "welcome",
+    "meaning": "支持",
+    "set": 14,
+    "page": 16,
+    "id": "e0552"
+  },
+  {
+    "left": "embryonic",
+    "right": "rudimentary",
+    "meaning": "初期的，萌芽期的",
+    "set": 14,
+    "page": 16,
+    "id": "e0553"
+  },
+  {
+    "left": "embryonic",
+    "right": "undeveloped",
+    "meaning": "初期的，早期的",
+    "set": 14,
+    "page": 16,
+    "id": "e0554"
+  },
+  {
+    "left": "emendation",
+    "right": "revision",
+    "meaning": "修正",
+    "set": 14,
+    "page": 16,
+    "id": "e0555"
+  },
+  {
+    "left": "emulate",
+    "right": "imitate",
+    "meaning": "模仿",
+    "set": 14,
+    "page": 16,
+    "id": "e0556"
+  },
+  {
+    "left": "enamored of",
+    "right": "enthralled by",
+    "meaning": "喜爱",
+    "set": 15,
+    "page": 17,
+    "id": "e0557"
+  },
+  {
+    "left": "encomium",
+    "right": "tribute",
+    "meaning": "赞美",
+    "set": 15,
+    "page": 17,
+    "id": "e0558"
+  },
+  {
+    "left": "encumber",
+    "right": "hamper",
+    "meaning": "阻碍，妨碍",
+    "set": 15,
+    "page": 17,
+    "id": "e0559"
+  },
+  {
+    "left": "encyclopedic",
+    "right": "exhaustive",
+    "meaning": "全面的",
+    "set": 15,
+    "page": 17,
+    "id": "e0560"
+  },
+  {
+    "left": "encyclopedic",
+    "right": "polymathic",
+    "meaning": "博学的",
+    "set": 15,
+    "page": 17,
+    "id": "e0561"
+  },
+  {
+    "left": "endemic",
+    "right": "native",
+    "meaning": "本土的",
+    "set": 15,
+    "page": 17,
+    "id": "e0562"
+  },
+  {
+    "left": "endorse",
+    "right": "sanction",
+    "meaning": "同意",
+    "set": 15,
+    "page": 17,
+    "id": "e0563"
+  },
+  {
+    "left": "endorse",
+    "right": "support",
+    "meaning": "支持",
+    "set": 15,
+    "page": 17,
+    "id": "e0564"
+  },
+  {
+    "left": "endorse",
+    "right": "underwrite",
+    "meaning": "同意",
+    "set": 15,
+    "page": 17,
+    "id": "e0565"
+  },
+  {
+    "left": "endurance",
+    "right": "tenacity",
+    "meaning": "持久",
+    "set": 15,
+    "page": 17,
+    "id": "e0566"
+  },
+  {
+    "left": "endure",
+    "right": "tolerate",
+    "meaning": "忍受",
+    "set": 15,
+    "page": 17,
+    "id": "e0567"
+  },
+  {
+    "left": "engagement",
+    "right": "involvement",
+    "meaning": "参与，沉迷",
+    "set": 15,
+    "page": 17,
+    "id": "e0568"
+  },
+  {
+    "left": "engaging",
+    "right": "intriguing",
+    "meaning": "有趣的",
+    "set": 15,
+    "page": 17,
+    "id": "e0569"
+  },
+  {
+    "left": "engaging",
+    "right": "winning",
+    "meaning": "迷人的，动人的，吸引人的",
+    "set": 15,
+    "page": 17,
+    "id": "e0570"
+  },
+  {
+    "left": "engender",
+    "right": "yield",
+    "meaning": "产生",
+    "set": 15,
+    "page": 17,
+    "id": "e0571"
+  },
+  {
+    "left": "engender",
+    "right": "induce",
+    "meaning": "产生",
+    "set": 15,
+    "page": 17,
+    "id": "e0572"
+  },
+  {
+    "left": "engender",
+    "right": "inaugurate",
+    "meaning": "产生，创造",
+    "set": 15,
+    "page": 17,
+    "id": "e0573"
+  },
+  {
+    "left": "enhance",
+    "right": "hone",
+    "meaning": "提高",
+    "set": 15,
+    "page": 17,
+    "id": "e0574"
+  },
+  {
+    "left": "enigmatic",
+    "right": "perplexing",
+    "meaning": "令人困惑的",
+    "set": 15,
+    "page": 17,
+    "id": "e0575"
+  },
+  {
+    "left": "enigmatic",
+    "right": "inscrutable",
+    "meaning": "难懂的",
+    "set": 15,
+    "page": 17,
+    "id": "e0576"
+  },
+  {
+    "left": "enlightening",
+    "right": "illuminating",
+    "meaning": "富于启发性的",
+    "set": 15,
+    "page": 17,
+    "id": "e0577"
+  },
+  {
+    "left": "enormous",
+    "right": "gigantic",
+    "meaning": "庞大的",
+    "set": 15,
+    "page": 17,
+    "id": "e0578"
+  },
+  {
+    "left": "entailed by",
+    "right": "inferable from",
+    "meaning": "由……推出",
+    "set": 15,
+    "page": 17,
+    "id": "e0579"
+  },
+  {
+    "left": "entrenched",
+    "right": "inveterate",
+    "meaning": "根深蒂固的，牢固的",
+    "set": 15,
+    "page": 17,
+    "id": "e0580"
+  },
+  {
+    "left": "ephemeral",
+    "right": "evanescent",
+    "meaning": "短暂的",
+    "set": 15,
+    "page": 17,
+    "id": "e0581"
+  },
+  {
+    "left": "ephemeral",
+    "right": "short-lived",
+    "meaning": "短暂的",
+    "set": 15,
+    "page": 17,
+    "id": "e0582"
+  },
+  {
+    "left": "ephemeral",
+    "right": "transitory",
+    "meaning": "短暂的",
+    "set": 15,
+    "page": 17,
+    "id": "e0583"
+  },
+  {
+    "left": "ephemeral",
+    "right": "fleeting",
+    "meaning": "短暂的",
+    "set": 15,
+    "page": 17,
+    "id": "e0584"
+  },
+  {
+    "left": "ephemerality",
+    "right": "transience",
+    "meaning": "短暂",
+    "set": 15,
+    "page": 17,
+    "id": "e0585"
+  },
+  {
+    "left": "errant",
+    "right": "wayward",
+    "meaning": "不规则的",
+    "set": 15,
+    "page": 17,
+    "id": "e0586"
+  },
+  {
+    "left": "erratic",
+    "right": "unpredictable",
+    "meaning": "不稳定的",
+    "set": 15,
+    "page": 17,
+    "id": "e0587"
+  },
+  {
+    "left": "erroneousness",
+    "right": "inaccuracy",
+    "meaning": "错误",
+    "set": 15,
+    "page": 17,
+    "id": "e0588"
+  },
+  {
+    "left": "erudite",
+    "right": "learned",
+    "meaning": "博学的",
+    "set": 15,
+    "page": 17,
+    "id": "e0589"
+  },
+  {
+    "left": "eschew",
+    "right": "shun",
+    "meaning": "避免",
+    "set": 15,
+    "page": 17,
+    "id": "e0590"
+  },
+  {
+    "left": "eschew",
+    "right": "forswear",
+    "meaning": "避开",
+    "set": 15,
+    "page": 17,
+    "id": "e0591"
+  },
+  {
+    "left": "esoteric",
+    "right": "recondite",
+    "meaning": "晦涩的，难懂的",
+    "set": 15,
+    "page": 17,
+    "id": "e0592"
+  },
+  {
+    "left": "essential",
+    "right": "indispensable",
+    "meaning": "重要的",
+    "set": 15,
+    "page": 17,
+    "id": "e0593"
+  },
+  {
+    "left": "essential",
+    "right": "integral",
+    "meaning": "必不可少的",
+    "set": 15,
+    "page": 17,
+    "id": "e0594"
+  },
+  {
+    "left": "essential",
+    "right": "indispensable",
+    "meaning": "不可或缺的，重要的",
+    "set": 15,
+    "page": 17,
+    "id": "e0595"
+  },
+  {
+    "left": "estranged",
+    "right": "unlinked",
+    "meaning": "没有联系的",
+    "set": 15,
+    "page": 17,
+    "id": "e0596"
+  },
+  {
+    "left": "ethereal",
+    "right": "invisible",
+    "meaning": "无形的，缥缈的",
+    "set": 16,
+    "page": 18,
+    "id": "e0597"
+  },
+  {
+    "left": "evanescent",
+    "right": "momentary",
+    "meaning": "短暂的",
+    "set": 16,
+    "page": 18,
+    "id": "e0598"
+  },
+  {
+    "left": "evanescent",
+    "right": "fleeting",
+    "meaning": "短暂的",
+    "set": 16,
+    "page": 18,
+    "id": "e0599"
+  },
+  {
+    "left": "evenhanded",
+    "right": "impartial",
+    "meaning": "客观的",
+    "set": 16,
+    "page": 18,
+    "id": "e0600"
+  },
+  {
+    "left": "evenhandedness",
+    "right": "impartiality",
+    "meaning": "客观公正",
+    "set": 16,
+    "page": 18,
+    "id": "e0601"
+  },
+  {
+    "left": "evident",
+    "right": "manifest",
+    "meaning": "明显的",
+    "set": 16,
+    "page": 18,
+    "id": "e0602"
+  },
+  {
+    "left": "evince",
+    "right": "betray",
+    "meaning": "表明，表现出",
+    "set": 16,
+    "page": 18,
+    "id": "e0603"
+  },
+  {
+    "left": "exacerbate",
+    "right": "magnify",
+    "meaning": "加重",
+    "set": 16,
+    "page": 18,
+    "id": "e0604"
+  },
+  {
+    "left": "exacting",
+    "right": "onerous",
+    "meaning": "吃力的",
+    "set": 16,
+    "page": 18,
+    "id": "e0605"
+  },
+  {
+    "left": "exacting",
+    "right": "stringent",
+    "meaning": "高要求的，严格的",
+    "set": 16,
+    "page": 18,
+    "id": "e0606"
+  },
+  {
+    "left": "exacting",
+    "right": "rigorous",
+    "meaning": "严格的",
+    "set": 16,
+    "page": 18,
+    "id": "e0607"
+  },
+  {
+    "left": "exacting",
+    "right": "proscriptive",
+    "meaning": "要求严格的",
+    "set": 16,
+    "page": 18,
+    "id": "e0608"
+  },
+  {
+    "left": "exactitude",
+    "right": "meticulousness",
+    "meaning": "精准",
+    "set": 16,
+    "page": 18,
+    "id": "e0609"
+  },
+  {
+    "left": "exaggerate",
+    "right": "overestimate",
+    "meaning": "夸大",
+    "set": 16,
+    "page": 18,
+    "id": "e0610"
+  },
+  {
+    "left": "exaggeration",
+    "right": "hyperbole",
+    "meaning": "夸大",
+    "set": 16,
+    "page": 18,
+    "id": "e0611"
+  },
+  {
+    "left": "exalt",
+    "right": "valorize",
+    "meaning": "提升，赞美",
+    "set": 16,
+    "page": 18,
+    "id": "e0612"
+  },
+  {
+    "left": "exalt",
+    "right": "venerate",
+    "meaning": "歌颂，称赞，尊敬",
+    "set": 16,
+    "page": 18,
+    "id": "e0613"
+  },
+  {
+    "left": "exasperation",
+    "right": "irascibility",
+    "meaning": "易怒",
+    "set": 16,
+    "page": 18,
+    "id": "e0614"
+  },
+  {
+    "left": "excessive",
+    "right": "undue",
+    "meaning": "过度的",
+    "set": 16,
+    "page": 18,
+    "id": "e0615"
+  },
+  {
+    "left": "excoriate",
+    "right": "indict",
+    "meaning": "指责",
+    "set": 16,
+    "page": 18,
+    "id": "e0616"
+  },
+  {
+    "left": "excoriate",
+    "right": "lambaste",
+    "meaning": "严厉指责",
+    "set": 16,
+    "page": 18,
+    "id": "e0617"
+  },
+  {
+    "left": "exculpate",
+    "right": "vindicate",
+    "meaning": "证明无罪",
+    "set": 16,
+    "page": 18,
+    "id": "e0618"
+  },
+  {
+    "left": "exigent",
+    "right": "pressing",
+    "meaning": "迫切的，紧急的",
+    "set": 16,
+    "page": 18,
+    "id": "e0619"
+  },
+  {
+    "left": "exiguous",
+    "right": "tenuous",
+    "meaning": "不足的，微弱的",
+    "set": 16,
+    "page": 18,
+    "id": "e0620"
+  },
+  {
+    "left": "expedient",
+    "right": "pragmatic",
+    "meaning": "讲究实际的",
+    "set": 16,
+    "page": 18,
+    "id": "e0621"
+  },
+  {
+    "left": "expedite",
+    "right": "facilitate",
+    "meaning": "加速，促进",
+    "set": 16,
+    "page": 18,
+    "id": "e0622"
+  },
+  {
+    "left": "expel",
+    "right": "oust",
+    "meaning": "驱逐",
+    "set": 16,
+    "page": 18,
+    "id": "e0623"
+  },
+  {
+    "left": "experimental",
+    "right": "innovative",
+    "meaning": "创新的",
+    "set": 16,
+    "page": 18,
+    "id": "e0624"
+  },
+  {
+    "left": "explosion",
+    "right": "proliferation",
+    "meaning": "激增",
+    "set": 16,
+    "page": 18,
+    "id": "e0625"
+  },
+  {
+    "left": "expostulate",
+    "right": "remonstrate",
+    "meaning": "规劝，告诫",
+    "set": 16,
+    "page": 18,
+    "id": "e0626"
+  },
+  {
+    "left": "extensive",
+    "right": "prevalent",
+    "meaning": "广泛的",
+    "set": 16,
+    "page": 18,
+    "id": "e0627"
+  },
+  {
+    "left": "extenuate",
+    "right": "mitigate",
+    "meaning": "减轻",
+    "set": 16,
+    "page": 18,
+    "id": "e0628"
+  },
+  {
+    "left": "extract",
+    "right": "ferret out",
+    "meaning": "提取，获得",
+    "set": 16,
+    "page": 18,
+    "id": "e0629"
+  },
+  {
+    "left": "extraneous",
+    "right": "irrelevant",
+    "meaning": "无关的",
+    "set": 16,
+    "page": 18,
+    "id": "e0630"
+  },
+  {
+    "left": "extravagant",
+    "right": "prodigial",
+    "meaning": "浪费的",
+    "set": 16,
+    "page": 18,
+    "id": "e0631"
+  },
+  {
+    "left": "extravagant",
+    "right": "prodigal",
+    "meaning": "挥霍的；铺张浪费的",
+    "set": 16,
+    "page": 18,
+    "id": "e0632"
+  },
+  {
+    "left": "extremist",
+    "right": "zealot",
+    "meaning": "极端主义者",
+    "set": 16,
+    "page": 18,
+    "id": "e0633"
+  },
+  {
+    "left": "fabricated",
+    "right": "spurious",
+    "meaning": "虚假的",
+    "set": 16,
+    "page": 18,
+    "id": "e0634"
+  },
+  {
+    "left": "fabulous",
+    "right": "legendary",
+    "meaning": "传说中的，传奇的",
+    "set": 16,
+    "page": 18,
+    "id": "e0635"
+  },
+  {
+    "left": "facile",
+    "right": "superficial",
+    "meaning": "肤浅的",
+    "set": 16,
+    "page": 18,
+    "id": "e0636"
+  },
+  {
+    "left": "facilitate",
+    "right": "speed up",
+    "meaning": "加速",
+    "set": 17,
+    "page": 19,
+    "id": "e0637"
+  },
+  {
+    "left": "fairness",
+    "right": "objectivity",
+    "meaning": "公正",
+    "set": 17,
+    "page": 19,
+    "id": "e0638"
+  },
+  {
+    "left": "fallacious",
+    "right": "specious",
+    "meaning": "错的，假的",
+    "set": 17,
+    "page": 19,
+    "id": "e0639"
+  },
+  {
+    "left": "familiar",
+    "right": "recognizable",
+    "meaning": "熟悉的",
+    "set": 17,
+    "page": 19,
+    "id": "e0640"
+  },
+  {
+    "left": "fantasy",
+    "right": "whim",
+    "meaning": "幻想",
+    "set": 17,
+    "page": 19,
+    "id": "e0641"
+  },
+  {
+    "left": "fascinating",
+    "right": "intriguing",
+    "meaning": "吸引人的",
+    "set": 17,
+    "page": 19,
+    "id": "e0642"
+  },
+  {
+    "left": "fastidious",
+    "right": "picky",
+    "meaning": "挑剔的",
+    "set": 17,
+    "page": 19,
+    "id": "e0643"
+  },
+  {
+    "left": "fault",
+    "right": "shortcoming",
+    "meaning": "缺点",
+    "set": 17,
+    "page": 19,
+    "id": "e0644"
+  },
+  {
+    "left": "faultlessness",
+    "right": "perfection",
+    "meaning": "完美",
+    "set": 17,
+    "page": 19,
+    "id": "e0645"
+  },
+  {
+    "left": "fearless",
+    "right": "intrepid",
+    "meaning": "无畏的",
+    "set": 17,
+    "page": 19,
+    "id": "e0646"
+  },
+  {
+    "left": "fecundity",
+    "right": "fertility",
+    "meaning": "多产",
+    "set": 17,
+    "page": 19,
+    "id": "e0647"
+  },
+  {
+    "left": "fervent",
+    "right": "zealous",
+    "meaning": "狂热的",
+    "set": 17,
+    "page": 19,
+    "id": "e0648"
+  },
+  {
+    "left": "fervor",
+    "right": "passion",
+    "meaning": "热情",
+    "set": 17,
+    "page": 19,
+    "id": "e0649"
+  },
+  {
+    "left": "fickle",
+    "right": "indecisive",
+    "meaning": "不明确的",
+    "set": 17,
+    "page": 19,
+    "id": "e0650"
+  },
+  {
+    "left": "fickleness",
+    "right": "unpredictability",
+    "meaning": "不可预知性，变幻无常",
+    "set": 17,
+    "page": 19,
+    "id": "e0651"
+  },
+  {
+    "left": "fiction",
+    "right": "invention",
+    "meaning": "虚构，发明创造",
+    "set": 17,
+    "page": 19,
+    "id": "e0652"
+  },
+  {
+    "left": "fiery",
+    "right": "impassioned",
+    "meaning": "热烈的",
+    "set": 17,
+    "page": 19,
+    "id": "e0653"
+  },
+  {
+    "left": "fine",
+    "right": "meager",
+    "meaning": "细微的，贫乏的",
+    "set": 17,
+    "page": 19,
+    "id": "e0654"
+  },
+  {
+    "left": "firmness",
+    "right": "strictness",
+    "meaning": "严格",
+    "set": 17,
+    "page": 19,
+    "id": "e0655"
+  },
+  {
+    "left": "flag",
+    "right": "languish",
+    "meaning": "减弱",
+    "set": 17,
+    "page": 19,
+    "id": "e0656"
+  },
+  {
+    "left": "flawless",
+    "right": "impeccable",
+    "meaning": "完美的",
+    "set": 17,
+    "page": 19,
+    "id": "e0657"
+  },
+  {
+    "left": "fledgling",
+    "right": "nascent",
+    "meaning": "新生的，初期的",
+    "set": 17,
+    "page": 19,
+    "id": "e0658"
+  },
+  {
+    "left": "flexible",
+    "right": "supple",
+    "meaning": "灵活的",
+    "set": 17,
+    "page": 19,
+    "id": "e0659"
+  },
+  {
+    "left": "fluctuation",
+    "right": "vacillation",
+    "meaning": "波动",
+    "set": 17,
+    "page": 19,
+    "id": "e0660"
+  },
+  {
+    "left": "fluid",
+    "right": "unstable",
+    "meaning": "多变的",
+    "set": 17,
+    "page": 19,
+    "id": "e0661"
+  },
+  {
+    "left": "fluid",
+    "right": "mutable",
+    "meaning": "多变的",
+    "set": 17,
+    "page": 19,
+    "id": "e0662"
+  },
+  {
+    "left": "foolish",
+    "right": "simple",
+    "meaning": "头脑简单的",
+    "set": 17,
+    "page": 19,
+    "id": "e0663"
+  },
+  {
+    "left": "forbid",
+    "right": "proscribe",
+    "meaning": "禁止",
+    "set": 17,
+    "page": 19,
+    "id": "e0664"
+  },
+  {
+    "left": "forerunner",
+    "right": "precursor",
+    "meaning": "先驱",
+    "set": 17,
+    "page": 19,
+    "id": "e0665"
+  },
+  {
+    "left": "foreseeable",
+    "right": "predictable",
+    "meaning": "可预见的",
+    "set": 17,
+    "page": 19,
+    "id": "e0666"
+  },
+  {
+    "left": "forestall",
+    "right": "stave off",
+    "meaning": "阻止",
+    "set": 17,
+    "page": 19,
+    "id": "e0667"
+  },
+  {
+    "left": "foretell",
+    "right": "predict",
+    "meaning": "预测",
+    "set": 17,
+    "page": 19,
+    "id": "e0668"
+  },
+  {
+    "left": "forsake",
+    "right": "neglect",
+    "meaning": "放弃",
+    "set": 17,
+    "page": 19,
+    "id": "e0669"
+  },
+  {
+    "left": "fortuitous",
+    "right": "serendipitous",
+    "meaning": "偶然的",
+    "set": 17,
+    "page": 19,
+    "id": "e0670"
+  },
+  {
+    "left": "foster",
+    "right": "spur",
+    "meaning": "促进",
+    "set": 17,
+    "page": 19,
+    "id": "e0671"
+  },
+  {
+    "left": "foundation",
+    "right": "inception",
+    "meaning": "开端",
+    "set": 17,
+    "page": 19,
+    "id": "e0672"
+  },
+  {
+    "left": "foundational to",
+    "right": "essential in",
+    "meaning": "对……重要的",
+    "set": 17,
+    "page": 19,
+    "id": "e0673"
+  },
+  {
+    "left": "fractious",
+    "right": "restive",
+    "meaning": "不服管束的",
+    "set": 17,
+    "page": 19,
+    "id": "e0674"
+  },
+  {
+    "left": "fractious",
+    "right": "irascible",
+    "meaning": "易怒的，脾气暴躁的",
+    "set": 17,
+    "page": 19,
+    "id": "e0675"
+  },
+  {
+    "left": "fragile",
+    "right": "vulnerable",
+    "meaning": "脆弱的",
+    "set": 17,
+    "page": 19,
+    "id": "e0676"
+  },
+  {
+    "left": "fragment",
+    "right": "shard",
+    "meaning": "碎片",
+    "set": 18,
+    "page": 20,
+    "id": "e0677"
+  },
+  {
+    "left": "frank",
+    "right": "sincere",
+    "meaning": "真诚的",
+    "set": 18,
+    "page": 20,
+    "id": "e0678"
+  },
+  {
+    "left": "free",
+    "right": "unconstrained",
+    "meaning": "自由的",
+    "set": 18,
+    "page": 20,
+    "id": "e0679"
+  },
+  {
+    "left": "freewheeling",
+    "right": "independent",
+    "meaning": "自由自在的，独立的",
+    "set": 18,
+    "page": 20,
+    "id": "e0680"
+  },
+  {
+    "left": "fruitless",
+    "right": "futile",
+    "meaning": "无效的",
+    "set": 18,
+    "page": 20,
+    "id": "e0681"
+  },
+  {
+    "left": "frustrate",
+    "right": "thwart",
+    "meaning": "阻挠",
+    "set": 18,
+    "page": 20,
+    "id": "e0682"
+  },
+  {
+    "left": "frustrate",
+    "right": "preclude",
+    "meaning": "挫败，阻止",
+    "set": 18,
+    "page": 20,
+    "id": "e0683"
+  },
+  {
+    "left": "functional",
+    "right": "utilitarian",
+    "meaning": "实用的",
+    "set": 18,
+    "page": 20,
+    "id": "e0684"
+  },
+  {
+    "left": "furtive",
+    "right": "secretive",
+    "meaning": "秘密的",
+    "set": 18,
+    "page": 20,
+    "id": "e0685"
+  },
+  {
+    "left": "fusty",
+    "right": "retrograde",
+    "meaning": "陈旧的，过时的，后退的",
+    "set": 18,
+    "page": 20,
+    "id": "e0686"
+  },
+  {
+    "left": "futile",
+    "right": "pointless",
+    "meaning": "无用的",
+    "set": 18,
+    "page": 20,
+    "id": "e0687"
+  },
+  {
+    "left": "futile",
+    "right": "unsuccessful",
+    "meaning": "无效的，不成功的",
+    "set": 18,
+    "page": 20,
+    "id": "e0688"
+  },
+  {
+    "left": "gall",
+    "right": "rankle",
+    "meaning": "使愤怒",
+    "set": 18,
+    "page": 20,
+    "id": "e0689"
+  },
+  {
+    "left": "garrulous",
+    "right": "loquacious",
+    "meaning": "话多的",
+    "set": 18,
+    "page": 20,
+    "id": "e0690"
+  },
+  {
+    "left": "gauge",
+    "right": "reckon",
+    "meaning": "考虑，测量",
+    "set": 18,
+    "page": 20,
+    "id": "e0691"
+  },
+  {
+    "left": "generate",
+    "right": "originate",
+    "meaning": "产生",
+    "set": 18,
+    "page": 20,
+    "id": "e0692"
+  },
+  {
+    "left": "generate",
+    "right": "produce",
+    "meaning": "产生",
+    "set": 18,
+    "page": 20,
+    "id": "e0693"
+  },
+  {
+    "left": "generosity",
+    "right": "magnanimity",
+    "meaning": "慷慨，大方",
+    "set": 18,
+    "page": 20,
+    "id": "e0694"
+  },
+  {
+    "left": "generous",
+    "right": "unstinting",
+    "meaning": "慷慨的，大方的",
+    "set": 18,
+    "page": 20,
+    "id": "e0695"
+  },
+  {
+    "left": "germ",
+    "right": "seed",
+    "meaning": "种子，萌芽",
+    "set": 18,
+    "page": 20,
+    "id": "e0696"
+  },
+  {
+    "left": "germane",
+    "right": "relevant",
+    "meaning": "相关的",
+    "set": 18,
+    "page": 20,
+    "id": "e0697"
+  },
+  {
+    "left": "germane to",
+    "right": "relevant to",
+    "meaning": "与……有关",
+    "set": 18,
+    "page": 20,
+    "id": "e0698"
+  },
+  {
+    "left": "glean",
+    "right": "obtain",
+    "meaning": "收集",
+    "set": 18,
+    "page": 20,
+    "id": "e0699"
+  },
+  {
+    "left": "gloomy",
+    "right": "lugubrious",
+    "meaning": "阴郁的",
+    "set": 18,
+    "page": 20,
+    "id": "e0700"
+  },
+  {
+    "left": "glut",
+    "right": "surfeit",
+    "meaning": "过量",
+    "set": 18,
+    "page": 20,
+    "id": "e0701"
+  },
+  {
+    "left": "gradual",
+    "right": "imperceptible",
+    "meaning": "无法感知的",
+    "set": 18,
+    "page": 20,
+    "id": "e0702"
+  },
+  {
+    "left": "gratify",
+    "right": "please",
+    "meaning": "使满意",
+    "set": 18,
+    "page": 20,
+    "id": "e0703"
+  },
+  {
+    "left": "grimy",
+    "right": "murky",
+    "meaning": "肮脏的",
+    "set": 18,
+    "page": 20,
+    "id": "e0704"
+  },
+  {
+    "left": "groundless",
+    "right": "unwarranted",
+    "meaning": "没有依据的",
+    "set": 18,
+    "page": 20,
+    "id": "e0705"
+  },
+  {
+    "left": "grudging",
+    "right": "reluctant",
+    "meaning": "不愿意的，勉强的",
+    "set": 18,
+    "page": 20,
+    "id": "e0706"
+  },
+  {
+    "left": "guard",
+    "right": "protect",
+    "meaning": "保护",
+    "set": 18,
+    "page": 20,
+    "id": "e0707"
+  },
+  {
+    "left": "guzzle",
+    "right": "swill",
+    "meaning": "大口喝",
+    "set": 18,
+    "page": 20,
+    "id": "e0708"
+  },
+  {
+    "left": "hackneyed",
+    "right": "pedestrian",
+    "meaning": "陈腐的，平凡的",
+    "set": 18,
+    "page": 20,
+    "id": "e0709"
+  },
+  {
+    "left": "hallowed",
+    "right": "respected",
+    "meaning": "受到尊重的",
+    "set": 18,
+    "page": 20,
+    "id": "e0710"
+  },
+  {
+    "left": "hamper",
+    "right": "impede",
+    "meaning": "阻碍",
+    "set": 18,
+    "page": 20,
+    "id": "e0711"
+  },
+  {
+    "left": "hamper",
+    "right": "impair",
+    "meaning": "损害",
+    "set": 18,
+    "page": 20,
+    "id": "e0712"
+  },
+  {
+    "left": "hamstring",
+    "right": "impair",
+    "meaning": "损害",
+    "set": 18,
+    "page": 20,
+    "id": "e0713"
+  },
+  {
+    "left": "haphazardly",
+    "right": "randomly",
+    "meaning": "随机地",
+    "set": 18,
+    "page": 20,
+    "id": "e0714"
+  },
+  {
+    "left": "harangue",
+    "right": "rant",
+    "meaning": "呵斥",
+    "set": 18,
+    "page": 20,
+    "id": "e0715"
+  },
+  {
+    "left": "harbinger",
+    "right": "portent",
+    "meaning": "预示",
+    "set": 18,
+    "page": 20,
+    "id": "e0716"
+  },
+  {
+    "left": "hardly",
+    "right": "scarcely",
+    "meaning": "一定不",
+    "set": 19,
+    "page": 21,
+    "id": "e0717"
+  },
+  {
+    "left": "hardy",
+    "right": "strong",
+    "meaning": "适应能力强的",
+    "set": 19,
+    "page": 21,
+    "id": "e0718"
+  },
+  {
+    "left": "hauteur",
+    "right": "superciliousness",
+    "meaning": "傲慢，自大",
+    "set": 19,
+    "page": 21,
+    "id": "e0719"
+  },
+  {
+    "left": "hazard",
+    "right": "risk",
+    "meaning": "风险",
+    "set": 19,
+    "page": 21,
+    "id": "e0720"
+  },
+  {
+    "left": "hazardous",
+    "right": "precarious",
+    "meaning": "危险的",
+    "set": 19,
+    "page": 21,
+    "id": "e0721"
+  },
+  {
+    "left": "hazardous",
+    "right": "perilous",
+    "meaning": "危险的",
+    "set": 19,
+    "page": 21,
+    "id": "e0722"
+  },
+  {
+    "left": "healthy",
+    "right": "robust",
+    "meaning": "健壮的",
+    "set": 19,
+    "page": 21,
+    "id": "e0723"
+  },
+  {
+    "left": "heartfelt",
+    "right": "sincere",
+    "meaning": "真诚的",
+    "set": 19,
+    "page": 21,
+    "id": "e0724"
+  },
+  {
+    "left": "heating",
+    "right": "warming",
+    "meaning": "变暖",
+    "set": 19,
+    "page": 21,
+    "id": "e0725"
+  },
+  {
+    "left": "hedonistic",
+    "right": "sybaritic",
+    "meaning": "贪图享乐的",
+    "set": 19,
+    "page": 21,
+    "id": "e0726"
+  },
+  {
+    "left": "heterogenous",
+    "right": "variegated",
+    "meaning": "多样的，不同的",
+    "set": 19,
+    "page": 21,
+    "id": "e0727"
+  },
+  {
+    "left": "hierachical",
+    "right": "stratified",
+    "meaning": "按等级划分的",
+    "set": 19,
+    "page": 21,
+    "id": "e0728"
+  },
+  {
+    "left": "hierarchical",
+    "right": "stratified",
+    "meaning": "按等级划分的，分等级的",
+    "set": 19,
+    "page": 21,
+    "id": "e0729"
+  },
+  {
+    "left": "hinder",
+    "right": "inhibit",
+    "meaning": "阻碍",
+    "set": 19,
+    "page": 21,
+    "id": "e0730"
+  },
+  {
+    "left": "hinder",
+    "right": "stymie",
+    "meaning": "阻碍",
+    "set": 19,
+    "page": 21,
+    "id": "e0731"
+  },
+  {
+    "left": "hitch",
+    "right": "snag",
+    "meaning": "障碍",
+    "set": 19,
+    "page": 21,
+    "id": "e0732"
+  },
+  {
+    "left": "hodgepodge",
+    "right": "patchwork",
+    "meaning": "混合物",
+    "set": 19,
+    "page": 21,
+    "id": "e0733"
+  },
+  {
+    "left": "homogeneity",
+    "right": "resemblance",
+    "meaning": "相似",
+    "set": 19,
+    "page": 21,
+    "id": "e0734"
+  },
+  {
+    "left": "honor",
+    "right": "venerate",
+    "meaning": "尊敬",
+    "set": 19,
+    "page": 21,
+    "id": "e0735"
+  },
+  {
+    "left": "hope",
+    "right": "prospect",
+    "meaning": "希望",
+    "set": 19,
+    "page": 21,
+    "id": "e0736"
+  },
+  {
+    "left": "humble",
+    "right": "plebeian",
+    "meaning": "卑微的",
+    "set": 19,
+    "page": 21,
+    "id": "e0737"
+  },
+  {
+    "left": "humility",
+    "right": "modesty",
+    "meaning": "谦虚",
+    "set": 19,
+    "page": 21,
+    "id": "e0738"
+  },
+  {
+    "left": "hypothetical",
+    "right": "speculative",
+    "meaning": "假设的，推测的",
+    "set": 19,
+    "page": 21,
+    "id": "e0739"
+  },
+  {
+    "left": "iconoclastic",
+    "right": "unorthodox",
+    "meaning": "非主流的",
+    "set": 19,
+    "page": 21,
+    "id": "e0740"
+  },
+  {
+    "left": "idealistic",
+    "right": "quixotic",
+    "meaning": "不切实际的",
+    "set": 19,
+    "page": 21,
+    "id": "e0741"
+  },
+  {
+    "left": "idiosyncratic to",
+    "right": "peculiar to",
+    "meaning": "…所特有的",
+    "set": 19,
+    "page": 21,
+    "id": "e0742"
+  },
+  {
+    "left": "ignorance of",
+    "right": "unfamiliarity of",
+    "meaning": "不熟悉，无知",
+    "set": 19,
+    "page": 21,
+    "id": "e0743"
+  },
+  {
+    "left": "ignore",
+    "right": "overlook",
+    "meaning": "忽视",
+    "set": 19,
+    "page": 21,
+    "id": "e0744"
+  },
+  {
+    "left": "ignore",
+    "right": "slight",
+    "meaning": "忽视",
+    "set": 19,
+    "page": 21,
+    "id": "e0745"
+  },
+  {
+    "left": "ill-advised",
+    "right": "misguided",
+    "meaning": "有误导性的",
+    "set": 19,
+    "page": 21,
+    "id": "e0746"
+  },
+  {
+    "left": "illusory",
+    "right": "chimerical",
+    "meaning": "空想的",
+    "set": 19,
+    "page": 21,
+    "id": "e0747"
+  },
+  {
+    "left": "illustrious",
+    "right": "prominent",
+    "meaning": "著名的",
+    "set": 19,
+    "page": 21,
+    "id": "e0748"
+  },
+  {
+    "left": "imbue",
+    "right": "permeate",
+    "meaning": "弥漫，渗透",
+    "set": 19,
+    "page": 21,
+    "id": "e0749"
+  },
+  {
+    "left": "immaterial",
+    "right": "inconsequential",
+    "meaning": "不重要的",
+    "set": 19,
+    "page": 21,
+    "id": "e0750"
+  },
+  {
+    "left": "immaterial",
+    "right": "irrelevant",
+    "meaning": "不重要的",
+    "set": 19,
+    "page": 21,
+    "id": "e0751"
+  },
+  {
+    "left": "immediate",
+    "right": "urgent",
+    "meaning": "紧急的，迫切的",
+    "set": 19,
+    "page": 21,
+    "id": "e0752"
+  },
+  {
+    "left": "immutability",
+    "right": "invariability",
+    "meaning": "不变",
+    "set": 19,
+    "page": 21,
+    "id": "e0753"
+  },
+  {
+    "left": "immutable",
+    "right": "perpetual",
+    "meaning": "不变的，永恒的",
+    "set": 19,
+    "page": 21,
+    "id": "e0754"
+  },
+  {
+    "left": "impair",
+    "right": "undermine",
+    "meaning": "削弱",
+    "set": 19,
+    "page": 21,
+    "id": "e0755"
+  },
+  {
+    "left": "impair",
+    "right": "vitiate",
+    "meaning": "损害",
+    "set": 19,
+    "page": 21,
+    "id": "e0756"
+  },
+  {
+    "left": "impalpable",
+    "right": "intangible",
+    "meaning": "无法感知的",
+    "set": 20,
+    "page": 22,
+    "id": "e0757"
+  },
+  {
+    "left": "impartial",
+    "right": "objective",
+    "meaning": "客观的",
+    "set": 20,
+    "page": 22,
+    "id": "e0758"
+  },
+  {
+    "left": "impartiality",
+    "right": "objectivity",
+    "meaning": "客观",
+    "set": 20,
+    "page": 22,
+    "id": "e0759"
+  },
+  {
+    "left": "impartiality",
+    "right": "neutrality",
+    "meaning": "客观，中立",
+    "set": 20,
+    "page": 22,
+    "id": "e0760"
+  },
+  {
+    "left": "imperceptible",
+    "right": "trivial",
+    "meaning": "感觉不到的，细微的",
+    "set": 20,
+    "page": 22,
+    "id": "e0761"
+  },
+  {
+    "left": "imperious",
+    "right": "overbearing",
+    "meaning": "专横的",
+    "set": 20,
+    "page": 22,
+    "id": "e0762"
+  },
+  {
+    "left": "imperturbable",
+    "right": "unruffled",
+    "meaning": "平静的",
+    "set": 20,
+    "page": 22,
+    "id": "e0763"
+  },
+  {
+    "left": "implacable",
+    "right": "unyielding",
+    "meaning": "不妥协的",
+    "set": 20,
+    "page": 22,
+    "id": "e0764"
+  },
+  {
+    "left": "impolitic",
+    "right": "tactless",
+    "meaning": "不明智的",
+    "set": 20,
+    "page": 22,
+    "id": "e0765"
+  },
+  {
+    "left": "imprecision",
+    "right": "vagueness",
+    "meaning": "模糊",
+    "set": 20,
+    "page": 22,
+    "id": "e0766"
+  },
+  {
+    "left": "improbable",
+    "right": "unlikely",
+    "meaning": "不太可能的",
+    "set": 20,
+    "page": 22,
+    "id": "e0767"
+  },
+  {
+    "left": "impromptu",
+    "right": "spontaneous",
+    "meaning": "即兴的，没有准备的",
+    "set": 20,
+    "page": 22,
+    "id": "e0768"
+  },
+  {
+    "left": "improvement",
+    "right": "progress",
+    "meaning": "改进，进步",
+    "set": 20,
+    "page": 22,
+    "id": "e0769"
+  },
+  {
+    "left": "inaccessible",
+    "right": "opaque",
+    "meaning": "难以理解的",
+    "set": 20,
+    "page": 22,
+    "id": "e0770"
+  },
+  {
+    "left": "inadequate",
+    "right": "scarce",
+    "meaning": "少的",
+    "set": 20,
+    "page": 22,
+    "id": "e0771"
+  },
+  {
+    "left": "incipient",
+    "right": "nascent",
+    "meaning": "开始的，初期的，新生的",
+    "set": 20,
+    "page": 22,
+    "id": "e0772"
+  },
+  {
+    "left": "incisive",
+    "right": "trenchant",
+    "meaning": "尖锐的，鲜明的",
+    "set": 20,
+    "page": 22,
+    "id": "e0773"
+  },
+  {
+    "left": "inclusive",
+    "right": "generic",
+    "meaning": "范围广泛的",
+    "set": 20,
+    "page": 22,
+    "id": "e0774"
+  },
+  {
+    "left": "incomplete",
+    "right": "unfinished",
+    "meaning": "不完整的",
+    "set": 20,
+    "page": 22,
+    "id": "e0775"
+  },
+  {
+    "left": "incomprehensible",
+    "right": "inexplicable",
+    "meaning": "难以理解的",
+    "set": 20,
+    "page": 22,
+    "id": "e0776"
+  },
+  {
+    "left": "inconsequential",
+    "right": "trivial",
+    "meaning": "不重要的",
+    "set": 20,
+    "page": 22,
+    "id": "e0777"
+  },
+  {
+    "left": "inconsequential",
+    "right": "negligible",
+    "meaning": "不重要的",
+    "set": 20,
+    "page": 22,
+    "id": "e0778"
+  },
+  {
+    "left": "inconsistent",
+    "right": "mixed",
+    "meaning": "混合的",
+    "set": 20,
+    "page": 22,
+    "id": "e0779"
+  },
+  {
+    "left": "inconsistent",
+    "right": "mixed",
+    "meaning": "不一致的",
+    "set": 20,
+    "page": 22,
+    "id": "e0780"
+  },
+  {
+    "left": "inconstant",
+    "right": "unpredictable",
+    "meaning": "不稳定的",
+    "set": 20,
+    "page": 22,
+    "id": "e0781"
+  },
+  {
+    "left": "incontrovertible",
+    "right": "indisputable",
+    "meaning": "不容置疑的，不可辩驳的",
+    "set": 20,
+    "page": 22,
+    "id": "e0782"
+  },
+  {
+    "left": "incontrovertible",
+    "right": "indubitable",
+    "meaning": "不容置疑的",
+    "set": 20,
+    "page": 22,
+    "id": "e0783"
+  },
+  {
+    "left": "incredible",
+    "right": "implausible",
+    "meaning": "不太可能的",
+    "set": 20,
+    "page": 22,
+    "id": "e0784"
+  },
+  {
+    "left": "indefatigable",
+    "right": "unflagging",
+    "meaning": "不会疲倦的，不松懈的",
+    "set": 20,
+    "page": 22,
+    "id": "e0785"
+  },
+  {
+    "left": "indefensible",
+    "right": "untenable",
+    "meaning": "无法防御的，站不住脚的",
+    "set": 20,
+    "page": 22,
+    "id": "e0786"
+  },
+  {
+    "left": "indiscernible",
+    "right": "imperceptible",
+    "meaning": "无法感知的",
+    "set": 20,
+    "page": 22,
+    "id": "e0787"
+  },
+  {
+    "left": "indispensable",
+    "right": "vital",
+    "meaning": "不可或缺的，极其重要的",
+    "set": 20,
+    "page": 22,
+    "id": "e0788"
+  },
+  {
+    "left": "indispensable",
+    "right": "necessary",
+    "meaning": "必要的，不可缺少的",
+    "set": 20,
+    "page": 22,
+    "id": "e0789"
+  },
+  {
+    "left": "indolence",
+    "right": "sloth",
+    "meaning": "懒惰，懒散",
+    "set": 20,
+    "page": 22,
+    "id": "e0790"
+  },
+  {
+    "left": "indolent",
+    "right": "lethargic",
+    "meaning": "懒散的",
+    "set": 20,
+    "page": 22,
+    "id": "e0791"
+  },
+  {
+    "left": "ineluctable",
+    "right": "inescapable",
+    "meaning": "必然的",
+    "set": 20,
+    "page": 22,
+    "id": "e0792"
+  },
+  {
+    "left": "inept at",
+    "right": "unequal to",
+    "meaning": "无能的",
+    "set": 20,
+    "page": 22,
+    "id": "e0793"
+  },
+  {
+    "left": "ineptitude",
+    "right": "maladroitness",
+    "meaning": "笨拙，不灵巧",
+    "set": 20,
+    "page": 22,
+    "id": "e0794"
+  },
+  {
+    "left": "inertia",
+    "right": "stasis",
+    "meaning": "不活跃，静止",
+    "set": 20,
+    "page": 22,
+    "id": "e0795"
+  },
+  {
+    "left": "inessential",
+    "right": "trivial",
+    "meaning": "不重要的",
+    "set": 20,
+    "page": 22,
+    "id": "e0796"
+  },
+  {
+    "left": "inevitable",
+    "right": "preordained",
+    "meaning": "注定的，必然的",
+    "set": 21,
+    "page": 23,
+    "id": "e0797"
+  },
+  {
+    "left": "inexplicable",
+    "right": "mysterious",
+    "meaning": "难以理解的",
+    "set": 21,
+    "page": 23,
+    "id": "e0798"
+  },
+  {
+    "left": "infamy",
+    "right": "opprobrium",
+    "meaning": "声名狼藉，恶名",
+    "set": 21,
+    "page": 23,
+    "id": "e0799"
+  },
+  {
+    "left": "infer",
+    "right": "surmise",
+    "meaning": "推断，推测",
+    "set": 21,
+    "page": 23,
+    "id": "e0800"
+  },
+  {
+    "left": "inflammatory",
+    "right": "provocative",
+    "meaning": "令人发怒的",
+    "set": 21,
+    "page": 23,
+    "id": "e0801"
+  },
+  {
+    "left": "influence",
+    "right": "sway",
+    "meaning": "影响",
+    "set": 21,
+    "page": 23,
+    "id": "e0802"
+  },
+  {
+    "left": "influenced by",
+    "right": "mediated by",
+    "meaning": "调节，影响",
+    "set": 21,
+    "page": 23,
+    "id": "e0803"
+  },
+  {
+    "left": "ingenuousness",
+    "right": "naivete",
+    "meaning": "纯真",
+    "set": 21,
+    "page": 23,
+    "id": "e0804"
+  },
+  {
+    "left": "ingratiating",
+    "right": "obsequious",
+    "meaning": "讨好的",
+    "set": 21,
+    "page": 23,
+    "id": "e0805"
+  },
+  {
+    "left": "ingratiating",
+    "right": "unctuous",
+    "meaning": "谄媚的",
+    "set": 21,
+    "page": 23,
+    "id": "e0806"
+  },
+  {
+    "left": "inherent",
+    "right": "intrinsic",
+    "meaning": "内在的，本质的",
+    "set": 21,
+    "page": 23,
+    "id": "e0807"
+  },
+  {
+    "left": "inherent in",
+    "right": "intrinisic to",
+    "meaning": "固有的",
+    "set": 21,
+    "page": 23,
+    "id": "e0808"
+  },
+  {
+    "left": "innocuous",
+    "right": "harmless",
+    "meaning": "无害的",
+    "set": 21,
+    "page": 23,
+    "id": "e0809"
+  },
+  {
+    "left": "innovation",
+    "right": "novelty",
+    "meaning": "创新，新颖",
+    "set": 21,
+    "page": 23,
+    "id": "e0810"
+  },
+  {
+    "left": "innovative",
+    "right": "original",
+    "meaning": "创新的",
+    "set": 21,
+    "page": 23,
+    "id": "e0811"
+  },
+  {
+    "left": "insalubrious",
+    "right": "noxious",
+    "meaning": "有害的，不利于健康的",
+    "set": 21,
+    "page": 23,
+    "id": "e0812"
+  },
+  {
+    "left": "insatiable",
+    "right": "voracious",
+    "meaning": "贪婪的",
+    "set": 21,
+    "page": 23,
+    "id": "e0813"
+  },
+  {
+    "left": "inscrutable",
+    "right": "sphinxlike",
+    "meaning": "难以理解的，晦涩的",
+    "set": 21,
+    "page": 23,
+    "id": "e0814"
+  },
+  {
+    "left": "insightful",
+    "right": "intelligent",
+    "meaning": "聪明的",
+    "set": 21,
+    "page": 23,
+    "id": "e0815"
+  },
+  {
+    "left": "insightful",
+    "right": "shrewd",
+    "meaning": "精明的",
+    "set": 21,
+    "page": 23,
+    "id": "e0816"
+  },
+  {
+    "left": "insignificant",
+    "right": "negligible",
+    "meaning": "不重要的",
+    "set": 21,
+    "page": 23,
+    "id": "e0817"
+  },
+  {
+    "left": "insignificant",
+    "right": "trivial",
+    "meaning": "微不足道的",
+    "set": 21,
+    "page": 23,
+    "id": "e0818"
+  },
+  {
+    "left": "instability",
+    "right": "turbulence",
+    "meaning": "动荡",
+    "set": 21,
+    "page": 23,
+    "id": "e0819"
+  },
+  {
+    "left": "instability",
+    "right": "uncertainty",
+    "meaning": "不稳定",
+    "set": 21,
+    "page": 23,
+    "id": "e0820"
+  },
+  {
+    "left": "insufficient",
+    "right": "meager",
+    "meaning": "不足的",
+    "set": 21,
+    "page": 23,
+    "id": "e0821"
+  },
+  {
+    "left": "insular",
+    "right": "private",
+    "meaning": "狭隘的",
+    "set": 21,
+    "page": 23,
+    "id": "e0822"
+  },
+  {
+    "left": "insular",
+    "right": "parochial",
+    "meaning": "狭隘的",
+    "set": 21,
+    "page": 23,
+    "id": "e0823"
+  },
+  {
+    "left": "integrity",
+    "right": "probity",
+    "meaning": "正直",
+    "set": 21,
+    "page": 23,
+    "id": "e0824"
+  },
+  {
+    "left": "intelligibility",
+    "right": "simplicity",
+    "meaning": "简单易懂，可理解",
+    "set": 21,
+    "page": 23,
+    "id": "e0825"
+  },
+  {
+    "left": "intelligible",
+    "right": "readable",
+    "meaning": "易懂的，容易理解的",
+    "set": 21,
+    "page": 23,
+    "id": "e0826"
+  },
+  {
+    "left": "intensify",
+    "right": "reinforce",
+    "meaning": "加强",
+    "set": 21,
+    "page": 23,
+    "id": "e0827"
+  },
+  {
+    "left": "interchangeable",
+    "right": "fungible",
+    "meaning": "可互换的",
+    "set": 21,
+    "page": 23,
+    "id": "e0828"
+  },
+  {
+    "left": "interdependent",
+    "right": "interrelated",
+    "meaning": "相关的",
+    "set": 21,
+    "page": 23,
+    "id": "e0829"
+  },
+  {
+    "left": "intimidating",
+    "right": "scary",
+    "meaning": "可怕的",
+    "set": 21,
+    "page": 23,
+    "id": "e0830"
+  },
+  {
+    "left": "intractable",
+    "right": "stubborn",
+    "meaning": "难处理的",
+    "set": 21,
+    "page": 23,
+    "id": "e0831"
+  },
+  {
+    "left": "intransigence",
+    "right": "stubbornness",
+    "meaning": "顽固，不妥协",
+    "set": 21,
+    "page": 23,
+    "id": "e0832"
+  },
+  {
+    "left": "introspective",
+    "right": "reflective",
+    "meaning": "思考的",
+    "set": 21,
+    "page": 23,
+    "id": "e0833"
+  },
+  {
+    "left": "invalidate",
+    "right": "weaken",
+    "meaning": "削弱，使无效",
+    "set": 21,
+    "page": 23,
+    "id": "e0834"
+  },
+  {
+    "left": "invariable",
+    "right": "static",
+    "meaning": "不变的，静态的，稳定的",
+    "set": 21,
+    "page": 23,
+    "id": "e0835"
+  },
+  {
+    "left": "invigorate",
+    "right": "revitalize",
+    "meaning": "使更强壮",
+    "set": 22,
+    "page": 24,
+    "id": "e0836"
+  },
+  {
+    "left": "invigorating",
+    "right": "refreshing",
+    "meaning": "令人振奋的",
+    "set": 22,
+    "page": 24,
+    "id": "e0837"
+  },
+  {
+    "left": "inviolable",
+    "right": "sacrosanct",
+    "meaning": "不可侵犯的",
+    "set": 22,
+    "page": 24,
+    "id": "e0838"
+  },
+  {
+    "left": "irony",
+    "right": "paradox",
+    "meaning": "矛盾",
+    "set": 22,
+    "page": 24,
+    "id": "e0839"
+  },
+  {
+    "left": "irresistible",
+    "right": "overwhelming",
+    "meaning": "不可抵抗的，势不可挡的",
+    "set": 22,
+    "page": 24,
+    "id": "e0840"
+  },
+  {
+    "left": "irresolution",
+    "right": "vacillation",
+    "meaning": "不坚定",
+    "set": 22,
+    "page": 24,
+    "id": "e0841"
+  },
+  {
+    "left": "isolation",
+    "right": "seclusion",
+    "meaning": "隔绝",
+    "set": 22,
+    "page": 24,
+    "id": "e0842"
+  },
+  {
+    "left": "itinerant",
+    "right": "peripatetic",
+    "meaning": "巡游的",
+    "set": 22,
+    "page": 24,
+    "id": "e0843"
+  },
+  {
+    "left": "jejune",
+    "right": "vapid",
+    "meaning": "枯燥的，索然无味的，无聊的",
+    "set": 22,
+    "page": 24,
+    "id": "e0844"
+  },
+  {
+    "left": "jovial",
+    "right": "mirthful",
+    "meaning": "快乐的",
+    "set": 22,
+    "page": 24,
+    "id": "e0845"
+  },
+  {
+    "left": "judicious",
+    "right": "reasonable",
+    "meaning": "明智的",
+    "set": 22,
+    "page": 24,
+    "id": "e0846"
+  },
+  {
+    "left": "justify",
+    "right": "rationalize",
+    "meaning": "证明合理",
+    "set": 22,
+    "page": 24,
+    "id": "e0847"
+  },
+  {
+    "left": "kinfolk",
+    "right": "relative",
+    "meaning": "亲戚",
+    "set": 22,
+    "page": 24,
+    "id": "e0848"
+  },
+  {
+    "left": "lack",
+    "right": "want",
+    "meaning": "缺乏",
+    "set": 22,
+    "page": 24,
+    "id": "e0849"
+  },
+  {
+    "left": "laconic",
+    "right": "taciturn",
+    "meaning": "话少的",
+    "set": 22,
+    "page": 24,
+    "id": "e0850"
+  },
+  {
+    "left": "lavish",
+    "right": "sumptuous",
+    "meaning": "奢侈的",
+    "set": 22,
+    "page": 24,
+    "id": "e0851"
+  },
+  {
+    "left": "lethargic",
+    "right": "somnolent",
+    "meaning": "昏睡的",
+    "set": 22,
+    "page": 24,
+    "id": "e0852"
+  },
+  {
+    "left": "lethargy",
+    "right": "somnolence",
+    "meaning": "没精打采",
+    "set": 22,
+    "page": 24,
+    "id": "e0853"
+  },
+  {
+    "left": "levelheaded",
+    "right": "sensible",
+    "meaning": "头脑清醒的，明智的",
+    "set": 22,
+    "page": 24,
+    "id": "e0854"
+  },
+  {
+    "left": "limited",
+    "right": "scant",
+    "meaning": "少的",
+    "set": 22,
+    "page": 24,
+    "id": "e0855"
+  },
+  {
+    "left": "limited",
+    "right": "modest",
+    "meaning": "有限的",
+    "set": 22,
+    "page": 24,
+    "id": "e0856"
+  },
+  {
+    "left": "lofty",
+    "right": "noble",
+    "meaning": "崇高的",
+    "set": 22,
+    "page": 24,
+    "id": "e0857"
+  },
+  {
+    "left": "long-winded",
+    "right": "rambling",
+    "meaning": "冗长的",
+    "set": 22,
+    "page": 24,
+    "id": "e0858"
+  },
+  {
+    "left": "long-winded",
+    "right": "verbose",
+    "meaning": "啰嗦的",
+    "set": 22,
+    "page": 24,
+    "id": "e0859"
+  },
+  {
+    "left": "lucrative",
+    "right": "remunerative",
+    "meaning": "赚钱的，有利可图的",
+    "set": 22,
+    "page": 24,
+    "id": "e0860"
+  },
+  {
+    "left": "lull",
+    "right": "respite",
+    "meaning": "暂缓，休息，平息",
+    "set": 22,
+    "page": 24,
+    "id": "e0861"
+  },
+  {
+    "left": "malleable",
+    "right": "plastic",
+    "meaning": "易受影响的，多变的",
+    "set": 22,
+    "page": 24,
+    "id": "e0862"
+  },
+  {
+    "left": "malleable",
+    "right": "pliable",
+    "meaning": "易变的，易受影响的",
+    "set": 22,
+    "page": 24,
+    "id": "e0863"
+  },
+  {
+    "left": "malodorous",
+    "right": "noisome",
+    "meaning": "难闻的",
+    "set": 22,
+    "page": 24,
+    "id": "e0864"
+  },
+  {
+    "left": "manifest",
+    "right": "reveal",
+    "meaning": "清楚显示",
+    "set": 22,
+    "page": 24,
+    "id": "e0865"
+  },
+  {
+    "left": "manifest",
+    "right": "self-evident",
+    "meaning": "明显的",
+    "set": 22,
+    "page": 24,
+    "id": "e0866"
+  },
+  {
+    "left": "manifest",
+    "right": "obvious",
+    "meaning": "明显的",
+    "set": 22,
+    "page": 24,
+    "id": "e0867"
+  },
+  {
+    "left": "maritime",
+    "right": "nautical",
+    "meaning": "海的，海航的",
+    "set": 22,
+    "page": 24,
+    "id": "e0868"
+  },
+  {
+    "left": "mastery",
+    "right": "virtuosity",
+    "meaning": "精通，熟练掌握",
+    "set": 22,
+    "page": 24,
+    "id": "e0869"
+  },
+  {
+    "left": "mature",
+    "right": "precocious",
+    "meaning": "成熟的",
+    "set": 22,
+    "page": 24,
+    "id": "e0870"
+  },
+  {
+    "left": "mawkish",
+    "right": "sentimental",
+    "meaning": "多愁善感的",
+    "set": 22,
+    "page": 24,
+    "id": "e0871"
+  },
+  {
+    "left": "meager",
+    "right": "paltry",
+    "meaning": "微不足道的",
+    "set": 22,
+    "page": 24,
+    "id": "e0872"
+  },
+  {
+    "left": "measure",
+    "right": "quantify",
+    "meaning": "量化",
+    "set": 22,
+    "page": 24,
+    "id": "e0873"
+  },
+  {
+    "left": "meretricious",
+    "right": "showy",
+    "meaning": "花哨的",
+    "set": 22,
+    "page": 24,
+    "id": "e0874"
+  },
+  {
+    "left": "meticulous",
+    "right": "thorough",
+    "meaning": "彻底的，一丝不苟的",
+    "set": 22,
+    "page": 24,
+    "id": "e0875"
+  },
+  {
+    "left": "meticulous",
+    "right": "sedulous",
+    "meaning": "小心谨慎，孜孜不倦的",
+    "set": 23,
+    "page": 25,
+    "id": "e0876"
+  },
+  {
+    "left": "meticulously",
+    "right": "painstakingly",
+    "meaning": "一丝不苟地",
+    "set": 23,
+    "page": 25,
+    "id": "e0877"
+  },
+  {
+    "left": "meticulousness",
+    "right": "scrupulousness",
+    "meaning": "一丝不苟",
+    "set": 23,
+    "page": 25,
+    "id": "e0878"
+  },
+  {
+    "left": "minimal",
+    "right": "trifling",
+    "meaning": "微不足道的",
+    "set": 23,
+    "page": 25,
+    "id": "e0879"
+  },
+  {
+    "left": "minutia",
+    "right": "particular",
+    "meaning": "细节",
+    "set": 23,
+    "page": 25,
+    "id": "e0880"
+  },
+  {
+    "left": "misgiving",
+    "right": "trepidation",
+    "meaning": "担心，忧虑，害怕",
+    "set": 23,
+    "page": 25,
+    "id": "e0881"
+  },
+  {
+    "left": "misgiving about",
+    "right": "trepidation over",
+    "meaning": "害怕，担忧",
+    "set": 23,
+    "page": 25,
+    "id": "e0882"
+  },
+  {
+    "left": "mitigate",
+    "right": "temper",
+    "meaning": "缓和",
+    "set": 23,
+    "page": 25,
+    "id": "e0883"
+  },
+  {
+    "left": "model",
+    "right": "paragon",
+    "meaning": "典范",
+    "set": 23,
+    "page": 25,
+    "id": "e0884"
+  },
+  {
+    "left": "moderate",
+    "right": "temper",
+    "meaning": "使缓和",
+    "set": 23,
+    "page": 25,
+    "id": "e0885"
+  },
+  {
+    "left": "modest",
+    "right": "unassuming",
+    "meaning": "谦虚的",
+    "set": 23,
+    "page": 25,
+    "id": "e0886"
+  },
+  {
+    "left": "modest",
+    "right": "unostentious",
+    "meaning": "低调的",
+    "set": 23,
+    "page": 25,
+    "id": "e0887"
+  },
+  {
+    "left": "modest",
+    "right": "tenuous",
+    "meaning": "卑微的，薄弱的",
+    "set": 23,
+    "page": 25,
+    "id": "e0888"
+  },
+  {
+    "left": "modest",
+    "right": "unostentatious",
+    "meaning": "低调的",
+    "set": 23,
+    "page": 25,
+    "id": "e0889"
+  },
+  {
+    "left": "modify",
+    "right": "revise",
+    "meaning": "修改",
+    "set": 23,
+    "page": 25,
+    "id": "e0890"
+  },
+  {
+    "left": "modulate",
+    "right": "temper",
+    "meaning": "缓和",
+    "set": 23,
+    "page": 25,
+    "id": "e0891"
+  },
+  {
+    "left": "mollify",
+    "right": "placate",
+    "meaning": "抚慰",
+    "set": 23,
+    "page": 25,
+    "id": "e0892"
+  },
+  {
+    "left": "momentous",
+    "right": "significant",
+    "meaning": "重要的",
+    "set": 23,
+    "page": 25,
+    "id": "e0893"
+  },
+  {
+    "left": "mundane",
+    "right": "pedestrian",
+    "meaning": "普通的",
+    "set": 23,
+    "page": 25,
+    "id": "e0894"
+  },
+  {
+    "left": "mundane",
+    "right": "prosaic",
+    "meaning": "平凡的",
+    "set": 23,
+    "page": 25,
+    "id": "e0895"
+  },
+  {
+    "left": "mysterious",
+    "right": "secretive",
+    "meaning": "秘密的",
+    "set": 23,
+    "page": 25,
+    "id": "e0896"
+  },
+  {
+    "left": "mystification",
+    "right": "obfuscation",
+    "meaning": "困惑",
+    "set": 23,
+    "page": 25,
+    "id": "e0897"
+  },
+  {
+    "left": "naive",
+    "right": "unsophisticated",
+    "meaning": "幼稚的",
+    "set": 23,
+    "page": 25,
+    "id": "e0898"
+  },
+  {
+    "left": "narrow",
+    "right": "parochial",
+    "meaning": "狭隘的，范围有限的",
+    "set": 23,
+    "page": 25,
+    "id": "e0899"
+  },
+  {
+    "left": "nebulous",
+    "right": "vague",
+    "meaning": "模糊的",
+    "set": 23,
+    "page": 25,
+    "id": "e0900"
+  },
+  {
+    "left": "neglect",
+    "right": "overlook",
+    "meaning": "忽视",
+    "set": 23,
+    "page": 25,
+    "id": "e0901"
+  },
+  {
+    "left": "neophyte",
+    "right": "novice",
+    "meaning": "新手",
+    "set": 23,
+    "page": 25,
+    "id": "e0902"
+  },
+  {
+    "left": "nondescript",
+    "right": "unexceptional",
+    "meaning": "普通的",
+    "set": 23,
+    "page": 25,
+    "id": "e0903"
+  },
+  {
+    "left": "novel",
+    "right": "original",
+    "meaning": "创新的",
+    "set": 23,
+    "page": 25,
+    "id": "e0904"
+  },
+  {
+    "left": "novel",
+    "right": "unprecedented",
+    "meaning": "前所未有的",
+    "set": 23,
+    "page": 25,
+    "id": "e0905"
+  },
+  {
+    "left": "novel",
+    "right": "unexampled",
+    "meaning": "新颖的",
+    "set": 23,
+    "page": 25,
+    "id": "e0906"
+  },
+  {
+    "left": "novel",
+    "right": "uncharacteristic",
+    "meaning": "不典型的，异常的",
+    "set": 23,
+    "page": 25,
+    "id": "e0907"
+  },
+  {
+    "left": "novelty",
+    "right": "originality",
+    "meaning": "创新",
+    "set": 23,
+    "page": 25,
+    "id": "e0908"
+  },
+  {
+    "left": "nuanced",
+    "right": "subtle",
+    "meaning": "模糊的",
+    "set": 23,
+    "page": 25,
+    "id": "e0909"
+  },
+  {
+    "left": "obscure",
+    "right": "opaque",
+    "meaning": "模糊的，难懂的",
+    "set": 23,
+    "page": 25,
+    "id": "e0910"
+  },
+  {
+    "left": "obscure",
+    "right": "overshadow",
+    "meaning": "使显得逊色",
+    "set": 23,
+    "page": 25,
+    "id": "e0911"
+  },
+  {
+    "left": "obsolete",
+    "right": "outmoded",
+    "meaning": "过时的",
+    "set": 23,
+    "page": 25,
+    "id": "e0912"
+  },
+  {
+    "left": "obvious",
+    "right": "transparent",
+    "meaning": "明显的",
+    "set": 23,
+    "page": 25,
+    "id": "e0913"
+  },
+  {
+    "left": "omnipresence",
+    "right": "ubiquity",
+    "meaning": "无处不在",
+    "set": 23,
+    "page": 25,
+    "id": "e0914"
+  },
+  {
+    "left": "omnipresent",
+    "right": "ubiquitous",
+    "meaning": "无处不在的",
+    "set": 23,
+    "page": 25,
+    "id": "e0915"
+  },
+  {
+    "left": "omnivorous",
+    "right": "undiscriminating",
+    "meaning": "不挑食的",
+    "set": 24,
+    "page": 26,
+    "id": "e0916"
+  },
+  {
+    "left": "onerous",
+    "right": "taxing",
+    "meaning": "繁重的",
+    "set": 24,
+    "page": 26,
+    "id": "e0917"
+  },
+  {
+    "left": "opportune",
+    "right": "timely",
+    "meaning": "符合时宜的",
+    "set": 24,
+    "page": 26,
+    "id": "e0918"
+  },
+  {
+    "left": "opportunism",
+    "right": "self-interest",
+    "meaning": "自私",
+    "set": 24,
+    "page": 26,
+    "id": "e0919"
+  },
+  {
+    "left": "opprobrium",
+    "right": "vituperation",
+    "meaning": "谩骂",
+    "set": 24,
+    "page": 26,
+    "id": "e0920"
+  },
+  {
+    "left": "optimism",
+    "right": "sanguinity",
+    "meaning": "乐观",
+    "set": 24,
+    "page": 26,
+    "id": "e0921"
+  },
+  {
+    "left": "oracular",
+    "right": "prophetic",
+    "meaning": "预言的",
+    "set": 24,
+    "page": 26,
+    "id": "e0922"
+  },
+  {
+    "left": "order",
+    "right": "stability",
+    "meaning": "秩序",
+    "set": 24,
+    "page": 26,
+    "id": "e0923"
+  },
+  {
+    "left": "origin",
+    "right": "pedigree",
+    "meaning": "血统，出身",
+    "set": 24,
+    "page": 26,
+    "id": "e0924"
+  },
+  {
+    "left": "origin",
+    "right": "provenance",
+    "meaning": "起源，出处",
+    "set": 24,
+    "page": 26,
+    "id": "e0925"
+  },
+  {
+    "left": "original",
+    "right": "unconventional",
+    "meaning": "创新的",
+    "set": 24,
+    "page": 26,
+    "id": "e0926"
+  },
+  {
+    "left": "oscillate",
+    "right": "waver",
+    "meaning": "摇摆",
+    "set": 24,
+    "page": 26,
+    "id": "e0927"
+  },
+  {
+    "left": "outmoded",
+    "right": "unfashionable",
+    "meaning": "过时的",
+    "set": 24,
+    "page": 26,
+    "id": "e0928"
+  },
+  {
+    "left": "output",
+    "right": "yield",
+    "meaning": "产量",
+    "set": 24,
+    "page": 26,
+    "id": "e0929"
+  },
+  {
+    "left": "overcome",
+    "right": "transcend",
+    "meaning": "战胜，克服",
+    "set": 24,
+    "page": 26,
+    "id": "e0930"
+  },
+  {
+    "left": "palpable",
+    "right": "tangible",
+    "meaning": "可以感知的",
+    "set": 24,
+    "page": 26,
+    "id": "e0931"
+  },
+  {
+    "left": "panacea",
+    "right": "remedy",
+    "meaning": "解药",
+    "set": 24,
+    "page": 26,
+    "id": "e0932"
+  },
+  {
+    "left": "parsimonious",
+    "right": "stingy",
+    "meaning": "吝啬的",
+    "set": 24,
+    "page": 26,
+    "id": "e0933"
+  },
+  {
+    "left": "partisanship",
+    "right": "zealotry",
+    "meaning": "狂热",
+    "set": 24,
+    "page": 26,
+    "id": "e0934"
+  },
+  {
+    "left": "pedestrian",
+    "right": "uninspired",
+    "meaning": "无创意的，乏味的",
+    "set": 24,
+    "page": 26,
+    "id": "e0935"
+  },
+  {
+    "left": "pellucid",
+    "right": "limpid",
+    "meaning": "清澈的",
+    "set": 24,
+    "page": 26,
+    "id": "e0936"
+  },
+  {
+    "left": "perennial",
+    "right": "long-standing",
+    "meaning": "长久的，持续的",
+    "set": 24,
+    "page": 26,
+    "id": "e0937"
+  },
+  {
+    "left": "perennial",
+    "right": "recurrent",
+    "meaning": "经常发生的，经常出现的",
+    "set": 24,
+    "page": 26,
+    "id": "e0938"
+  },
+  {
+    "left": "perfunctory",
+    "right": "superficial",
+    "meaning": "敷衍的，肤浅的，浅层次的",
+    "set": 24,
+    "page": 26,
+    "id": "e0939"
+  },
+  {
+    "left": "perilous",
+    "right": "precarious",
+    "meaning": "危险的",
+    "set": 24,
+    "page": 26,
+    "id": "e0940"
+  },
+  {
+    "left": "permeable",
+    "right": "porous",
+    "meaning": "可渗入的",
+    "set": 24,
+    "page": 26,
+    "id": "e0941"
+  },
+  {
+    "left": "perpetuate",
+    "right": "sustain",
+    "meaning": "维持",
+    "set": 24,
+    "page": 26,
+    "id": "e0942"
+  },
+  {
+    "left": "persistence",
+    "right": "survival",
+    "meaning": "存活，持续",
+    "set": 24,
+    "page": 26,
+    "id": "e0943"
+  },
+  {
+    "left": "persistent",
+    "right": "unrelenting",
+    "meaning": "持久的",
+    "set": 24,
+    "page": 26,
+    "id": "e0944"
+  },
+  {
+    "left": "pertinacity",
+    "right": "steadfastness",
+    "meaning": "坚持，坚定",
+    "set": 24,
+    "page": 26,
+    "id": "e0945"
+  },
+  {
+    "left": "pertinent",
+    "right": "relevant",
+    "meaning": "相关的",
+    "set": 24,
+    "page": 26,
+    "id": "e0946"
+  },
+  {
+    "left": "pervasive",
+    "right": "rife",
+    "meaning": "普遍的",
+    "set": 24,
+    "page": 26,
+    "id": "e0947"
+  },
+  {
+    "left": "pervasive",
+    "right": "ubiquitous",
+    "meaning": "无处不在的，遍及的",
+    "set": 24,
+    "page": 26,
+    "id": "e0948"
+  },
+  {
+    "left": "plastic",
+    "right": "pliable",
+    "meaning": "多变的，易曲折的",
+    "set": 24,
+    "page": 26,
+    "id": "e0949"
+  },
+  {
+    "left": "plethora",
+    "right": "surfeit",
+    "meaning": "过量",
+    "set": 24,
+    "page": 26,
+    "id": "e0950"
+  },
+  {
+    "left": "pointless",
+    "right": "superfluous",
+    "meaning": "多余的，没意义的，过剩的",
+    "set": 24,
+    "page": 26,
+    "id": "e0951"
+  },
+  {
+    "left": "portend",
+    "right": "presage",
+    "meaning": "预示",
+    "set": 24,
+    "page": 26,
+    "id": "e0952"
+  },
+  {
+    "left": "portend",
+    "right": "predict",
+    "meaning": "预测",
+    "set": 24,
+    "page": 26,
+    "id": "e0953"
+  },
+  {
+    "left": "pragmatist",
+    "right": "realist",
+    "meaning": "务实的人",
+    "set": 24,
+    "page": 26,
+    "id": "e0954"
+  },
+  {
+    "left": "praiseworthy",
+    "right": "superlative",
+    "meaning": "极好的",
+    "set": 25,
+    "page": 27,
+    "id": "e0955"
+  },
+  {
+    "left": "preachy",
+    "right": "sanctimonious",
+    "meaning": "虔诚的",
+    "set": 25,
+    "page": 27,
+    "id": "e0956"
+  },
+  {
+    "left": "preclude",
+    "right": "prevent",
+    "meaning": "阻止",
+    "set": 25,
+    "page": 27,
+    "id": "e0957"
+  },
+  {
+    "left": "preclude",
+    "right": "rule out",
+    "meaning": "排除",
+    "set": 25,
+    "page": 27,
+    "id": "e0958"
+  },
+  {
+    "left": "precociousness",
+    "right": "maturity",
+    "meaning": "成熟",
+    "set": 25,
+    "page": 27,
+    "id": "e0959"
+  },
+  {
+    "left": "preconception",
+    "right": "prejudice",
+    "meaning": "先入之见",
+    "set": 25,
+    "page": 27,
+    "id": "e0960"
+  },
+  {
+    "left": "predictable",
+    "right": "unsurprising",
+    "meaning": "符合预期的",
+    "set": 25,
+    "page": 27,
+    "id": "e0961"
+  },
+  {
+    "left": "predilection",
+    "right": "proclivity",
+    "meaning": "倾向",
+    "set": 25,
+    "page": 27,
+    "id": "e0962"
+  },
+  {
+    "left": "predilection for",
+    "right": "procivility toward",
+    "meaning": "倾向",
+    "set": 25,
+    "page": 27,
+    "id": "e0963"
+  },
+  {
+    "left": "preempt",
+    "right": "supersede",
+    "meaning": "取代",
+    "set": 25,
+    "page": 27,
+    "id": "e0964"
+  },
+  {
+    "left": "preordained",
+    "right": "inevitable",
+    "meaning": "必然的",
+    "set": 25,
+    "page": 27,
+    "id": "e0965"
+  },
+  {
+    "left": "prescient",
+    "right": "prophetic",
+    "meaning": "有先见之明的",
+    "set": 25,
+    "page": 27,
+    "id": "e0966"
+  },
+  {
+    "left": "preserve",
+    "right": "safeguard",
+    "meaning": "保护",
+    "set": 25,
+    "page": 27,
+    "id": "e0967"
+  },
+  {
+    "left": "preternatural",
+    "right": "prodigious",
+    "meaning": "惊人的",
+    "set": 25,
+    "page": 27,
+    "id": "e0968"
+  },
+  {
+    "left": "prevalent",
+    "right": "widespread",
+    "meaning": "广泛的",
+    "set": 25,
+    "page": 27,
+    "id": "e0969"
+  },
+  {
+    "left": "preventive",
+    "right": "prophylactic",
+    "meaning": "预防的",
+    "set": 25,
+    "page": 27,
+    "id": "e0970"
+  },
+  {
+    "left": "primitive",
+    "right": "rudimentary",
+    "meaning": "原始的",
+    "set": 25,
+    "page": 27,
+    "id": "e0971"
+  },
+  {
+    "left": "pristine",
+    "right": "unblemished",
+    "meaning": "纯净的",
+    "set": 25,
+    "page": 27,
+    "id": "e0972"
+  },
+  {
+    "left": "pristine",
+    "right": "untouched",
+    "meaning": "原样的，未受损的",
+    "set": 25,
+    "page": 27,
+    "id": "e0973"
+  },
+  {
+    "left": "probity",
+    "right": "rectitude",
+    "meaning": "正直",
+    "set": 25,
+    "page": 27,
+    "id": "e0974"
+  },
+  {
+    "left": "proclaim",
+    "right": "profess",
+    "meaning": "声称",
+    "set": 25,
+    "page": 27,
+    "id": "e0975"
+  },
+  {
+    "left": "profusion",
+    "right": "wealth",
+    "meaning": "丰富",
+    "set": 25,
+    "page": 27,
+    "id": "e0976"
+  },
+  {
+    "left": "prominence",
+    "right": "salience",
+    "meaning": "显著",
+    "set": 25,
+    "page": 27,
+    "id": "e0977"
+  },
+  {
+    "left": "pronounced",
+    "right": "striking",
+    "meaning": "显著的，突出的",
+    "set": 25,
+    "page": 27,
+    "id": "e0978"
+  },
+  {
+    "left": "propagate",
+    "right": "transmit",
+    "meaning": "传播",
+    "set": 25,
+    "page": 27,
+    "id": "e0979"
+  },
+  {
+    "left": "prosaic",
+    "right": "quotidian",
+    "meaning": "平凡的，普通的",
+    "set": 25,
+    "page": 27,
+    "id": "e0980"
+  },
+  {
+    "left": "protean",
+    "right": "versatile",
+    "meaning": "多才多艺的",
+    "set": 25,
+    "page": 27,
+    "id": "e0981"
+  },
+  {
+    "left": "protest",
+    "right": "remonstrate",
+    "meaning": "抗议",
+    "set": 25,
+    "page": 27,
+    "id": "e0982"
+  },
+  {
+    "left": "provident",
+    "right": "prudent",
+    "meaning": "精明的，有远见的",
+    "set": 25,
+    "page": 27,
+    "id": "e0983"
+  },
+  {
+    "left": "provisional",
+    "right": "tentative",
+    "meaning": "暂时的，临时的，试验性的",
+    "set": 25,
+    "page": 27,
+    "id": "e0984"
+  },
+  {
+    "left": "provocative",
+    "right": "stimulating",
+    "meaning": "振奋人心的",
+    "set": 25,
+    "page": 27,
+    "id": "e0985"
+  },
+  {
+    "left": "pugnacious",
+    "right": "truculent",
+    "meaning": "好斗的",
+    "set": 25,
+    "page": 27,
+    "id": "e0986"
+  },
+  {
+    "left": "purveyor",
+    "right": "supplier",
+    "meaning": "供应者",
+    "set": 25,
+    "page": 27,
+    "id": "e0987"
+  },
+  {
+    "left": "question",
+    "right": "refute",
+    "meaning": "质疑",
+    "set": 25,
+    "page": 27,
+    "id": "e0988"
+  },
+  {
+    "left": "quirky",
+    "right": "unconventional",
+    "meaning": "奇怪的",
+    "set": 25,
+    "page": 27,
+    "id": "e0989"
+  },
+  {
+    "left": "quotidian",
+    "right": "workaday",
+    "meaning": "普通的，平凡的",
+    "set": 25,
+    "page": 27,
+    "id": "e0990"
+  },
+  {
+    "left": "rapprochement",
+    "right": "reconciliation",
+    "meaning": "和解，友好",
+    "set": 25,
+    "page": 27,
+    "id": "e0991"
+  },
+  {
+    "left": "rare",
+    "right": "unusual",
+    "meaning": "罕见的",
+    "set": 25,
+    "page": 27,
+    "id": "e0992"
+  },
+  {
+    "left": "rash",
+    "right": "reckless",
+    "meaning": "鲁莽的",
+    "set": 25,
+    "page": 27,
+    "id": "e0993"
+  },
+  {
+    "left": "realism",
+    "right": "verisimilitude",
+    "meaning": "真实性",
+    "set": 25,
+    "page": 27,
+    "id": "e0994"
+  },
+  {
+    "left": "rebuff",
+    "right": "spurn",
+    "meaning": "拒绝",
+    "set": 26,
+    "page": 28,
+    "id": "e0995"
+  },
+  {
+    "left": "recant",
+    "right": "repudiate",
+    "meaning": "宣布放弃",
+    "set": 26,
+    "page": 28,
+    "id": "e0996"
+  },
+  {
+    "left": "receptive",
+    "right": "undogmatic",
+    "meaning": "善于接受新思想的，非教条的",
+    "set": 26,
+    "page": 28,
+    "id": "e0997"
+  },
+  {
+    "left": "recoil from",
+    "right": "shrink from",
+    "meaning": "从……中退出",
+    "set": 26,
+    "page": 28,
+    "id": "e0998"
+  },
+  {
+    "left": "recycle",
+    "right": "rehash",
+    "meaning": "回收利用",
+    "set": 26,
+    "page": 28,
+    "id": "e0999"
+  },
+  {
+    "left": "redundant",
+    "right": "superfluous",
+    "meaning": "多余的",
+    "set": 26,
+    "page": 28,
+    "id": "e1000"
+  },
+  {
+    "left": "redundant",
+    "right": "unnecessary",
+    "meaning": "多余的，没必要的",
+    "set": 26,
+    "page": 28,
+    "id": "e1001"
+  },
+  {
+    "left": "rehabilitate",
+    "right": "restore",
+    "meaning": "修复",
+    "set": 26,
+    "page": 28,
+    "id": "e1002"
+  },
+  {
+    "left": "reinvent",
+    "right": "transform",
+    "meaning": "改造，改变",
+    "set": 26,
+    "page": 28,
+    "id": "e1003"
+  },
+  {
+    "left": "reject",
+    "right": "repudiate",
+    "meaning": "拒绝",
+    "set": 26,
+    "page": 28,
+    "id": "e1004"
+  },
+  {
+    "left": "relic",
+    "right": "vestige",
+    "meaning": "遗迹",
+    "set": 26,
+    "page": 28,
+    "id": "e1005"
+  },
+  {
+    "left": "relief",
+    "right": "respite",
+    "meaning": "暂时的休息",
+    "set": 26,
+    "page": 28,
+    "id": "e1006"
+  },
+  {
+    "left": "reluctant",
+    "right": "unwilling",
+    "meaning": "不愿意的",
+    "set": 26,
+    "page": 28,
+    "id": "e1007"
+  },
+  {
+    "left": "remove",
+    "right": "strip away",
+    "meaning": "移除",
+    "set": 26,
+    "page": 28,
+    "id": "e1008"
+  },
+  {
+    "left": "renaissance",
+    "right": "revivial",
+    "meaning": "复兴",
+    "set": 26,
+    "page": 28,
+    "id": "e1009"
+  },
+  {
+    "left": "render",
+    "right": "reproduce",
+    "meaning": "复制，使再现",
+    "set": 26,
+    "page": 28,
+    "id": "e1010"
+  },
+  {
+    "left": "renounce",
+    "right": "waive",
+    "meaning": "放弃",
+    "set": 26,
+    "page": 28,
+    "id": "e1011"
+  },
+  {
+    "left": "replete with",
+    "right": "rife with",
+    "meaning": "充满……的",
+    "set": 26,
+    "page": 28,
+    "id": "e1012"
+  },
+  {
+    "left": "reserved",
+    "right": "taciturn",
+    "meaning": "寡言少语的",
+    "set": 26,
+    "page": 28,
+    "id": "e1013"
+  },
+  {
+    "left": "resolve",
+    "right": "tenacity",
+    "meaning": "坚定",
+    "set": 26,
+    "page": 28,
+    "id": "e1014"
+  },
+  {
+    "left": "resonate",
+    "right": "ring true",
+    "meaning": "与现实共鸣",
+    "set": 26,
+    "page": 28,
+    "id": "e1015"
+  },
+  {
+    "left": "respected",
+    "right": "venerable",
+    "meaning": "值得尊敬的",
+    "set": 26,
+    "page": 28,
+    "id": "e1016"
+  },
+  {
+    "left": "restorative",
+    "right": "tonic",
+    "meaning": "使精神振作的",
+    "set": 26,
+    "page": 28,
+    "id": "e1017"
+  },
+  {
+    "left": "retrenchment",
+    "right": "slump",
+    "meaning": "减少",
+    "set": 26,
+    "page": 28,
+    "id": "e1018"
+  },
+  {
+    "left": "reverence",
+    "right": "veneration",
+    "meaning": "尊重",
+    "set": 26,
+    "page": 28,
+    "id": "e1019"
+  },
+  {
+    "left": "revise",
+    "right": "update",
+    "meaning": "校正",
+    "set": 26,
+    "page": 28,
+    "id": "e1020"
+  },
+  {
+    "left": "robust",
+    "right": "strong",
+    "meaning": "强有力的",
+    "set": 26,
+    "page": 28,
+    "id": "e1021"
+  },
+  {
+    "left": "routine",
+    "right": "unremarkable",
+    "meaning": "普通的",
+    "set": 26,
+    "page": 28,
+    "id": "e1022"
+  },
+  {
+    "left": "rudimentary",
+    "right": "sketchy",
+    "meaning": "粗略的，不完备的",
+    "set": 26,
+    "page": 28,
+    "id": "e1023"
+  },
+  {
+    "left": "rudimentary",
+    "right": "unsophisticated",
+    "meaning": "基础的，简单的",
+    "set": 26,
+    "page": 28,
+    "id": "e1024"
+  },
+  {
+    "left": "salient",
+    "right": "visible",
+    "meaning": "明显的",
+    "set": 26,
+    "page": 28,
+    "id": "e1025"
+  },
+  {
+    "left": "sap",
+    "right": "undermine",
+    "meaning": "削弱，破坏",
+    "set": 26,
+    "page": 28,
+    "id": "e1026"
+  },
+  {
+    "left": "scarcity",
+    "right": "want",
+    "meaning": "缺乏，缺少",
+    "set": 26,
+    "page": 28,
+    "id": "e1027"
+  },
+  {
+    "left": "secondary",
+    "right": "subordinate",
+    "meaning": "次要的",
+    "set": 26,
+    "page": 28,
+    "id": "e1028"
+  },
+  {
+    "left": "shackle",
+    "right": "stifle",
+    "meaning": "束缚",
+    "set": 26,
+    "page": 28,
+    "id": "e1029"
+  },
+  {
+    "left": "shortened",
+    "right": "truncated",
+    "meaning": "缩短的",
+    "set": 26,
+    "page": 28,
+    "id": "e1030"
+  },
+  {
+    "left": "singular",
+    "right": "unique",
+    "meaning": "唯一的",
+    "set": 26,
+    "page": 28,
+    "id": "e1031"
+  },
+  {
+    "left": "sizable",
+    "right": "substantial",
+    "meaning": "相当大的",
+    "set": 26,
+    "page": 28,
+    "id": "e1032"
+  },
+  {
+    "left": "sketchy",
+    "right": "superficial",
+    "meaning": "概略的",
+    "set": 26,
+    "page": 28,
+    "id": "e1033"
+  },
+  {
+    "left": "sleazy",
+    "right": "sordid",
+    "meaning": "肮脏的",
+    "set": 26,
+    "page": 28,
+    "id": "e1034"
+  },
+  {
+    "left": "slighted",
+    "right": "snubbed",
+    "meaning": "被冷落的",
+    "set": 27,
+    "page": 29,
+    "id": "e1035"
+  },
+  {
+    "left": "sober",
+    "right": "staid",
+    "meaning": "严肃认真的",
+    "set": 27,
+    "page": 29,
+    "id": "e1036"
+  },
+  {
+    "left": "solemn",
+    "right": "somber",
+    "meaning": "阴沉的",
+    "set": 27,
+    "page": 29,
+    "id": "e1037"
+  },
+  {
+    "left": "sound",
+    "right": "unassailable",
+    "meaning": "无懈可击的",
+    "set": 27,
+    "page": 29,
+    "id": "e1038"
+  },
+  {
+    "left": "soundness",
+    "right": "substantiality",
+    "meaning": "牢固，结实",
+    "set": 27,
+    "page": 29,
+    "id": "e1039"
+  },
+  {
+    "left": "specious",
+    "right": "spurious",
+    "meaning": "假的",
+    "set": 27,
+    "page": 29,
+    "id": "e1040"
+  },
+  {
+    "left": "specious",
+    "right": "unfounded",
+    "meaning": "假的，没有依据的",
+    "set": 27,
+    "page": 29,
+    "id": "e1041"
+  },
+  {
+    "left": "speculative",
+    "right": "unsubstantiated",
+    "meaning": "猜测的，没有事实依据的",
+    "set": 27,
+    "page": 29,
+    "id": "e1042"
+  },
+  {
+    "left": "spike",
+    "right": "upsurge",
+    "meaning": "高涨",
+    "set": 27,
+    "page": 29,
+    "id": "e1043"
+  },
+  {
+    "left": "spirited",
+    "right": "vigorous",
+    "meaning": "精力充沛的",
+    "set": 27,
+    "page": 29,
+    "id": "e1044"
+  },
+  {
+    "left": "splendor",
+    "right": "sumptuousness",
+    "meaning": "华丽",
+    "set": 27,
+    "page": 29,
+    "id": "e1045"
+  },
+  {
+    "left": "static",
+    "right": "unvarying",
+    "meaning": "稳定的，不变的",
+    "set": 27,
+    "page": 29,
+    "id": "e1046"
+  },
+  {
+    "left": "straightforward",
+    "right": "unproblematic",
+    "meaning": "直白的，不成问题的",
+    "set": 27,
+    "page": 29,
+    "id": "e1047"
+  },
+  {
+    "left": "strength",
+    "right": "virtue",
+    "meaning": "优势，优点",
+    "set": 27,
+    "page": 29,
+    "id": "e1048"
+  },
+  {
+    "left": "success",
+    "right": "triumph",
+    "meaning": "成功",
+    "set": 27,
+    "page": 29,
+    "id": "e1049"
+  },
+  {
+    "left": "succumb to",
+    "right": "yield to",
+    "meaning": "屈服于",
+    "set": 27,
+    "page": 29,
+    "id": "e1050"
+  },
+  {
+    "left": "supplant",
+    "right": "trump",
+    "meaning": "胜过，取代",
+    "set": 27,
+    "page": 29,
+    "id": "e1051"
+  },
+  {
+    "left": "support",
+    "right": "uphold",
+    "meaning": "支持",
+    "set": 27,
+    "page": 29,
+    "id": "e1052"
+  },
+  {
+    "left": "synonymous",
+    "right": "tantamount",
+    "meaning": "等于，相似",
+    "set": 27,
+    "page": 29,
+    "id": "e1053"
+  },
+  {
+    "left": "synonymous with",
+    "right": "tantamount to",
+    "meaning": "等价的",
+    "set": 27,
+    "page": 29,
+    "id": "e1054"
+  },
+  {
+    "left": "tedious",
+    "right": "tiresome",
+    "meaning": "无聊的",
+    "set": 27,
+    "page": 29,
+    "id": "e1055"
+  },
+  {
+    "left": "temporary",
+    "right": "transitory",
+    "meaning": "短暂的",
+    "set": 27,
+    "page": 29,
+    "id": "e1056"
+  },
+  {
+    "left": "tendentious",
+    "right": "slanted",
+    "meaning": "有倾向性的，有偏见的",
+    "set": 27,
+    "page": 29,
+    "id": "e1057"
+  },
+  {
+    "left": "testable",
+    "right": "verifiable",
+    "meaning": "可被测试的",
+    "set": 27,
+    "page": 29,
+    "id": "e1058"
+  },
+  {
+    "left": "tolerate",
+    "right": "withstand",
+    "meaning": "忍受",
+    "set": 27,
+    "page": 29,
+    "id": "e1059"
+  },
+  {
+    "left": "transparent",
+    "right": "understandable",
+    "meaning": "易懂的",
+    "set": 27,
+    "page": 29,
+    "id": "e1060"
+  },
+  {
+    "left": "unabated",
+    "right": "undiminished",
+    "meaning": "未被减弱的",
+    "set": 27,
+    "page": 29,
+    "id": "e1061"
+  },
+  {
+    "left": "unadulterated",
+    "right": "unalloyed",
+    "meaning": "纯粹的，没有掺杂的",
+    "set": 27,
+    "page": 29,
+    "id": "e1062"
+  },
+  {
+    "left": "unalloyed",
+    "right": "unqualified",
+    "meaning": "完全的，绝对的",
+    "set": 27,
+    "page": 29,
+    "id": "e1063"
+  },
+  {
+    "left": "unconventional",
+    "right": "unorthodox",
+    "meaning": "非正统的",
+    "set": 27,
+    "page": 29,
+    "id": "e1064"
+  },
+  {
+    "left": "undeniable",
+    "right": "unquestionable",
+    "meaning": "毋庸置疑的",
+    "set": 27,
+    "page": 29,
+    "id": "e1065"
+  },
+  {
+    "left": "unexceptional",
+    "right": "unremarkable",
+    "meaning": "普通的",
+    "set": 27,
+    "page": 29,
+    "id": "e1066"
+  },
+  {
+    "left": "unfathomable",
+    "right": "unintelligible",
+    "meaning": "难以理解的",
+    "set": 27,
+    "page": 29,
+    "id": "e1067"
+  },
+  {
+    "left": "unfounded",
+    "right": "unjustified",
+    "meaning": "不合理的",
+    "set": 27,
+    "page": 29,
+    "id": "e1068"
+  },
+  {
+    "left": "unparalleled",
+    "right": "unprecedented",
+    "meaning": "空前的",
+    "set": 27,
+    "page": 29,
+    "id": "e1069"
+  },
+  {
+    "left": "unprepossessing",
+    "right": "unremarkable",
+    "meaning": "平凡的",
+    "set": 27,
+    "page": 29,
+    "id": "e1070"
+  },
+  {
+    "left": "unprofitable",
+    "right": "unremunerative",
+    "meaning": "无利可图的",
+    "set": 27,
+    "page": 29,
+    "id": "e1071"
+  },
+  {
+    "left": "unsustainable",
+    "right": "untenable",
+    "meaning": "无法持续的",
+    "set": 27,
+    "page": 29,
+    "id": "e1072"
+  },
+  {
+    "left": "unwavering",
+    "right": "steady",
+    "meaning": "坚定的",
+    "set": 27,
+    "page": 29,
+    "id": "e1073"
+  },
+  {
+    "left": "vacillation",
+    "right": "wavering",
+    "meaning": "摇摆不定",
+    "set": 28,
+    "page": 30,
+    "id": "e1074"
+  },
+  {
+    "left": "worrisome",
+    "right": "troubling",
+    "meaning": "麻烦的，令人担忧的",
+    "set": 28,
+    "page": 30,
+    "id": "e1075"
+  },
+  {
+    "left": "enigmatic",
+    "right": "mysterious",
+    "meaning": "神秘的，难以解释的",
+    "set": 28,
+    "page": 30,
+    "id": "e1076"
+  },
+  {
+    "left": "exemplar",
+    "right": "paragon",
+    "meaning": "模范，榜样",
+    "set": 28,
+    "page": 30,
+    "id": "e1077"
+  },
+  {
+    "left": "partisan",
+    "right": "sectarian",
+    "meaning": "派系的",
+    "set": 28,
+    "page": 30,
+    "id": "e1078"
+  },
+  {
+    "left": "egregious",
+    "right": "flagrant",
+    "meaning": "罪恶昭彰的，极糟的",
+    "set": 28,
+    "page": 30,
+    "id": "e1079"
+  },
+  {
+    "left": "ideal",
+    "right": "impractical",
+    "meaning": "不切实际的",
+    "set": 28,
+    "page": 30,
+    "id": "e1080"
+  },
+  {
+    "left": "eclecticism",
+    "right": "hybridity",
+    "meaning": "多元，混合",
+    "set": 28,
+    "page": 30,
+    "id": "e1081"
+  },
+  {
+    "left": "assiduity",
+    "right": "diligence",
+    "meaning": "勤奋",
+    "set": 28,
+    "page": 30,
+    "id": "e1082"
+  },
+  {
+    "left": "circumscribed",
+    "right": "narrow",
+    "meaning": "狭隘的",
+    "set": 28,
+    "page": 30,
+    "id": "e1083"
+  },
+  {
+    "left": "fractiousness",
+    "right": "schism",
+    "meaning": "分裂",
+    "set": 28,
+    "page": 30,
+    "id": "e1084"
+  },
+  {
+    "left": "scandalous",
+    "right": "unseemly",
+    "meaning": "不得体的",
+    "set": 28,
+    "page": 30,
+    "id": "e1085"
+  },
+  {
+    "left": "exhaustive",
+    "right": "thorough",
+    "meaning": "全面的",
+    "set": 28,
+    "page": 30,
+    "id": "e1086"
+  },
+  {
+    "left": "shallow",
+    "right": "superficial",
+    "meaning": "肤浅的",
+    "set": 28,
+    "page": 30,
+    "id": "e1087"
+  },
+  {
+    "left": "archaic",
+    "right": "fusty",
+    "meaning": "过时的",
+    "set": 28,
+    "page": 30,
+    "id": "e1088"
+  },
+  {
+    "left": "buoy",
+    "right": "sustain",
+    "meaning": "支持，支撑",
+    "set": 28,
+    "page": 30,
+    "id": "e1089"
+  },
+  {
+    "left": "antagonistic",
+    "right": "competing",
+    "meaning": "对立的",
+    "set": 28,
+    "page": 30,
+    "id": "e1090"
+  },
+  {
+    "left": "autonomous",
+    "right": "independent",
+    "meaning": "自治的，独立的",
+    "set": 28,
+    "page": 30,
+    "id": "e1091"
+  },
+  {
+    "left": "sterile",
+    "right": "unfruitful",
+    "meaning": "没有成果的",
+    "set": 28,
+    "page": 30,
+    "id": "e1092"
+  },
+  {
+    "left": "basic",
+    "right": "crude",
+    "meaning": "粗略的",
+    "set": 28,
+    "page": 30,
+    "id": "e1093"
+  },
+  {
+    "left": "discord",
+    "right": "tension",
+    "meaning": "矛盾，对立",
+    "set": 28,
+    "page": 30,
+    "id": "e1094"
+  },
+  {
+    "left": "rare",
+    "right": "scarce",
+    "meaning": "少的",
+    "set": 28,
+    "page": 30,
+    "id": "e1095"
+  },
+  {
+    "left": "appropriate",
+    "right": "borrow",
+    "meaning": "挪用，借用",
+    "set": 28,
+    "page": 30,
+    "id": "e1096"
+  },
+  {
+    "left": "apogee",
+    "right": "pinnacle",
+    "meaning": "最高点",
+    "set": 28,
+    "page": 30,
+    "id": "e1097"
+  },
+  {
+    "left": "alterable",
+    "right": "mutable",
+    "meaning": "易变的，可变的",
+    "set": 28,
+    "page": 30,
+    "id": "e1098"
+  },
+  {
+    "left": "bereft of",
+    "right": "shorn of",
+    "meaning": "被剥夺",
+    "set": 28,
+    "page": 30,
+    "id": "e1099"
+  },
+  {
+    "left": "condescension",
+    "right": "superciliousness",
+    "meaning": "傲慢",
+    "set": 28,
+    "page": 30,
+    "id": "e1100"
+  },
+  {
+    "left": "elegy",
+    "right": "requiem",
+    "meaning": "安魂曲，哀歌",
+    "set": 28,
+    "page": 30,
+    "id": "e1101"
+  },
+  {
+    "left": "carouser",
+    "right": "roisterer",
+    "meaning": "喝酒喧哗者",
+    "set": 28,
+    "page": 30,
+    "id": "e1102"
+  },
+  {
+    "left": "imprudence",
+    "right": "recklessness",
+    "meaning": "轻率，鲁莽",
+    "set": 28,
+    "page": 30,
+    "id": "e1103"
+  },
+  {
+    "left": "random",
+    "right": "unpredictable",
+    "meaning": "没有规律的，随机的",
+    "set": 28,
+    "page": 30,
+    "id": "e1104"
+  },
+  {
+    "left": "bellicose",
+    "right": "militant",
+    "meaning": "好斗的",
+    "set": 28,
+    "page": 30,
+    "id": "e1105"
+  },
+  {
+    "left": "correlative",
+    "right": "counterpart",
+    "meaning": "相关物，对应物",
+    "set": 28,
+    "page": 30,
+    "id": "e1106"
+  },
+  {
+    "left": "precarious",
+    "right": "uncertain",
+    "meaning": "不确定的",
+    "set": 28,
+    "page": 30,
+    "id": "e1107"
+  },
+  {
+    "left": "check",
+    "right": "curb",
+    "meaning": "阻碍，制止",
+    "set": 29,
+    "page": 32,
+    "id": "e1108"
+  },
+  {
+    "left": "astonishing",
+    "right": "precocious",
+    "meaning": "超常的，使人震惊的",
+    "set": 29,
+    "page": 32,
+    "id": "e1109"
+  },
+  {
+    "left": "acclaim",
+    "right": "hail",
+    "meaning": "称赞",
+    "set": 29,
+    "page": 32,
+    "id": "e1110"
+  },
+  {
+    "left": "prodigious",
+    "right": "voracious",
+    "meaning": "（食量）惊人的",
+    "set": 29,
+    "page": 32,
+    "id": "e1111"
+  },
+  {
+    "left": "eviscerate",
+    "right": "gut",
+    "meaning": "从内部摧毁",
+    "set": 29,
+    "page": 32,
+    "id": "e1112"
+  },
+  {
+    "left": "render",
+    "right": "reproduce",
+    "meaning": "呈现",
+    "set": 29,
+    "page": 32,
+    "id": "e1113"
+  },
+  {
+    "left": "damp",
+    "right": "palliate",
+    "meaning": "抑制",
+    "set": 29,
+    "page": 32,
+    "id": "e1114"
+  },
+  {
+    "left": "condign",
+    "right": "meet",
+    "meaning": "应得的",
+    "set": 29,
+    "page": 32,
+    "id": "e1115"
+  },
+  {
+    "left": "admonishment",
+    "right": "scolding",
+    "meaning": "责备",
+    "set": 29,
+    "page": 32,
+    "id": "e1116"
+  },
+  {
+    "left": "concern",
+    "right": "solicitude",
+    "meaning": "担心",
+    "set": 29,
+    "page": 32,
+    "id": "e1117"
+  },
+  {
+    "left": "belie",
+    "right": "contradict",
+    "meaning": "证明错误",
+    "set": 29,
+    "page": 32,
+    "id": "e1118"
+  },
+  {
+    "left": "eulogy",
+    "right": "panegyric",
+    "meaning": "赞美",
+    "set": 29,
+    "page": 32,
+    "id": "e1119"
+  },
+  {
+    "left": "inertia",
+    "right": "stasis",
+    "meaning": "静止，惰性",
+    "set": 29,
+    "page": 32,
+    "id": "e1120"
+  },
+  {
+    "left": "enjoin",
+    "right": "proscribe",
+    "meaning": "禁止",
+    "set": 29,
+    "page": 32,
+    "id": "e1121"
+  },
+  {
+    "left": "saccharine",
+    "right": "sentimental",
+    "meaning": "多愁善感的",
+    "set": 29,
+    "page": 32,
+    "id": "e1122"
+  },
+  {
+    "left": "fluidity",
+    "right": "mutability",
+    "meaning": "易变，不稳定性",
+    "set": 29,
+    "page": 32,
+    "id": "e1123"
+  },
+  {
+    "left": "guzzle",
+    "right": "swill",
+    "meaning": "狂吃暴饮，大吃大喝",
+    "set": 29,
+    "page": 32,
+    "id": "e1124"
+  },
+  {
+    "left": "doubt",
+    "right": "reservation",
+    "meaning": "怀疑，保留意见",
+    "set": 29,
+    "page": 32,
+    "id": "e1125"
+  },
+  {
+    "left": "characteristic",
+    "right": "unique",
+    "meaning": "特有的，典型的",
+    "set": 29,
+    "page": 32,
+    "id": "e1126"
+  },
+  {
+    "left": "improvisational",
+    "right": "unstructured",
+    "meaning": "即兴的，非系统化的，没有经过精心准备或策划的",
+    "set": 29,
+    "page": 32,
+    "id": "e1127"
+  },
+  {
+    "left": "bias",
+    "right": "orientation",
+    "meaning": "倾向性，导向性",
+    "set": 29,
+    "page": 32,
+    "id": "e1128"
+  },
+  {
+    "left": "detailed",
+    "right": "convoluted",
+    "meaning": "复杂的，精细的",
+    "set": 29,
+    "page": 32,
+    "id": "e1129"
+  },
+  {
+    "left": "accommodating",
+    "right": "elastic",
+    "meaning": "有弹性的",
+    "set": 29,
+    "page": 32,
+    "id": "e1130"
+  },
+  {
+    "left": "fragility",
+    "right": "impermanence",
+    "meaning": "脆弱，不稳定",
+    "set": 29,
+    "page": 32,
+    "id": "e1131"
+  },
+  {
+    "left": "ephemera",
+    "right": "trivia",
+    "meaning": "琐事，微不足道的事",
+    "set": 29,
+    "page": 32,
+    "id": "e1132"
+  },
+  {
+    "left": "extrapolate",
+    "right": "project",
+    "meaning": "推进，推断",
+    "set": 29,
+    "page": 32,
+    "id": "e1133"
+  },
+  {
+    "left": "adulation",
+    "right": "approbation",
+    "meaning": "赞许",
+    "set": 29,
+    "page": 32,
+    "id": "e1134"
+  },
+  {
+    "left": "censure",
+    "right": "disapprobation",
+    "meaning": "谴责，反对",
+    "set": 29,
+    "page": 32,
+    "id": "e1135"
+  },
+  {
+    "left": "buffer against",
+    "right": "insulate from",
+    "meaning": "保护，使…不受侵害",
+    "set": 29,
+    "page": 32,
+    "id": "e1136"
+  },
+  {
+    "left": "incorrigible",
+    "right": "recalcitrant",
+    "meaning": "屡教不改的，不服从的",
+    "set": 29,
+    "page": 32,
+    "id": "e1137"
+  },
+  {
+    "left": "peevish",
+    "right": "querulous",
+    "meaning": "易怒的",
+    "set": 29,
+    "page": 32,
+    "id": "e1138"
+  },
+  {
+    "left": "a retort against",
+    "right": "a riposte to",
+    "meaning": "反驳",
+    "set": 29,
+    "page": 32,
+    "id": "e1139"
+  },
+  {
+    "left": "doctor",
+    "right": "tamper with",
+    "meaning": "篡改",
+    "set": 29,
+    "page": 32,
+    "id": "e1140"
+  },
+  {
+    "left": "antic",
+    "right": "caper",
+    "meaning": "滑稽可笑的举止",
+    "set": 29,
+    "page": 32,
+    "id": "e1141"
+  }
+]

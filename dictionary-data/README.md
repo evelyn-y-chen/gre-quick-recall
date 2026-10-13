@@ -1,0 +1,1 @@
+ECDICT dictionary shards, stored as gzip-compressed JSON. scripts/prepare-assets.mjs decompresses them into public/dictionary-v1 during builds. SHA-256 checksums are in app/dictionaryManifest.json. License: public/dictionary-v1/LICENSE.txt. No personal learning records are included.

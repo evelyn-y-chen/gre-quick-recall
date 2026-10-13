@@ -1,0 +1,777 @@
+{
+  "abandon": {
+    "seconds": 29,
+    "note": "放弃自我管理，就容易变成放纵；用意思的延伸把两个义项连起来记。",
+    "list": 1
+  },
+  "uninhibited": {
+    "seconds": 96,
+    "note": "un- 表示否定：没有限制，就像放开缰绳，联想到不受拘束、放纵。",
+    "list": 1
+  },
+  "unrestrained": {
+    "seconds": 96,
+    "note": "把约束感反过来：没有管束、放开缰绳，就不受拘束了。",
+    "list": 1
+  },
+  "abash": {
+    "seconds": 148,
+    "note": "盯住字母里的 ash（灰尘、灰烬）：尴尬得想钻进土里，用这个画面记“使尴尬”。",
+    "list": 1
+  },
+  "abbreviate": {
+    "seconds": 404,
+    "note": "抓住中间的 brev，联想 brief（简短）：把长内容变短，就是缩短、精简。",
+    "list": 1
+  },
+  "abridge": {
+    "seconds": 463,
+    "note": "联想 a bridge（一座桥）：桥连接两岸，缩短路程→缩短、删节。",
+    "list": 1
+  },
+  "shorten": {
+    "seconds": 373,
+    "note": "short 是“短”，加 -en 变成动词，直接记成“使变短”。",
+    "list": 1
+  },
+  "curtail": {
+    "seconds": 490,
+    "note": "把 cur 想成 cut，tail 是尾巴：剪掉长尾巴，身体就变短→缩短、削减。",
+    "list": 1
+  },
+  "aberration": {
+    "seconds": 585,
+    "note": "用看到怪兽时脱口而出的“啊？不是……这对吗？”作谐音提示：遇到了反常现象。",
+    "list": 1
+  },
+  "anomaly": {
+    "seconds": 630,
+    "note": "从拼写联想到 normally，再用 a- 的否定感提示“不正常”→异常。它本身是名词。",
+    "list": 1
+  },
+  "abeyance": {
+    "seconds": 697,
+    "note": "谐音想成“我被摁死了”：被摁住、动不了，事情只能暂停、搁置。",
+    "list": 1
+  },
+  "quiescence": {
+    "seconds": 723,
+    "note": "联想 quiet（安静）和“安静的状态”：由安静想到静止、暂停。",
+    "list": 1
+  },
+  "abjection": {
+    "seconds": 797,
+    "note": "由拼写联想到 reject（拒绝）：又一次被拒绝，觉得自己很惨→悲惨、凄惨。",
+    "list": 1
+  },
+  "abound": {
+    "seconds": 900,
+    "note": "联想 bound 的蹦跳画面：雨后到处都是蹦跳的青蛙，密密麻麻→大量存在。",
+    "list": 1
+  },
+  "proliferate": {
+    "seconds": 947,
+    "note": "趣味拆成 pro + life：像“加强版的生命力”，生命越来越旺盛→大量繁殖、激增。",
+    "list": 1
+  },
+  "absolve": {
+    "seconds": 1018,
+    "note": "借 ab（离开）和 solve（解决）作联想：可以离开，不用再面对那个麻烦→被免除、赦免。",
+    "list": 1
+  },
+  "exonerate": {
+    "seconds": 1064,
+    "note": "联想 ex（离开）与 onerous（繁重的）：卸下繁重负担，不用再受压迫→免除、开脱。",
+    "list": 1
+  },
+  "abstract": {
+    "seconds": 1181,
+    "note": "谐音“我不拽他”：他说话太笼统、太抽象，听不懂，所以不想理他。",
+    "list": 1
+  },
+  "misuse": {
+    "list": 2,
+    "seconds": 71,
+    "note": "mis- 提示错误，use 是使用：用错了，就是误用。"
+  },
+  "highlight": {
+    "list": 2,
+    "seconds": 137,
+    "note": "想起阅读题把一段文字标黄、高亮：让它醒目，就是强调。"
+  },
+  "foreground": {
+    "list": 2,
+    "seconds": 150,
+    "note": "fore 提示前面：把东西放到最前台，让人先看到→强调。"
+  },
+  "accession": {
+    "list": 2,
+    "seconds": 179,
+    "note": "课堂借 access（进入）联想“同意进入”，帮助记住此处的同意义项。"
+  },
+  "acquiescence": {
+    "list": 2,
+    "seconds": 205,
+    "note": "联想 quiet（安静）：静悄悄地同意，不出声反对→默许。"
+  },
+  "accrete": {
+    "list": 2,
+    "seconds": 285,
+    "note": "想象树木慢慢生长、增大：一点点增加，也就是逐渐积累。"
+  },
+  "amass": {
+    "list": 2,
+    "seconds": 305,
+    "note": "抓住 mass（一大堆、大量）：慢慢攒成一大堆→积累。"
+  },
+  "acerbic": {
+    "list": 2,
+    "seconds": 343,
+    "note": "和 acid 放在一起记，从酸的感觉联想到说话尖酸刻薄。"
+  },
+  "acid": {
+    "list": 2,
+    "seconds": 353,
+    "note": "化学上的“酸”延伸到形容人：说话酸、刺人→尖酸刻薄。"
+  },
+  "vitriolic": {
+    "list": 2,
+    "seconds": 380,
+    "note": "联想 vitriol（硫酸）的强腐蚀性：话语像强酸一样伤人→尖刻。"
+  },
+  "caustic": {
+    "list": 2,
+    "seconds": 404,
+    "note": "用“有腐蚀性”的感觉记：形容话语时，像腐蚀性物质一样刺人。"
+  },
+  "mordant": {
+    "list": 2,
+    "seconds": 404,
+    "note": "和这组“酸、腐蚀性”词一起记，联想到言语尖刻、伤人。"
+  },
+  "acme": {
+    "list": 2,
+    "seconds": 483,
+    "note": "站到顶峰，也就是登峰造极；把“山顶”和“极致”连起来记。"
+  },
+  "peak": {
+    "list": 2,
+    "seconds": 518,
+    "note": "联想运动品牌“匹克”的英文 Peak，记住“顶峰”。"
+  },
+  "zenith": {
+    "list": 2,
+    "seconds": 518,
+    "note": "联想手表品牌“真力时”Zenith，帮助记住“顶峰、极致”。"
+  },
+  "acumen": {
+    "list": 3,
+    "seconds": 17,
+    "note": "联想 a cute man（聪明的人）；也可把 acu 想成“阿嚏”：敏感得容易打喷嚏→敏锐。"
+  },
+  "shrewdness": {
+    "list": 3,
+    "seconds": 52,
+    "note": "shrewd 是精明，-ness 把它变成名词：精明、敏锐。"
+  },
+  "skillful": {
+    "list": 3,
+    "seconds": 185,
+    "note": "skill 是技能，-ful 提示充满：有技能、做事熟悉→熟练、灵巧。"
+  },
+  "adroit": {
+    "list": 3,
+    "seconds": 205,
+    "note": "把字母趣味联想成 a do it：像 just do it，熟练得有底气直接去做。"
+  },
+  "adulation": {
+    "list": 3,
+    "seconds": 283,
+    "note": "联想 adult（成年人）：老师用“成年人的世界里有阿谀奉承”这个画面记。"
+  },
+  "adversarial": {
+    "list": 3,
+    "seconds": 338,
+    "note": "和 adverse（不利、相反）、adversary（对手）串起来：对手之间是对抗的。"
+  },
+  "antagonistic": {
+    "list": 3,
+    "seconds": 376,
+    "note": "联想到 anti- 的反向、对抗感，抓住“对着干”的意思。"
+  },
+  "unfavorable": {
+    "list": 3,
+    "seconds": 420,
+    "note": "先记 favorable 是有利、讨喜的，再加 un- 反过来→不利的。"
+  },
+  "affable": {
+    "list": 3,
+    "seconds": 488,
+    "note": "谐音“爱服”：招人爱，又让人服气，联想到和蔼可亲。"
+  },
+  "aggravate": {
+    "list": 3,
+    "seconds": 559,
+    "note": "中间部分联想 gravity（重力）：重量更重→事情加重、变严重。"
+  },
+  "exacerbate": {
+    "list": 3,
+    "seconds": 602,
+    "note": "课堂联想 ex 的加强感与 acer／acid 的酸、尖刻：更加尖刻，雪上加霜→加重。"
+  },
+  "worsen": {
+    "list": 3,
+    "seconds": 539,
+    "note": "联想 worse（更坏）：情况变得更坏→恶化、加重。"
+  },
+  "all- encompassing": {
+    "list": 3,
+    "seconds": 705,
+    "note": "encompassing 是包含、涵盖，加 all 就是全部涵盖→包罗万象。"
+  },
+  "inclusive": {
+    "list": 3,
+    "seconds": 724,
+    "note": "用数学范围记：inclusive 包含两端的端点，连两头都包进来→包容、全面。"
+  },
+  "alleviate": {
+    "list": 4,
+    "seconds": 30,
+    "note": "把中间的 levi 联想到 lift：压在胸口的大石头被抬起来，压力就缓解了。"
+  },
+  "allied": {
+    "list": 4,
+    "seconds": 95,
+    "note": "抓住 all（所有）：所有人聚在一起，联想到联合、结盟。"
+  },
+  "allure": {
+    "list": 4,
+    "seconds": 194,
+    "note": "抓住 lure（引诱、吸引）：前面加 al，仍围绕吸引力来记。"
+  },
+  "altruistic": {
+    "list": 4,
+    "seconds": 300,
+    "note": "把 altru 联想到 other（他人）：为他人着想→利他的。"
+  },
+  "benevolent": {
+    "list": 4,
+    "seconds": 346,
+    "note": "bene 联想 benefit 的“好”，volent 联想 volunteer 的意愿：好的意愿→心善、乐善好施。"
+  },
+  "amalgamation": {
+    "list": 4,
+    "seconds": 455,
+    "note": "先记 amalgam（汞合金）：多种金属混合成合金→融合、混合。"
+  },
+  "vague": {
+    "list": 4,
+    "seconds": 533,
+    "note": "用“信息不够”作声音联想：给的信息不完整，所以意思模糊。"
+  },
+  "unclear": {
+    "list": 4,
+    "seconds": 565,
+    "note": "clear 是清晰，un- 否定：不清晰→模糊。"
+  },
+  "ambivalent": {
+    "list": 4,
+    "seconds": 646,
+    "note": "ambi 想成两边，val 联想 value／倾向：一边想这样，一边想那样→内心矛盾。"
+  },
+  "refine": {
+    "list": 4,
+    "seconds": 774,
+    "note": "课堂拆成 re + fine：再一次变好→改善、精炼。"
+  },
+  "ameliorate": {
+    "list": 4,
+    "seconds": 794,
+    "note": "抓住 melior 的“更好”含义，像 better：使变得更好→改善。"
+  },
+  "amenable": {
+    "list": 4,
+    "seconds": 872,
+    "note": "趣味联想 a + man + able：一个人什么都愿意为你做，你让他做什么就做什么→顺从。"
+  },
+  "assured": {
+    "list": 4,
+    "seconds": 955,
+    "note": "抓住熟悉的 sure（确定），联想到心里有把握、态度肯定。"
+  },
+  "esoteric": {
+    "list": 5,
+    "seconds": 36,
+    "note": "课堂用读音联想“爱搜索难懂的问题”：小圈子的冷门问题别人不懂，只好自己搜→小众、晦涩。"
+  },
+  "arcane": {
+    "list": 5,
+    "seconds": 73,
+    "note": "联想视频里那首听不懂的印度歌曲，开头声音像 arcane→神秘、晦涩难懂。"
+  },
+  "extensive": {
+    "list": 5,
+    "seconds": 131,
+    "note": "从 extend（延伸）来记：向两端不断延伸，范围越来越宽→广泛。"
+  },
+  "wide-ranging": {
+    "list": 5,
+    "seconds": 145,
+    "note": "wide 是宽，range 是范围：范围很宽→广泛。"
+  },
+  "unfolding": {
+    "list": 5,
+    "seconds": 185,
+    "note": "fold 是折叠，unfold 是打开：像花慢慢绽放，事情也在逐步展开。"
+  },
+  "analogous": {
+    "list": 5,
+    "seconds": 244,
+    "note": "和 analogy（类比、类推）一起记：能拿来类比的东西，彼此是类似的。"
+  },
+  "anathema": {
+    "list": 5,
+    "seconds": 334,
+    "note": "课堂用类似骂人话的读音作提示，记住“诅咒、极其讨厌”的强烈负面意味。"
+  },
+  "ancillary": {
+    "list": 5,
+    "seconds": 382,
+    "note": "谐音“俺新来的”：新人什么都不熟，只能打下手→辅助的。"
+  },
+  "animate": {
+    "list": 5,
+    "seconds": 439,
+    "note": "联想 animal（动物、生命）：赋予生命、赋予活力→激活、唤醒。"
+  },
+  "galvanize": {
+    "list": 5,
+    "seconds": 459,
+    "note": "联想通电带来的刺激：一下子把人激活、振奋起来→激励。"
+  },
+  "annihilate": {
+    "list": 5,
+    "seconds": 537,
+    "note": "抓住 nihil（无、零），联系 nihilism（虚无主义）：让东西化为乌有→彻底消灭。"
+  },
+  "anomalous": {
+    "list": 5,
+    "seconds": 609,
+    "note": "中间联想 normal（正常），前面的 a／an 提示否定：不正常→反常。"
+  },
+  "prefigure": {
+    "list": 6,
+    "seconds": 20,
+    "note": "pre- 提示提前，figure 联想估算、推算：提前预估→预示、预期。"
+  },
+  "foresee": {
+    "list": 6,
+    "seconds": 34,
+    "note": "fore- 提示向前、提前，see 是看：提前看见→预见。"
+  },
+  "appreciative": {
+    "list": 6,
+    "seconds": 268,
+    "note": "从 appreciate 的“赏识”义来联想：赏识一个人，说明对他有好感。"
+  },
+  "fusty": {
+    "list": 6,
+    "seconds": 480,
+    "note": "先记“发霉、有霉味”：很久没人碰的旧东西发霉了→陈旧、过时。"
+  },
+  "archetypical": {
+    "list": 6,
+    "seconds": 520,
+    "note": "先抓住 typical（典型），再联想“鼻祖级、原型式的典型”。"
+  },
+  "artful": {
+    "list": 7,
+    "seconds": 40,
+    "note": "art 除了艺术，还可联想手段、技巧；-ful 表示充满→有手段，精明狡猾。"
+  },
+  "shrewd": {
+    "list": 7,
+    "seconds": 73,
+    "note": "用“熟读”谐音联想：熟读人性，懂得别人想什么→精明。"
+  },
+  "artificial": {
+    "list": 7,
+    "seconds": 150,
+    "note": "抓住 art（技巧、手段），联想人运用技巧做出来的东西→人工的。"
+  },
+  "synthetic": {
+    "list": 7,
+    "seconds": 180,
+    "note": "课堂谐音“辛苦筛选得到的”：联想经过人的加工筛选→人工合成的。"
+  },
+  "artless": {
+    "list": 7,
+    "seconds": 210,
+    "note": "art 联想手段，-less 表示缺少：没什么手段、心机→天真的。"
+  },
+  "simplistic": {
+    "list": 7,
+    "seconds": 240,
+    "note": "看见 simple（简单）：想得过于简单→简单化的、天真的。"
+  },
+  "aspersion": {
+    "list": 7,
+    "seconds": 286,
+    "note": "课堂谐音“爱死不死”，联想到恶意骂人的话→诽谤、诋毁。"
+  },
+  "slur": {
+    "list": 7,
+    "seconds": 310,
+    "note": "把读音联想到骂人的话“死啦”→侮辱、诋毁。"
+  },
+  "uneven": {
+    "list": 7,
+    "seconds": 370,
+    "note": "even 是均匀、平均，un- 否定→不均匀的、不对称的。"
+  },
+  "asymmetrical": {
+    "list": 7,
+    "seconds": 409,
+    "note": "a- 否定，sym 联想相同，metr 联想 meter（测量）：两边度量不相同→不对称。"
+  },
+  "favorable": {
+    "list": 8,
+    "seconds": 20,
+    "note": "联想 favorite（最喜欢的）：令人喜欢、满意→有利的。"
+  },
+  "authoritative": {
+    "list": 8,
+    "seconds": 76,
+    "note": "由 authority（权威）联想到形容词：有权威的。"
+  },
+  "definitive": {
+    "list": 8,
+    "seconds": 84,
+    "note": "联想 definition（定义）：有资格给一个行业里的事物下定义的人很权威。"
+  },
+  "cogent": {
+    "list": 8,
+    "seconds": 117,
+    "note": "谐音“抠真特”：抠细节、抓真相、特别有道理→有说服力的。"
+  },
+  "avaricious": {
+    "list": 8,
+    "seconds": 175,
+    "note": "课堂谐音“啊，我要银子”→想要很多钱，贪婪。"
+  },
+  "banish": {
+    "list": 8,
+    "seconds": 317,
+    "note": "抓住 ban（禁止）：禁止某人继续待在这里→驱逐。"
+  },
+  "expel": {
+    "list": 8,
+    "seconds": 342,
+    "note": "ex- 提示向外：把人往外赶、扔出去→驱逐。"
+  },
+  "oust": {
+    "list": 8,
+    "seconds": 364,
+    "note": "去掉 s 就像 out：出去、出局→驱逐。"
+  },
+  "barefaced": {
+    "list": 8,
+    "seconds": 466,
+    "note": "bare（裸露）＋face（脸）：连脸都不遮一下→厚颜无耻。"
+  },
+  "bedrock": {
+    "list": 8,
+    "seconds": 536,
+    "note": "bed 联想床、基床，rock 是岩石：像铺在底下的岩石→地基、基础。"
+  },
+  "beget": {
+    "list": 8,
+    "seconds": 571,
+    "note": "抓住 get（得到）：先产生某个东西，才能得到它→产生。"
+  },
+  "indebted": {
+    "list": 9,
+    "seconds": 32,
+    "note": "in 联想陷入，debt 是债务：陷在债务里→欠债的、欠人情的。"
+  },
+  "overemphasize": {
+    "list": 9,
+    "seconds": 71,
+    "note": "over 表示过分，emphasize 是强调→过分强调。"
+  },
+  "mask": {
+    "list": 9,
+    "seconds": 122,
+    "note": "从口罩、面具想到遮住脸、藏住身份→掩盖。"
+  },
+  "belie": {
+    "list": 9,
+    "seconds": 141,
+    "note": "抓住 lie（撒谎）：说谎是在掩盖真相→掩盖。"
+  },
+  "belligerent": {
+    "list": 9,
+    "seconds": 184,
+    "note": "bell- 联想战争，再联系 rebellion（叛乱）一起记→好斗的。"
+  },
+  "beneficence": {
+    "list": 9,
+    "seconds": 225,
+    "note": "和 benefit 一起记，bene- 提示好、正面的含义→仁慈。"
+  },
+  "benevolence": {
+    "list": 9,
+    "seconds": 225,
+    "note": "和 benefit 一起记，bene- 提示好、正面的含义→仁慈。"
+  },
+  "bereft": {
+    "list": 9,
+    "seconds": 263,
+    "note": "把 reft 的字形联想到 left（被留下）：家人都被迫分开，只剩自己→被剥夺的。"
+  },
+  "shorn": {
+    "list": 9,
+    "seconds": 307,
+    "note": "联系 shear（剪羊毛、剪发）的过去分词：东西被剪走了→被剥夺的。"
+  },
+  "signify": {
+    "list": 9,
+    "seconds": 341,
+    "note": "抓住 sign（标志），联想到象征、预示。"
+  },
+  "betray": {
+    "list": 9,
+    "seconds": 381,
+    "note": "撒谎时表情、动作无意中露出异样，身体“背叛”了自己→无意中显露。"
+  },
+  "blameless": {
+    "list": 9,
+    "seconds": 451,
+    "note": "blame 是指责，-less 表示没有→无可指责。"
+  },
+  "unimpeachable": {
+    "list": 9,
+    "seconds": 461,
+    "note": "impeach（弹劾、控告）＋-able（可……的），再加 un- 否定→不可指责。"
+  },
+  "bolster": {
+    "list": 10,
+    "seconds": 122,
+    "note": "课堂谐音联想到“抱大腿”：做小组作业抱大佬的大腿，得到支持→支持、支撑。"
+  },
+  "windfall": {
+    "list": 10,
+    "seconds": 161,
+    "note": "wind（风）＋fall（掉落）：像被风吹落、天上掉下来的好处→意外之财。"
+  },
+  "limit": {
+    "list": 10,
+    "seconds": 235,
+    "note": "想象牧场周围的篱笆：既是界线，也限制牛羊活动→限制、界限。"
+  },
+  "brandish": {
+    "list": 10,
+    "seconds": 327,
+    "note": "把字形联想到 branch（树枝），想象拿起树枝挥舞→挥舞。"
+  },
+  "bridle": {
+    "list": 10,
+    "seconds": 371,
+    "note": "本义是马笼头：套住马，让马听从控制、不乱跑→抑制、约束。"
+  },
+  "platitude": {
+    "list": 10,
+    "seconds": 436,
+    "note": "字形联想 plate（盘子）：盘子平→平淡、没有亮点→陈词滥调。"
+  },
+  "budding": {
+    "list": 11,
+    "seconds": 19,
+    "note": "课堂借“布丁”的读音，想象一种新引入的食物→新兴的。"
+  },
+  "nascent": {
+    "list": 11,
+    "seconds": 40,
+    "note": "抓住“刚出生”的画面→刚刚兴起的。"
+  },
+  "fledgling": {
+    "list": 11,
+    "seconds": 45,
+    "note": "想象刚长羽毛、还不会飞的小鸟→新兴的、初出茅庐的。"
+  },
+  "businesslike": {
+    "list": 11,
+    "seconds": 100,
+    "note": "business（事务、生意）＋-like（像……的）→办事认真的、讲求实效的。"
+  },
+  "bypass": {
+    "list": 11,
+    "seconds": 143,
+    "note": "by 联想旁边，pass 是通过：从旁边通过→绕过。"
+  },
+  "circumvent": {
+    "list": 11,
+    "seconds": 158,
+    "note": "circum- 提示周围、绕一圈，联想 circumstance 的周遭环境→绕过。"
+  },
+  "skirt": {
+    "list": 11,
+    "seconds": 182,
+    "note": "从裙子联想：穿裙子时围着腰一圈→环绕、绕过。"
+  },
+  "heartless": {
+    "list": 11,
+    "seconds": 246,
+    "note": "heart 是心，-less 表示缺少：没有心→无情的。"
+  },
+  "callous": {
+    "list": 11,
+    "seconds": 262,
+    "note": "抓住 call（呼喊）：有人呼喊求救，你却不理→冷漠无情。"
+  },
+  "calumny": {
+    "list": 11,
+    "seconds": 312,
+    "note": "课堂谐音“开了骂你”：玩游戏开麦骂对方→恶意诋毁。"
+  },
+  "defamation": {
+    "list": 11,
+    "seconds": 343,
+    "note": "de- 联想下降，fam 联想 fame（名声）：使别人的名声下降→诽谤。"
+  },
+  "supplemental": {
+    "list": 12,
+    "seconds": 15,
+    "note": "联想 supply（供给）：给人补上缺少的东西→补充的。"
+  },
+  "caterwaul": {
+    "list": 12,
+    "seconds": 108,
+    "note": "cat 是猫，再把后面的声音联想到“哇”的嚎叫：像野猫嚎叫→尖叫。"
+  },
+  "celerity": {
+    "list": 12,
+    "seconds": 196,
+    "note": "和 accelerate（加速）一起记，共同的 celer 提示快→敏捷、迅速。"
+  },
+  "challenges": {
+    "list": 12,
+    "seconds": 288,
+    "note": "想象“挑战权威”：挑战某个专家的权威，也是在质疑他的权威。"
+  },
+  "charitable": {
+    "list": 13,
+    "seconds": 9,
+    "note": "联系 charity（慈善）：想象待人温和、常做慈善的人→宽容的。"
+  },
+  "forbearing": {
+    "list": 13,
+    "seconds": 40,
+    "note": "抓住 bear（容忍）：能忍耐、不轻易发火的人→宽容的。"
+  },
+  "cheerless": {
+    "list": 13,
+    "seconds": 197,
+    "note": "cheer 联想欢乐、举杯说 cheers；-less 表示缺少→不快乐、阴郁的。"
+  },
+  "chimerical": {
+    "list": 13,
+    "seconds": 350,
+    "note": "联系 chimera（不切实际的幻想），变为形容词→空想的。"
+  },
+  "fanciful": {
+    "list": 13,
+    "seconds": 379,
+    "note": "联系 fancy（幻想），变为形容词→充满幻想的。"
+  },
+  "indirect": {
+    "list": 13,
+    "seconds": 435,
+    "note": "direct 是直接，in- 否定：不直接→迂回的。"
+  },
+  "circuitous": {
+    "list": 13,
+    "seconds": 453,
+    "note": "字形联想 circle（圆圈）：绕着圈走→迂回的。"
+  },
+  "circumscribe": {
+    "list": 13,
+    "seconds": 512,
+    "note": "circum-（周围）＋scribe（写、画）：在牛羊周围画一圈，把它们圈在范围里→限制。"
+  },
+  "circumspect": {
+    "list": 14,
+    "seconds": 18,
+    "note": "circum-（周围）＋spect（看，联想 inspect）：四周看一遍再作决定→谨慎的。"
+  },
+  "civility": {
+    "list": 14,
+    "seconds": 198,
+    "note": "联想 civil（文明、礼貌的），转为名词→文明、礼貌。"
+  },
+  "clandestine": {
+    "list": 14,
+    "seconds": 247,
+    "note": "把 clan 的字形联想到 clean（干净）：东西藏得干干净净，不让别人发现→秘密的。"
+  },
+  "coherent": {
+    "list": 14,
+    "seconds": 324,
+    "note": "co-（一起，联想 cooperate）＋her（黏附，联想 adhere）：紧紧黏在一起、没有缝隙→连贯的。"
+  },
+  "orderly": {
+    "list": 14,
+    "seconds": 373,
+    "note": "抓住 order（顺序），想象 1、2、3……按顺序排好→有条理的。"
+  },
+  "commensurate": {
+    "list": 14,
+    "seconds": 534,
+    "note": "把 com 联想一起，mens 联想 measure（测量）：放在一起衡量、彼此匹配→相称的。"
+  },
+  "proportionate": {
+    "list": 14,
+    "seconds": 601,
+    "note": "联系 proportion（比例），变为形容词→成比例的、相称的。"
+  },
+  "commonplace": {
+    "list": 14,
+    "seconds": 647,
+    "note": "common（普通）＋place（地方）：普通地方随处可见的事物→普遍的。"
+  },
+  "pervasive": {
+    "list": 14,
+    "seconds": 673,
+    "note": "per- 联想贯穿，vas 联想 invade 中“走入”的感觉：走入每个角落→遍布的。"
+  },
+  "multifarious": {
+    "list": 15,
+    "seconds": 119,
+    "note": "multi- 提示多，后半部分提示种类、方面：多个种类、多个方面→多种多样的。"
+  },
+  "knotty": {
+    "list": 15,
+    "seconds": 192,
+    "note": "knot 是绳结：一根绳子打了很多结，难以理清→复杂、棘手的。"
+  },
+  "coolheaded": {
+    "list": 15,
+    "seconds": 253,
+    "note": "cool（冷静）＋head（头脑）：头脑冷静→镇定的。"
+  },
+  "conceivable": {
+    "list": 15,
+    "seconds": 498,
+    "note": "联系 conceive（想象），加 -able→可以想象的。"
+  },
+  "imaginable": {
+    "list": 15,
+    "seconds": 525,
+    "note": "联系 imagine（想象），加 -able→可以想象的。"
+  },
+  "decry": {
+    "list": 15,
+    "seconds": 628,
+    "note": "de- 联想向下，cry 联想喊叫：想象老板居高临下地指责员工→谴责。"
+  }
+}

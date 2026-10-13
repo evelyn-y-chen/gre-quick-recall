@@ -1,0 +1,2039 @@
+[
+  {
+    "id": "lclj-math-1-1",
+    "word": "integer",
+    "meaning": "整数",
+    "category": "算数·整数",
+    "page": 1
+  },
+  {
+    "id": "lclj-math-1-2",
+    "word": "consecutive integer",
+    "meaning": "连续的整数",
+    "category": "算数·整数",
+    "page": 1
+  },
+  {
+    "id": "lclj-math-1-3",
+    "word": "positive whole number",
+    "meaning": "正整数",
+    "category": "算数·整数",
+    "page": 1
+  },
+  {
+    "id": "lclj-math-1-4",
+    "word": "negative whole number",
+    "meaning": "负整数",
+    "category": "算数·整数",
+    "page": 1
+  },
+  {
+    "id": "lclj-math-1-5",
+    "word": "even integer",
+    "meaning": "偶数",
+    "category": "算数·整数",
+    "page": 1
+  },
+  {
+    "id": "lclj-math-1-6",
+    "word": "odd integer",
+    "meaning": "奇数",
+    "category": "算数·整数",
+    "page": 1
+  },
+  {
+    "id": "lclj-math-1-7",
+    "word": "real number",
+    "meaning": "实数",
+    "category": "算数·整数",
+    "page": 1
+  },
+  {
+    "id": "lclj-math-1-8",
+    "word": "divisor",
+    "meaning": "除数，约数；因子",
+    "category": "算数·整数",
+    "page": 1
+  },
+  {
+    "id": "lclj-math-1-9",
+    "word": "multiple",
+    "meaning": "倍数",
+    "category": "算数·整数",
+    "page": 1
+  },
+  {
+    "id": "lclj-math-1-10",
+    "word": "remainder",
+    "meaning": "余数",
+    "category": "算数·整数",
+    "page": 1
+  },
+  {
+    "id": "lclj-math-1-11",
+    "word": "composite number",
+    "meaning": "合数",
+    "category": "算数·整数",
+    "page": 1
+  },
+  {
+    "id": "lclj-math-1-12",
+    "word": "quotient",
+    "meaning": "商",
+    "category": "算数·整数",
+    "page": 1
+  },
+  {
+    "id": "lclj-math-1-13",
+    "word": "prime number",
+    "meaning": "质数，素数",
+    "category": "算数·整数",
+    "page": 1
+  },
+  {
+    "id": "lclj-math-1-14",
+    "word": "prime factor",
+    "meaning": "质因子，质因数",
+    "category": "算数·整数",
+    "page": 1
+  },
+  {
+    "id": "lclj-math-1-15",
+    "word": "successive",
+    "meaning": "连续的",
+    "category": "算数·整数",
+    "page": 1
+  },
+  {
+    "id": "lclj-math-1-16",
+    "word": "spread",
+    "meaning": "范围",
+    "category": "算数·整数",
+    "page": 1
+  },
+  {
+    "id": "lclj-math-1-17",
+    "word": "consecutive",
+    "meaning": "连续的",
+    "category": "算数·整数",
+    "page": 1
+  },
+  {
+    "id": "lclj-math-1-18",
+    "word": "constant",
+    "meaning": "常数，恒定的",
+    "category": "算数·整数",
+    "page": 1
+  },
+  {
+    "id": "lclj-math-1-19",
+    "word": "numerator",
+    "meaning": "分子",
+    "category": "算数·分数",
+    "page": 1
+  },
+  {
+    "id": "lclj-math-1-20",
+    "word": "denominator",
+    "meaning": "分母",
+    "category": "算数·分数",
+    "page": 1
+  },
+  {
+    "id": "lclj-math-1-21",
+    "word": "greatest common divisor/greatest common factor",
+    "meaning": "最大公约数",
+    "category": "算数·分数",
+    "page": 1
+  },
+  {
+    "id": "lclj-math-1-22",
+    "word": "least common multiple",
+    "meaning": "最小公倍数",
+    "category": "算数·分数",
+    "page": 1
+  },
+  {
+    "id": "lclj-math-1-23",
+    "word": "common multiple",
+    "meaning": "公倍数",
+    "category": "算数·分数",
+    "page": 1
+  },
+  {
+    "id": "lclj-math-1-24",
+    "word": "common factor",
+    "meaning": "公因子",
+    "category": "算数·分数",
+    "page": 1
+  },
+  {
+    "id": "lclj-math-1-25",
+    "word": "inverse",
+    "meaning": "相反数",
+    "category": "算数·分数",
+    "page": 1
+  },
+  {
+    "id": "lclj-math-1-26",
+    "word": "reciprocal",
+    "meaning": "倒数",
+    "category": "算数·分数",
+    "page": 1
+  },
+  {
+    "id": "lclj-math-1-27",
+    "word": "mixed number",
+    "meaning": "带分数",
+    "category": "算数·分数",
+    "page": 1
+  },
+  {
+    "id": "lclj-math-2-28",
+    "word": "reversible",
+    "meaning": "可逆的，可倒转的",
+    "category": "算数·分数",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-2-29",
+    "word": "nearest whole percent",
+    "meaning": "最接近的百分数",
+    "category": "算数·分数",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-2-30",
+    "word": "decimal place",
+    "meaning": "小数位",
+    "category": "算数·小数",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-2-31",
+    "word": "decimal point",
+    "meaning": "小数点",
+    "category": "算数·小数",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-2-32",
+    "word": "infinite decimal",
+    "meaning": "无穷小数",
+    "category": "算数·小数",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-2-33",
+    "word": "repeating decimal",
+    "meaning": "循环小数",
+    "category": "算数·小数",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-2-34",
+    "word": "digit",
+    "meaning": "数位",
+    "category": "算数·小数",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-2-35",
+    "word": "decimal system",
+    "meaning": "十进制",
+    "category": "算数·小数",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-2-36",
+    "word": "units digit",
+    "meaning": "个位数",
+    "category": "算数·小数",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-2-37",
+    "word": "tens digit",
+    "meaning": "十位数",
+    "category": "算数·小数",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-2-38",
+    "word": "tenths unit",
+    "meaning": "十分位",
+    "category": "算数·小数",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-2-39",
+    "word": "3-digit number",
+    "meaning": "三位数",
+    "category": "算数·小数",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-2-40",
+    "word": "quartiles",
+    "meaning": "四分位数",
+    "category": "算数·小数",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-2-41",
+    "word": "percentiles",
+    "meaning": "百分位数",
+    "category": "算数·小数",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-2-42",
+    "word": "interquartile range",
+    "meaning": "四分位差，四分位距",
+    "category": "算数·小数",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-2-43",
+    "word": "negligible",
+    "meaning": "可忽略不计的",
+    "category": "算数·小数",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-2-44",
+    "word": "closest approximation",
+    "meaning": "最相近似的",
+    "category": "算数·小数",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-2-45",
+    "word": "calculate to three decimal places",
+    "meaning": "结果保留3位小数",
+    "category": "算数·小数",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-2-46",
+    "word": "approximately",
+    "meaning": "大约，近似",
+    "category": "算数·小数",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-2-47",
+    "word": "estimation",
+    "meaning": "估算，近似",
+    "category": "算数·小数",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-2-48",
+    "word": "absolute value",
+    "meaning": "绝对值",
+    "category": "算数·实数",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-2-49",
+    "word": "nonzero number",
+    "meaning": "非零数",
+    "category": "算数·实数",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-2-50",
+    "word": "positive number",
+    "meaning": "正数",
+    "category": "算数·实数",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-2-51",
+    "word": "negative number",
+    "meaning": "负数",
+    "category": "算数·实数",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-2-52",
+    "word": "nonnegative",
+    "meaning": "非负的",
+    "category": "算数·实数",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-2-53",
+    "word": "rational(number)",
+    "meaning": "有理数",
+    "category": "算数·实数",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-2-54",
+    "word": "irrational(number)",
+    "meaning": "无理数",
+    "category": "算数·实数",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-2-55",
+    "word": "common ratio",
+    "meaning": "公比",
+    "category": "算数·比例",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-2-56",
+    "word": "direct proportion",
+    "meaning": "正比",
+    "category": "算数·比例",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-2-57",
+    "word": "percent",
+    "meaning": "百分比",
+    "category": "算数·比例",
+    "page": 2
+  },
+  {
+    "id": "lclj-math-3-58",
+    "word": "account for",
+    "meaning": "占据（比例）",
+    "category": "算数·比例",
+    "page": 3
+  },
+  {
+    "id": "lclj-math-3-59",
+    "word": "scatterplot",
+    "meaning": "点阵图",
+    "category": "算数·比例",
+    "page": 3
+  },
+  {
+    "id": "lclj-math-3-60",
+    "word": "scale",
+    "meaning": "比例；刻度",
+    "category": "算数·比例",
+    "page": 3
+  },
+  {
+    "id": "lclj-math-3-61",
+    "word": "cardinal",
+    "meaning": "基数",
+    "category": "算数·幂和根",
+    "page": 3
+  },
+  {
+    "id": "lclj-math-3-62",
+    "word": "ordinal",
+    "meaning": "序数",
+    "category": "算数·幂和根",
+    "page": 3
+  },
+  {
+    "id": "lclj-math-3-63",
+    "word": "exponent",
+    "meaning": "指数",
+    "category": "算数·幂和根",
+    "page": 3
+  },
+  {
+    "id": "lclj-math-3-64",
+    "word": "base",
+    "meaning": "底数",
+    "category": "算数·幂和根",
+    "page": 3
+  },
+  {
+    "id": "lclj-math-3-65",
+    "word": "radical sign/root sign",
+    "meaning": "根号",
+    "category": "算数·幂和根",
+    "page": 3
+  },
+  {
+    "id": "lclj-math-3-66",
+    "word": "radicals",
+    "meaning": "根式",
+    "category": "算数·幂和根",
+    "page": 3
+  },
+  {
+    "id": "lclj-math-3-67",
+    "word": "square root",
+    "meaning": "平方根",
+    "category": "算数·幂和根",
+    "page": 3
+  },
+  {
+    "id": "lclj-math-3-68",
+    "word": "cube root",
+    "meaning": "立方根",
+    "category": "算数·幂和根",
+    "page": 3
+  },
+  {
+    "id": "lclj-math-3-69",
+    "word": "product",
+    "meaning": "乘积",
+    "category": "算数·幂和根",
+    "page": 3
+  },
+  {
+    "id": "lclj-math-3-70",
+    "word": "subset",
+    "meaning": "子集",
+    "category": "算数·集合",
+    "page": 3
+  },
+  {
+    "id": "lclj-math-3-71",
+    "word": "union",
+    "meaning": "合集，并集",
+    "category": "算数·集合",
+    "page": 3
+  },
+  {
+    "id": "lclj-math-3-72",
+    "word": "intersection",
+    "meaning": "交集",
+    "category": "算数·集合",
+    "page": 3
+  },
+  {
+    "id": "lclj-math-3-73",
+    "word": "empty set",
+    "meaning": "空集",
+    "category": "算数·集合",
+    "page": 3
+  },
+  {
+    "id": "lclj-math-3-74",
+    "word": "solution set",
+    "meaning": "解集（满足一个方程或方程组的所有解的集合叫作该方程或方程组的解集）",
+    "category": "算数·集合",
+    "page": 3
+  },
+  {
+    "id": "lclj-math-3-75",
+    "word": "set of data/data set",
+    "meaning": "数据集",
+    "category": "算数·集合",
+    "page": 3
+  },
+  {
+    "id": "lclj-math-3-76",
+    "word": "sets",
+    "meaning": "集合",
+    "category": "算数·集合",
+    "page": 3
+  },
+  {
+    "id": "lclj-math-3-77",
+    "word": "nonempty",
+    "meaning": "非空的",
+    "category": "算数·集合",
+    "page": 3
+  },
+  {
+    "id": "lclj-math-3-78",
+    "word": "mutually exclusive",
+    "meaning": "互斥的",
+    "category": "算数·集合",
+    "page": 3
+  },
+  {
+    "id": "lclj-math-3-79",
+    "word": "juxtaposition",
+    "meaning": "并列",
+    "category": "算数·集合",
+    "page": 3
+  },
+  {
+    "id": "lclj-math-3-80",
+    "word": "disjoint",
+    "meaning": "不相交的",
+    "category": "算数·集合",
+    "page": 3
+  },
+  {
+    "id": "lclj-math-3-81",
+    "word": "elements",
+    "meaning": "元素",
+    "category": "算数·集合",
+    "page": 3
+  },
+  {
+    "id": "lclj-math-3-82",
+    "word": "event",
+    "meaning": "事件",
+    "category": "算数·集合",
+    "page": 3
+  },
+  {
+    "id": "lclj-math-3-83",
+    "word": "independent events",
+    "meaning": "相互独立事件",
+    "category": "算数·集合",
+    "page": 3
+  },
+  {
+    "id": "lclj-math-3-84",
+    "word": "sufficient",
+    "meaning": "充分的",
+    "category": "算数·集合",
+    "page": 3
+  },
+  {
+    "id": "lclj-math-3-85",
+    "word": "the sum of A and B/the total of A and B",
+    "meaning": "A与B的和",
+    "category": "算数·集合",
+    "page": 3
+  },
+  {
+    "id": "lclj-math-3-86",
+    "word": "the union of A and B",
+    "meaning": "A与B的并集",
+    "category": "算数·集合",
+    "page": 3
+  },
+  {
+    "id": "lclj-math-4-87",
+    "word": "parallel lines",
+    "meaning": "平行线",
+    "category": "几何·直线",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-88",
+    "word": "bisect",
+    "meaning": "平分",
+    "category": "几何·直线",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-89",
+    "word": "partition",
+    "meaning": "分割，分开",
+    "category": "几何·直线",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-90",
+    "word": "intercept",
+    "meaning": "截距",
+    "category": "几何·直线",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-91",
+    "word": "acute angle",
+    "meaning": "锐角",
+    "category": "几何·相交线和角",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-92",
+    "word": "obtuse angle",
+    "meaning": "钝角",
+    "category": "几何·相交线和角",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-93",
+    "word": "opposite angles",
+    "meaning": "对角",
+    "category": "几何·相交线和角",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-94",
+    "word": "vertical angle",
+    "meaning": "对顶角",
+    "category": "几何·相交线和角",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-95",
+    "word": "vertex angle",
+    "meaning": "顶角",
+    "category": "几何·相交线和角",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-96",
+    "word": "round angle",
+    "meaning": "周角",
+    "category": "几何·相交线和角",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-97",
+    "word": "straight angle",
+    "meaning": "平角",
+    "category": "几何·相交线和角",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-98",
+    "word": "included angle",
+    "meaning": "夹角",
+    "category": "几何·相交线和角",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-99",
+    "word": "alternate angle",
+    "meaning": "内错角",
+    "category": "几何·相交线和角",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-100",
+    "word": "interior angle",
+    "meaning": "内角",
+    "category": "几何·相交线和角",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-101",
+    "word": "central angle",
+    "meaning": "圆心角",
+    "category": "几何·相交线和角",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-102",
+    "word": "exterior angle",
+    "meaning": "外角",
+    "category": "几何·相交线和角",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-103",
+    "word": "supplementary angles",
+    "meaning": "补角",
+    "category": "几何·相交线和角",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-104",
+    "word": "complementary angles",
+    "meaning": "余角",
+    "category": "几何·相交线和角",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-105",
+    "word": "adjacent angle",
+    "meaning": "邻角",
+    "category": "几何·相交线和角",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-106",
+    "word": "a straight line",
+    "meaning": "直线",
+    "category": "几何·相交线和角",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-107",
+    "word": "angle bisector",
+    "meaning": "角平分线",
+    "category": "几何·相交线和角",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-108",
+    "word": "diagonal",
+    "meaning": "对角线",
+    "category": "几何·相交线和角",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-109",
+    "word": "intersect",
+    "meaning": "相交",
+    "category": "几何·相交线和角",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-110",
+    "word": "angle measurement in degrees",
+    "meaning": "角度计算",
+    "category": "几何·相交线和角",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-111",
+    "word": "altitude",
+    "meaning": "高",
+    "category": "几何·相交线和角",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-112",
+    "word": "equilateral triangle",
+    "meaning": "等边三角形",
+    "category": "几何·相交线和角",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-113",
+    "word": "hypotenuse",
+    "meaning": "直角三角形的斜边",
+    "category": "几何·相交线和角",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-114",
+    "word": "inscribed triangle",
+    "meaning": "内接三角形",
+    "category": "几何·相交线和角",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-115",
+    "word": "vertex",
+    "meaning": "顶角，顶点",
+    "category": "几何·相交线和角",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-116",
+    "word": "isosceles triangle",
+    "meaning": "等腰三角形",
+    "category": "几何·相交线和角",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-117",
+    "word": "median of a triangle",
+    "meaning": "三角形的中线",
+    "category": "几何·相交线和角",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-4-118",
+    "word": "oblique",
+    "meaning": "斜三角形",
+    "category": "几何·相交线和角",
+    "page": 4
+  },
+  {
+    "id": "lclj-math-5-119",
+    "word": "opposite",
+    "meaning": "直角三角形中的对边",
+    "category": "几何·相交线和角",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-120",
+    "word": "right triangle",
+    "meaning": "直角三角形",
+    "category": "几何·相交线和角",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-121",
+    "word": "scalene triangle",
+    "meaning": "不等边三角形",
+    "category": "几何·相交线和角",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-122",
+    "word": "similar triangles",
+    "meaning": "相似三角形",
+    "category": "几何·相交线和角",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-123",
+    "word": "leg",
+    "meaning": "直角边",
+    "category": "几何·相交线和角",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-124",
+    "word": "included side",
+    "meaning": "夹边",
+    "category": "几何·相交线和角",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-125",
+    "word": "Pythagorean theorem",
+    "meaning": "勾股定理",
+    "category": "几何·相交线和角",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-126",
+    "word": "congruent angles",
+    "meaning": "全等角",
+    "category": "几何·相交线和角",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-127",
+    "word": "congruent line segments",
+    "meaning": "等长线段",
+    "category": "几何·相交线和角",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-128",
+    "word": "quadrilateral",
+    "meaning": "四边形",
+    "category": "几何·四边形和多边形",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-129",
+    "word": "pentagon",
+    "meaning": "五边形",
+    "category": "几何·四边形和多边形",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-130",
+    "word": "hexagon",
+    "meaning": "六边形",
+    "category": "几何·四边形和多边形",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-131",
+    "word": "heptagon",
+    "meaning": "七边形",
+    "category": "几何·四边形和多边形",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-132",
+    "word": "octagon",
+    "meaning": "八边形",
+    "category": "几何·四边形和多边形",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-133",
+    "word": "nonagon",
+    "meaning": "九边形",
+    "category": "几何·四边形和多边形",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-134",
+    "word": "decagon",
+    "meaning": "十边形",
+    "category": "几何·四边形和多边形",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-135",
+    "word": "polygon",
+    "meaning": "多边形",
+    "category": "几何·四边形和多边形",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-136",
+    "word": "multilateral",
+    "meaning": "多边的",
+    "category": "几何·四边形和多边形",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-137",
+    "word": "regular polygon",
+    "meaning": "正多边形",
+    "category": "几何·四边形和多边形",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-138",
+    "word": "parallelogram",
+    "meaning": "平行四边形",
+    "category": "几何·四边形和多边形",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-139",
+    "word": "square",
+    "meaning": "正方形",
+    "category": "几何·四边形和多边形",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-140",
+    "word": "rectangle",
+    "meaning": "长方形，矩形",
+    "category": "几何·四边形和多边形",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-141",
+    "word": "rhombus",
+    "meaning": "菱形",
+    "category": "几何·四边形和多边形",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-142",
+    "word": "equilateral",
+    "meaning": "等边的",
+    "category": "几何·四边形和多边形",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-143",
+    "word": "trapezoid",
+    "meaning": "梯形",
+    "category": "几何·四边形和多边形",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-144",
+    "word": "congruent",
+    "meaning": "全等的",
+    "category": "几何·四边形和多边形",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-145",
+    "word": "symmetric",
+    "meaning": "对称的",
+    "category": "几何·四边形和多边形",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-146",
+    "word": "perimeter",
+    "meaning": "周长",
+    "category": "几何·四边形和多边形",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-147",
+    "word": "overlap",
+    "meaning": "重叠",
+    "category": "几何·四边形和多边形",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-148",
+    "word": "coordinate geometry",
+    "meaning": "解析几何",
+    "category": "几何·四边形和多边形",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-149",
+    "word": "corresponding side",
+    "meaning": "对应边",
+    "category": "几何·四边形和多边形",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-5-150",
+    "word": "area of a rectangle",
+    "meaning": "长方形的面积",
+    "category": "几何·四边形和多边形",
+    "page": 5
+  },
+  {
+    "id": "lclj-math-6-151",
+    "word": "fold",
+    "meaning": "对折",
+    "category": "几何·四边形和多边形",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-152",
+    "word": "center of a circle",
+    "meaning": "圆心",
+    "category": "几何·圆",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-153",
+    "word": "circle",
+    "meaning": "圆形",
+    "category": "几何·圆",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-154",
+    "word": "concentric circles",
+    "meaning": "同心圆",
+    "category": "几何·圆",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-155",
+    "word": "semicircle",
+    "meaning": "半圆",
+    "category": "几何·圆",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-156",
+    "word": "circumference",
+    "meaning": "圆周长",
+    "category": "几何·圆",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-157",
+    "word": "chord",
+    "meaning": "弦",
+    "category": "几何·圆",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-158",
+    "word": "radius",
+    "meaning": "半径",
+    "category": "几何·圆",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-159",
+    "word": "diameter",
+    "meaning": "直径",
+    "category": "几何·圆",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-160",
+    "word": "tangent",
+    "meaning": "正切",
+    "category": "几何·圆",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-161",
+    "word": "inscribe",
+    "meaning": "内切，内接",
+    "category": "几何·圆",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-162",
+    "word": "circumscribe",
+    "meaning": "外切，外接",
+    "category": "几何·圆",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-163",
+    "word": "point of tangency",
+    "meaning": "切点",
+    "category": "几何·圆",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-164",
+    "word": "tangent line",
+    "meaning": "切线",
+    "category": "几何·圆",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-165",
+    "word": "circumscribed",
+    "meaning": "外接的",
+    "category": "几何·圆",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-166",
+    "word": "radian",
+    "meaning": "弧度（弧长/半径）",
+    "category": "几何·圆",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-167",
+    "word": "arc",
+    "meaning": "弧",
+    "category": "几何·圆",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-168",
+    "word": "segment of a circle",
+    "meaning": "弧形",
+    "category": "几何·圆",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-169",
+    "word": "be parallel to",
+    "meaning": "平行",
+    "category": "几何·圆",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-170",
+    "word": "be perpendicular to",
+    "meaning": "垂直",
+    "category": "几何·圆",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-171",
+    "word": "be tangent to",
+    "meaning": "与……相切",
+    "category": "几何·圆",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-172",
+    "word": "edge",
+    "meaning": "边，棱",
+    "category": "几何·立体几何",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-173",
+    "word": "length",
+    "meaning": "长",
+    "category": "几何·立体几何",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-174",
+    "word": "width",
+    "meaning": "宽",
+    "category": "几何·立体几何",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-175",
+    "word": "depth",
+    "meaning": "深度",
+    "category": "几何·立体几何",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-176",
+    "word": "volume",
+    "meaning": "体积",
+    "category": "几何·立体几何",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-177",
+    "word": "surface area",
+    "meaning": "表面积",
+    "category": "几何·立体几何",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-178",
+    "word": "cube",
+    "meaning": "立方体",
+    "category": "几何·立体几何",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-179",
+    "word": "rectangular solid",
+    "meaning": "长方体",
+    "category": "几何·立体几何",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-180",
+    "word": "regular solid/regular polyhedron",
+    "meaning": "正多面体",
+    "category": "几何·立体几何",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-6-181",
+    "word": "cylinder",
+    "meaning": "圆柱体",
+    "category": "几何·立体几何",
+    "page": 6
+  },
+  {
+    "id": "lclj-math-7-182",
+    "word": "faces",
+    "meaning": "面",
+    "category": "几何·立体几何",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-183",
+    "word": "cross section",
+    "meaning": "横截面",
+    "category": "几何·立体几何",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-184",
+    "word": "solid line",
+    "meaning": "实线",
+    "category": "几何·立体几何",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-185",
+    "word": "dimension",
+    "meaning": "维数",
+    "category": "几何·立体几何",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-186",
+    "word": "three-dimensional figures",
+    "meaning": "三维图形",
+    "category": "几何·立体几何",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-187",
+    "word": "as illustrated",
+    "meaning": "如图所示",
+    "category": "几何·立体几何",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-188",
+    "word": "coordinate plane",
+    "meaning": "坐标平面",
+    "category": "几何·几何坐标",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-189",
+    "word": "coordinate system",
+    "meaning": "坐标系",
+    "category": "几何·几何坐标",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-190",
+    "word": "rectangular coordinate",
+    "meaning": "直角坐标系",
+    "category": "几何·几何坐标",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-191",
+    "word": "abscissa/x-coordinate",
+    "meaning": "横坐标",
+    "category": "几何·几何坐标",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-192",
+    "word": "ordinate",
+    "meaning": "纵坐标",
+    "category": "几何·几何坐标",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-193",
+    "word": "xy-planes",
+    "meaning": "xy 平面坐标轴",
+    "category": "几何·几何坐标",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-194",
+    "word": "number line",
+    "meaning": "数轴",
+    "category": "几何·几何坐标",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-195",
+    "word": "origin",
+    "meaning": "原点",
+    "category": "几何·几何坐标",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-196",
+    "word": "axis",
+    "meaning": "轴",
+    "category": "几何·几何坐标",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-197",
+    "word": "x-axis",
+    "meaning": "X轴",
+    "category": "几何·几何坐标",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-198",
+    "word": "y-axis",
+    "meaning": "Y轴",
+    "category": "几何·几何坐标",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-199",
+    "word": "intercept",
+    "meaning": "截距",
+    "category": "几何·几何坐标",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-200",
+    "word": "x-intercept",
+    "meaning": "X轴截距",
+    "category": "几何·几何坐标",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-201",
+    "word": "quadrant",
+    "meaning": "象限",
+    "category": "几何·几何坐标",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-202",
+    "word": "four quadrants",
+    "meaning": "四个象限",
+    "category": "几何·几何坐标",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-203",
+    "word": "slope",
+    "meaning": "斜率",
+    "category": "几何·几何坐标",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-204",
+    "word": "a unique solution",
+    "meaning": "唯一解",
+    "category": "几何·几何坐标",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-205",
+    "word": "parabola",
+    "meaning": "拋物线",
+    "category": "几何·几何坐标",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-206",
+    "word": "linear functions",
+    "meaning": "线性函数",
+    "category": "几何·几何坐标",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-207",
+    "word": "feet",
+    "meaning": "英尺",
+    "category": "公式和换算",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-208",
+    "word": "1 dozen = 12",
+    "meaning": "1打=12个",
+    "category": "公式和换算",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-209",
+    "word": "1 feet = 12 inches",
+    "meaning": "1英尺=12英寸",
+    "category": "公式和换算",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-210",
+    "word": "1 gallon = 4 quarts",
+    "meaning": "1加仑=4夸脱",
+    "category": "公式和换算",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-211",
+    "word": "1 hour = 3,600 seconds",
+    "meaning": "1 小时=3600 秒",
+    "category": "公式和换算",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-7-212",
+    "word": "1 mile = 5,280 feet",
+    "meaning": "1英里=5280英尺",
+    "category": "公式和换算",
+    "page": 7
+  },
+  {
+    "id": "lclj-math-8-213",
+    "word": "1 yard = 3 feet = 36 inches",
+    "meaning": "1码=3英尺=36英寸",
+    "category": "公式和换算",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-8-214",
+    "word": "0! = 1!=1",
+    "meaning": "0的阶乘为1",
+    "category": "公式和换算",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-8-215",
+    "word": "be fewer than",
+    "meaning": "小于",
+    "category": "句型",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-8-216",
+    "word": "be less than",
+    "meaning": "小于",
+    "category": "句型",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-8-217",
+    "word": "twice as many A as B",
+    "meaning": "A是B的两倍",
+    "category": "句型",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-8-218",
+    "word": "The ratio of A to B is …",
+    "meaning": "A 比B（ A/B）",
+    "category": "句型",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-8-219",
+    "word": "A multiplied by B",
+    "meaning": "A乘以B",
+    "category": "句型",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-8-220",
+    "word": "A divided by B",
+    "meaning": "A/B",
+    "category": "句型",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-8-221",
+    "word": "A divided into B",
+    "meaning": "B/A",
+    "category": "句型",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-8-222",
+    "word": "A is 20% less than B",
+    "meaning": "（B-A）/B = 20%",
+    "category": "句型",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-8-223",
+    "word": "A is 20% more than B",
+    "meaning": "（A-B）/B = 20%",
+    "category": "句型",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-8-224",
+    "word": "A is a divisor of B",
+    "meaning": "A 是B的除数（约数）（B/A）",
+    "category": "句型",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-8-225",
+    "word": "be direct(inverse)proportion at/to",
+    "meaning": "成反比",
+    "category": "句型",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-8-226",
+    "word": "A is subset of B",
+    "meaning": "A是B的子集",
+    "category": "句型",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-8-227",
+    "word": "be more than twice as many X in A as in B",
+    "meaning": "A里面的X是B里面X的2倍以上",
+    "category": "句型",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-8-228",
+    "word": "be proportional to",
+    "meaning": "与…成比例的",
+    "category": "句型",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-8-229",
+    "word": "be drawn to scale",
+    "meaning": "按比例绘制",
+    "category": "句型",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-8-230",
+    "word": "balance",
+    "meaning": "余额",
+    "category": "实际应用",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-8-231",
+    "word": "cost of production",
+    "meaning": "产品成本",
+    "category": "实际应用",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-8-232",
+    "word": "approximate cost",
+    "meaning": "估算成本，约计成本",
+    "category": "实际应用",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-8-233",
+    "word": "down payment",
+    "meaning": "预付定金，首付款",
+    "category": "实际应用",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-8-234",
+    "word": "installment",
+    "meaning": "分期付款",
+    "category": "实际应用",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-8-235",
+    "word": "discount rate",
+    "meaning": "折扣率",
+    "category": "实际应用",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-8-236",
+    "word": "charter",
+    "meaning": "租赁，包租",
+    "category": "实际应用",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-8-237",
+    "word": "charge",
+    "meaning": "收费",
+    "category": "实际应用",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-8-238",
+    "word": "principal",
+    "meaning": "本金",
+    "category": "实际应用",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-8-239",
+    "word": "simple interest",
+    "meaning": "单利",
+    "category": "实际应用",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-8-240",
+    "word": "compound interest",
+    "meaning": "复利",
+    "category": "实际应用",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-8-241",
+    "word": "gross profit",
+    "meaning": "毛利",
+    "category": "实际应用",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-8-242",
+    "word": "retail price",
+    "meaning": "零售价",
+    "category": "实际应用",
+    "page": 8
+  },
+  {
+    "id": "lclj-math-9-243",
+    "word": "sales revenue",
+    "meaning": "销售额",
+    "category": "实际应用",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-244",
+    "word": "sales taxes",
+    "meaning": "营业税，销售税",
+    "category": "实际应用",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-245",
+    "word": "property tax",
+    "meaning": "财产税",
+    "category": "实际应用",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-246",
+    "word": "list price",
+    "meaning": "标价",
+    "category": "实际应用",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-247",
+    "word": "margin",
+    "meaning": "利润；付定金",
+    "category": "实际应用",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-248",
+    "word": "mark up",
+    "meaning": "涨价",
+    "category": "实际应用",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-249",
+    "word": "purchases",
+    "meaning": "销售数量",
+    "category": "实际应用",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-250",
+    "word": "rebate",
+    "meaning": "退还款，折扣",
+    "category": "实际应用",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-251",
+    "word": "pointer",
+    "meaning": "指针",
+    "category": "实际应用",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-252",
+    "word": "project",
+    "meaning": "预测，估计",
+    "category": "实际应用",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-253",
+    "word": "corresponding value",
+    "meaning": "对应值",
+    "category": "实际应用",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-254",
+    "word": "mutual fund",
+    "meaning": "共同基金",
+    "category": "实际应用",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-255",
+    "word": "expected value",
+    "meaning": "期望值，预期值",
+    "category": "实际应用",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-256",
+    "word": "intensity",
+    "meaning": "强度",
+    "category": "实际应用",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-257",
+    "word": "intercalary year/leap year",
+    "meaning": "闰年",
+    "category": "实际应用",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-258",
+    "word": "lifetime",
+    "meaning": "寿命",
+    "category": "实际应用",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-259",
+    "word": "reflection",
+    "meaning": "镜射",
+    "category": "实际应用",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-260",
+    "word": "simplification",
+    "meaning": "简化",
+    "category": "实际应用",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-261",
+    "word": "simplified",
+    "meaning": "简化的",
+    "category": "实际应用",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-262",
+    "word": "sketch",
+    "meaning": "草图，示意图",
+    "category": "实际应用",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-263",
+    "word": "survey",
+    "meaning": "调查",
+    "category": "实际应用",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-264",
+    "word": "solid color",
+    "meaning": "纯色",
+    "category": "实际应用",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-265",
+    "word": "concentration",
+    "meaning": "浓度",
+    "category": "实际应用",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-266",
+    "word": "weight",
+    "meaning": "加重量于……使变重",
+    "category": "实际应用",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-267",
+    "word": "yields",
+    "meaning": "产量",
+    "category": "实际应用",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-268",
+    "word": "central tendency",
+    "meaning": "集中趋势",
+    "category": "实际应用",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-269",
+    "word": "tie",
+    "meaning": "打平",
+    "category": "实际应用",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-270",
+    "word": "blot out",
+    "meaning": "涂掉，删掉",
+    "category": "其他",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-271",
+    "word": "buck",
+    "meaning": "一美元；一澳元",
+    "category": "其他",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-272",
+    "word": "dime",
+    "meaning": "一角，十分",
+    "category": "其他",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-273",
+    "word": "clockwise",
+    "meaning": "顺时针",
+    "category": "其他",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-9-274",
+    "word": "constant rate",
+    "meaning": "匀速的",
+    "category": "其他",
+    "page": 9
+  },
+  {
+    "id": "lclj-math-10-275",
+    "word": "cumulative",
+    "meaning": "累积的，附加的",
+    "category": "其他",
+    "page": 10
+  },
+  {
+    "id": "lclj-math-10-276",
+    "word": "defined",
+    "meaning": "已定义的",
+    "category": "其他",
+    "page": 10
+  },
+  {
+    "id": "lclj-math-10-277",
+    "word": "categories",
+    "meaning": "种类",
+    "category": "其他",
+    "page": 10
+  },
+  {
+    "id": "lclj-math-10-278",
+    "word": "in excess of",
+    "meaning": "超过",
+    "category": "其他",
+    "page": 10
+  },
+  {
+    "id": "lclj-math-10-279",
+    "word": "in terms of",
+    "meaning": "用……的话，用……来表示",
+    "category": "其他",
+    "page": 10
+  },
+  {
+    "id": "lclj-math-10-280",
+    "word": "in turn",
+    "meaning": "依次，轮流",
+    "category": "其他",
+    "page": 10
+  },
+  {
+    "id": "lclj-math-10-281",
+    "word": "distinct point",
+    "meaning": "不同点",
+    "category": "其他",
+    "page": 10
+  },
+  {
+    "id": "lclj-math-10-282",
+    "word": "nearest 0.1 percent",
+    "meaning": "最接近0.1%",
+    "category": "其他",
+    "page": 10
+  },
+  {
+    "id": "lclj-math-10-283",
+    "word": "inclusive",
+    "meaning": "包括在内的",
+    "category": "其他",
+    "page": 10
+  },
+  {
+    "id": "lclj-math-10-284",
+    "word": "alongside",
+    "meaning": "和……一起",
+    "category": "其他",
+    "page": 10
+  },
+  {
+    "id": "lclj-math-10-285",
+    "word": "preceding",
+    "meaning": "在……前的，先前的",
+    "category": "其他",
+    "page": 10
+  },
+  {
+    "id": "lclj-math-10-286",
+    "word": "simultaneously",
+    "meaning": "同时",
+    "category": "其他",
+    "page": 10
+  },
+  {
+    "id": "lclj-math-10-287",
+    "word": "respectively",
+    "meaning": "各自地，分别地",
+    "category": "其他",
+    "page": 10
+  },
+  {
+    "id": "lclj-math-10-288",
+    "word": "per capita",
+    "meaning": "按照人数分配的，每人",
+    "category": "其他",
+    "page": 10
+  },
+  {
+    "id": "lclj-math-10-289",
+    "word": "wall",
+    "meaning": "（容器的）壁",
+    "category": "其他",
+    "page": 10
+  },
+  {
+    "id": "lclj-math-10-290",
+    "word": "truckload",
+    "meaning": "一卡车的容量",
+    "category": "其他",
+    "page": 10
+  },
+  {
+    "id": "lclj-math-10-291",
+    "word": "denote",
+    "meaning": "表示",
+    "category": "其他",
+    "page": 10
+  }
+]

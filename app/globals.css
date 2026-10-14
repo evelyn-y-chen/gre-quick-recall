@@ -1278,3 +1278,15 @@ nav button.active { color: white; background: var(--ink); box-shadow: 0 5px 14px
  .bbQuick .sharedWordMemory textarea {width:100%;min-width:0;box-sizing:border-box;}
  .bbQuick .bbEntryHead button {min-height:44px;}
 }
+
+/* Chinese meanings should carry the same visual weight as the English words. */
+.allWordsMemoryTable .quickMeaning.revealed,.aPlusQuickTable .quickMeaning.revealed{font-size:22px;font-weight:600;line-height:1.55;letter-spacing:.01em;overflow-wrap:anywhere;}
+.bbQuick .bbMeaning{font-size:22px;font-weight:600;line-height:1.55;color:var(--ink);overflow-wrap:anywhere;}
+@media(max-width:650px){.allWordsMemoryTable .quickMeaning.revealed,.aPlusQuickTable .quickMeaning.revealed{font-size:21px;}.bbQuick .bbMeaning{font-size:clamp(18px,4.8vw,22px);}}
+
+.aPlusMarkHint{font-size:16px!important;font-weight:600;line-height:1.8;color:var(--ink)!important;background:var(--lime-soft);border:1px solid var(--line);border-left:4px solid var(--ink-soft);border-radius:9px;padding:12px 16px;margin:12px 0 18px;}.aPlusMarkHint strong{color:var(--ink-soft);font-weight:750;}.shortcutBar{font-size:13px;line-height:1.7;}.shortcutBar kbd{font-size:13px;}
+
+/* A word stays on one line; WordFit reduces its font only when necessary. */
+:is(.quickWord strong,.quickPairWord strong,.aPlusWordChip,.bbPronounce,.mindMapWordMain strong,.sharedMemoryWord,.aPlusChoiceLabel strong,.aPlusQuestionHeading h2,.wordCard h2,.practiceQuestion h2){white-space:nowrap!important;overflow-wrap:normal!important;word-break:normal!important;max-width:100%;min-width:0;}
+.quickWord strong,.quickPairWord strong,.mindMapWordMain strong,.sharedMemoryWord{display:block;width:max-content;max-width:100%;}
+.bbQuick .bbPronounce{white-space:nowrap!important;overflow-wrap:normal!important;}

@@ -11,7 +11,7 @@ export function APlusWordMarksProvider({children}:{children:ReactNode}){
  useEffect(()=>{try{const data=JSON.parse(studyStorage.getItem(key)??"{}");if(validRatings(data))setRatings(data);}catch{}setReady(true);},[]);
  useEffect(()=>{if(ready)try{studyStorage.setItem(key,JSON.stringify(ratings));}catch{}},[ratings,ready]);
  function toggle(word:string){const w=normalize(word);setRatings(r=>({...r,[w]:r[w]==="unknown"?"familiar":"unknown"}));}
- return <Context.Provider value={{ratings,toggle}}><p className="aPlusMarkHint">单击单词只朗读；点击 ▸ 笔记展开该词笔记。双击标亮“不熟悉”，再次双击取消；键盘 Shift + Enter 也可切换高亮。</p>{ready&&<RatingCloudSync module="a-plus-words" ratings={ratings} onLoad={setRatings} label="保存单词标亮到当前工作区"/>}{children}</Context.Provider>;
+ return <Context.Provider value={{ratings,toggle}}><p className="aPlusMarkHint"><strong>操作提示</strong>　<strong>单击</strong>单词朗读 · 点击 <strong>▸ 笔记</strong>展开 · <strong>双击</strong>标亮“不熟悉” · <strong>再次双击</strong>取消 · <strong>Shift + Enter</strong>切换高亮。</p>{ready&&<RatingCloudSync module="a-plus-words" ratings={ratings} onLoad={setRatings} label="保存单词标亮到当前工作区"/>}{children}</Context.Provider>;
 }
 export function APlusWordMark({word,pronounce,onRead}:{word:string;pronounce:(word:string)=>void;onRead?:()=>void}){
  const ctx=useContext(Context),marked=ctx?.ratings[normalize(word)]==="unknown";

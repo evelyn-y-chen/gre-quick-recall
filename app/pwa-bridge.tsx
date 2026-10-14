@@ -72,8 +72,8 @@ export default function PwaBridge() {
   if (!showBanner) return null;
 
   return (
-    <aside className="pwaBanner" aria-label="安装 GRE 背词 App">
-      <span className="pwaBannerIcon">Q</span>
+    <aside className="pwaBanner" aria-label="安装词笺 App">
+      <span className="pwaBannerIcon"><img src={import.meta.env.BASE_URL+"icons/lemnota.svg"} width="38" height="38" alt="词笺图标"/></span>
       <div>
         <strong>装到手机，随手背词</strong>
         <p>{showIosGuide ? "在 Safari 点“分享” → “添加到主屏幕”，并打开“作为 Web App 打开”。" : "添加到主屏幕后会像 App 一样独立打开，打开更方便。"}</p>

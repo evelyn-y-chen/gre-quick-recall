@@ -30,3 +30,5 @@
 ## Status in English
 
 GitHub sign-in is enabled in Supabase. Account workspace synchronization, offline caches, and conflict backups are implemented and locally tested. Actual cross-device saving still needs verification. Google setup is on hold; email registration remains unavailable. The personal website keeps its existing cloud-save behavior.
+
+本次更新：中文释义放大、操作提示增强、新便笺 App 图标；匿名使用统计与管理员汇总后台已接入（默认关闭）；个人版增加分享版兼容便笺导出。Google 登录仍暂缓，账号跨设备保存验证仍待完成。

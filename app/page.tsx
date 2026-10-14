@@ -214,6 +214,9 @@ function normalizedLookupWord(word: string) {
 
 const GLEE_MEANING_BY_LIST_WORD = new Map(GLEE_WORDS.map((entry) => [`${entry.list}:${normalizedLookupWord(entry.word)}`, entry.meaning]));
 const GLEE_MEANING_BY_WORD = new Map(GLEE_WORDS.map((entry) => [normalizedLookupWord(entry.word), entry.meaning]));
+// Older saved maps retain this spelling; resolve their meaning without changing progress keys.
+GLEE_MEANING_BY_WORD.set("anthropomorphiz", "v. 赋予人格；拟人化");
+GLEE_MEANING_BY_LIST_WORD.set("4:anthropomorphiz", "v. 赋予人格；拟人化");
 const MIND_MAP_FALLBACK_MEANINGS: Record<string, string> = {
   plain: "adj. 朴素的，简朴的",
   rude: "adj. 粗鲁的，无礼的",

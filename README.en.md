@@ -149,13 +149,13 @@ Devices and browser profiles have separate data; people sharing one profile shar
 
 Guests do not need an email or password. A learning note carries its data independently of an account.
 
-## Account sync — configuration in progress
+## Account sync
 
-GitHub and Google sign-in entry points and account workspace synchronization are implemented. Email/password sign-in is retained; email registration and email links remain unavailable. **The GitHub and Google login applications still need backend configuration, and real cross-device sign-in has not been verified.** Buttons become available when their providers are enabled. Neither social login requires Gmail SMTP.
+**GitHub sign-in is enabled**, with account workspace synchronization implemented. Google sign-in is on hold. Email/password sign-in is retained; email registration and email links remain unavailable. GitHub sign-in does not require Gmail SMTP. Actual cross-device saving still needs verification; see [Project status](PROGRESS.md).
 
-Once enabled, notes, familiarity marks, notebooks, tests, source preferences, and palettes save to the signed-in account. Guest data and per-account device caches stay separate. A new account can explicitly import guest records; existing cloud progress is read first. Concurrent conflicts retain a local backup rather than silently replacing cloud records. Signing out restores the guest workspace. Offline account edits stay in that account's local cache and can be retried when connected.
+Notes, familiarity marks, notebooks, tests, source preferences, and palettes save to the signed-in account. Guest data and per-account device caches stay separate. A new account can explicitly import guest records; existing cloud progress is read first. Concurrent conflicts retain a local backup rather than silently replacing cloud records. Signing out restores the guest workspace. Offline account edits stay in that account's local cache and can be retried when connected.
 
-See [authentication setup](AUTH_SETUP.md). Complete configuration and real login checks before announcing general availability.
+See [authentication setup](AUTH_SETUP.md) for maintenance. After signing in with GitHub, check for the account-save confirmation and keep an exported learning note as a backup.
 
 ## Appearance and web app
 
@@ -167,7 +167,7 @@ Use the website on computers, phones, or iPads. Supported browsers can **Add to 
 
 Ideas and bugs are welcome in [GitHub Issues](https://github.com/evelyn-y-chen/gre-quick-recall/issues). Include device, orientation, and module for layout issues, or word and source for vocabulary issues. Please do not attach an entire private learning note to a public issue.
 
-Plans include clearer list progress, continued phone/tablet improvements, and import previews with selective merging. Account sync is implemented but still awaits the configuration and verification described above.
+Plans include clearer list progress, continued phone/tablet improvements, and import previews with selective merging. GitHub is enabled; real cross-device saving remains to be verified. Google setup is on hold.
 
 ## Local development and publishing
 

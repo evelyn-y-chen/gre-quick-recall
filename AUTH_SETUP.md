@@ -4,9 +4,9 @@ GitHub 用户名已改为 `evelyn-y-chen`，分享版网址为：
 
 **https://evelyn-y-chen.github.io/gre-quick-recall/**
 
-代码已接入现有 Supabase 项目 `mzsyfxhvxzdoomfvumxe`，提供 GitHub 和 Google 登录入口。两种方式都不需要 Gmail 发信或应用专用密码。登录供应商仍需完成下列后台配置；配置之前，入口会显示“尚未开放”。邮箱密码入口保留，注册和邮件链接暂未开放。
+代码已接入现有 Supabase 项目 `mzsyfxhvxzdoomfvumxe`，提供 GitHub 和 Google 登录入口。两种方式都不需要 Gmail 发信或应用专用密码。当前已确认 GitHub 供应商启用；Google 登录暂缓。以下步骤保留作为维护参考。邮箱密码入口保留，注册和邮件链接暂未开放。
 
-## 1. GitHub 登录（先完成这个）
+## 1. GitHub 登录（已启用，以下为维护参考）
 
 在 [New OAuth Application](https://github.com/settings/applications/new) 填写：
 
@@ -17,7 +17,7 @@ GitHub 用户名已改为 `evelyn-y-chen`，分享版网址为：
 | Application description | A personal vocabulary journal. Sign in to save your own notes and learning progress across devices. |
 | Authorization callback URL | https://mzsyfxhvxzdoomfvumxe.supabase.co/auth/v1/callback |
 
-不勾选 Device Flow。由账号所有者点击 Register application，然后生成 Client secret。将 Client ID 和 secret **直接填到** [Supabase 登录供应商](https://supabase.com/dashboard/project/mzsyfxhvxzdoomfvumxe/auth/providers) 的 GitHub 设置中并启用。不要提交到 GitHub 源码，不要发到聊天里。
+不勾选 Device Flow 或 wildcard matching；Expire user access tokens 保持默认勾选。由账号所有者点击 Register application，然后生成 Client secret。将 Client ID 和 secret **直接填到** [Supabase 登录供应商](https://supabase.com/dashboard/project/mzsyfxhvxzdoomfvumxe/auth/providers) 的 GitHub 设置中并启用。不要提交到 GitHub 源码，不要发到聊天里。
 
 如果你已建立词笺 OAuth 应用，只需修改它的 Homepage URL。Supabase 项目未改名，Authorization callback URL 保持不变。原来的 Codex 仓库连接与词笺登录应用用途不同，不能混用。
 
@@ -31,7 +31,7 @@ GitHub 用户名已改为 `evelyn-y-chen`，分享版网址为：
 
 前端根据当前网站地址生成 redirectTo，使用 PKCE 返回并恢复登录。不要把 GitHub Pages 网址误填成 OAuth 的 Supabase callback URL。
 
-## 3. Google 登录（再完成这个）
+## 3. Google 登录（暂缓，不需要现在配置）
 
 在 [Google Cloud](https://console.cloud.google.com/) 选择或建立项目，然后进入 [Google Auth Platform](https://console.cloud.google.com/auth/overview)。
 
@@ -62,6 +62,6 @@ GitHub 仓库位置已更新，个人网站 `https://gre-quick-recall.cyitong546
 5. 同时修改时，旧版本上传应提示冲突，并保留本机副本便笺。
 6. Google 后台启用后重复以上流程；测试阶段仅用列入 Test users 的账号。
 
-本地测试覆盖账号切换、离线缓存和版本冲突；真实跨设备登录与保存仍待后台凭证配置后验证。
+本地测试覆盖账号切换、离线缓存和版本冲突；GitHub 供应商已启用，真实跨设备保存仍待验证；Google 配置与验证暂缓。
 
 官方参考：[GitHub OAuth](https://supabase.com/docs/guides/auth/social-login/auth-github)、[Google OAuth](https://supabase.com/docs/guides/auth/social-login/auth-google)、[Redirect URLs](https://supabase.com/docs/guides/auth/redirect-urls)。邮箱注册未来如需开放，再配置独立发信服务，不必继续尝试 Gmail 应用专用密码。

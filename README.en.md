@@ -4,7 +4,7 @@
 
 A personal vocabulary journal, built around words, notes, and the connections between them.
 
-**[Open Lemnota](https://cyitong546-sudo.github.io/gre-quick-recall/)** · **[中文版](README.md)** · **[Suggestions & issues](https://github.com/cyitong546-sudo/gre-quick-recall/issues)**
+**[Open Lemnota](https://evelyn-y-chen.github.io/gre-quick-recall/)** · **[中文版](README.md)** · **[Suggestions & issues](https://github.com/evelyn-y-chen/gre-quick-recall/issues)**
 
 No registration is needed. Choose a few words, try to recall them, and use red, yellow, or green to record how familiar they feel today. When you want to check your recall more closely, start a test.
 
@@ -16,7 +16,7 @@ Many study apps start with a test. For me, the fear of getting things wrong coul
 
 I also wanted somewhere to keep my own notes. Few vocabulary apps I had tried let me freely record and revise a memory method for each word. A teacher's explanation, a connection that suddenly makes sense, or a distinction between confusing words can disappear if I do not write it down. I wanted a small space beside each word where those thoughts could stay—and change as I learned.
 
-This began as something for myself. I am sharing it free of charge in the hope that it may help others too. Suggestions are welcome through [GitHub Issues](https://github.com/cyitong546-sudo/gre-quick-recall/issues); I will improve what I can, gradually. The project is still evolving. You do not need to use every feature—start with the approach that works for you.
+This began as something for myself. I am sharing it free of charge in the hope that it may help others too. Suggestions are welcome through [GitHub Issues](https://github.com/evelyn-y-chen/gre-quick-recall/issues); I will improve what I can, gradually. The project is still evolving. You do not need to use every feature—start with the approach that works for you.
 
 ## Behind the Name · 名字的由来
 
@@ -151,7 +151,7 @@ Guests do not need an email or password. A learning note carries its data indepe
 
 ## Account sync — configuration in progress
 
-GitHub OAuth, email/password sign-in and registration, email-link sign-in, and account workspace synchronization have been implemented. **The GitHub login application and Gmail SMTP setup are still pending, and real cross-device sign-in has not been verified.** Unavailable entry points show a setup notice.
+GitHub and Google sign-in entry points and account workspace synchronization are implemented. Email/password sign-in is retained; email registration and email links remain unavailable. **The GitHub and Google login applications still need backend configuration, and real cross-device sign-in has not been verified.** Buttons become available when their providers are enabled. Neither social login requires Gmail SMTP.
 
 Once enabled, notes, familiarity marks, notebooks, tests, source preferences, and palettes save to the signed-in account. Guest data and per-account device caches stay separate. A new account can explicitly import guest records; existing cloud progress is read first. Concurrent conflicts retain a local backup rather than silently replacing cloud records. Signing out restores the guest workspace. Offline account edits stay in that account's local cache and can be retried when connected.
 
@@ -165,7 +165,7 @@ Use the website on computers, phones, or iPads. Supported browsers can **Add to 
 
 ## Suggestions and future work
 
-Ideas and bugs are welcome in [GitHub Issues](https://github.com/cyitong546-sudo/gre-quick-recall/issues). Include device, orientation, and module for layout issues, or word and source for vocabulary issues. Please do not attach an entire private learning note to a public issue.
+Ideas and bugs are welcome in [GitHub Issues](https://github.com/evelyn-y-chen/gre-quick-recall/issues). Include device, orientation, and module for layout issues, or word and source for vocabulary issues. Please do not attach an entire private learning note to a public issue.
 
 Plans include clearer list progress, continued phone/tablet improvements, and import previews with selective merging. Account sync is implemented but still awaits the configuration and verification described above.
 

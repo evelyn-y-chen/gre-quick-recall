@@ -2,6 +2,7 @@ import {createClient} from '@supabase/supabase-js';
 import publicConfig from './publicCloud.json';
 const url=import.meta.env.VITE_SUPABASE_URL||publicConfig.url,key=import.meta.env.VITE_SUPABASE_ANON_KEY||publicConfig.publishableKey;
 export const cloud=url&&key?createClient(url,key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,flowType:'pkce'}}):null;
+export async function readLoginSettings(signal:AbortSignal){const response=await fetch(url+'/auth/v1/settings',{headers:{apikey:key},signal});if(!response.ok)throw Error('无法读取登录配置');return response.json();}
 
 import type {Session} from '@supabase/supabase-js';
 import {validSnapshot,type Snapshot} from './database';

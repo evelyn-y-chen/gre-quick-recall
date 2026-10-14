@@ -147,11 +147,19 @@ Devices and browser profiles have separate data; people sharing one profile shar
 
 **Import replaces destination records; it does not merge them. Export existing destination records first if you want to keep them.** Legacy GRE JSON backups are supported. Slips are ordinary, unencrypted files; keep them private. Unsaved drafts are not guaranteed to be restored.
 
-No email, password, or SMTP is required. Account-based cloud sync is not enabled. The slip carries your data itself, rather than being a short recovery code backed by an online account.
+Guests do not need an email or password. A learning note carries its data independently of an account.
+
+## Account sync — configuration in progress
+
+GitHub OAuth, email/password sign-in and registration, email-link sign-in, and account workspace synchronization have been implemented. **The GitHub login application and Gmail SMTP setup are still pending, and real cross-device sign-in has not been verified.** Unavailable entry points show a setup notice.
+
+Once enabled, notes, familiarity marks, notebooks, tests, source preferences, and palettes save to the signed-in account. Guest data and per-account device caches stay separate. A new account can explicitly import guest records; existing cloud progress is read first. Concurrent conflicts retain a local backup rather than silently replacing cloud records. Signing out restores the guest workspace. Offline account edits stay in that account's local cache and can be retried when connected.
+
+See [authentication setup](AUTH_SETUP.md). Complete configuration and real login checks before announcing general availability.
 
 ## Appearance and web app
 
-Choose **Cream Blue, Snowy Sunset, Lakeside Iris, Twilight Snow, or Apple Paper**. Each swatch represents background, cards, primary actions, and selection/highlight, respectively. The palette travels with your slip; red–yellow–green meanings stay consistent.
+Choose **Snowy Sunset, Lakeside Iris, Twilight Snow, or Apple Paper**. Each swatch represents background, cards, primary actions, and selection/highlight, respectively. The palette travels with your slip; red–yellow–green meanings stay consistent.
 
 Use the website on computers, phones, or iPads. Supported browsers can **Add to Home Screen / Install app** for a standalone web-app experience. There is no app-store release yet; full offline use is not guaranteed.
 
@@ -159,7 +167,7 @@ Use the website on computers, phones, or iPads. Supported browsers can **Add to 
 
 Ideas and bugs are welcome in [GitHub Issues](https://github.com/cyitong546-sudo/gre-quick-recall/issues). Include device, orientation, and module for layout issues, or word and source for vocabulary issues. Please do not attach an entire private learning note to a public issue.
 
-Plans include clearer list progress, continued phone/tablet improvements, import previews and selective merging, and optional cross-device sync. These are future plans, not all available features.
+Plans include clearer list progress, continued phone/tablet improvements, and import previews with selective merging. Account sync is implemented but still awaits the configuration and verification described above.
 
 ## Local development and publishing
 
@@ -178,6 +186,6 @@ GitHub Pages uses the `/gre-quick-recall/` subpath:
 BASE_PATH=/gre-quick-recall/ npm run build
 ```
 
-`.github/workflows/pages.yml` builds, tests, and deploys `dist/` on a push to `main` or a manual run. The current workspace uses browser-local storage. Repository Supabase scripts prepare for possible future cloud sync; login is not enabled in the interface.
+`.github/workflows/pages.yml` builds, tests, and deploys `dist/` on a push to `main` or a manual run. The current workspace uses browser-local storage. Supabase provides account cloud storage; the configuration status is described above.
 
 Source information remains with vocabulary and dictionary material. See the [dictionary license](dictionary-data/LICENSE.txt) for ECDICT. Free sharing does not change third-party rights; this project does not grant a separate open-source license for third-party word lists.

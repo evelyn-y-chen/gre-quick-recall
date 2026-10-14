@@ -1,0 +1,8 @@
+export default function Guide(){return <div className="studyGuide">
+ <section><h3>从一小组词开始</h3><p>全能词适合日常速刷；A+ 和 BB 六选二适合练习同义词；GLEE 可以结合导图整理记忆。阅读核心词、填空高频词和数学词汇按需要单独复习，不必一次刷完全部词库。</p></section>
+ <section><h3>红黄绿，记下这次的真实感觉</h3><ul className="ratingLegend"><li><i className="redDot"/><b>红 · 不认识</b><span>想不起来，留着重点重背。</span></li><li><i className="yellowDot"/><b>黄 · 模糊</b><span>见过但不确定，下次再确认。</span></li><li><i className="greenDot"/><b>绿 · 熟悉</b><span>能自己想起含义，先继续往下。</span></li></ul><p>先回忆，再揭晓。颜色只是你的自评，不代表永久掌握；可以按颜色筛选，再过一遍没记牢的词。</p></section>
+ <section><h3>想确认记住了多少？开始测试</h3><p>全能词、A+ 和 BB 顶部都有测试入口，可选看英文选中文或看中文选英文。BB 还可先选释义，再从六个词里选一个同义词。答完就地查看解析，下方直接显示记忆笔记；不确定时可以直接选“不确定”。A+ 原有的单选、不定项和到期复习仍在原测试入口。</p></section><section><h3>键盘也能一路刷下去</h3><div className="keyGuide"><span><kbd>↑</kbd><kbd>↓</kbd> 切换单词或词组</span><span><kbd>Space</kbd> 朗读</span><span><kbd>Enter</kbd> 揭晓或提交</span><span><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> 红 / 黄 / 绿</span></div><p>不同模块略有区别，以当前页面的快捷键提示为准。编辑笔记时正常输入，不会触发刷词快捷键。</p></section>
+ <section><h3>你的记法，写在你自己的空间里</h3><p>默认记忆方法来自整理后的 GLEE、A+ 和 BB 资料。你可以修改；同一个词在不同模块共用你的修改。笔记有“保存”按钮时，先保存编辑内容，顶部才会把它存入浏览器。</p></section>
+ <section><h3>下次回来，从这里继续</h3><p>这个浏览器会自动保留已保存的笔记、红黄绿、复习记录和配色。换设备时，带上一份“学习便笺”并在新设备导入。它是一份包含记录的文件，不是密码，也不需要登录。</p><p>请定期留一份便笺。清除网站数据、无痕浏览或浏览器清理可能丢失本地记录；同一浏览器的使用者共用一份进度。</p></section>
+ <section><h3>接下来想做的事</h3><p>继续打磨手机和平板排版，增加更清楚的词库进度统计，再考虑可选的跨设备同步。这些是后续计划，目前还没有上线。</p></section>
+ </div>;}

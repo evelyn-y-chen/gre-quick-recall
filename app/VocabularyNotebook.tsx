@@ -255,7 +255,7 @@ export default function VocabularyNotebook({ words, pronounce }: {
           {!review && <button className="notebookRemove" type="button" aria-label={`移除 ${w.word}`} onClick={() => {setRemoved({word:w,index});persist({...batch,words:batch.words.filter((x) => x.id!==w.id)});}}>移除</button>}
         </div>
         {review ? <div className="notebookCardReview">
-          <button className="notebookReveal" type="button" aria-expanded={revealed.includes(w.id)} onClick={() => setRevealed((s) => s.includes(w.id) ? s.filter((id) => id!==w.id) : [...s,w.id])}>{revealed.includes(w.id) ? w.meaning || "未填写释义" : "点击揭晓释义与笔记"}</button>
+          <button className="notebookReveal" type="button" aria-expanded={revealed.includes(w.id)} onClick={() => setRevealed((s) => s.includes(w.id) ? s.filter((id) => id!==w.id) : [...s,w.id])}>{revealed.includes(w.id) ? (w.meaning || "未填写释义").split("\n").map((line,i)=><span key={i} className={/^【.*】$/.test(line.trim())?"notebookMeaningSource":"notebookMeaningLine"}>{line||"\u00a0"}</span>) : "点击揭晓释义与笔记"}</button>
           {revealed.includes(w.id) && <div className="notebookCardNote"><SharedWordMemory word={w.word}/></div>}
           <div className="notebookCardSource"><span>词库来源</span><p>{w.origin || "未填写"}</p></div>
         </div> : <div className="notebookEditGrid">

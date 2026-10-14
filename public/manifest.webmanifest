@@ -1,7 +1,7 @@
 {
-  "name": "GRE 速刷 · 随手过词",
-  "short_name": "GRE 速刷",
-  "description": "全能词、等价词、核心 1500 词和 GRE 数学词汇的轻量速刷工具。",
+  "name": "词笺 · Lemnota",
+  "short_name": "词笺",
+  "description": "Worth noting. 用词笺学习 GRE 词汇、记录记忆方法，用便笺带走学习进度。",
   "lang": "zh-CN",
   "id": "./",
   "start_url": "./",

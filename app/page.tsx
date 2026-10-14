@@ -8,6 +8,8 @@ import {wordMemoryKey} from "./wordMemoryModel";
 import vocabulary from "./vocabulary.json";
 import { findGleeMemoryLocation } from "./sharedGleeMemory";
 import QuickGleeMemory, {QuickGleeMemoryProvider} from "./QuickGleeMemory";
+import WordNoteCard from "../community/WordNoteCard";
+import Practice, {type Deck as PracticeDeck} from "../community/Practice";
 import BBQuick from "./BBQuick";
 import APlusTest from "./APlusTest";
 import {APlusWordMarksProvider,APlusWordMark} from "./APlusWordMarks";
@@ -1870,6 +1872,7 @@ function parseVocabulary(text: string): Word[] {
 }
 
 export default function Home() {
+  const [practiceDeck,setPracticeDeck]=useState<PracticeDeck|null>(null);
   const [words, setWords] = useState<Word[]>(SOURCE_WORDS);
   const [store, setStore] = useState<Store>(EMPTY_STORE);
   const [equivalentStore, setEquivalentStore] = useState<EquivalentStore>(EMPTY_EQUIVALENT_STORE);
@@ -1919,6 +1922,7 @@ export default function Home() {
   const [quickEquivalentSets, setQuickEquivalentSets] = useState<number[]>([1]);
   const [aPlusLists, setAPlusLists] = useState<number[]>([1]);
   const [aPlusRatings, setAPlusRatings] = useState<Record<string, QuickRating>>({});
+  const [aPlusMeaningOverrides,setAPlusMeaningOverrides]=useState<Record<string,boolean>>({});
   const [aPlusRevealStages, setAPlusRevealStages] = useState<Record<string, number>>({});
   const [aPlusActiveId, setAPlusActiveId] = useState<string | null>(null);
   const [aPlusQuery, setAPlusQuery] = useState("");
@@ -2849,6 +2853,7 @@ export default function Home() {
   }
 
   function cycleAPlusReveal(entry: APlusEquivalentEntry) {
+    setAPlusMeaningOverrides(current=>{const next={...current};delete next[entry.id];return next;});
     const stage = aPlusRevealStages[entry.id] ?? 0;
     const direction = aPlusDirection(entry, aPlusCueMode);
     const nextStage = stage >= 2 ? 0 : stage + 1;
@@ -3218,8 +3223,8 @@ export default function Home() {
     <main className="shell">
       <header className="topbar">
         <button className="brand" onClick={() => setView("quick")} aria-label="返回速刷">
-          <span className="brandMark">Q</span>
-          <span><strong>GRE 速刷</strong><small>QUICK RECALL</small></span>
+          <span className="brandMark">笺</span>
+          <span><strong>词笺 · Lemnota</strong><small>Worth noting.</small></span>
         </button>
         <span className="freeModeBadge">自由速刷</span>
       </header>
@@ -3337,6 +3342,8 @@ export default function Home() {
             ))}
           </div>
 
+          {["words","a-plus","bb"].includes(quickType)&&<div className="practiceEntry"><button className="primary" onClick={()=>setPracticeDeck(quickType as PracticeDeck)}>开始测试 · {quickType==="bb"?"释义与同义词":"双向释义"}</button><span>看英文选中文 / 看中文选英文 · 错题记忆笔记</span></div>}
+          {practiceDeck&&<Practice key={"practice-"+practiceDeck} deck={practiceDeck} onClose={()=>setPracticeDeck(null)}/>}
           {ready && quickType !== "bb" && quickType !== "notebook" && quickType !== "mindmap" && !(quickType === "a-plus" && aPlusMode === "test") && <RatingCloudSync
             key={quickType.startsWith("lclj-") ? "lclj" : quickType}
             module={quickType.startsWith("lclj-") ? "lclj" : quickType}
@@ -3509,8 +3516,8 @@ export default function Home() {
                   <p className="quickIntro">PDF 共800条、80个 List。可以由核心词、整组六选二等价词或中文释义任一方向开始回忆。</p>
                 </div>
                 <div className="libraryActions">
-                  <button onClick={() => setAPlusRevealStages(Object.fromEntries(filteredAPlusEntries.map((entry) => [entry.id, 2])))}>全部揭晓</button>
-                  <button className="solid" onClick={() => setAPlusRevealStages({})}>重新遮挡</button>
+                  <button onClick={() => {setAPlusMeaningOverrides({});setAPlusRevealStages(Object.fromEntries(filteredAPlusEntries.map((entry) => [entry.id, 2])));}}>全部揭晓</button>
+                  <button className="solid" onClick={() => {setAPlusMeaningOverrides(Object.fromEntries(filteredAPlusEntries.map(entry=>[entry.id,false])));setAPlusRevealStages({});}}>重新遮挡</button>
                 </div>
               </div>
 
@@ -3554,16 +3561,16 @@ export default function Home() {
                   const equivalentsVisible = direction === "equivalents"
                     || (direction === "word" && revealStage >= 1)
                     || (direction === "meaning" && revealStage >= 2);
-                  const meaningVisible = direction === "meaning" || revealStage >= 2;
+                  const meaningVisible = aPlusMeaningOverrides[entry.id] ?? (direction === "meaning" || revealStage >= 2);
                   return (
                     <div className={`quickRow ${active ? "keyboardActive" : ""} ${rating ? `rated-${rating}` : ""}`} role="row" aria-current={active ? "true" : undefined} key={entry.id} ref={(element) => { aPlusRowRefs.current[entry.id] = element; }}>
-                      <button className={`quickPairWord ${wordVisible ? "revealed" : ""} ${direction === "word" ? "cueCell" : ""}`} onClick={() => { setAPlusActiveId(entry.id); if (!wordVisible) setAPlusRevealStage(entry.id, 1); pronounce(entry.word); }} aria-expanded={wordVisible}>
-                        {wordVisible ? <><strong>{entry.word}</strong><small>List {String(entry.list).padStart(2, "0")} · #{entry.number}{direction === "word" ? " · 当前提示" : ""}</small></> : <span>点击揭晓核心词</span>}
-                      </button>
-                      <div className={`quickPairWord aPlusEquivalentCell ${equivalentsVisible ? "revealed" : ""} ${direction === "equivalents" ? "cueCell" : ""}`}>
-                        {equivalentsVisible ? <><span className="aPlusEquivalentWords">{entry.equivalents.map((word) => <APlusWordMark key={word} word={word} pronounce={pronounce}/>)}</span><small>{entry.equivalents.length}个等价词{direction === "equivalents" ? " · 当前提示" : ""}</small></> : <button type="button" className="aPlusGroupReveal" onClick={()=>{setAPlusActiveId(entry.id);setAPlusRevealStage(entry.id,direction === "meaning" ? 2 : 1);}}>点击揭晓 {entry.equivalents.length} 个等价词</button>}
+                      <div className={`quickPairWord ${wordVisible ? "revealed" : ""}`}>
+                        {wordVisible ? <><WordNoteCard word={entry.word} pronounce={pronounce}/><small>List {entry.list} · #{entry.number}</small></> : <button onClick={()=>{setAPlusActiveId(entry.id);setAPlusRevealStage(entry.id,1);}}>点击揭晓核心词</button>}
                       </div>
-                      <button className={`quickMeaning ${meaningVisible ? "revealed" : ""} ${direction === "meaning" ? "cueCell" : ""}`} onClick={() => { setAPlusActiveId(entry.id); if (!meaningVisible) setAPlusRevealStage(entry.id, 2); }} aria-expanded={meaningVisible}>
+                      <div className={`quickPairWord aPlusEquivalentCell ${equivalentsVisible ? "revealed" : ""} ${direction === "equivalents" ? "cueCell" : ""}`}>
+                        {equivalentsVisible ? <><div className="aPlusEquivalentWords">{entry.equivalents.map((word) => <WordNoteCard key={word} word={word} pronounce={pronounce}/>)}</div><small>{entry.equivalents.length}个等价词{direction === "equivalents" ? " · 当前提示" : ""}</small></> : <button type="button" className="aPlusGroupReveal" onClick={()=>{setAPlusActiveId(entry.id);setAPlusRevealStage(entry.id,direction === "meaning" ? 2 : 1);}}>点击揭晓 {entry.equivalents.length} 个等价词</button>}
+                      </div>
+                      <button className={`quickMeaning ${meaningVisible ? "revealed" : ""} ${direction === "meaning" ? "cueCell" : ""}`} onClick={() => { setAPlusActiveId(entry.id); setAPlusMeaningOverrides(s=>({...s,[entry.id]:!meaningVisible})); }} aria-expanded={meaningVisible}>
                         {meaningVisible ? <>{entry.meaning}{direction === "meaning" && <small className="cueLabel">当前提示</small>}</> : <span>点击揭晓PDF释义</span>}
                       </button>
                       <div className="trafficLights" role="group" aria-label={`${entry.word} 当前提示方向掌握程度`}>
@@ -3571,7 +3578,7 @@ export default function Home() {
                         <button className={rating === "fuzzy" ? "active yellow" : "yellow"} onClick={() => rateAPlusInPlace(entry.id, direction, "fuzzy")} title="只想起部分（快捷键 2）"><i /><span>部分</span></button>
                         <button className={rating === "familiar" ? "active green" : "green"} onClick={() => rateAPlusInPlace(entry.id, direction, "familiar")} title="都清楚（快捷键 3）"><i /><span>都清楚</span></button>
                       </div>
-                      <APlusNotes words={[...(wordVisible ? [entry.word] : []), ...(equivalentsVisible ? entry.equivalents : [])]} />
+
                     </div>
                   );
                 })}

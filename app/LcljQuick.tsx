@@ -173,7 +173,7 @@ export default function LcljQuick({ deck, ratings, onRate, pronounce }: {
         </button>
         <div className="mathCategoryCell lcljSource"><span>{groupOf(entry)}</span>{deck === "lclj-reading" && entry.category && <span>{entry.category}</span>}<small>{entry.page ? `PDF 第 ${entry.page} 页` : `原表第 ${entry.sourceRow} 行`}</small>{entry.passage && <small>{entry.passage}</small>}</div>
         <div className="trafficLights" role="group" aria-label={`${entry.word} 掌握程度`}>{ratingsList.slice(0, 3).map(({ value, label, color }) => <button key={value} className={`${ratings[entry.id] === value ? "active " : ""}${color}`} aria-pressed={ratings[entry.id] === value} onClick={() => rate(entry.id, value as Rating)}><i /><span>{label}</span></button>)}</div>
-        {revealed.includes(entry.id)&&<div className="sharedMemoryRow"><SharedWordMemory word={entry.word}/></div>}
+        {deck!=="lclj-reading"&&revealed.includes(entry.id)&&<div className="sharedMemoryRow"><SharedWordMemory word={entry.word}/></div>}
       </div>)}
     </div>
     {!visible.length && <p className="emptyState">当前没有匹配词条。可调整分类、颜色或搜索关键词。</p>}

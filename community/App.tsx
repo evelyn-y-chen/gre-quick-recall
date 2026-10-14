@@ -1,65 +1,51 @@
 import {useEffect,useRef,useState} from 'react';
-import type {Session} from '@supabase/supabase-js';
 import Page from '../app/page';
+import Guide from './Guide';
+import About from './About';
+import {makeSlip,readSlip} from './slip';
 import {SharedWordMemoryProvider} from '../app/SharedWordMemory';
 import PwaBridge from '../app/pwa-bridge';
-import {cloud} from './cloud';
-import {exportWorkspace,openWorkspace,onWorkspaceChange,type Snapshot} from './database';
+import {exportWorkspace,openWorkspace,onWorkspaceChange,validSnapshot} from './database';
 import {switchWorkspace} from './api';
 import {studyStorage} from './storage';
-const themes=[['cream','奶油蓝','#283f61'],['sage','鼠尾草绿','#46624f'],['lavender','雾紫','#735681'],['apricot','暖杏','#92543e'],['night','深夜蓝','#a7c8f2']];
+import {readLocalWorkspace,saveLocalWorkspace} from './localWorkspace';
+const themes=[['cream','奶油蓝','#496783'],['pink','雪林晚霞','#525871'],['sage','湖畔鸢尾','#5d4c68'],['night','暮色雪林','#f2c1a3'],['antique','苹果古纸','#a94f55']];
+const paletteColors:Record<string,string[]>={cream:['#f6f1e8','#fffdfa','#496783','#e7c7c6'],pink:['#faf1ed','#fffaf7','#525871','#e4c7c7'],sage:['#edf3f7','#fcfdfb','#5d4c68','#cbd9c2'],night:['#303447','#40465d','#f2c1a3','#857c91'],antique:['#faf3e8','#fffaf2','#a94f55','#d4e7f2']};
+function PaletteSwatch({id}:{id:string}){return <span className="paletteSwatch" aria-hidden="true">{paletteColors[id].map((c,i)=><i key={c} title={['背景','卡片','主按钮','选中与高亮'][i]} style={{background:c}}/>)}</span>;}
+
+function localFileDate(){const d=new Date(),pad=(n:number)=>String(n).padStart(2,'0');return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}_${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`;}
+const savedMessage='已存到这台设备';
 export default function App(){
- const [session,setSession]=useState<Session|null>(null),[ready,setReady]=useState(false),[started,setStarted]=useState(false),[help,setHelp]=useState(false),[login,setLogin]=useState(false),[theme,setTheme]=useState('cream'),[status,setStatus]=useState('正在准备学习空间…'),[email,setEmail]=useState(''),[code,setCode]=useState(''),[sent,setSent]=useState(false),[busy,setBusy]=useState(false),[authMessage,setAuthMessage]=useState(''),[guestOffer,setGuestOffer]=useState(false);
- const currentUser=useRef<string|null|undefined>(undefined),revision=useRef(0),dirty=useRef(false),epoch=useRef(0),version=useRef(0),saving=useRef(false),blocked=useRef(false),timer=useRef<ReturnType<typeof setTimeout>|undefined>(undefined),guest=useRef<Snapshot|null>(null),requestedSession=useRef<Session|null>(null),alive=useRef(true);
- function notice(){setStatus(currentUser.current?'有修改，正在等待保存…':'游客模式：修改仅在本次页面中保留，刷新或关闭后丢失。');}
+ const [username,setUsername]=useState(''),[celebrate,setCelebrate]=useState(false),[ready,setReady]=useState(false),[started,setStarted]=useState(false),[help,setHelp]=useState(false),[about,setAbout]=useState(false),[theme,setTheme]=useState('cream'),[status,setStatus]=useState('正在读取浏览器记录…'),[generation,setGeneration]=useState(0);
+ const revision=useRef(0),dirty=useRef(false),saving=useRef(false),version=useRef(0),timer=useRef<ReturnType<typeof setTimeout>|undefined>(undefined),file=useRef<HTMLInputElement>(null),alive=useRef(true),loading=useRef(false);
  async function flush(){
-  if(!currentUser.current||!cloud||blocked.current)return !dirty.current;
-  if(saving.current)return false;if(!dirty.current)return true;
-  saving.current=true;const id=currentUser.current,stamp=epoch.current,change=version.current,snapshot=exportWorkspace();setStatus('正在保存你的学习记录…');
-  try{const {data,error}=await cloud.rpc('save_learning_workspace',{p_payload:snapshot,p_expected_revision:revision.current});
-   if(stamp!==epoch.current)return false;if(error)throw error;
-   if(!data?.ok){blocked.current=true;setStatus('另一台设备已更新。为避免覆盖，已暂停保存；请先下载本次备份，再重新载入。');return false;}
-   revision.current=data.revision;dirty.current=change!==version.current;setStatus(dirty.current?'有新修改，继续保存…':'已保存到你的账号 · 其他人看不到你的记录');return !dirty.current;
-  }catch{if(stamp===epoch.current)setStatus('保存失败，修改仍在本次页面中。请重试或下载备份后再离开。');return false;}
-  finally{saving.current=false;if(stamp===epoch.current&&currentUser.current===id&&dirty.current&&!blocked.current)timer.current=setTimeout(()=>void flush(),5000);}
+  clearTimeout(timer.current);if(!dirty.current||saving.current)return;
+  saving.current=true;const change=version.current;
+  try{revision.current=await saveLocalWorkspace(exportWorkspace(),revision.current);dirty.current=version.current!==change;if(alive.current)setStatus(dirty.current?'正在保存新修改…':savedMessage);if(dirty.current)timer.current=setTimeout(()=>void flush(),100);}
+  catch(error){if(alive.current)setStatus(error instanceof Error?error.message:'保存失败，请导出备份。');}
+  finally{saving.current=false;}
  }
- function changed(){dirty.current=true;version.current++;clearTimeout(timer.current);notice();if(currentUser.current)timer.current=setTimeout(()=>void flush(),1500);}
- async function transition(next:Session|null,force=false){
-  requestedSession.current=next;const id=next?.user.id??null;if(!force&&currentUser.current===id){setSession(next);return;}
-  const stamp=++epoch.current;clearTimeout(timer.current);onWorkspaceChange(()=>{});setReady(false);setStatus('正在载入你的学习空间…');
-  if(currentUser.current===null&&dirty.current)guest.current=exportWorkspace();
-  try{
-   let payload:Snapshot|undefined;let remoteRevision=0;
-   if(id&&cloud){const {data,error}=await cloud.from('learning_workspaces').select('payload,revision').eq('user_id',id).maybeSingle();if(error)throw error;payload=data?.payload;remoteRevision=data?.revision??0;}
-   if(stamp!==epoch.current||!alive.current)return;
-   await switchWorkspace(()=>openWorkspace(payload));if(stamp!==epoch.current)return;
-   currentUser.current=id;revision.current=remoteRevision;dirty.current=false;blocked.current=false;version.current=0;setSession(next);
-   const selected=studyStorage.getItem('community-theme')??'cream';setTheme(themes.some(t=>t[0]===selected)?selected:'cream');
-   setGuestOffer(!!id&&!!guest.current&&remoteRevision===0);onWorkspaceChange(changed);setReady(true);
-   setStatus(id?'已载入你的个人空间':'游客模式：修改仅在本次页面中保留，刷新或关闭后丢失。');
-  }catch{if(stamp===epoch.current){setStatus('个人空间读取失败。为保护现有数据，未开启编辑，请重试。');}}
- }
- useEffect(()=>{alive.current=true;cloud?cloud.auth.getSession().then(({data,error})=>{if(error)setStatus('登录状态读取失败，请刷新重试。');else void transition(data.session);}):void transition(null);
-  const subscription=cloud?.auth.onAuthStateChange((_event,next)=>{setTimeout(()=>{if(alive.current)void transition(next);},0);});
-  const leaving=(event:BeforeUnloadEvent)=>{if(dirty.current){event.preventDefault();event.returnValue='';}};window.addEventListener('beforeunload',leaving);
-  return()=>{alive.current=false;clearTimeout(timer.current);subscription?.data.subscription.unsubscribe();onWorkspaceChange(()=>{});window.removeEventListener('beforeunload',leaving);};
- },[]);
+ function changed(){dirty.current=true;version.current++;setStatus('正在保存到当前浏览器…');clearTimeout(timer.current);timer.current=setTimeout(()=>void flush(),200);}
+ function restoreTheme(){setUsername(studyStorage.getItem("lemnota-username")??"");const old=studyStorage.getItem('community-theme')??'cream';const value=({blue:'cream',yellow:'antique',ivory:'cream',apricot:'antique',lavender:'cream'} as Record<string,string>)[old]??old;setTheme(themes.some(t=>t[0]===value)?value:'cream');}
+ async function initialize(){if(loading.current)return;loading.current=true;try{const saved=await readLocalWorkspace();if(!alive.current)return;await switchWorkspace(()=>openWorkspace(saved?.payload));revision.current=saved?.revision??0;restoreTheme();onWorkspaceChange(changed);setReady(true);setStatus(saved?savedMessage:'无需登录，学习记录自动保存在当前浏览器。');}catch{setStatus('无法读取浏览器存储，请检查浏览器权限后重试。现有记录未覆盖。');}finally{loading.current=false;}}
+ useEffect(()=>{alive.current=true;void initialize();const leaving=(event:BeforeUnloadEvent)=>{if(dirty.current){void flush();event.preventDefault();event.returnValue='';}};const hidden=()=>{if(document.visibilityState==='hidden')void flush();};window.addEventListener('beforeunload',leaving);document.addEventListener('visibilitychange',hidden);return()=>{alive.current=false;clearTimeout(timer.current);onWorkspaceChange(()=>{});window.removeEventListener('beforeunload',leaving);document.removeEventListener('visibilitychange',hidden);};},[]);
  useEffect(()=>{document.documentElement.dataset.theme=theme;document.querySelector('meta[name="theme-color"]')?.setAttribute('content',themes.find(t=>t[0]===theme)?.[2]??'#283f61');},[theme]);
+ useEffect(()=>{if(!celebrate)return;const timer=setTimeout(()=>setCelebrate(false),3500);return()=>clearTimeout(timer);},[celebrate]);
  function changeTheme(value:string){setTheme(value);studyStorage.setItem('community-theme',value);}
- async function sendCode(event:React.FormEvent){event.preventDefault();if(!cloud)return;setBusy(true);setAuthMessage('');try{const {error}=await cloud.auth.signInWithOtp({email:email.trim()});if(error)throw error;setSent(true);setAuthMessage('验证码已发送，请查看邮箱。');}catch{setAuthMessage('邮件暂时发送失败，请稍后重试，或先直接体验。');}finally{setBusy(false);}}
- async function verify(event:React.FormEvent){event.preventDefault();if(!cloud)return;setBusy(true);try{const {error}=await cloud.auth.verifyOtp({email:email.trim(),token:code.trim(),type:'email'});if(error)throw error;setLogin(false);setCode('');setStarted(true);}catch{setAuthMessage('验证码无效或已过期，请检查后重试。');}finally{setBusy(false);}}
- async function logout(){if(dirty.current&&!await flush())return;await cloud?.auth.signOut();}
- function download(data=exportWorkspace()){const blob=new Blob([JSON.stringify(data)],{type:'application/json'}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download='GRE个人学习备份.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
- async function keepGuest(){const data=guest.current;if(!data||revision.current!==0)return;setReady(false);onWorkspaceChange(()=>{});await switchWorkspace(()=>openWorkspace(data));onWorkspaceChange(changed);guest.current=null;setGuestOffer(false);setReady(true);changed();}
- return <><div className="communityBar"><a className="communityBrand" href="#" onClick={e=>{e.preventDefault();setStarted(false);}}>Q · GRE 速刷</a><span className="communityIdentity">{session?'我的学习空间':'游客体验'}</span><button onClick={()=>setHelp(true)}>使用帮助</button><details className="themeMenu"><summary>配色</summary><div>{themes.map(([id,name,color])=><button key={id} aria-pressed={theme===id} onClick={()=>changeTheme(id)}><i style={{background:color}}/>{name}</button>)}</div></details>{session?<button onClick={logout}>退出登录</button>:<button className="primary" onClick={()=>setLogin(true)}>登录并保存</button>}</div>
- <div className="communityStatus" role="status">{status}{session&&<><button onClick={()=>void flush()}>立即保存 / 重试</button><button onClick={()=>download()}>下载备份</button>{blocked.current&&<button onClick={()=>{if(window.confirm('请先下载本次备份。重新载入将使用云端记录，放弃本页未保存的修改。'))void transition(session,true);}}>重新载入</button>}</>}</div>
- {!ready?<section className="communityWelcome"><h1>正在准备你的学习空间</h1><p>{status}</p><button onClick={()=>void transition(requestedSession.current,true)}>重试</button></section>:<>
- {!started?<section className="communityWelcome"><p className="eyebrow">YOUR WORDS. YOUR WAY.</p><h1>记住单词，<br/>用你自己的方法。</h1><p>从速刷到测试，从记忆笔记到滚动复习。选择一份词表，今天就开始。</p><div className="welcomeActions"><button className="primary" onClick={()=>setStarted(true)}>直接开始{session?'学习':'体验'} →</button>{!session&&<button onClick={()=>setLogin(true)}>登录，保存我的进度</button>}</div><p className="welcomeFine">无需注册即可体验。登录后，笔记、红黄绿、复习记录和配色只属于你。</p><div className="featureTiles"><article><b>01 · 主动回忆</b><p>先看单词，再揭晓释义和记忆方法。</p></article><article><b>02 · 学习有迹可循</b><p>红黄绿标记、等价词测试和错词滚动复习。</p></article><article><b>03 · 一词一份笔记</b><p>在不同词库遇见同一个词，继续使用自己的记忆方法。</p></article></div><div className="welcomeThemes"><h2>选一个你喜欢的配色</h2>{themes.map(([id,name,color])=><button key={id} aria-pressed={theme===id} onClick={()=>changeTheme(id)}><i style={{background:color}}/>{name}</button>)}</div></section>:<SharedWordMemoryProvider key={session?.user.id??'guest'}><Page/></SharedWordMemoryProvider>}
- <PwaBridge/>
- </>}
- {guestOffer&&<div className="communityModal" role="dialog" aria-modal="true" aria-labelledby="guest-title"><section><h2 id="guest-title">保留刚才的体验记录？</h2><p>这是你的新学习空间，可以把刚才的笔记和标记存入账号。</p><button className="primary" onClick={keepGuest}>保存本次体验</button><button onClick={()=>{guest.current=null;setGuestOffer(false);}}>从基础词库开始</button></section></div>}
- {session&&guest.current&&!guestOffer&&<aside className="guestBackup">登录前的体验记录没有覆盖你的账号。<button onClick={()=>{download(guest.current!);guest.current=null;setStatus('已下载游客体验备份。');}}>下载体验备份</button></aside>}
- {login&&<div className="communityModal" role="dialog" aria-modal="true" aria-labelledby="login-title"><section><button className="modalClose" aria-label="关闭登录" onClick={()=>setLogin(false)}>×</button><h2 id="login-title">留住你的每一次进步</h2><p>邮箱验证码登录，无需设置密码。首次验证成功后会建立个人账号。</p>{cloud?<><form onSubmit={sendCode}><label>邮箱<input type="email" autoComplete="email" required value={email} onChange={e=>{setEmail(e.target.value);setSent(false);}}/></label><button disabled={busy}>{sent?'重新发送验证码':'获取验证码'}</button></form>{sent&&<form onSubmit={verify}><label>邮箱验证码<input inputMode="numeric" autoComplete="one-time-code" required value={code} onChange={e=>setCode(e.target.value)}/></label><button className="primary" disabled={busy}>验证并登录</button></form>}<p role="status">{authMessage}</p></>:<p className="setupNotice">此预览尚未连接账号服务。你现在可以完整体验游客模式；账号保存将在配置完成后开放。</p>}<button onClick={()=>{setLogin(false);setStarted(true);}}>先直接体验</button></section></div>}
- {help&&<div className="communityModal" role="dialog" aria-modal="true" aria-labelledby="help-title"><section><button className="modalClose" aria-label="关闭帮助" onClick={()=>setHelp(false)}>×</button><h2 id="help-title">从这五步开始</h2><ol><li><b>选词库</b>：全能词、A+、BB六选二、GLEE、数学等。</li><li><b>先回忆再揭晓</b>：单词、等价词和释义按需显示。</li><li><b>标记掌握程度</b>：红色不认识、黄色模糊、绿色熟悉。</li><li><b>测试和复习</b>：练习释义与同义词，错词按安排回来复习。</li><li><b>写自己的方法</b>：同词跨模块共用一份个人笔记。</li></ol><p>方向键切换，Enter 揭晓，1 / 2 / 3 标记；各模块的快捷键栏会提示具体操作。</p><p>游客修改仅在本页中保留。登录后由顶部状态提示是否已保存；保存失败时请先备份再离开。</p><p>手机可通过浏览器菜单“添加到主屏幕”安装。它是网页 App，目前不代表已上架应用商店。</p><button className="primary" onClick={()=>{setHelp(false);setStarted(true);}}>开始学习</button></section></div>}
+ function download(){const blob=new Blob([JSON.stringify(makeSlip(exportWorkspace()))],{type:'application/json'}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=`词笺_${username.trim().replace(/[^\p{L}\p{N}_-]/gu,"_").slice(0,30)||"我的"}_便笺_${localFileDate()}.json`;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+ async function importBackup(selected:File){
+  try{if(selected.size>20*1024*1024)throw Error('文件过大，请选择词笺学习便笺。');const payload=readSlip(JSON.parse(await selected.text()));if(!window.confirm('读取便笺会替换这台设备的学习记录（不会合并）。请先导出当前记录留底。确认读取？'))return;
+   if(saving.current)throw Error('正在保存，请稍后再导入。');clearTimeout(timer.current);onWorkspaceChange(()=>{});setReady(false);
+   // Persist first; a failed import must not replace the active workspace.
+   revision.current=await saveLocalWorkspace(payload,revision.current);await switchWorkspace(()=>openWorkspace(payload));dirty.current=false;restoreTheme();setGeneration(n=>n+1);setStatus('便笺已读取，进度已保存在这台设备。');setCelebrate(true);
+  }catch(error){setStatus(error instanceof Error?error.message:'导入失败，现有记录未改动。');}
+  finally{onWorkspaceChange(changed);setReady(true);if(file.current)file.current.value='';}
+ }
+ return <>{celebrate&&<div className="slipCelebration" role="status"><div aria-hidden="true" className="confetti">{Array.from({length:18},(_,i)=><i key={i} style={{left:`${i*5.5}%`,animationDelay:`${i%5*.08}s`,background:["#8ba9c1","#d4a0ac","#d9c77a"][i%3]}}/>)}</div><p>进度接上了，离目标又近一步。</p></div>}<div className="communityBar"><a className="communityBrand" href="#" onClick={e=>{e.preventDefault();setStarted(false);}}><span className="brandChinese">词笺</span><span className="brandEnglish">Lemnota</span></a><span className="communityIdentity">个人学习空间 · 测试版</span><button onClick={()=>setHelp(true)}>使用指南</button><button onClick={()=>setAbout(true)}>关于词笺</button><details className="themeMenu"><summary>配色</summary><div>{themes.map(([id,name,color])=><button disabled={!ready} key={id} aria-pressed={theme===id} onClick={()=>changeTheme(id)}><PaletteSwatch id={id}/>{name}</button>)}</div></details></div>
+ <div className="communityStatus" role="status">{status}{ready&&<><button onClick={()=>void flush()}>重试保存</button><button onClick={download}>带走便笺</button><button onClick={()=>file.current?.click()}>读取便笺</button><input ref={file} type="file" accept=".json,application/json" hidden onChange={e=>{const selected=e.target.files?.[0];if(selected)void importBackup(selected);}}/></>}</div>
+ {!ready?<section className="communityWelcome"><h1>正在准备你的学习空间</h1><p>{status}</p><button onClick={()=>void initialize()}>重试</button></section>:<>
+ {!started?<section className="communityWelcome"><p className="eyebrow">GRE 学习小白板</p><h1 className="lemnotaTitle"><span>词笺</span><span lang="en">Lemnota</span></h1><p className="brandTagline" lang="en">Worth noting.</p><p>选词表、看释义、记笔记，用红黄绿标记掌握程度。使用方法随时可以在「使用指南」里查看。</p><label className="welcomeUsername">怎么称呼你？<input aria-label="用户名" maxLength={30} placeholder="可选，写一个昵称" value={username} onChange={e=>{setUsername(e.target.value);studyStorage.setItem("lemnota-username",e.target.value);}}/><small>名字也会写进便笺的文件名，方便你找回。</small></label><div className="welcomeActions"><button className="primary" onClick={()=>setStarted(true)}>开始刷词</button></div><p className="welcomeFine">不用注册，记录自动留在这个浏览器。换设备时，带上一份学习便笺。</p><div className="welcomeSections"><section className="slipCard"><span className="slipIcon" aria-hidden="true">↗</span><div><h2>把进度装进一张便笺</h2><p>平时不用管保存。想留个备份，或换一台设备，就把记录带走。</p><button onClick={download}>导出我的便笺</button><button onClick={()=>file.current?.click()}>我有一张便笺</button><small>包含已保存的笔记和学习记录，请自己妥善保管。</small></div></section><details className="welcomeGuide"><summary>第一次来？看看怎么用</summary><Guide/></details></div><div className="welcomeThemes"><h2>选一套你喜欢的四色搭配</h2><p className="paletteLegend">从左到右：背景 · 卡片 · 主按钮 · 选中与高亮</p>{themes.map(([id,name,color])=><button key={id} aria-pressed={theme===id} onClick={()=>changeTheme(id)}><PaletteSwatch id={id}/>{name}</button>)}</div></section>:<SharedWordMemoryProvider key={generation}><Page/></SharedWordMemoryProvider>}
+ <PwaBridge/></>}
+ {about&&<div className="communityModal" role="dialog" aria-modal="true" aria-label="关于词笺"><section><button className="modalClose" onClick={()=>setAbout(false)} aria-label="关闭关于词笺">×</button><h2>词笺 · Lemnota</h2><About/></section></div>}{help&&<div className="communityModal" role="dialog" aria-modal="true" aria-labelledby="help-title"><section><button className="modalClose" aria-label="关闭帮助" onClick={()=>setHelp(false)}>×</button><h2 id="help-title">词笺使用指南</h2><Guide/><button className="primary" onClick={()=>{setHelp(false);setStarted(true);}}>开始学习</button></section></div>}
  </>;
 }

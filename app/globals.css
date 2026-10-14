@@ -1251,3 +1251,30 @@ nav button.active { color: white; background: var(--ink); box-shadow: 0 5px 14px
 @media(max-width:650px){.bbWordGrid{grid-template-columns:minmax(0,1fr);gap:6px;}.bbWord+.bbWord{border-top:0;padding-top:0;padding-left:24px;}.bbEntryHead{align-items:flex-start;}}
 
 .sharedWordMemory .memorySources {margin-top:4px;font-size:11px;color:#7b8290;line-height:1.6;}.memorySources summary {cursor:pointer;}.memorySources small {display:block;overflow-wrap:anywhere;}
+
+/* Keep controls within tablet portrait widths; rating actions get their own row. */
+@media (min-width:801px) and (max-width:1200px) {
+ .quickTable .quickRow {grid-template-columns:repeat(2,minmax(0,1fr));}
+ .quickTable .quickHeader {display:none;}
+ .quickTable .quickRow>*, .quickMeaningCell {min-width:0;overflow-wrap:anywhere;}
+ .quickTable .trafficLights {grid-column:1/-1;justify-content:flex-end;flex-wrap:wrap;}
+ .quickTable .trafficLights button {min-height:44px;}
+}
+@media (max-width:1200px) {
+ .trafficLights {max-width:100%;flex-wrap:wrap;}
+ .trafficLights button {min-height:44px;}
+}
+/* BB word pairs stay side by side, including narrow phones. */
+.bbQuick .bbWordGrid {grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}
+.bbQuick .bbWord {min-width:0;overflow-wrap:anywhere;}
+.bbQuick .bbPronounce {max-width:100%;overflow-wrap:anywhere;white-space:normal;}
+@media(max-width:650px){
+ .bbQuick .bbEntry {padding:10px;}
+ .bbQuick .bbWordGrid {gap:8px;}
+ .bbQuick .bbWord+.bbWord {padding-left:12px;border-top:0;padding-top:0;}
+ .bbQuick .bbPronounce {font-size:clamp(17px,5vw,24px);}
+ .bbQuick .bbArrow {left:0;top:6px;font-size:12px;}
+ .bbQuick .sharedWordMemory {padding:7px;min-width:0;}
+ .bbQuick .sharedWordMemory textarea {width:100%;min-width:0;box-sizing:border-box;}
+ .bbQuick .bbEntryHead button {min-height:44px;}
+}

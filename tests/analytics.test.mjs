@@ -20,3 +20,5 @@ test('a lost acknowledgement preserves batch IDs and cannot lose or duplicate la
 test('malformed, excessive and non-usage records never leave the queue',async()=>{const calls=[],h=collector(async(n,p)=>{calls.push(p);return {error:null};});try{
  h.api.setAnalyticsConsent(true);h.values.set('lemnota-usage-queue-v1',JSON.stringify([{id:crypto.randomUUID(),event:'note_save',module:'other',count:100000,created:Date.now()},{id:crypto.randomUUID(),event:'note_save',module:'other',count:1,created:Date.now(),email:'private@example.test'}]));await h.api.flushUsage();assert.equal(calls.length,0);
 }finally{h.dispose();}});
+
+test('old consent does not authorize the new required-analytics notice',async()=>{const calls=[],h=collector(async(n,p)=>{calls.push(p);return {error:null};});try{h.values.set('lemnota-usage-consent-v1','yes');assert.equal(h.api.analyticsConsent(),false);h.api.trackUsage('app_open');await h.api.flushUsage();assert.equal(calls.length,0);h.api.setAnalyticsConsent(true);assert.equal(h.api.analyticsConsent(),true);h.api.setAnalyticsConsent(false);assert.equal(h.api.analyticsConsent(),false);}finally{h.dispose();}});

@@ -1,7 +1,7 @@
 import {cloud} from './cloud';
 export type UsageEvent='app_open'|'study_start'|'word_review'|'note_save'|'practice_complete'|'slip_export'|'slip_import'|'module_open';
 export type UsageModule='all_words'|'a_plus'|'bb'|'glee'|'reading'|'cloze'|'math'|'mind_map'|'notebook'|'other';
-const CONSENT='lemnota-usage-consent-v1',DEVICE='lemnota-usage-device-v1',QUEUE='lemnota-usage-queue-v1';
+const CONSENT='lemnota-usage-consent-v2',DEVICE='lemnota-usage-device-v1',QUEUE='lemnota-usage-queue-v1';
 type Pending={id:string;event:UsageEvent;module:UsageModule;count:number;created:number;locked?:boolean};
 let timer:ReturnType<typeof setTimeout>|undefined,busy=false,attempts=0;
 export function analyticsConsent(){try{return localStorage.getItem(CONSENT)==='yes';}catch{return false;}}

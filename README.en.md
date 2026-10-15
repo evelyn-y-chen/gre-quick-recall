@@ -189,3 +189,11 @@ BASE_PATH=/gre-quick-recall/ npm run build
 `.github/workflows/pages.yml` builds, tests, and deploys `dist/` on a push to `main` or a manual run. The current workspace uses browser-local storage. Supabase provides account cloud storage; the configuration status is described above.
 
 Source information remains with vocabulary and dictionary material. See the [dictionary license](dictionary-data/LICENSE.txt) for ECDICT. Free sharing does not change third-party rights; this project does not grant a separate open-source license for third-party word lists.
+
+## Basic usage analytics
+
+Learning requires agreement to basic usage analytics; previous consent does not accept the revised notice. Records include dates, features, counts and technical identifiers, not note or backup contents. Aggregates support improvements and project, portfolio or research presentations; data is not sold or used for advertising or other commercial purposes. Withdrawal exits learning but preserves export and workspace-clearing controls. Each report clears records older than 90 days.
+
+Only the author's server-verified GitHub identity can open the dashboard. It shows real account totals, daily/monthly consenting visitors, review actions, note saves, completed practices, learning-note exports, trends, feature use and 7-day retention. Guest-to-account transitions and changing browsers can duplicate visitor counts. Review actions are reveal/rating interactions, not a count of unique words. There are no demonstration statistics.
+
+The personal edition can export a sharing-edition learning note from its library-and-records section. The new Lemnota icon is used for installation and browser icons. An existing home-screen shortcut may need to be added again to update its icon; keep a backup first.

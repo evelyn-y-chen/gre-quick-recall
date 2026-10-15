@@ -192,7 +192,7 @@ Source information remains with vocabulary and dictionary material. See the [dic
 
 ## Basic usage analytics
 
-Learning requires agreement to basic usage analytics; previous consent does not accept the revised notice. Records include dates, features, counts and technical identifiers, not note or backup contents. Aggregates support improvements and project, portfolio or research presentations; data is not sold or used for advertising or other commercial purposes. Withdrawal exits learning but preserves export and workspace-clearing controls. Each report clears records older than 90 days.
+Learning requires agreement to basic usage analytics; previous consent does not accept the revised notice. Records include dates, features, counts and technical identifiers, not note or backup contents. Aggregates support improvements and project, portfolio or research presentations; data is not sold or used for advertising or other commercial purposes. Withdrawal exits learning but preserves export and workspace-clearing controls. Usage records are retained long-term for project analysis.
 
 Only the author's server-verified GitHub identity can open the dashboard. It shows real account totals, daily/monthly consenting visitors, review actions, note saves, completed practices, learning-note exports, trends, feature use and 7-day retention. Guest-to-account transitions and changing browsers can duplicate visitor counts. Review actions are reveal/rating interactions, not a count of unique words. There are no demonstration statistics.
 

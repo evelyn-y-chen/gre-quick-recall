@@ -30,7 +30,7 @@ declare today date := (now() at time zone 'Asia/Shanghai')::date; actor text;
 begin
  if p_visitor is null or p_batch is null or p_count is null or p_count<1 or p_count>50 or p_event is null or p_module is null or p_event not in ('app_open','study_start','word_review','note_save','practice_complete','slip_export','slip_import','module_open') or p_module not in ('all_words','a_plus','bb','glee','reading','cloze','math','mind_map','notebook','other') then raise exception 'Invalid usage event' using errcode='22023';end if;
  actor:=case when auth.uid() is null then 'g:'||md5(p_visitor::text) else 'u:'||md5(auth.uid()::text) end;
- delete from public.usage_daily where day < today-90;
+ -- Usage history is retained for long-term project analysis.
  delete from public.usage_receipts where day < today-2;
  insert into public.usage_receipts values(p_batch,today) on conflict do nothing;
  if not found then return;end if;

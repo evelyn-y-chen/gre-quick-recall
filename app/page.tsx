@@ -3363,7 +3363,7 @@ export default function Home() {
                 <div>
                   <p className="eyebrow">QUICK VOCABULARY SCAN</p>
                   <h1>快速过词</h1>
-                  <p className="quickIntro">先看英文主动想一下，再点击揭晓释义。红黄绿是速刷自评，正式掌握仍以双阶段测试为准。</p>
+                  <p className="quickIntro">词表来源：青山学堂。先看英文回忆，再揭晓释义，用红黄绿记录本次掌握情况。</p>
                 </div>
                 <div className="libraryActions">
                   <button onClick={() => setQuickRevealed(filteredQuickWords.map((word) => word.id))}>显示当前释义</button>
@@ -3421,7 +3421,7 @@ export default function Home() {
                 <div>
                   <p className="eyebrow">QUICK EQUIVALENCE SCAN</p>
                   <h1>等价词速刷</h1>
-                  <p className="quickIntro">默认由等价词 1 提示；也可以指定等价词 2、共同含义或三向混合，集中巩固不同提取方向。</p>
+                  <p className="quickIntro">词表来源：青山学堂。默认由等价词 1 提示；也可以指定等价词 2、共同含义或三向混合，集中巩固不同提取方向。</p>
                 </div>
                 <div className="libraryActions">
                   <button onClick={() => setQuickEquivalentRevealStages(Object.fromEntries(filteredQuickEquivalentPairs.map((pair) => [pair.id, 2])))}>全部揭晓</button>

@@ -64,14 +64,14 @@ These are self-assessments for this review. You can change them at any time, and
 
 | Module | What you can do |
 | --- | --- |
-| 全能词速刷 — General vocabulary | Select Lists, search, shuffle or review in order, reveal meanings, and rate familiarity. Notes appear with definitions; sources remain below. Includes two-direction definition tests. |
-| 等价词速刷 — Equivalent pairs | Review word pairs, choose a prompt direction, and progressively reveal the other word and its meaning. |
+| 全能词速刷 — General vocabulary | Word lists from 青山学堂 (Qingshan Xuetang). Select Lists, search, shuffle or review in order, reveal meanings, and rate familiarity. Notes appear with definitions; sources remain below. Includes two-way meaning tests and scheduled reviews. |
+| 等价词速刷 — Equivalent pairs | Word lists from 青山学堂 (Qingshan Xuetang). Review word pairs, choose a prompt direction, and progressively reveal the other word and its meaning. |
 | A加GRE版等价词 — A+ GRE equivalents | A core word and its equivalents have individual cards. Toggle the PDF definition separately. Single-click to hear a word; double-click to highlight it as unfamiliar. **▸ 笔记** opens only that word's note; another control opens or closes all notes. |
 | BB六选二 — BB equivalents | Review the upper, middle, and lower volumes by List. Two words appear side by side; equivalents, definitions, and notes have separate controls. Repeats have links to every occurrence, and original memory methods remain for comparison. Includes definition and synonym tests. |
 | GLEE必备1500词 — GLEE vocabulary | Review GLEE vocabulary tables with existing memory methods. |
 | GLEE词汇导图 — GLEE word maps | Explore meanings and connections through maps, tables, and root/affix views, with editing for relevant content. |
 | 数学词汇 — Math vocabulary | Review terms by category and record familiarity. |
-| 填空高频3000词 — Text completion vocabulary | Search, reveal, and rate the LCLJ text completion list by range. |
+| 填空高频3000词 — Text completion vocabulary | Compiled from online resources. Search, reveal, and rate words by range. |
 | 阅读核心300词 — Reading vocabulary | Groups of 50 words; subject categories remain in source information, with general/contextual meanings and related answer choices from the material. No memory-note box in this module. |
 | 数学词汇索引 — Math vocabulary index | Review mathematical terms from the source index and record familiarity. |
 | 生词本 — Vocabulary notebook | Collect words by reading, practice, or lesson source; combine meanings from different lists, add your own content, and review the collection. |
@@ -96,8 +96,10 @@ Default memory methods were deduplicated and shortened for review; they are not 
 
 ### Study videos and note sources
 
-- **Study alongside a video:** some public guided memorization or practice videos for A+, GLEE 1500, and BB equivalents are available on related websites or Bilibili. Search by the course or word-list name, with terms such as “带背” or “带练”.
-- **Video-based notes:** most default notes were compiled by the creator from public videos related to GLEE, A+, and BB, to support review and your own annotations.
+- **Study alongside a video:** some public guided memorization or practice videos for A+ and GLEE 1500 are available on related websites or Bilibili. Search by the course or word-list name, with terms such as “带背” or “带练”.
+- **Video-based notes:** most default notes were compiled from public A+, GLEE and other teaching videos, then deduplicated and shortened for review and your own annotations.
+- **BB memory methods:** these come from the three original PDF volumes, not video notes.
+- **Other word lists:** General vocabulary and Equivalent pairs use lists from 青山学堂 (Qingshan Xuetang). Cloze high-frequency 3000 was compiled from online resources.
 - **AI-organized notes:** GLEE default notes from **List 22 onward, including List 22**, were organized using AI. The teacher's videos had not yet covered those lists when the notes were compiled, so this part is not based on corresponding video explanations.
 
 Where memory notes are supported, the same word uses one personal note across modules. Edit it wherever you encounter it; after saving, the update appears elsewhere too. Edit several words, then use **保存全部笔记 / 保存全部记忆方法** (Save all notes / memory methods) to save together.
@@ -112,6 +114,15 @@ General vocabulary, A+, and BB have test buttons near the top. Choose a List ran
 
 Choose **不确定** (Not sure) whenever you do not know. Feedback shows option meanings, correct answers, and memory notes in place. A first fully correct attempt completes the word. After an error, it returns after five intervening questions and needs two consecutive fully correct attempts; another error resets the streak. With fewer questions remaining, it returns sooner. Save and return, then continue the previous test later.
 
+### Scheduled reviews for two-way tests
+
+General vocabulary, A+ and BB each keep an independent long-term schedule for their two-way tests. Test settings show words due today, enrolled and overdue counts, and the next date. Select **查看到期词** to inspect due words.
+
+- Select **开始到期复习** (Start due review) to practice all due words in that module, regardless of the new-word List range. The current order, prompt direction and question type apply. Starting replaces the current round but preserves the long-term schedule.
+- Correct reviews use intervals of **1, 2, 4, 7, 15 and 30 days**, followed by every 30 days. Repeated correct answers on the same day do not advance the interval.
+- A wrong answer or **不确定** (Not sure) restarts the word for the next day. Correct retries that day do not remove its next-day review.
+- Previously tested words without a known date are due today. The three module schedules remain separate from each other and from the original full A+ test schedule.
+
 ### A+ two-step equivalents and spaced review
 
 The original full A+ test is under **速刷与笔记 / 开始测试** (Review & notes / Start test):
@@ -123,7 +134,7 @@ The original full A+ test is under **速刷与笔记 / 开始测试** (Review & 
 
 Distractors come from the full list and are filtered using known synonym relationships and exclusion rules. Automatically generated practice may still contain debatable semantic distinctions; please report the core word and options if you find one.
 
-Long-term A+ review uses progressively longer intervals of **1, 2, 4, 7, 15, and 30 days**. An error resets the word's schedule and brings it back the next day. This schedule belongs to the original A+ test; other two-direction tests currently offer within-session error review only.
+The full A+ test keeps its original schedule with intervals of **1, 2, 4, 7, 15 and 30 days**. An error resets the word for the next day. This schedule is stored separately from the General vocabulary, A+ and BB two-way test schedules.
 
 ## Keyboard shortcuts
 

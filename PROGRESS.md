@@ -54,8 +54,19 @@ GitHub sign-in is enabled in Supabase. Account workspace synchronization, offlin
 ### 2026-10-15 使用指南与资料来源说明
 
 - 使用指南按开始使用、词库与资料、复习测试、保存设置及反馈隐私组织，提供中英文操作说明。
-- 补充 A+、GLEE必备1500词、BB六选二的公开视频学习提示，可按课程或词表名称自行搜索带背／带练视频。
+- 补充 A+ 与 GLEE必备1500词的公开视频学习提示，可按课程或词表名称自行搜索；BB六选二的记法来自上、中、下三份 PDF 原资料，不归为视频笔记。
 - 明确默认笔记主要根据公开视频整理、去重与简化；GLEE 从 List 22（含）起的后续笔记由 AI 整理，原因是整理时老师的视频尚未覆盖该部分。
 - 登录供应商的实际开放状态不因文案更新而改变。
 
 本轮指南验证：中英文界面切换及来源段落已在浏览器核对，TypeScript 检查与生产构建通过。仅更新说明文案与组织结构，未更改学习记录、笔记或登录开放状态。
+
+### 2026-10-15 来源订正与双向测试复习计划
+
+- 全能词速刷、等价词速刷明确标注青山学堂来源；此来源不指 A+。填空高频3000词的面向用户说明统一为「网络资源整理」。
+- 公开视频提示仅指 A+ 与 GLEE；BB六选二记忆方法来自三份 PDF。GLEE 从 List 22（含）起的 AI 整理说明保留。
+- 全能词、A+、BB 双向测试的说明已加入独立到期计划：1、2、4、7、15、30 天，之后每 30 天；错／不确定次日重启，同日重复正确不升级，旧已测词日期未知时今天到期。原 A+ 完整测试计划独立保留。
+- 以上复习计划正在实现与验证，发布状态及实际验证结果以本轮后续记录为准。
+
+Source corrections: General vocabulary and Equivalent pairs come from 青山学堂 (Qingshan Xuetang); Cloze high-frequency 3000 is described as compiled from online resources. Video study references apply to A+ and GLEE, not BB. BB memory methods come from the original three PDF volumes. GLEE notes from List 22 onward retain their AI-organized designation. Independent two-way-test review schedules for General vocabulary, A+ and BB are implemented. Model and component tests verify next-day resets, same-day limits, legacy migration and workspace isolation. The existing full A+ test keeps its separate schedule.
+
+本轮验证完成：51 项自动测试通过，TypeScript 检查及生产构建通过。浏览器核对 390px 手机与 768px 平板的到期入口、BB 释义未答对直接解析、错误重置次日、全能词正确后推进间隔及关闭重开保存；原答题页底部操作区仍留在视窗内。新增到期列表长英文词沿用不换行、按可用宽度缩字号的规则。

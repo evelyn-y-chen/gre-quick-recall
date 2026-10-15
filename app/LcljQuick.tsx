@@ -12,7 +12,7 @@ type Rating = "unknown" | "fuzzy" | "familiar";
 type Filter = Rating | "unrated";
 type Entry = { id: string; word: string; meaning: string; list?: number; category?: string; context?: string; equivalent?: string; passage?: string; sourceRow?: number; page?: number };
 const decks: Record<LcljDeck, { title: string; entries: Entry[]; intro: string }> = {
-  "lclj-fill": { title: "填空高频3000词", entries: fillData, intro: "原表共 3,072 条，按原顺序每 50 条分为一组，共 62 个 List。" },
+  "lclj-fill": { title: "填空高频3000词", entries: fillData, intro: "根据网络资源整理，共 3,072 条。按原顺序每 50 条分为一组，共 62 个 List。" },
   "lclj-reading": { title: "阅读核心300词", entries: readingData.map((entry, index) => ({ ...entry, list: Math.floor(index / 50) + 1 })), intro: "原表共 318 条，按原顺序每 50 条分为一组，共 7 个 List，最后一组 18 条。" },
   "lclj-math": { title: "数学词汇索引", entries: mathData, intro: "来自《GRE数学词汇索引》，共 291 条，包含数学术语、公式换算和常用句型。" },
 };
@@ -142,7 +142,7 @@ export default function LcljQuick({ deck, ratings, onRate, pronounce }: {
   });
 
   return <div className="lcljQuick" tabIndex={-1}>
-    <div className="libraryHead"><div><p className="eyebrow">LCLJ QUICK RECALL</p><h1>{title}</h1><p className="quickIntro">{intro}</p></div>
+    <div className="libraryHead"><div><p className="eyebrow">VOCABULARY QUICK RECALL</p><h1>{title}</h1><p className="quickIntro">{intro}</p></div>
       <div className="libraryActions"><button onClick={() => setRevealed(visible.map((entry) => entry.id))}>显示当前释义</button><button className="solid" onClick={() => setRevealed([])}>隐藏全部释义</button></div>
     </div>
     <div className="quickStats" aria-label={`${title}掌握程度统计`}>

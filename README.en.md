@@ -92,7 +92,13 @@ Save notebook edits with **保存到当前工作区** (Save to current workspace
 
 ## One word, one personal memory note
 
-Default memory methods come from edited GLEE, A+, and BB material, including deduplication and shortening. They are not verbatim course transcripts. Private edits saved on the author's personal website have not been imported as public defaults.
+Default memory methods were deduplicated and shortened for review; they are not verbatim transcripts. Private edits saved on the creator's personal website have not been imported as public defaults.
+
+### Study videos and note sources
+
+- **Study alongside a video:** some public guided memorization or practice videos for A+, GLEE 1500, and BB equivalents are available on related websites or Bilibili. Search by the course or word-list name, with terms such as “带背” or “带练”.
+- **Video-based notes:** most default notes were compiled by the creator from public videos related to GLEE, A+, and BB, to support review and your own annotations.
+- **AI-organized notes:** GLEE default notes from **List 22 onward, including List 22**, were organized using AI. The teacher's videos had not yet covered those lists when the notes were compiled, so this part is not based on corresponding video explanations.
 
 Where memory notes are supported, the same word uses one personal note across modules. Edit it wherever you encounter it; after saving, the update appears elsewhere too. Edit several words, then use **保存全部笔记 / 保存全部记忆方法** (Save all notes / memory methods) to save together.
 

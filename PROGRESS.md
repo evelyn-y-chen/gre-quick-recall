@@ -12,6 +12,7 @@
 | 账号学习空间 | 同步逻辑已实现，游客与账号分别保存 |
 | 断网与版本冲突 | 本机副本、版本检查和冲突备份已实现，并通过本地测试 |
 | 便笺导入导出 | 可用，保留作为额外备份与游客换设备的方式 |
+| 反馈与作者回复 | 游客提交公开建议；登录可选公开／私人，默认私人；作者从统计后台回复，旧反馈保持私人 |
 | 真实跨设备保存验证 | 待完成；不能仅凭启用登录按钮视为通过 |
 | Google 登录 | 入口代码保留，后台未启用；按作者安排暂缓 |
 | 邮箱注册、邮件链接 | 暂未开放，无需继续配置 Gmail 应用专用密码 |
@@ -29,14 +30,23 @@
 
 ## Status in English
 
-GitHub sign-in is enabled in Supabase. Account workspace synchronization, offline caches, and conflict backups are implemented and locally tested. Actual cross-device saving still needs verification. Google setup is on hold; email registration remains unavailable. The personal website keeps its existing cloud-save behavior.
+GitHub sign-in is enabled in Supabase. Account workspace synchronization, offline caches, and conflict backups are implemented and locally tested. Actual cross-device saving still needs verification. Google setup is on hold; email registration remains unavailable. The personal website keeps its existing cloud-save behavior. Guest feedback is public; signed-in users can choose public or private feedback, with private selected by default. Everyone can read public suggestions and replies. Private messages remain between their submitting account and the author, and older messages stay private.
 
 本次更新：中文释义放大、操作提示增强、新便笺 App 图标；使用统计与管理员汇总后台已接入，进入学习前明确同意，统计长期保留；个人版增加分享版兼容便笺导出。Google 登录仍暂缓，账号跨设备保存验证仍待完成。
 
-本次更新：统计新增「全部」及所选范围汇总；新增账号私密反馈和作者回复。数据库事务验证通过：用户隔离、管理员权限、重复提交幂等、回复回读及全部范围查询。首页提供账号同步与便笺模式两种入口；使用指南中英文完整覆盖各模块、生词本与红绿灯自测。真实跨设备人工验证仍待完成。
+前轮更新：统计新增「全部」及所选范围汇总；新增账号私密反馈和作者回复。数据库事务验证通过：用户隔离、管理员权限、重复提交幂等、回复回读及全部范围查询。首页提供账号同步与便笺模式两种入口；使用指南中英文完整覆盖各模块、生词本与红绿灯自测。真实跨设备人工验证仍待完成。
 
 两步等价词测试新增释义错误短路：A+ 完整测试、A+/BB 双向测试均跳过第二步，直接解析；不产生未作答的漏选记录，连续正确与长期复习逻辑仍保留。
 
 新增「我的进步」：词数去重，优先展示自测熟悉词，按练习量排列前三板块；保存完成测试轮次。测试改为适配视窗的专注布局，长解析、笔记单独滚动。
 
 验证更新：30 项自动测试通过，覆盖释义错误跳步、返场连续正确、个人进步去重/排序/空间隔离、账号离线冲突等；反馈数据库权限与回读使用事务测试验证并已回滚测试数据。完整需求核对见 REQUIREMENTS_REVIEW.md。
+
+2026-10-15 反馈范围更新：未登录可以直接提交公开建议；登录后可选公开或私人，默认私人。公开内容与作者回复所有人可见，页面不展示账号身份；私人内容与回复仅本人和作者可见。已有反馈保持私人，不自动转为公开。中英文指南与 README 同步说明；回复仍在应用内查看，不发送邮件通知。
+
+### 本轮验证：公开／私人反馈与 A+ 统一词卡
+
+- 游客直接提交公开建议；登录用户默认私人，可主动选择公开；作者回复沿用原反馈可见范围。旧接口及旧反馈保持私人。
+- 33 项自动测试、TypeScript 检查与 GitHub Pages 路径生产构建通过。数据库回归包含真实匿名角色提交、账号隔离、公开／私人回复、权限和幂等重试；测试数据均已回滚。
+- 反馈窗口检查了 390px 手机宽度，无横向溢出；A+ 卡片在手机、平板和电脑使用一致宽度，单词不换行。
+- 安全扫描提示反馈表为 RPC-only（已撤销直接访问），新 RPC 的匿名／登录执行权限为本功能所需，已核查函数内权限。既有项目的其他安全提示未在本轮调整。

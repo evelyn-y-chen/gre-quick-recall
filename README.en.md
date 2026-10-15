@@ -165,7 +165,13 @@ Use the website on computers, phones, or iPads. Supported browsers can **Add to 
 
 ## Suggestions and future work
 
-Ideas and bugs are welcome in [GitHub Issues](https://github.com/evelyn-y-chen/gre-quick-recall/issues). Include device, orientation, and module for layout issues, or word and source for vocabulary issues. Please do not attach an entire private learning note to a public issue.
+Open **Feedback** in the header or **Share feedback** on the home page:
+
+- **Guests:** suggestions are public, and everyone can read them and the author’s replies.
+- **Signed-in users:** choose Public or Private; Private is the default. Private messages and replies are visible only to their submitting account and the author, including on another device signed into the same account.
+- Public feedback does not display the submitter’s account identity. Existing messages remain private and are not published automatically.
+
+The author replies from **Statistics → User feedback**. Return to Feedback and refresh to check replies; no notification emails are sent. Check visibility before submitting and avoid passwords, contact details or other sensitive information. Include device, orientation, and module for layout issues, or word and source for vocabulary issues. Please do not attach an entire private learning note. Ideas and bugs are also welcome in [GitHub Issues](https://github.com/evelyn-y-chen/gre-quick-recall/issues).
 
 Plans include clearer list progress, continued phone/tablet improvements, and import previews with selective merging. GitHub is enabled; real cross-device saving remains to be verified. Google setup is on hold.
 
@@ -203,7 +209,7 @@ The personal edition can export a sharing-edition learning note from its library
 
 Choose GitHub sign-in (the first sign-in creates your Lemnota account) for account sync, or use directly without registering and export/import learning-note files. The in-app guide has Chinese and English instructions for all modules, notebook collection and review, traffic-light self-checks, notes, tests, scheduled reviews, shortcuts, backups, themes and feedback.
 
-Signed-in users can submit private feedback through the header and check replies there. The author replies from Statistics → User feedback. No notification emails are sent. Analytics supports 7, 30, 90 days and All time, with active visitors, review actions and new accounts for the selected range.
+Feedback is available to guests and account users. Guest submissions are public; signed-in users can choose Public or Private, defaulting to Private. Everyone can read public suggestions and replies; private feedback stays between its submitting account and the author. Existing messages remain private. The author replies from Statistics → User feedback, and users refresh Feedback to check; no notification emails are sent. Analytics supports 7, 30, 90 days and All time, with active visitors, review actions and new accounts for the selected range.
 
 In two-step equivalent-word tests (A+ and BB), an incorrect or uncertain meaning now goes directly to feedback with the correct meaning, equivalents and notes. Synonym selection is skipped; unattempted synonyms are not counted as missed. Retry and mastery rules remain in effect.
 

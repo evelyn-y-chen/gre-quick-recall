@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import ts from 'typescript';
+const model={};
+const code=ts.transpileModule(fs.readFileSync('app/aPlusTestModel.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
+new Function('exports','require',code)(model,path=>({default:JSON.parse(fs.readFileSync('app/'+path.replace('./',''),'utf8'))}));
+const initial=()=>model.createSession({lists:[1],order:'sequential',mode:'single'},()=>.4,[model.entries[0].id]);
+test('A+ wrong or uncertain meaning skips synonyms without inventing missed answers',()=>{for(const uncertain of [false,true]){const s=initial(),id=s.question.entryId,e=model.byId.get(id),choice=uncertain?'不确定':s.question.meanings.find(m=>m!==e.meaning);const next=model.chooseMeaning(s,choice);assert.equal(next.stage,'feedback');assert.equal(next.synonymSkipped,true);assert.equal(next.progress[id].meaningErrors,1);assert.equal(next.progress[id].correct,0);assert.equal(next.progress[id].attempts,1);assert.equal(next.progress[id].due,next.turn+5);assert.deepEqual(next.progress[id].missed,{});assert.deepEqual(next.progress[id].extra,{});assert.equal(model.gradeQuestion(next,[]),next);assert.ok(model.validSession(JSON.parse(JSON.stringify(next))));}});
+test('after a meaning error, two fully correct retries are still required; another error resets the streak',()=>{let s=model.chooseMeaning(initial(),'不确定'),id=s.question.entryId;const right=()=>{s=model.advanceSession(s,()=>.4);s=model.chooseMeaning(s,model.byId.get(id).meaning);assert.equal(s.stage,'synonyms');s=model.gradeQuestion(s,s.question.options.filter(o=>o.correct).map(o=>o.word));};right();assert.equal(s.progress[id].correct,1);assert.equal(s.progress[id].done,false);s=model.advanceSession(s,()=>.4);s=model.chooseMeaning(s,'不确定');assert.equal(s.progress[id].correct,0);right();assert.equal(s.progress[id].done,false);right();assert.equal(s.progress[id].done,true);});
+test('resuming an old wrong-meaning second step goes directly to feedback once',()=>{const old=initial();old.stage='synonyms';old.meaningChoice='不确定';const next=model.refreshAmbiguousQuestion(old);assert.equal(next.stage,'feedback');assert.equal(next.progress[next.question.entryId].attempts,1);assert.equal(model.refreshAmbiguousQuestion(next),next);});

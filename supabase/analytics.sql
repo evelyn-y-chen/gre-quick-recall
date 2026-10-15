@@ -46,7 +46,8 @@ language plpgsql security definer set search_path='' as $$
 declare today date := (now() at time zone 'Asia/Shanghai')::date; span integer; result jsonb;
 begin
  if not public.is_analytics_admin() then raise exception 'Administrator access required' using errcode='42501';end if;
- span:=coalesce(p_days,7);if span not in(7,30,90) then raise exception 'Invalid date range' using errcode='22023';end if;
+ span:=coalesce(p_days,7);if span not in(0,7,30,90) then raise exception 'Invalid date range' using errcode='22023';end if;
+ if span=0 then select greatest(1,today-least(coalesce((select min(day) from public.usage_daily),today),coalesce((select min((created_at at time zone 'Asia/Shanghai')::date) from auth.users),today))+1) into span;end if;
  with daily as (
  select d::date as day,
  (select count(distinct actor_key) from public.usage_daily where day=d::date) as active,
@@ -60,6 +61,9 @@ begin
  'updated_at',now(),'days',span,
  'summary',jsonb_build_object(
  'registered_total',(select count(*) from auth.users),
+ 'active_range',(select count(distinct actor_key) from public.usage_daily where day between today-(span-1) and today),
+ 'reviews_range',(select coalesce(sum(count),0) from public.usage_daily where day between today-(span-1) and today and event_type='word_review'),
+ 'registrations_range',(select count(*) from auth.users where (created_at at time zone 'Asia/Shanghai')::date between today-(span-1) and today),
  'active_today',(select count(distinct actor_key) from public.usage_daily where day=today),
  'active_month',(select count(distinct actor_key) from public.usage_daily where day>=date_trunc('month',today)::date),
  'reviews_today',(select coalesce(sum(count),0) from public.usage_daily where day=today and event_type='word_review'),

@@ -197,3 +197,16 @@ Learning requires agreement to basic usage analytics; previous consent does not 
 Only the author's server-verified GitHub identity can open the dashboard. It shows real account totals, daily/monthly consenting visitors, review actions, note saves, completed practices, learning-note exports, trends, feature use and 7-day retention. Guest-to-account transitions and changing browsers can duplicate visitor counts. Review actions are reveal/rating interactions, not a count of unique words. There are no demonstration statistics.
 
 The personal edition can export a sharing-edition learning note from its library-and-records section. The new Lemnota icon is used for installation and browser icons. An existing home-screen shortcut may need to be added again to update its icon; keep a backup first.
+
+
+## Account or learning-note mode
+
+Choose GitHub sign-in (the first sign-in creates your Lemnota account) for account sync, or use directly without registering and export/import learning-note files. The in-app guide has Chinese and English instructions for all modules, notebook collection and review, traffic-light self-checks, notes, tests, scheduled reviews, shortcuts, backups, themes and feedback.
+
+Signed-in users can submit private feedback through the header and check replies there. The author replies from Statistics → User feedback. No notification emails are sent. Analytics supports 7, 30, 90 days and All time, with active visitors, review actions and new accounts for the selected range.
+
+In two-step equivalent-word tests (A+ and BB), an incorrect or uncertain meaning now goes directly to feedback with the correct meaning, equivalents and notes. Synonym selection is skipped; unattempted synonyms are not counted as missed. Retry and mastery rules remain in effect.
+
+My progress shows practiced words, self-rated familiar words, completed rounds and traffic-light progress bars for the three modules with the most recorded practice. Words are deduplicated; conflicting ratings use the less-familiar state. Completion history starts with this version, supplemented by identifiable saved older rounds. Records travel with the account or learning-note file.
+
+Focused test panels keep Submit/Next visible on phones, tablets and computers. Long explanations and notes scroll inside their own areas at readable font sizes.

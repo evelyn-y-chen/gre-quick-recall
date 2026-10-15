@@ -1,6 +1,6 @@
 # 词笺 · Lemnota 项目进度
 
-更新日期：2026-10-14
+更新日期：2026-10-15
 
 分享网址：https://evelyn-y-chen.github.io/gre-quick-recall/
 
@@ -31,4 +31,12 @@
 
 GitHub sign-in is enabled in Supabase. Account workspace synchronization, offline caches, and conflict backups are implemented and locally tested. Actual cross-device saving still needs verification. Google setup is on hold; email registration remains unavailable. The personal website keeps its existing cloud-save behavior.
 
-本次更新：中文释义放大、操作提示增强、新便笺 App 图标；匿名使用统计与管理员汇总后台已接入（默认关闭）；个人版增加分享版兼容便笺导出。Google 登录仍暂缓，账号跨设备保存验证仍待完成。
+本次更新：中文释义放大、操作提示增强、新便笺 App 图标；使用统计与管理员汇总后台已接入，进入学习前明确同意，统计长期保留；个人版增加分享版兼容便笺导出。Google 登录仍暂缓，账号跨设备保存验证仍待完成。
+
+本次更新：统计新增「全部」及所选范围汇总；新增账号私密反馈和作者回复。数据库事务验证通过：用户隔离、管理员权限、重复提交幂等、回复回读及全部范围查询。首页提供账号同步与便笺模式两种入口；使用指南中英文完整覆盖各模块、生词本与红绿灯自测。真实跨设备人工验证仍待完成。
+
+两步等价词测试新增释义错误短路：A+ 完整测试、A+/BB 双向测试均跳过第二步，直接解析；不产生未作答的漏选记录，连续正确与长期复习逻辑仍保留。
+
+新增「我的进步」：词数去重，优先展示自测熟悉词，按练习量排列前三板块；保存完成测试轮次。测试改为适配视窗的专注布局，长解析、笔记单独滚动。
+
+验证更新：30 项自动测试通过，覆盖释义错误跳步、返场连续正确、个人进步去重/排序/空间隔离、账号离线冲突等；反馈数据库权限与回读使用事务测试验证并已回滚测试数据。完整需求核对见 REQUIREMENTS_REVIEW.md。

@@ -6,7 +6,7 @@ export type Config = {lists:number[];order:"sequential"|"random";mode:TestMode};
 export type Option = {word:string;meaning:string;correct:boolean};
 export type Question = {id:string;entryId:string;meanings:string[];options:Option[];early:boolean};
 export type Progress = {attempts:number;correct:number;hadError:boolean;done:boolean;due:number;meaningErrors:number;missed:Record<string,number>;extra:Record<string,number>;retryWords?:string[]};
-export type Session = {version:1;id:string;config:Config;order:string[];turn:number;progress:Record<string,Progress>;question:Question|null;stage:"meaning"|"synonyms"|"feedback"|"complete";meaningChoice:string|null;synonymUncertain?:boolean;selected:string[]};
+export type Session = {version:1;id:string;config:Config;order:string[];turn:number;progress:Record<string,Progress>;question:Question|null;stage:"meaning"|"synonyms"|"feedback"|"complete";meaningChoice:string|null;synonymUncertain?:boolean;synonymSkipped?:boolean;selected:string[]};
 export const entries:Entry[]=data;
 export const byId = new Map(entries.map(e=>[e.id,e]));
 const key=(s:string)=>s.trim().replace(/\s+/g," ").toLowerCase();
@@ -69,11 +69,14 @@ export function createSession(config:Config,random:()=>number=Math.random,onlyId
  const order=(config.order==="random"?shuffle(scope,random):scope).map(e=>e.id);
  if(!order.length)throw Error("请至少选择一个 List");
  const progress=Object.fromEntries(order.map(id=>[id,{attempts:0,correct:0,hadError:false,done:false,due:0,meaningErrors:0,missed:{},extra:{}}]));
- return {version:1,id:crypto.randomUUID(),config,order,turn:0,progress,question:makeQuestion(order[0],config.mode,false,random),stage:"meaning",meaningChoice:null,synonymUncertain:false,selected:[]};
+ return {version:1,id:crypto.randomUUID(),config,order,turn:0,progress,question:makeQuestion(order[0],config.mode,false,random),stage:"meaning",meaningChoice:null,synonymUncertain:false,synonymSkipped:false,selected:[]};
 }
 export function chooseMeaning(s:Session,choice:string):Session {
  if(s.stage!=="meaning"||!s.question||(choice!=="不确定"&&!s.question.meanings.includes(choice)))return s;
- return {...s,meaningChoice:choice,stage:"synonyms"};
+ const e=byId.get(s.question.entryId)!;
+ if(choice===e.meaning)return {...s,meaningChoice:choice,stage:"synonyms",synonymSkipped:false};
+ const p=s.progress[e.id],turn=s.turn+1;
+ return {...s,meaningChoice:choice,stage:"feedback",synonymSkipped:true,synonymUncertain:false,selected:[],turn,progress:{...s.progress,[e.id]:{...p,attempts:p.attempts+1,correct:0,hadError:true,done:false,due:turn+5,meaningErrors:p.meaningErrors+1}}};
 }
 export function gradeQuestion(s:Session,selected:string[],uncertain=false):Session {
  if(s.stage!=="synonyms"||!s.question)return s;
@@ -109,6 +112,7 @@ export function validSession(value:unknown):value is Session {
  if(!Array.isArray(s.order)||!s.order.length||s.order.length>800||new Set(s.order).size!==s.order.length||!s.order.every(id=>byId.has(id))||!integer(s.turn)||!s.progress||typeof s.progress!=="object")return false;
  if(!s.order.every(id=>{const p=s.progress[id];return p&&integer(p.attempts)&&integer(p.correct)&&integer(p.due)&&integer(p.meaningErrors)&&typeof p.done==="boolean"&&typeof p.hadError==="boolean"&&counts(p.missed)&&counts(p.extra)&&(p.retryWords===undefined||Array.isArray(p.retryWords)&&p.retryWords.length<=6&&p.retryWords.every(w=>typeof w==="string"&&w.length<=300));}))return false;
  if(!["meaning","synonyms","feedback","complete"].includes(s.stage)||!(s.meaningChoice===null||typeof s.meaningChoice==="string"&&s.meaningChoice.length<4000)||!Array.isArray(s.selected)||s.selected.length>6||!s.selected.every(w=>typeof w==="string"&&w.length<=300))return false;
+ if(s.synonymSkipped!==undefined&&typeof s.synonymSkipped!=="boolean")return false;
  if(s.synonymUncertain!==undefined&&typeof s.synonymUncertain!=="boolean")return false;
  if(s.stage==="complete")return s.question===null;
  const q=s.question;
@@ -116,6 +120,7 @@ export function validSession(value:unknown):value is Session {
 }
 
 export function refreshAmbiguousQuestion(session:Session):Session{
+ if(session.stage==="synonyms"&&session.question&&session.meaningChoice!==byId.get(session.question.entryId)!.meaning)return chooseMeaning({...session,stage:"meaning"},session.meaningChoice??"不确定");
  if(!session.question||!["meaning","synonyms"].includes(session.stage))return session;
  const safe=new Set(distractorGroups(session.question.entryId));
  if(!session.question.options.some(option=>!option.correct&&(groups.get(option.word)??[]).some(group=>!safe.has(group))))return session;

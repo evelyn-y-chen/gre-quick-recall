@@ -196,3 +196,107 @@ main .shuffleControls button.active{background:var(--community-highlight)!import
 .communityBar .themeMenu>div button{width:100%;white-space:normal}
 .consentCard{background:var(--community-surface);color:var(--community-text);border-color:var(--community-line);box-sizing:border-box}
 .consentCard button{font:inherit;border:1px solid var(--community-line);border-radius:10px;padding:10px 14px;background:var(--community-surface);color:var(--community-text);cursor:pointer}
+
+.feedbackPanel{max-width:800px}.feedbackPanel textarea{box-sizing:border-box;width:100%;font:inherit;line-height:1.6;padding:12px;border:1px solid var(--community-line);border-radius:10px;background:var(--community-surface);color:var(--community-text);resize:vertical}.feedbackPanel label{display:block}.feedbackItem{border:1px solid var(--community-line);padding:18px;border-radius:14px;margin:16px 0}.feedbackItem p{white-space:pre-wrap;overflow-wrap:anywhere}.feedbackReply{border-left:3px solid var(--community-accent);padding-left:14px}.feedbackNavigation{display:flex;flex-wrap:wrap;align-items:center;gap:10px}.analyticsChart{overflow-x:auto}.analyticsChart>div{min-width:32px;flex-shrink:0}
+
+.welcomeModeChoice{margin:28px 0;padding:22px;border:1px solid var(--community-line);border-radius:16px;background:var(--community-surface)}.welcomeModeChoice h2{font-size:20px;margin:0}.welcomeModeChoice p{line-height:1.7}.welcomeModeChoice small{display:block;margin-top:14px;color:var(--community-muted);line-height:1.7}.guideSection{border-bottom:1px solid var(--community-line);padding:14px 0}.guideSection>summary{cursor:pointer;font-size:16px;font-weight:600;line-height:1.6}.guideSection p{line-height:1.85}.analyticsControls{flex-wrap:wrap}
+
+/* Focused tests: keep question and action controls inside the viewport. */
+.aPlusFocusTest{position:fixed;inset:0;z-index:900;box-sizing:border-box;max-width:none!important;margin:0!important;padding:clamp(10px,2vw,22px);height:100dvh;display:flex;flex-direction:column;gap:8px;overflow:hidden;background:var(--community-bg);color:var(--community-text)}
+.aPlusFocusTest>.libraryHead,.aPlusFocusTest>.aPlusTestErrors{display:none}
+.aPlusFocusTest>.aPlusTestSync{margin:0;font-size:12px;max-height:36px;overflow:auto;flex-shrink:0}
+.aPlusFocusTest>.aPlusTestProgress{margin:0;gap:8px;font-size:14px;flex-shrink:0}
+.aPlusFocusTest>.aPlusTestProgress button{margin-left:auto;min-height:40px;padding:7px 12px}
+.aPlusFocusTest>progress{height:4px;flex-shrink:0;margin:0}
+.aPlusFocusTest>.aPlusQuestionAnchor{flex:1;min-height:0;display:flex}
+.aPlusFocusTest .aPlusQuestion{width:100%;min-height:0;box-sizing:border-box;margin:0;display:flex;flex-direction:column;padding:clamp(12px,2vw,24px);background:var(--community-surface);color:var(--community-text);box-shadow:none}
+.aPlusFocusTest .aPlusQuestionTop{font-size:12px;flex-shrink:0}
+.aPlusFocusTest .aPlusQuestionHeading{margin:6px 0 12px;flex-wrap:nowrap;flex-shrink:0;gap:10px}
+.aPlusFocusTest .aPlusQuestionHeading h2{font-size:clamp(26px,4vw,40px);max-width:70%}
+.aPlusFocusTest .aPlusStepTrack{font-size:12px}
+.aPlusQuestionBody{min-height:0}
+.aPlusFocusTest .aPlusQuestionBody{flex:1;display:grid;grid-template-columns:minmax(0,1fr);gap:14px;overflow:hidden}
+.aPlusFocusTest .aPlusQuestionBody.hasFeedback{grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr)}
+.aPlusFocusTest .aPlusAnswerContent,.aPlusFocusTest .aPlusMemoryPanel{min-height:0;overflow:auto;overscroll-behavior:contain;padding:2px 4px 6px}
+.aPlusFocusTest .aPlusMemoryPanel{border-left:1px solid var(--community-line);padding-left:16px}
+.aPlusFocusTest .aPlusMeaningChoices{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.aPlusFocusTest .aPlusInlineChoices{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.aPlusFocusTest .aPlusMeaningChoices button{font-size:17px;min-height:60px}
+.aPlusFocusTest .aPlusChoiceLabel{padding:12px!important;font-size:18px;min-height:50px}
+.aPlusFocusTest .aPlusQuestionActions{position:static;flex-shrink:0;margin-top:10px;padding-top:10px;background:var(--community-surface);color:var(--community-text)}
+.aPlusFocusTest .aPlusChoiceGloss{font-size:15px}
+.aPlusFocusTest .aPlusTestHint,.aPlusFocusTest .aPlusUncertainHint{font-size:12px;margin:6px 0}
+.aPlusFocusTest .aPlusMemoryPanel .sharedWordMemory{margin:0}
+.practiceFocus{overflow:hidden;display:flex;align-items:stretch;padding:clamp(8px,2vw,20px);height:100dvh;box-sizing:border-box}
+.practiceFocus .practicePanel{box-sizing:border-box;display:flex;flex-direction:column;min-height:0;width:100%;max-width:1200px;margin:0 auto;padding:clamp(12px,2vw,24px);overflow:hidden}
+.practiceFocus .practicePanel header{flex-shrink:0}
+.practiceFocus .practicePanel header h2{font-size:18px;margin:0}
+.practiceQuestionHeader{flex-shrink:0;margin:6px 0 12px}
+.practiceQuestionHeader p{font-size:12px;margin:0;color:var(--community-muted)}
+.practiceQuestionHeader .practicePrompt{margin:6px 0 0;font-size:clamp(25px,4vw,38px);line-height:1.3}
+.practiceQuestionContent{flex:1;min-height:0;overflow:hidden;display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
+.practiceQuestionContent.hasFeedback{grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr)}
+.practiceAnswerArea,.practiceMemoryPanel{min-height:0;overflow:auto;overscroll-behavior:contain;padding:2px 4px}
+.practiceStepLabel{margin:0 0 10px;font-size:14px}
+.practiceFocus .practiceOptions{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.practiceFocus .practiceOptions button{min-height:62px;font-size:18px;gap:7px;line-height:1.45;padding:12px}
+.practiceFocus .practiceOptions small{font-size:14px}
+.practiceMemoryPanel{border-left:1px solid var(--community-line);padding-left:16px}
+.practiceMemoryPanel .practiceInlineNotes{margin:0}
+.practiceFocus .practiceFeedback{padding:10px 0}
+.practiceFocus .practiceFeedback p{margin:6px 0;line-height:1.5}
+.practiceFooter{flex-shrink:0;border-top:1px solid var(--community-line);display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:10px;margin-top:10px;background:var(--community-surface)}
+.practiceFooter>div{display:flex;gap:8px}
+.practiceFocus .practiceFooter button{margin:0;min-height:44px}
+@media(max-width:760px){
+ .aPlusFocusTest .aPlusQuestionBody.hasFeedback,.practiceQuestionContent.hasFeedback{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) minmax(90px,24dvh);gap:8px}
+ .aPlusFocusTest .aPlusMemoryPanel,.practiceMemoryPanel{border-left:0;border-top:1px solid var(--community-line);padding:8px 4px 0}
+ .aPlusFocusTest .aPlusInlineChoices{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .aPlusFocusTest .aPlusMeaningChoices{gap:8px}
+ .aPlusFocusTest .aPlusMeaningChoices button{font-size:16px;padding:10px;min-height:56px}
+ .aPlusFocusTest .aPlusChoiceLabel{font-size:17px;padding:10px!important;gap:4px}
+ .aPlusFocusTest .aPlusQuestionHeading{margin:5px 0 8px}
+ .aPlusFocusTest .aPlusQuestionActions>div{font-size:12px;max-width:55%}
+ .aPlusFocusTest .aPlusQuestionActions button.solid{padding:10px 14px;min-height:44px}
+ .aPlusFocusTest .aPlusTestProgress span{display:none}
+ .aPlusFocusTest .aPlusStepTrack{display:none}
+ .practiceFocus .practiceOptions{gap:8px;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .practiceFocus .practiceOptions button{font-size:16px;padding:10px;min-height:56px}
+ .practiceQuestionHeader{margin:4px 0 8px}
+ .practiceFocus .practicePanel header h2{font-size:16px}
+ .practiceFocus .practicePanel header button{font-size:13px;padding:8px 10px}
+}
+@media(max-height:620px){
+ .aPlusFocusTest .aPlusQuestionBody.hasFeedback,.practiceQuestionContent.hasFeedback{grid-template-rows:minmax(0,1fr) minmax(70px,18dvh)}
+ .aPlusFocusTest .aPlusQuestionActions small{display:none}
+ .aPlusFocusTest .aPlusQuestionHeading h2,.practiceQuestionHeader .practicePrompt{font-size:26px}
+ .aPlusFocusTest .aPlusQuestionActions,.practiceFooter{padding-top:7px;margin-top:7px}
+}
+.aPlusFocusTest{--ink:var(--community-text);--muted:var(--community-muted);--line:var(--community-line)}
+.aPlusFocusTest button.solid{background:var(--community-accent)!important;color:var(--community-on)!important;border-color:var(--community-accent)!important}
+.aPlusFocusTest .aPlusMeaningReceipt,.aPlusFocusTest .aPlusStepTrack span,.aPlusFocusTest .aPlusTestModeBadge{background:var(--community-soft);color:var(--community-text)}
+.aPlusFocusTest .aPlusMeaningChoices button,.aPlusFocusTest .aPlusChoiceTile{background:var(--community-surface);color:var(--community-text);border-color:var(--community-line)}
+.aPlusFocusTest .aPlusMeaningChoices button.selected,.aPlusFocusTest .aPlusChoiceTile.selected{background:var(--community-highlight);color:var(--community-highlight-ink);border-color:var(--community-accent)}
+.aPlusFocusTest .aPlusChoiceGloss,.aPlusFocusTest .aPlusMeaningReceipt>span{color:var(--community-text)}
+.aPlusFocusTest .aPlusChoiceTile.correct{background:color-mix(in srgb,var(--community-surface),#80a58c 15%);border-color:#80a58c}
+.aPlusFocusTest .aPlusChoiceTile.missed{background:color-mix(in srgb,var(--community-surface),#d5b974 16%);border-color:#d5b974}
+.aPlusFocusTest .aPlusChoiceTile.incorrect{background:color-mix(in srgb,var(--community-surface),#bf7f7f 15%);border-color:#bf7f7f}
+:is(.aPlusFocusTest,.practiceFocus) .sharedWordMemory{background:var(--community-surface);color:var(--community-text);border-color:var(--community-line)}
+:is(.aPlusFocusTest,.practiceFocus) .sharedWordMemory p{font-size:16px;line-height:1.7}
+:is(.aPlusFocusTest,.practiceFocus) .sharedWordMemory textarea{background:var(--community-bg);color:var(--community-text)}
+
+.welcomeFeedback{margin:18px 0 28px;padding:18px 20px;border-left:3px solid var(--community-accent);background:var(--community-surface);border-radius:0 12px 12px 0}.welcomeFeedback p{line-height:1.7;font-size:14px}.communityBar button:has(+ .usagePrivacy){white-space:nowrap}
+
+.welcomeWish{max-width:680px;margin:20px 0 26px;padding-left:16px;border-left:2px solid var(--community-accent)}.welcomeWish p{margin:5px 0;line-height:1.8;font-size:16px;color:var(--community-text)}
+.practiceFooter .primary,.aPlusFocusTest .aPlusQuestionActions button.solid{min-width:0!important}
+.practiceFooter button{white-space:nowrap}
+@media(max-width:760px){.practiceFooter>button{font-size:13px;padding:8px}.practiceFooter>div{flex:1;justify-content:flex-end}.practiceFooter>div button{padding:9px 12px}.aPlusFocusTest .aPlusQuestionActions>button{max-width:48%}}
+@media(min-width:761px) and (max-width:1000px){.aPlusFocusTest .aPlusInlineChoices{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.personalProgress{--progress-green:#638979;--progress-yellow:#c6ac6f;--progress-red:#bc8983;background:var(--community-surface);color:var(--community-text);border:1px solid var(--community-line);border-radius:22px;padding:clamp(20px,3vw,30px);margin:28px 0}.personalProgress header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}.personalProgress h2{margin:4px 0 0;font-size:23px}.personalProgress h2 span{font-size:13px;font-weight:400;color:var(--community-muted);margin-left:8px}.personalProgress .eyebrow{font-size:12px;color:var(--community-muted);margin:0}.personalProgressHero{display:flex;align-items:center;gap:clamp(24px,5vw,56px);padding:28px 0}.personalProgressRing{width:172px;height:172px;flex-shrink:0;border-radius:50%;padding:9px;box-sizing:border-box;display:grid;place-items:center}.personalProgressRing>div{width:100%;height:100%;border-radius:50%;background:var(--community-surface);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}.personalProgressRing strong{font-size:38px;font-weight:600;color:var(--progress-green);line-height:1.15;letter-spacing:-1px}.personalProgressRing span{font-size:14px}.personalProgressMetrics{display:grid;gap:14px}.personalProgressMetrics p{margin:0!important;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}.personalProgressMetrics strong{font-size:27px;font-weight:550}.personalProgressMetrics span,.personalProgressMetrics small{font-size:13px;color:var(--community-muted)}.personalProgressDecks{display:grid;gap:20px}.personalProgressDecks article>div:first-child{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}.personalProgressDecks h3{font-size:16px;margin:0}.personalProgressDecks span{font-size:13px}.personalProgressDecks article strong{color:var(--progress-green);font-size:21px;font-weight:600}.personalProgressBar{display:flex;background:var(--community-line);height:9px;border-radius:99px;overflow:hidden;margin:10px 0}.personalProgressBar i{height:100%;display:block}.personalProgressBar .known{background:var(--progress-green)}.personalProgressBar .unsure{background:var(--progress-yellow)}.personalProgressBar .unknown{background:var(--progress-red)}.personalProgressDecks article>p{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;margin:0;color:var(--community-muted)}.personalProgress .greenText{color:var(--progress-green)}.personalProgressMethod{margin-top:24px;font-size:12px;color:var(--community-muted)}.personalProgressMethod summary{cursor:pointer}.personalProgressMethod p{font-size:12px;line-height:1.8}.personalProgressModal{max-width:800px;margin:0 auto}.personalProgressModal .personalProgress{margin:0}.personalProgressModal button{font:inherit;padding:8px 12px;border:1px solid var(--community-line);border-radius:8px;background:var(--community-surface);color:var(--community-text);cursor:pointer}.personalProgressEmpty{font-size:14px;line-height:1.8;color:var(--community-muted)}
+@media(max-width:480px){.personalProgressHero{gap:18px}.personalProgressRing{width:126px;height:126px;padding:7px}.personalProgressRing strong{font-size:30px}.personalProgressMetrics strong{font-size:23px}.personalProgressMetrics p{gap:3px}.personalProgress h2{font-size:20px}.personalProgress h2 span{display:block;margin:4px 0 0}.personalProgressMetrics small{line-height:1.6}}
+
+.practicePrompt.enWord{white-space:nowrap!important;overflow-wrap:normal!important;word-break:normal!important;max-width:100%;min-width:0}
+
+.practiceOptions .practiceEnglish{white-space:nowrap!important;overflow-wrap:normal!important;word-break:normal!important;display:block;min-width:0;max-width:100%}
+:root[data-theme="night"] .personalProgress{--progress-green:#a1c7b1;--progress-yellow:#d9c58c;--progress-red:#dca09a}

@@ -13,3 +13,8 @@ export function optionsFor(term:Term,pool:Term[],direction:Direction,links:strin
 }
 export type Result={streak:number;errors:number;done:boolean};
 export function grade(previous:Result|undefined,correct:boolean):Result{const errors=(previous?.errors??0)+(correct?0:1),streak=correct?(previous?.streak??0)+1:0;return {streak,errors,done:correct&&(errors===0||streak>=2)};}
+
+export function answerStep(phase:'meaning'|'synonym',pair:boolean,correct:boolean,meaningOK:boolean){
+ if(phase==='meaning'&&pair&&correct)return {phase:'synonym' as const,meaningOK:true,correct:false,feedbackStep:'meaning' as const};
+ return {phase:'feedback' as const,meaningOK:phase==='meaning'?correct:meaningOK,correct:correct&&(phase==='meaning'||meaningOK),feedbackStep:phase};
+}

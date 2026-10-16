@@ -6,3 +6,7 @@ export function enabledLoginProviders(settings:unknown):Record<LoginProvider,boo
 export function socialLoginOptions(provider:LoginProvider,redirectTo:string){
  return {provider,options:{redirectTo,scopes:provider==='github'?'read:user user:email':'openid email profile'}};
 }
+export function emailPasswordAvailable(settings:unknown){
+ const external=settings&&typeof settings==='object'?(settings as {external?:{email?:unknown}}).external:null;
+ return external?.email===true;
+}

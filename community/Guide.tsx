@@ -12,16 +12,16 @@ const groups: GuideGroup[] = [
         zh: '选择账号模式或便笺模式',
         en: 'Choose an account or learning-note mode',
         cn: [
-          '账号模式：选择「登录 / 注册」，使用 GitHub 授权登录。首次登录会创建词笺账号。Google 登录和邮箱注册暂未开放。',
+          '账号模式：选择「登录 / 注册」，可创建用户名与密码，或使用已开放的第三方登录。无需填写邮箱。已有 GitHub 用户可登录后选择「设置用户名登录」，为原账号添加用户名与密码，保留已有进度。Google 是否可用以登录窗口为准。',
           '登录后，已保存的笔记、红黄绿、生词本、测试进度、来源偏好和配色可同步到账号。在其他设备登录同一账号，即可读取。',
           '便笺模式：无需注册，直接开始学习。记录保存在当前浏览器。选择「带走便笺」导出文件，下次或换设备时选择「读取便笺」恢复。账号模式也支持便笺备份。',
-          '游客与各账号使用独立的学习空间。新账号可主动导入游客记录；已有账号先读取云端记录。退出账号后，恢复原来的游客空间。',
+          '注册或设置用户名时，请保存恢复码。忘记密码可用恢复码设置新密码；恢复后请保存新码。密码和恢复码都遗失且没有其他已绑定登录方式时，将无法找回账号。请另行导出便笺留底。游客与各账号使用独立的学习空间。新账号可主动导入游客记录；已有账号先读取云端记录。退出账号后，恢复原来的游客空间。',
         ],
         english: [
-          'Account mode: select “登录 / 注册” and authorize GitHub sign-in. Your first sign-in creates a Lemnota account. Google sign-in and email registration are not available yet.',
+          'Account mode: select “登录 / 注册” to create a username and password or use an available social sign-in. No email address is required. Existing GitHub users can sign in and select “设置用户名登录” to add credentials to the same account. Google availability is shown in the sign-in window.',
           'An account syncs saved notes, familiarity ratings, notebook collections, test progress, source preferences and your theme. Sign into the same account on another device to load them.',
           'Learning-note mode: start without registering. Records stay in this browser. Select “带走便笺” to export a file and “读取便笺” to restore it later or on another device. Account users can export backups too.',
-          'Guest and account workspaces are separate. A new account can explicitly import guest records; an existing account loads its cloud records first. Signing out restores the original guest workspace.',
+          'Save your recovery code when you create or link a username. Use it to set a new password if needed, then keep the replacement code. Losing both your password and code, with no other linked sign-in, means the account cannot be recovered. Export learning notes as a separate backup. Guest and account workspaces are separate. A new account can explicitly import guest records; an existing account loads its cloud records first. Signing out restores the original guest workspace.',
         ],
       },
       {

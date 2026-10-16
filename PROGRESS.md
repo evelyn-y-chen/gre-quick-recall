@@ -1,6 +1,6 @@
 # 词笺 · Lemnota 项目进度
 
-更新日期：2026-10-15
+更新日期：2026-10-16
 
 分享网址：https://evelyn-y-chen.github.io/gre-quick-recall/
 
@@ -14,8 +14,10 @@
 | 便笺导入导出 | 可用，保留作为额外备份与游客换设备的方式 |
 | 反馈与作者回复 | 游客提交公开建议；登录可选公开／私人，默认私人；作者从统计后台回复，旧反馈保持私人 |
 | 真实跨设备保存验证 | 待完成；不能仅凭启用登录按钮视为通过 |
-| Google 登录 | 入口代码保留，后台未启用；按作者安排暂缓 |
-| 邮箱注册、邮件链接 | 暂未开放，无需继续配置 Gmail 应用专用密码 |
+| Google 登录 | 入口保留，后台尚未启用；本轮优先无需邮箱的用户名登录 |
+| 用户名与密码登录 | 界面、服务端与恢复码已实现；后台已部署，公众开关关闭，待在线验收 |
+| Supabase 邮箱供应商 | external.email=true；供应商开启不代表已具备公众发信能力 |
+| 邮箱密码登录 | 仅保留已有账号入口；新用户改用用户名注册 |
 | 个人网站 | 保留原有上传到所有设备功能，与分享版账号空间独立 |
 
 ## 下次继续时
@@ -24,15 +26,16 @@
 2. 设备 A 保存一个笔记、一个红黄绿标记和一条生词本记录，核对“已保存到账号”。
 3. 设备 B 用同一账号读取；B 修改后，A 读取账号最新进度核对。
 4. 核对退出账号恢复游客记录、不同账号不串数据，以及并发修改的冲突提示。
-5. 有时间再继续 Google 登录配置；今天不需要新注册服务或购买套餐。
+5. 获准后创建两个临时用户名账号，验证注册、恢复、保存与隔离，立即清理临时账号及其记录。
+6. 验收通过后开放 usernameLoginEnabled 并发布；本轮不配置 Google 或 SMTP。
 
-本地检查：19 项测试、TypeScript 检查和生产构建通过。真实跨设备验证不在这份本地结果内。
+本地检查：92 项测试、TypeScript 检查和生产构建通过。真实跨设备验证不在这份本地结果内。
 
 ## Status in English
 
-GitHub sign-in is enabled in Supabase. Account workspace synchronization, offline caches, and conflict backups are implemented and locally tested. Actual cross-device saving still needs verification. Google setup is on hold; email registration remains unavailable. The personal website keeps its existing cloud-save behavior. Guest feedback is public; signed-in users can choose public or private feedback, with private selected by default. Everyone can read public suggestions and replies. Private messages remain between their submitting account and the author, and older messages stay private.
+GitHub sign-in is enabled in Supabase. Username/password registration, linking and recovery-code flows are implemented and locally tested. The server is deployed, but the public usernameLoginEnabled gate remains false pending live checks and publication. Google and email registration remain disabled; SMTP is not being configured in this update. Account workspace synchronization, offline caches, and conflict backups are locally tested; actual cross-device saving still needs verification. Existing password accounts retain their email/password sign-in option. The personal website keeps its existing cloud-save behavior. Guest feedback is public; signed-in users can choose public or private feedback, with private selected by default. Private messages remain between their submitting account and the author, and older messages stay private.
 
-本次更新：中文释义放大、操作提示增强、新便笺 App 图标；使用统计与管理员汇总后台已接入，进入学习前明确同意，统计长期保留；个人版增加分享版兼容便笺导出。Google 登录仍暂缓，账号跨设备保存验证仍待完成。
+此前更新：中文释义放大、操作提示增强、新便笺 App 图标；使用统计与管理员汇总后台已接入，进入学习前明确同意，统计长期保留；个人版增加分享版兼容便笺导出。账号跨设备保存验证仍待完成；Google 与邮箱的最新状态见下方 2026-10-16 记录。
 
 前轮更新：统计新增「全部」及所选范围汇总；新增账号私密反馈和作者回复。数据库事务验证通过：用户隔离、管理员权限、重复提交幂等、回复回读及全部范围查询。首页提供账号同步与便笺模式两种入口；使用指南中英文完整覆盖各模块、生词本与红绿灯自测。真实跨设备人工验证仍待完成。
 
@@ -70,3 +73,11 @@ GitHub sign-in is enabled in Supabase. Account workspace synchronization, offlin
 Source corrections: General vocabulary and Equivalent pairs come from 青山学堂 (Qingshan Xuetang); Cloze high-frequency 3000 is described as compiled from online resources. Video study references apply to A+ and GLEE, not BB. BB memory methods come from the original three PDF volumes. GLEE notes from List 22 onward retain their AI-organized designation. Independent two-way-test review schedules for General vocabulary, A+ and BB are implemented. Model and component tests verify next-day resets, same-day limits, legacy migration and workspace isolation. The existing full A+ test keeps its separate schedule.
 
 本轮验证完成：51 项自动测试通过，TypeScript 检查及生产构建通过。浏览器核对 390px 手机与 768px 平板的到期入口、BB 释义未答对直接解析、错误重置次日、全能词正确后推进间隔及关闭重开保存；原答题页底部操作区仍留在视窗内。新增到期列表长英文词沿用不换行、按可用宽度缩字号的规则。
+
+### 2026-10-16 用户名与密码（无需邮箱）
+
+- 改为用户名注册、登录及恢复码找回。为已有 GitHub 账号添加用户名时保留原 user ID 和云端进度；登录且验证当前密码后可重新生成恢复码。
+- 密码由 Supabase Auth 管理，用户名映射、恢复码校验值和限流状态仅服务端可访问。未关闭邮箱验证；内部随机 `.invalid` 标识不是用户邮箱。
+- 注册、绑定和恢复后要求保存恢复码；跨标签切换账号时清除旧输入，防止旧请求覆盖新学习空间。
+- 92 项自动测试、TypeScript、生产构建通过；数据库权限及限流断言通过并回滚测试数据，390px 手机和 768px 平板表单无横向溢出。
+- 后台迁移及 username-auth v1 已部署，公众开关仍关闭。在线烟测因自动审批指出缺少外部测试数据清理而未执行；现等待授权临时创建并立即清理两个测试账号。尚未发布本轮网页改动。

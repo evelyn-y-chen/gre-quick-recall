@@ -1,4 +1,4 @@
-// Learning data is memory-only until the authenticated cloud save succeeds.
+// In-memory mirror; the workspace saves it to IndexedDB independently of cloud IO.
 let values:Record<string,string>={};
 let changed=()=>{};
 const subscribers=new Set<(key?:string)=>void>();

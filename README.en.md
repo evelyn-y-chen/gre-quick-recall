@@ -251,3 +251,5 @@ My progress shows practiced words, self-rated familiar words, completed rounds a
 Focused test panels keep Submit/Next visible on phones, tablets and computers. Long explanations and notes scroll inside their own areas at readable font sizes.
 
 Recovery and undo: imports, replacements and loading a different copy first save a full device checkpoint (the latest 20). Undo the last import/replacement from the header, or use the read-only device recovery page to export retained copies. Checkpoints stay in the current browser/web app and cannot recreate unsaved history from before this update.
+
+Save status: device writes run independently of cloud uploads. “Sync now” shows progress, checks the account, and reports a confirmation time and revision, or an explicit failure/timeout.

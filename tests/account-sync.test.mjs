@@ -236,3 +236,25 @@ test('opening the account preserves a displaced sync baseline even if the visibl
  assert.equal(h.note,'visible overwritten copy');assert.ok(h.cache.get('account:A').history.some(item=>item.payload.storage.note==='valuable previous baseline'));
  }finally{h.dispose();}
 });
+
+test('edits are protected on device while an earlier cloud upload is stalled',async()=>{
+ const h=harness();let held;try{await h.settle();h.remote.set('A',{revision:1,payload:ratingSnapshot({},1)});h.login('A');await h.settle();
+ h.editSnapshot(ratingSnapshot({one:'familiar'},100));held=h.holdCloud();const saving=h.workspace.flush();await held.entered;
+ const ratings=Object.fromEntries(Array.from({length:300},(_,i)=>['bb-'+i,'familiar']));h.editSnapshot(ratingSnapshot(ratings,200));await h.settle();
+ assert.equal(Object.keys(JSON.parse(h.cache.get('account:A').payload.storage['gre-quick-ratings-v1'])).length,300);assert.equal(h.cache.get('account:A').pending,true);
+ const manual=h.workspace.syncNow();h.render();assert.equal(h.workspace.syncing,true);assert.match(h.workspace.status,/正在同步/);
+ held.release();await saving;await manual;await h.settle();
+ assert.equal(Object.keys(JSON.parse(h.remote.get('A').payload.storage['gre-quick-ratings-v1'])).length,301);assert.equal(h.cache.get('account:A').pending,false);assert.match(h.workspace.status,/账号同步已确认/);
+ }finally{held?.release();h.dispose();}
+});
+test('manual sync gives immediate feedback and coalesces repeat clicks even with no new edits',async()=>{
+ const h=harness();let held;try{await h.settle();h.remote.set('A',{revision:7,payload:snapshot('existing records')});h.login('A');await h.settle();
+ held=h.holdRead();const first=h.workspace.syncNow();h.render();assert.equal(h.workspace.syncing,true);assert.match(h.workspace.status,/正在同步/);await held.entered;
+ const second=h.workspace.syncNow();assert.equal(first,second);held.release();assert.equal(await first,true);await h.settle();assert.equal(h.workspace.syncing,false);assert.match(h.workspace.status,/账号同步已确认.*版本 7/);assert.deepEqual(h.writes,[]);
+ }finally{held?.release();h.dispose();}
+});
+test('manual sync reports connection failure instead of silently succeeding when there are no changes',async()=>{
+ const h=harness();try{await h.settle();h.remote.set('A',{revision:2,payload:snapshot('saved records')});h.login('A');await h.settle();h.setOffline(true);
+ assert.equal(await h.workspace.syncNow(),false);await h.settle();assert.equal(h.workspace.syncing,false);assert.match(h.workspace.status,/账号同步尚未确认/);assert.equal(h.cache.get('account:A').payload.storage.note,'saved records');assert.deepEqual(h.writes,[]);
+ }finally{h.dispose();}
+});

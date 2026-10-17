@@ -9,6 +9,8 @@ import {byId as aPlusById} from '../app/aPlusTestModel';
 import * as notes from '../app/api/a-plus-notes/route';
 const routes:Record<string,any>={'/api/mind-map':mindMap,'/api/word-memory':memory,'/api/quick-ratings':ratings,'/api/notebook':notebook,'/api/a-plus-test':test,'/api/a-plus-notes':notes};
 let queue=Promise.resolve();let generation=0;
+export function getWorkspaceGeneration(){return generation;}
+export async function awaitWorkspaceApiIdle(){await queue;}
 export async function switchWorkspace(task:()=>Promise<void>){generation++;const pending=queue.then(task);queue=pending.catch(()=>{});return pending;}
 export function appFetch(input:RequestInfo|URL,init?:RequestInit):Promise<Response>{
  const raw=typeof input==='string'?input:input instanceof URL?input.href:input.url;

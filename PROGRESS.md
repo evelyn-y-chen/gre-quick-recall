@@ -1,6 +1,6 @@
 # 词笺 · Lemnota 项目进度
 
-更新日期：2026-10-16
+更新日期：2026-10-17
 
 分享网址：https://evelyn-y-chen.github.io/gre-quick-recall/
 
@@ -29,11 +29,11 @@
 5. 用户名登录的在线注册、恢复、保存与隔离验证已通过；两个临时账号及其记录已删除，剩余账号／映射／学习记录／会话均为 0。
 6. Google 与 SMTP 保留为可选后续配置；本轮无需额外发信服务。
 
-本地检查：92 项测试、TypeScript 检查和生产构建通过。真实跨设备验证不在这份本地结果内。
+本地检查：132 项测试、TypeScript 检查和生产构建通过。真实跨设备验证不在这份本地结果内。
 
 ## Status in English
 
-GitHub and username/password sign-in are enabled. Username registration, linking and recovery-code flows are implemented, with 92 local tests and 18 live API checks passing. Both temporary accounts, their mappings, learning records and sessions have been removed. Google and email registration remain disabled; no SMTP setup is required for username accounts. Account workspace synchronization, offline caches and conflict backups are tested; a manual check on two physical devices is still outstanding. Existing password accounts retain their email/password sign-in option. The personal website keeps its existing cloud-save behavior. Guest feedback is public; signed-in users can choose public or private feedback, with private selected by default. Private messages remain between their submitting account and the author, and older messages stay private.
+GitHub and username/password sign-in are enabled. Username registration, linking and recovery-code flows are implemented, with 132 local tests and 18 earlier live API checks passing. Both temporary accounts, their mappings, learning records and sessions have been removed. Google and email registration remain disabled; no SMTP setup is required for username accounts. Account workspace synchronization, offline caches and conflict backups are tested; a manual check on two physical devices is still outstanding. Existing password accounts retain their email/password sign-in option. The personal website keeps its existing cloud-save behavior. Guest feedback is public; signed-in users can choose public or private feedback, with private selected by default. Private messages remain between their submitting account and the author, and older messages stay private.
 
 此前更新：中文释义放大、操作提示增强、新便笺 App 图标；使用统计与管理员汇总后台已接入，进入学习前明确同意，统计长期保留；个人版增加分享版兼容便笺导出。账号跨设备保存验证仍待完成；Google 与邮箱的最新状态见下方 2026-10-16 记录。
 
@@ -82,3 +82,13 @@ Source corrections: General vocabulary and Equivalent pairs come from 青山学�
 - 92 项自动测试、TypeScript、生产构建通过；数据库权限及限流断言通过并回滚测试数据，390px 手机和 768px 平板表单无横向溢出。
 - 用户授权后完成 18 项在线烟测：注册、同名拒绝、大小写归一登录、错误密码、账号进度保存与隔离、私有映射／恢复接口不可直接访问、恢复码轮换、旧码失效、密码找回、旧刷新会话撤销、原进度保留、拒绝重复绑定。
 - 两个临时账号及其学习记录已立即删除；复核账号、映射、学习空间和会话剩余均为 0，临时密码／令牌文件也已删除。usernameLoginEnabled 已开启，网页随本轮 GitHub Pages 构建发布。
+
+
+### 2026-10-17 红黄绿自动同步与刷新恢复
+
+- 词表红黄绿及 A+ 单词标亮改为自动保存；登录后自动同步账号，只有持久化确认后才显示同步成功。失败保留本机待同步副本与重试入口。
+- 修复旧 SQL 评分覆盖更新的本机标记、可选配置解析失败阻断评分恢复、刷新读取时丢弃未落盘数据、上传期间新修改被旧快照覆盖的问题。
+- 两台设备标记不同词会合并；同词冲突依据每词修改时间处理。无法判断先后的旧版评分及冲突笔记保留副本，提示核对。
+- 便笺读取新增「合并红黄绿记录」与「替换整份记录」两个明确选项。评分合并保留当前笔记、生词本、测试与设置。
+- 已用两个独立模拟设备验证：手机标记词 1、平板标记词 2，云端保留两个标记；离线待同步记录也可在恢复网络后合并。该验证不等同于真实手机与 iPad 登录实测。
+- 已只读核对用户账号仍有评分和待同步数据，并在仓库外保存恢复核对备份；未修改真实账号记录。

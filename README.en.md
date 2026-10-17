@@ -162,7 +162,7 @@ Devices and browser profiles have separate data; people sharing one profile shar
 3. Open Lemnota on the new device, choose **读取便笺 / 我有一张便笺** (Import a learning note), select the file, and confirm.
 4. Saved records and palette return, followed by a brief confetti message.
 
-**Import replaces destination records; it does not merge them. Export existing destination records first if you want to keep them.** Legacy GRE JSON backups are supported. Slips are ordinary, unencrypted files; keep them private. Unsaved drafts are not guaranteed to be restored.
+Choose **Merge ratings** to combine different-word ratings while keeping your current notes, notebook, tests and theme. For the same word, the newer recorded edit wins; ambiguous older records require review. **Replace all records** restores the entire file and overwrites the destination workspace, so export current records first. Legacy GRE JSON backups are supported. Slips are ordinary, unencrypted files; keep them private. Unsaved drafts are not guaranteed to be restored.
 
 Guests do not need an email or password. A learning note carries its data independently of an account.
 
@@ -170,7 +170,7 @@ Guests do not need an email or password. A learning note carries its data indepe
 
 **GitHub sign-in is enabled**, with account workspace synchronization implemented. Google sign-in is on hold. Email/password sign-in is retained; email registration and email links remain unavailable. GitHub sign-in does not require Gmail SMTP. Actual cross-device saving still needs verification; see [Project status](PROGRESS.md).
 
-Notes, familiarity marks, notebooks, tests, source preferences, and palettes save to the signed-in account. Guest data and per-account device caches stay separate. A new account can explicitly import guest records; existing cloud progress is read first. Concurrent conflicts retain a local backup rather than silently replacing cloud records. Signing out restores the guest workspace. Offline account edits stay in that account's local cache and can be retried when connected.
+Notes, familiarity marks, notebooks, tests, source preferences, and palettes save to the signed-in account. Guest data and per-account device caches stay separate. A new account can explicitly import guest records; existing cloud progress is read first. Concurrent conflicts retain a local backup rather than silently replacing cloud records. Signing out restores the guest workspace. Ratings save automatically and sync to the signed-in account without an extra save click. Offline edits remain in that account’s local cache; use **立即同步** (Sync now) to retry. Different-word ratings from two devices are combined, and the newer recorded edit wins for the same word. Reload the latest account progress on the other device to view the merged result.
 
 See [authentication setup](AUTH_SETUP.md) for maintenance. After signing in with GitHub, check for the account-save confirmation and keep an exported learning note as a backup.
 

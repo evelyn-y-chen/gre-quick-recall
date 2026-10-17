@@ -1,11 +1,10 @@
 import test from 'node:test';
+import {loadTs} from './helpers/load-ts.mjs';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {createRequire} from 'node:module';
 const ts=createRequire(import.meta.url)('typescript');
-const module={exports:{}};
-new Function('exports','module',ts.transpileModule(readFileSync('community/workspacePlan.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText)(module.exports,module);
-const {workspacePlan}=module.exports;
+const {workspacePlan}=loadTs('community/workspacePlan.ts');
 const snapshot=(word)=>({version:1,rows:[],storage:{note:word}});
 test('a new device loads cloud progress; an empty account never silently adopts guest data',()=>{
  const remote={revision:4,payload:snapshot('account only')};

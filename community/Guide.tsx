@@ -100,12 +100,12 @@ const groups: GuideGroup[] = [
         cn: [
           '先回忆，再揭晓释义，并按本次回忆情况标记：红＝不认识／没想起；黄＝模糊／只想起部分；绿＝熟悉／都清楚。标记随时可改。',
           '颜色表示当前自评，不代表永久掌握。可按颜色筛选复习内容；部分模块支持同时选择多个颜色。',
-          '标记时，本轮复习名单保持稳定。重新筛选或打乱后，名单才会更新。页面出现「保存到当前工作区」时，选择该按钮保存标记。',
+          '标记时，本轮复习名单保持稳定。重新筛选或打乱后，名单才会更新。红黄绿会自动保存；登录后自动同步到账号，无需另点保存。同步未完成时会保留待同步记录，并提供重试入口。',
         ],
         english: [
           'Recall the word, reveal its meaning, then rate this attempt: red for unknown or not recalled, yellow for unsure or partial recall, and green for familiar or clear recall. You can change a rating at any time.',
           'Ratings describe your current self-assessment, not permanent mastery. Filter review content by rating; some modules allow multiple colors.',
-          'Rating a word does not change the current review queue. A new filter or shuffle updates the queue. Select “保存到当前工作区” when that save control is shown.',
+          'Rating a word does not change the current review queue. A new filter or shuffle updates the queue. Ratings save automatically and sync to your account when signed in. Pending changes are kept if sync fails; use Retry to try again.',
         ],
       },
       {
@@ -248,12 +248,12 @@ const groups: GuideGroup[] = [
         cn: [
           '顶部显示「已存到这台设备」时，游客记录已保存在当前浏览器；显示「已保存到账号」时，账号记录已完成云端同步。',
           '编辑区有保存按钮时，先提交编辑，再查看顶部状态。同步异常时，先导出便笺留底，再重试保存。',
-          '新设备的空白记录不会直接覆盖已有云端记录。同时修改产生冲突时，会保留本机副本，供导出与核对。',
+          '新设备的空白记录不会直接覆盖已有云端记录。两台设备标记不同的词会按词合并；同一词以较新的修改时间为准。旧版记录无法判断先后，或同一笔记发生冲突时，会保留本机副本，供导出与核对。',
         ],
         english: [
           '“已存到这台设备” confirms browser storage for a guest workspace. “已保存到账号” confirms completed cloud sync for an account.',
           'Submit edits wherever a save button is provided, then check the header status. If sync fails, export a backup before retrying.',
-          'Empty records on a new device do not silently replace existing cloud records. Concurrent conflicts preserve a local copy for export and comparison.',
+          'Empty records on a new device do not silently replace existing cloud records. Different-word ratings from multiple devices are merged. For the same word, the newer recorded edit wins. Ambiguous older ratings or conflicting notes preserve a local copy for export and review.',
         ],
       },
       {
@@ -261,13 +261,13 @@ const groups: GuideGroup[] = [
         en: 'Export, restore and move between devices',
         cn: [
           '导出：选择「带走便笺」，保存当前学习空间的文件。便笺包含已保存的笔记、红黄绿、生词本、测试与复习记录、来源偏好、昵称及配色。文件名包含昵称和导出日期时间。',
-          '读取：选择「读取便笺」并选取文件。导入会替换当前学习空间，不会合并；请先导出当前记录。旧版 GRE JSON 备份仍可读取。',
+          '读取：选择「读取便笺」并选取文件。可选择「合并红黄绿记录」，保留两边不同词的标记，以及当前笔记和设置；或选择「替换整份记录」恢复便笺中的全部内容。替换前请先导出当前记录。旧版 GRE JSON 备份仍可读取。',
           '换设备：可登录同一账号读取云端进度，也可导出便笺后在另一设备导入。',
           '便笺是普通数据文件，请妥善保管。清除网站数据、无痕浏览或浏览器清理可能导致本地记录丢失；同一浏览器配置下的游客共用一份记录。',
         ],
         english: [
           'Export: select “带走便笺” to save a file for the current workspace. It contains saved notes, ratings, notebook collections, tests, review schedules, source preferences, nickname and theme. The filename includes your nickname and the export date/time.',
-          'Restore: select “读取便笺” and choose a file. Import replaces the current workspace rather than merging, so export the current records first. Older GRE JSON backups are supported.',
+          'Restore: select “读取便笺” and choose a file. Choose Merge ratings to combine familiarity ratings while keeping current notes and settings, or Replace all records to restore the entire file. Export your current records before replacing them. Older GRE JSON backups are supported.',
           'Change devices: sign into the same account to load cloud progress, or export a learning-note file and import it on the other device.',
           'Keep the file safe. Clearing site data, private browsing or browser cleanup can remove local records. Guests sharing one browser profile share its workspace.',
         ],

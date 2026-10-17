@@ -6,6 +6,7 @@ export function validRatings(value:unknown):value is Ratings {
 }
 export function reconcileRatings(local:Ratings,cloud:Ratings,pending:Ratings) {
  const changes:Ratings={...pending};
- for(const [key,value] of Object.entries(local)) if(!Object.hasOwn(cloud,key) && !Object.hasOwn(changes,key)) changes[key]=value;
- return {ratings:{...local,...cloud,...changes},pending:changes};
+ // UI storage updates on every click; this workspace's SQL may still be older.
+ for(const [key,value] of Object.entries(local)) if(cloud[key]!==value && !Object.hasOwn(changes,key)) changes[key]=value;
+ return {ratings:{...cloud,...local,...changes},pending:changes};
 }

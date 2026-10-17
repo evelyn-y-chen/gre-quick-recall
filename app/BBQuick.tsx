@@ -1,4 +1,5 @@
 import {studyStorage} from "../community/storage";
+import {readSavedRatings,writeSavedRatings} from "./ratingStorage";
 "use client";
 import RevealControls from "./RevealControls";
 import {useEffect,useMemo,useRef,useState} from "react";
@@ -7,7 +8,7 @@ import SharedWordMemory,{useWordMemory} from "./SharedWordMemory";
 import {wordMemoryKey} from "./wordMemoryModel";
 import {bbOccurrences} from "./bbModel";
 import RatingCloudSync from "./RatingCloudSync";
-import {validRatings,type Ratings,type Rating} from "./ratingSyncModel";
+import {type Ratings,type Rating} from "./ratingSyncModel";
 import {restoreBBRange,type BBRange} from "./quickRangeModel";
 const volumes={上:"上 · 超超超高频",中:"中 · 超超高频",下:"下 · 超高频"};
 const colors=[{value:"unknown",label:"不认识",color:"red"},{value:"fuzzy",label:"模糊",color:"yellow"},{value:"familiar",label:"熟悉",color:"green"}] as const;
@@ -21,8 +22,8 @@ export default function BBQuick({pronounce}:{pronounce:(word:string)=>void}){
  const [equivalents,setEquivalents]=useState<string[]>([]);
  const [notes,setNotes]=useState<string[]>([]);
  const refs=useRef<Record<string,HTMLElement|null>>({}),scroll=useRef(false),memory=useWordMemory();
- useEffect(()=>{try{const stored=JSON.parse(studyStorage.getItem(key)??"{}");if(validRatings(stored)){setRatings(stored);setSnapshot(stored);}}catch{}setReady(true);},[]);
- useEffect(()=>{if(ready)try{studyStorage.setItem(key,JSON.stringify(ratings));}catch{}},[ratings,ready]);
+ useEffect(()=>{const stored=readSavedRatings(studyStorage,key);if(stored){setRatings(stored);setSnapshot(stored);}setReady(true);},[]);
+ useEffect(()=>{if(ready)try{writeSavedRatings(studyStorage,key,ratings);}catch{}},[ratings,ready]);
  useEffect(()=>{const timer=window.setTimeout(()=>{let value:BBRange={volume:"全部",lists:[1]};try{value=restoreBBRange(studyStorage.getItem(rangeKey),data);}catch{}setRange(current=>current.ready?current:{value,ready:true});},0);return()=>window.clearTimeout(timer);},[]);
  useEffect(()=>{if(range.ready)try{studyStorage.setItem(rangeKey,JSON.stringify(range.value));}catch{}},[range]);
  function changeRange(value:BBRange){setRange({value,ready:true});}

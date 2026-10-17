@@ -16,6 +16,7 @@ import APlusTest from "./APlusTest";
 import {APlusWordMarksProvider,APlusWordMark} from "./APlusWordMarks";
 import APlusNotes, { APlusNotesProvider } from "./APlusNotes";
 import RatingCloudSync from "./RatingCloudSync";
+import {readSavedRatings,writeSavedRatings} from "./ratingStorage";
 import VocabularyNotebook from "./VocabularyNotebook";
 import LcljQuick, { type LcljDeck } from "./LcljQuick";
 import equivalentData from "./equivalents.json";
@@ -1992,45 +1993,25 @@ export default function Home() {
     const timer = window.setTimeout(() => {
       setStore(loadStore());
       setEquivalentStore(loadEquivalentStore());
+      // Restore each ratings map independently of optional words and settings.
+      const restoreRatings = (key:string,apply:(value:Record<string,QuickRating>)=>void) => {
+        const value=readSavedRatings(studyStorage,key);if(value)apply(value);
+      };
+      restoreRatings(QUICK_RATING_KEY,r=>{setQuickRatings(r);setQuickRatingSnapshot(r);});
+      restoreRatings(EQUIVALENT_QUICK_RATING_KEY,r=>{setQuickEquivalentRatings(r);setQuickEquivalentRatingSnapshot(r);});
+      restoreRatings(A_PLUS_QUICK_RATING_KEY,r=>{setAPlusRatings(r);setAPlusRatingSnapshot(r);});
+      restoreRatings(GLEE_QUICK_RATING_KEY,r=>{setGleeRatings(r);setGleeRatingSnapshot(r);});
+      restoreRatings(LCLJ_QUICK_RATING_KEY,setLcljRatings);
+      restoreRatings(MATH_QUICK_RATING_KEY,r=>{setMathRatings(r);setMathRatingSnapshot(r);});
       try {
         const savedWords = studyStorage.getItem(`${STORAGE_KEY}-words`);
-        if (savedWords) setWords(JSON.parse(savedWords));
+        if (savedWords) {
+          try {const parsed=JSON.parse(savedWords);if(Array.isArray(parsed)&&parsed.every(w=>w&&typeof w.id==="string"&&typeof w.word==="string"&&typeof w.meaning==="string"))setWords(parsed);}catch{}
+        }
         const savedStudyList = studyStorage.getItem(`${STORAGE_KEY}-study-list`);
         if (savedStudyList) setStudyList(savedStudyList);
         const savedAutoSpeak = studyStorage.getItem(`${STORAGE_KEY}-auto-speak`);
         if (savedAutoSpeak !== null) setAutoSpeak(savedAutoSpeak !== "false");
-        const savedQuickRatings = studyStorage.getItem(QUICK_RATING_KEY);
-        if (savedQuickRatings) {
-          const parsedQuickRatings = JSON.parse(savedQuickRatings);
-          setQuickRatings(parsedQuickRatings);
-          setQuickRatingSnapshot(parsedQuickRatings);
-        }
-        const savedEquivalentQuickRatings = studyStorage.getItem(EQUIVALENT_QUICK_RATING_KEY);
-        if (savedEquivalentQuickRatings) {
-          const parsedEquivalentQuickRatings = JSON.parse(savedEquivalentQuickRatings);
-          setQuickEquivalentRatings(parsedEquivalentQuickRatings);
-          setQuickEquivalentRatingSnapshot(parsedEquivalentQuickRatings);
-        }
-        const savedAPlusRatings = studyStorage.getItem(A_PLUS_QUICK_RATING_KEY);
-        if (savedAPlusRatings) {
-          const parsedAPlusRatings = JSON.parse(savedAPlusRatings);
-          setAPlusRatings(parsedAPlusRatings);
-          setAPlusRatingSnapshot(parsedAPlusRatings);
-        }
-        const savedGleeRatings = studyStorage.getItem(GLEE_QUICK_RATING_KEY);
-        if (savedGleeRatings) {
-          const parsedGleeRatings = JSON.parse(savedGleeRatings);
-          setGleeRatings(parsedGleeRatings);
-          setGleeRatingSnapshot(parsedGleeRatings);
-        }
-        const savedLcljRatings = studyStorage.getItem(LCLJ_QUICK_RATING_KEY);
-        if (savedLcljRatings) setLcljRatings(JSON.parse(savedLcljRatings));
-        const savedMathRatings = studyStorage.getItem(MATH_QUICK_RATING_KEY);
-        if (savedMathRatings) {
-          const parsedMathRatings = JSON.parse(savedMathRatings);
-          setMathRatings(parsedMathRatings);
-          setMathRatingSnapshot(parsedMathRatings);
-        }
         const savedQuickWordLists = storedNumberSelection(QUICK_WORD_LISTS_KEY, 30);
         const savedQuickEquivalentSets = storedNumberSelection(QUICK_EQUIVALENT_SETS_KEY, 29);
         const savedAPlusLists = storedNumberSelection(A_PLUS_LISTS_KEY, 80);
@@ -2076,27 +2057,27 @@ export default function Home() {
   }, [currentPlanDay, ready]);
 
   useEffect(() => {
-    if (ready) studyStorage.setItem(QUICK_RATING_KEY, JSON.stringify(quickRatings));
+    if (ready) writeSavedRatings(studyStorage,QUICK_RATING_KEY,quickRatings);
   }, [quickRatings, ready]);
 
   useEffect(() => {
-    if (ready) studyStorage.setItem(EQUIVALENT_QUICK_RATING_KEY, JSON.stringify(quickEquivalentRatings));
+    if (ready) writeSavedRatings(studyStorage,EQUIVALENT_QUICK_RATING_KEY,quickEquivalentRatings);
   }, [quickEquivalentRatings, ready]);
 
   useEffect(() => {
-    if (ready) studyStorage.setItem(A_PLUS_QUICK_RATING_KEY, JSON.stringify(aPlusRatings));
+    if (ready) writeSavedRatings(studyStorage,A_PLUS_QUICK_RATING_KEY,aPlusRatings);
   }, [aPlusRatings, ready]);
 
   useEffect(() => {
-    if (ready) studyStorage.setItem(GLEE_QUICK_RATING_KEY, JSON.stringify(gleeRatings));
+    if (ready) writeSavedRatings(studyStorage,GLEE_QUICK_RATING_KEY,gleeRatings);
   }, [gleeRatings, ready]);
 
   useEffect(() => {
-    if (ready) studyStorage.setItem(MATH_QUICK_RATING_KEY, JSON.stringify(mathRatings));
+    if (ready) writeSavedRatings(studyStorage,MATH_QUICK_RATING_KEY,mathRatings);
   }, [mathRatings, ready]);
 
   useEffect(() => {
-    if (ready) studyStorage.setItem(LCLJ_QUICK_RATING_KEY, JSON.stringify(lcljRatings));
+    if (ready) writeSavedRatings(studyStorage,LCLJ_QUICK_RATING_KEY,lcljRatings);
   }, [lcljRatings, ready]);
 
   useEffect(() => {

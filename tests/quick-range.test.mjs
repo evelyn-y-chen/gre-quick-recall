@@ -62,7 +62,7 @@ function quickView(name, initialStorage = {}, initialDeck = 'lclj-fill') {
     if (importName === './RatingCloudSync' || importName === './RevealControls') return { default: () => null };
     if (importName.endsWith('.json')) return { default: data(importName.slice(2, -5)) };
     if (modules.has(importName)) return modules.get(importName);
-    assert.ok(['./BBQuick', './LcljQuick', './quickRangeModel', './ratingSyncModel', './wordMemoryModel', './bbModel', '../community/storage'].includes(importName), `Unexpected import: ${importName}`);
+    assert.ok(['./BBQuick', './LcljQuick', './quickRangeModel', './ratingSyncModel', './ratingStorage', './wordMemoryModel', './bbModel', '../community/storage'].includes(importName), `Unexpected import: ${importName}`);
     const file = importName === '../community/storage' ? '../community/storage.ts' : `../app/${importName.slice(2)}${['./BBQuick', './LcljQuick'].includes(importName) ? '.tsx' : '.ts'}`;
     const exported = {}; modules.set(importName, exported);
     const output = ts.transpileModule(fs.readFileSync(new URL(file, import.meta.url), 'utf8'), { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX } }).outputText;

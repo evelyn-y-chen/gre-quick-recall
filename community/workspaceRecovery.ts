@@ -2,7 +2,11 @@ import {validSnapshot,type Snapshot} from './database';
 
 export type RecoveryCheckpoint={id:string;createdAt:string;reason:string;payload:Snapshot};
 export type RecoveryCopy=RecoveryCheckpoint&{kind:'checkpoint'|'device-copy'|'sync-base'};
-export const recoveryLimit=20;
+export const recoveryLimit=2;
+export const recoveryIntervalMs=15*60*1000;
+// Metadata-only revisions are not a new learning copy. Keep comparison stable
+// when row or storage-key insertion order differs across devices.
+export function snapshotContent(payload:Snapshot){return JSON.stringify([payload.rows.map(r=>[r.key,r.value]).sort(([a],[b])=>a.localeCompare(b)),Object.entries(payload.storage).sort(([a],[b])=>a.localeCompare(b))]);}
 
 export function validCheckpoint(value:unknown):value is RecoveryCheckpoint{
  const v=value as RecoveryCheckpoint;
@@ -14,9 +18,10 @@ export function checkpoint(payload:Snapshot,reason:string):RecoveryCheckpoint{
 }
 export function appendCheckpoint(previous:unknown,next?:RecoveryCheckpoint):RecoveryCheckpoint[]{
  const history=Array.isArray(previous)?previous.filter(validCheckpoint):[];
- if(!next)return history;
- if(!validCheckpoint(next))throw Error('恢复副本格式不正确，已取消替换。');
- return [...history.filter(item=>item.id!==next.id),next].slice(-recoveryLimit);
+ if(next&&!validCheckpoint(next))throw Error('恢复副本格式不正确，已取消替换。');
+ const unique=new Map<string,RecoveryCheckpoint>();
+ for(const item of [...history,...(next?[next]:[])]){const key=snapshotContent(item.payload);unique.delete(key);unique.set(key,item);}
+ return [...unique.values()].slice(-recoveryLimit);
 }
 export function snapshotSummary(payload:Snapshot){
  const rows=payload.rows;

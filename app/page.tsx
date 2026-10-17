@@ -3028,7 +3028,7 @@ export default function Home() {
 
   useEffect(() => {
     function handleKeyboard(event: KeyboardEvent) {
-      if (document.querySelector?.(".learningPlanOverlay, .onboardingOverlay")) return;
+      if (document.querySelector?.(".learningPlanOverlay, .onboardingOverlay, .workspaceMenuOverlay")) return;
       const target = event.target as HTMLElement | null;
       const editing = target?.matches("input, textarea, select, [contenteditable='true']");
       if (editing || event.metaKey || event.ctrlKey || event.altKey) return;

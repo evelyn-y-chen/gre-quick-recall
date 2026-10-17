@@ -12,7 +12,7 @@ import {NOTEBOOK_DRAFT_KEY,validNotebookBatch,type NotebookBatch} from '../app/n
 import {wordMemoryKey} from '../app/wordMemoryModel';
 
 export type PlannedOccurrence={
- deckId:string;deckName:string;entryId:string;meaning:string;list?:number;category?:string;slot?:number;
+ deckId:string;deckName:string;entryId:string;meaning:string;list?:number;category?:string;slot?:number;volume?:string;groupId?:string;order?:number;
  /** Equivalent terms inherit the source group's gloss, not an independent dictionary definition. */
  role?:'core'|'equivalent';
 };
@@ -32,10 +32,12 @@ const parsed=(raw:string|undefined):unknown=>{try{return raw===undefined?undefin
 /** Stable source IDs remain separate from the normalized word ID used for deduplication. */
 export function getLearningPlanCatalog(snapshot?:PlanSnapshot):PlanCatalog{
  const words=new Map<string,PlannedWord>();
+ const sourceOrder=new Map<string,number>();
  const perDeck=new Map(definitions.map(([id])=>[id,new Set<string>()]));
- function add(deckId:typeof definitions[number][0],entryId:string,word:string,meaning:string,extra:Pick<PlannedOccurrence,'list'|'category'|'slot'|'role'>={}){
+ function add(deckId:typeof definitions[number][0],entryId:string,word:string,meaning:string,extra:Pick<PlannedOccurrence,'list'|'category'|'slot'|'role'|'volume'|'groupId'>={}){
   const id=wordMemoryKey(word);if(!id)return;
-  const occurrence:PlannedOccurrence={deckId,deckName:names.get(deckId)!,entryId,meaning,...extra};
+  const order=sourceOrder.get(deckId)??0;sourceOrder.set(deckId,order+1);
+  const occurrence:PlannedOccurrence={deckId,deckName:names.get(deckId)!,entryId,meaning,order,...extra};
   const previous=words.get(id);
   if(previous)previous.occurrences.push(occurrence);
   else words.set(id,{id,word:word.trim(),occurrences:[occurrence]});
@@ -50,7 +52,7 @@ export function getLearningPlanCatalog(snapshot?:PlanSnapshot):PlanCatalog{
   add('a-plus',entry.id,entry.word,entry.meaning,{list:entry.list,slot:0,role:'core'});
   aPlusTerms(entry).forEach((word,index)=>add('a-plus',entry.id,word,entry.meaning,{list:entry.list,slot:index+1,role:'equivalent'}));
  });
- bb.forEach(entry=>entry.words.forEach((word,slot)=>add('bb',entry.id,word.word,word.meaning,{list:entry.list,slot})));
+ bb.forEach(entry=>entry.words.forEach((word,slot)=>add('bb',entry.id,word.word,word.meaning,{list:entry.list,slot,volume:entry.volume})));
  glee.forEach(entry=>add('glee',entry.id,entry.word,entry.meaning,{list:entry.list}));
  MATH_WORDS.forEach(entry=>add('math',entry.id,entry.term,entry.meaning,{category:entry.category}));
  fill.forEach(entry=>add('lclj-fill',entry.id,entry.word,entry.meaning,{list:entry.list}));
@@ -70,7 +72,7 @@ export function getLearningPlanCatalog(snapshot?:PlanSnapshot):PlanCatalog{
   if(object(draft)&&validNotebookBatch(draft.batch,false)&&Number.isInteger(draft.revision)&&(draft.revision as number)>=0)batches.set(draft.batch.id,draft.batch);
  }
  for(const batch of batches.values())for(const word of batch.words){
-  add('notebook',`${batch.id}:${word.id}`,word.word,word.meaning,{category:batch.source});
+  add('notebook',`${batch.id}:${word.id}`,word.word,word.meaning,{category:batch.source+' · '+batch.date,groupId:batch.id});
  }
  return {decks:definitions.map(([id,name])=>({id,name,count:perDeck.get(id)!.size})),words:[...words.values()]};
 }

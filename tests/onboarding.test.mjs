@@ -23,7 +23,7 @@ test('all core features have both language versions and installation remains a s
  for(const slide of model.TOUR_SLIDES)for(const language of ['zh','en']){const copy=slide[language];assert.ok(copy.label&&copy.title&&copy.body&&copy.tip);assert.equal(copy.steps.length,2);}
  assert.equal(model.TOUR_SLIDES[model.INSTALL_TOUR_INDEX].id,'install');
  const notes=model.TOUR_SLIDES.find(s=>s.id==='connections');assert.match(notes.zh.tip,/不.*分享给别人/);assert.match(notes.en.tip,/not shared with other people/);
- const plan=model.TOUR_SLIDES.find(s=>s.id==='plan');assert.match(plan.zh.tip,/新词＋复习/);assert.match(plan.en.tip,/new words and reviews/);
+ const plan=model.TOUR_SLIDES.find(s=>s.id==='plan');assert.match(plan.zh.tip,/不同词数/);assert.match(plan.en.tip,/new words and reviews/);
 });
 
 function tour(initial=0){
@@ -38,7 +38,7 @@ function tour(initial=0){
  const nodes=node=>node==null||typeof node!=='object'?[]:Array.isArray(node)?node.flatMap(nodes):[node,...nodes(node.props?.children)];
  const text=node=>node==null?'':Array.isArray(node)?node.map(text).join(''):typeof node==='object'?text(node.props?.children):String(node);
  const find=label=>nodes(tree).find(n=>n.type==='button'&&(n.props['aria-label']===label||text(n)===label));
- render();return {get tree(){return tree;},get closed(){return closed;},get title(){return nodes(tree).find(n=>n.type==='h1')?.props.children;},get language(){return tree.props.lang;},click(label){const node=find(label);assert.ok(node,'Missing button '+label);assert.ok(!node.props.disabled);node.props.onClick();render();},key(key){let stopped=false,prevented=false;tree.props.onKeyDown({key,stopPropagation(){stopped=true;},preventDefault(){prevented=true;}});render();return {stopped,prevented};},swipe(dx,dy){const node=nodes(tree).find(n=>n.props.className==='tourSlide');node.props.onTouchStart({touches:[{clientX:100,clientY:100}]});node.props.onTouchEnd({changedTouches:[{clientX:100+dx,clientY:100+dy}]});render();}};
+ render();return {get tree(){return tree;},get closed(){return closed;},get title(){return nodes(tree).find(n=>n.type==='h1')?.props.children;},get language(){return tree.props.lang;},click(label){const node=find(label);assert.ok(node,'Missing button '+label);assert.ok(!node.props.disabled);node.props.onClick();render();},key(key,target){let stopped=false,prevented=false;tree.props.onKeyDown({key,target,stopPropagation(){stopped=true;},preventDefault(){prevented=true;}});render();return {stopped,prevented};},swipe(dx,dy){const node=nodes(tree).find(n=>n.props.className==='tourSlide');node.props.onTouchStart({touches:[{clientX:100,clientY:100}]});node.props.onTouchEnd({changedTouches:[{clientX:100+dx,clientY:100+dy}]});render();}};
 }
 test('actual introduction supports direct pages, arrows, language switch, and closing from any card',()=>{
  const view=tour();assert.equal(view.title,model.TOUR_SLIDES[0].zh.title);
@@ -57,4 +57,8 @@ test('install entry opens its own card and the final action closes the introduct
  const view=tour(model.INSTALL_TOUR_INDEX);assert.equal(view.title,model.TOUR_SLIDES.at(-1).zh.title);
  view.key('ArrowRight');assert.equal(view.title,model.TOUR_SLIDES.at(-1).zh.title);
  view.click('开始使用');assert.equal(view.closed,1);
+});
+
+test('arrow keys inside a demo editor do not unexpectedly change the introduction card',()=>{
+ const view=tour(2),title=view.title;assert.deepEqual(view.key('ArrowRight',{closest:()=>({})}),{stopped:true,prevented:false});assert.equal(view.title,title);
 });

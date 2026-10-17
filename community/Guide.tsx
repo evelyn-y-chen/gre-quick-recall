@@ -15,7 +15,7 @@ const groups: GuideGroup[] = [
           '账号模式：选择「登录 / 注册」，可创建用户名与密码，或使用已开放的第三方登录。无需填写邮箱。已有 GitHub 用户可登录后选择「设置用户名登录」，为原账号添加用户名与密码，保留已有进度。Google 是否可用以登录窗口为准。',
           '登录后，已保存的笔记、红黄绿、生词本、测试进度、学习计划、来源偏好和配色可同步到账号。在其他设备登录同一账号，即可读取。',
           '修改会自动写入这台设备，账号上传另行进行。点「立即同步」后按钮显示同步中，并核对账号记录；成功会显示确认时间和版本。失败或超时会明确提示，可重试或先导出便笺。没有新增修改时，也会确认账号连接，不再没有反馈。',
-          '已设置用户名且记得密码时，可在顶部「账号登录方式」验证当前密码、重新生成恢复码，旧码随即失效。忘记密码时先退出，再从登录页选择「使用恢复码找回账号」。',
+          '已设置用户名且记得密码时，可在顶部「更多」→「账号登录方式」验证当前密码、重新生成恢复码，旧码随即失效。忘记密码时先退出，再从登录页选择「使用恢复码找回账号」。',
           '便笺模式：无需注册，直接开始学习。记录保存在当前浏览器。选择「带走便笺」导出文件，下次或换设备时选择「读取便笺」恢复。账号模式也支持便笺备份。',
           '注册或设置用户名时，请保存恢复码。忘记密码可用恢复码设置新密码；恢复后请保存新码。密码和恢复码都遗失且没有其他已绑定登录方式时，将无法找回账号。请另行导出便笺留底。游客与各账号使用独立的学习空间。新账号可主动导入游客记录；已有账号先读取云端记录。退出账号后，恢复原来的游客空间。',
         ],
@@ -32,14 +32,14 @@ const groups: GuideGroup[] = [
         zh: '恢复与撤销',
         en: 'Recovery and undo',
         cn: [
-          '导入、替换或读取不同账号副本前，会先在当前浏览器保留完整副本，包含红黄绿、个人笔记、生词本和共享笔记草稿。若备份失败，操作会取消。最多保留最近 20 份操作前副本。',
-          '误导入后，可在顶部选择「撤销上次记录操作」。撤销前也会保存当前内容，可再次撤销；登录状态下会尝试同步到账号。副本保存在当前设备，不会自动出现在其他设备。',
-          '需要核对历史副本时，选择顶部「本机恢复检查（只读）」→「只读检查本机副本」→「导出检查到的全部副本」。检查页也会列出仍留在本机的冲突副本和同步基线，不会自行上传或替换。',
+          '导入、替换或读取不同账号副本前，会先在当前浏览器保留完整副本，包含红黄绿、个人笔记、生词本和共享笔记草稿。若备份失败，操作会取消。每个学习空间最多保留最近两份不同内容的历史副本，超过后自动淘汰较早副本；当前记录和同步所需副本另存。普通编辑最多每 15 分钟留一份，导入／替换前立即留底；相同内容不重复保存。',
+          '误导入后，可在顶部「更多」选择「撤销上次记录操作」。撤销前也会保存当前内容，可再次撤销；登录状态下会尝试同步到账号。副本保存在当前设备，不会自动出现在其他设备。',
+          '需要核对历史副本时，选择顶部「更多」→「本机恢复检查（只读）」→「只读检查本机副本」→「导出检查到的全部副本」。检查页也会列出仍留在本机的冲突副本和同步基线，不会自行上传或替换。',
           '请在发生问题的同一个浏览器或桌面网页 App 内检查。副本的来源和版本号不代表它一定更新；恢复文件请先核对内容。这项保护不能补建更新前从未保存过的历史。',
         ],
         english: [
-          'Before an import, replacement, or loading a different account copy, the current browser keeps a full checkpoint, including ratings, personal notes, notebook data and shared-note drafts. The operation stops if that checkpoint cannot be saved. The latest 20 checkpoints are retained.',
-          'Use “撤销上次记录操作” in the header to undo a mistaken import. The current contents are checkpointed again, so undo can be undone. Signed-in changes attempt account sync. Checkpoints remain on this device; they are not synced to other devices.',
+          'Before an import, replacement, or loading a different account copy, the current browser keeps a full checkpoint, including ratings, personal notes, notebook data and shared-note drafts. The operation stops if that checkpoint cannot be saved. Each workspace retains at most two distinct historical checkpoints, rotating out the oldest. Current records and required sync copies remain separate. Ordinary editing checkpoints at most once per 15 minutes; imports and replacements checkpoint immediately, without duplicate contents.',
+          'Use “撤销上次记录操作” in More in the header to undo a mistaken import. The current contents are checkpointed again, so undo can be undone. Signed-in changes attempt account sync. Checkpoints remain on this device; they are not synced to other devices.',
           'To inspect retained copies, select “本机恢复检查（只读）”, scan, then export all copies. This read-only page also lists retained conflict copies and sync baselines. It never uploads or replaces records.',
           'Inspect in the same browser or installed web app where the problem occurred. Source labels and revision numbers do not prove a copy is newer. Check contents before restoring. This protection cannot recreate history that was never saved before the update.',
         ],
@@ -50,24 +50,26 @@ const groups: GuideGroup[] = [
         cn: [
           '选择「开始刷词」，打开词库，再选择 List、分类或复习范围。',
           '使用页面上的搜索、顺序／乱序、颜色筛选和揭晓按钮调整复习方式。各模块提供的控制不同，以当前页面为准。',
-          '需要查阅操作时，可随时从顶部重新打开「使用指南」。',
+          '顶部保留学习规划与保存状态；我的进步、便笺导入导出、配色、账号、反馈和恢复工具集中在「更多」。程序更新时只保留当前版本的程序缓存，不删除学习记录。',
+          '需要查阅操作时，可随时从顶部「更多」重新打开「使用指南」。',
         ],
         english: [
           'Select “开始刷词”, open a word bank, then choose a List, category or review range.',
           'Use the page controls to search, switch between original order and shuffle, filter ratings, or reveal content. Available controls vary by module.',
-          'You can reopen this guide from the header at any time.',
+          'The header keeps the plan and save status visible. More groups progress, learning notes, themes, accounts, feedback and recovery. Updates remove older program caches while leaving learning records untouched.',
+          'You can reopen this guide from More in the header at any time.',
         ],
       },
       {
         zh: '第一次使用与添加到桌面',
         en: 'First visit and adding to your home screen',
         cn: [
-          '首次进入学习空间时，会显示可左右翻页的功能卡片。可点击上一张／下一张、滑动或按左右方向键；点右上角 × 可随时关闭。同一浏览器关闭后不再自动弹出，也可从本指南的「翻看功能介绍」重新打开。',
+          '首次进入学习空间时，会显示可左右翻页的功能卡片。可以在卡片内试着标亮词、标红黄绿、写笔记、选测试答案或读回示例便笺；这些示例不会修改真实学习记录。可点击上一张／下一张、滑动或按左右方向键；点右上角 × 可随时关闭。同一浏览器关闭后不再自动弹出，也可从本指南的「翻看功能介绍」重新打开。',
           '网页版的安装提示可以关闭。iPhone／iPad：在 Safari 点分享 → 添加到主屏幕 → 添加；如有「作为 Web App 打开」选项，可开启。Android／电脑 Chrome：从浏览器菜单选择安装或添加到主屏幕。Mac Safari：文件 → 添加到程序坞。不同版本的菜单名称可能略有差别。',
           '在应用内浏览器找不到入口时，请先在 Safari／Chrome 打开。添加桌面本身不等于登录或备份；浏览器与独立网页 App 的游客存储可能分开，建议先登录账号或导出便笺。',
         ],
         english: [
-          'An illustrated card introduction appears on your first visit. Use Back / Next, swipe or press the arrow keys. Close it anytime with ×. Once closed, it will not reopen automatically in this browser; use “View the illustrated introduction” in this guide to revisit it.',
+          'An interactive card introduction appears on your first visit. Use Back / Next, swipe or press the arrow keys. Close it anytime with ×. Try ratings, notes, practice answers and sample learning notes inside the cards without changing real progress. Once closed, it will not reopen automatically in this browser; use “View the illustrated introduction” in this guide to revisit it.',
           'The website’s installation tip can be dismissed. On iPhone / iPad, open Safari → Share → Add to Home Screen → Add; enable Open as Web App if offered. On Android / desktop Chrome, choose Install or Add to Home Screen from the browser menu. On Mac Safari, choose File → Add to Dock. Menu labels may vary by version.',
           'If an in-app browser has no install option, open the site in Safari / Chrome. Adding an icon is not sign-in or a backup. Browser and standalone web-app guest storage may be separate, so sign in or export a learning note first.',
         ],
@@ -123,47 +125,49 @@ const groups: GuideGroup[] = [
     ],
   },
   {
-    zh: '学习规划',
-    en: 'Learning plans',
-    topics: [
-      {
-        zh: '制定计划与开始今日任务',
-        en: 'Create a plan and start today’s tasks',
-        cn: [
-          '在首页「今天的学习」选择「制定学习计划」。可多选词表（包括生词本），设置开始日期、目标首轮完成日期，以及新词＋复习的每日总上限。无需登录也能使用。',
-          '按相同拼写去重，忽略大小写和多余空格；不会仅因词义相近而合并。每个词只安排一次，保留所选词表中的全部释义与来源，可在词卡中查看。',
-          '每天先安排到期复习，再按剩余新词、目标日期和剩余容量分配新词。已完成的不同单词计入当日上限；不会为赶目标自动加量。计划日期按北京时间计算。',
-          '选择「开始今日任务」，逐词回忆、揭晓释义并做红绿灯自测。实际自评，或在支持的测试中完整提交该词的作答结果后，才计入完成；仅打开页面、看释义或完成测试的中间步骤不算。普通词表中对所选词的实际自测也会计入。',
-          '同一个词每天只计一次；当天出现红或黄会保留较不熟悉的记录，次日再复习。同日反复标绿不会提前升级间隔。计划外自行多学的词如实记录，达到上限后不再派发额外任务。',
-        ],
-        english: [
-          'On the home page, select “制定学习计划” under “今天的学习” (Daily plan). Choose several word banks, including your notebook, a start date, a first-pass target date and a daily cap covering new words plus reviews. No sign-in is required.',
-          'Identical spellings are deduplicated, ignoring case and extra spaces. Similar meanings alone do not merge words. Each word is scheduled once, retaining all meanings and sources from the selected banks for its card.',
-          'Due reviews come first. New words are then allocated using the remaining words, target date and available capacity. Distinct words already completed today count toward the daily cap; the plan never raises it to meet a deadline. Dates use Beijing time (UTC+8).',
-          'Select “开始今日任务” (Start today’s tasks) to recall, reveal and rate words one at a time. An actual self-assessment or a fully submitted answer for that word in a supported test counts as completion. Opening a page, revealing a meaning or completing an intermediate test step does not. Self-checks for selected words in ordinary word-bank views count too.',
-          'Each word counts once per day. A red or yellow response preserves the less-familiar result and brings the word back the next day. Repeated greens that day do not advance its interval. Extra self-study is recorded honestly; no further tasks are assigned once the cap is reached.',
-        ],
-      },
-      {
-        zh: '查看预测、调整与保存计划',
-        en: 'Read forecasts, adjust and save a plan',
-        cn: [
-          '首次学习后，按 1、2、4、7、15、30 天的间隔安排六轮巩固。红或黄会从次日重新开始；六次到期复习均顺利完成后，该词退出本轮计划。普通测试的长期复习计划不受影响。',
-          '未来七天图展示预计新词与复习量，今天包含已完成的词。预测假设未来按时完成且回答为绿；这是任务量估算，不是记忆率测量，也不表示永久掌握。',
-          '漏学或实际作答后，剩余任务会自动重新计算，并在预计首轮完成日期延后时提示。「首轮完成」指所有所选词至少实际学习一次，不表示六轮巩固或全部长期复习已结束。',
-          '可暂停或调整词表、目标日期与每日上限。暂停时不派新任务，已有记录保留；继续后按当天重新安排。调整保留已记录的答案，开始日期保持不变。',
-          '计划设置与逐词记录随当前学习空间保存，登录后同步到账号，也包含在完整便笺中。恢复整份计划时选择「替换整份记录」；「合并红黄绿记录」只合并标记。替换前请先备份当前便笺；同步未完成时以页面保存状态为准。',
-        ],
-        english: [
-          'After the first encounter, six consolidation reviews use intervals of 1, 2, 4, 7, 15 and 30 days. Red or yellow restarts the sequence the next day. After six successful due reviews, the word leaves this plan. Ordinary tests keep their separate long-term schedules.',
-          'The seven-day chart forecasts new words and reviews; today includes words already completed. It assumes future tasks are completed on time with green answers. This estimates workload, not a measured memory rate or permanent mastery.',
-          'Missed days and actual answers automatically recalculate remaining tasks, with a notice if the estimated first-pass date moves later. First-pass completion means studying every selected word at least once; it does not mean all six consolidation reviews or all long-term reviews have ended.',
-          'Pause the plan or adjust its word banks, target date and daily cap. Pausing stops new assignments and retains records; resuming recalculates from that day. Adjustments keep recorded answers, and the original start date stays unchanged.',
-          'Plan settings and word records save with the current workspace, sync to a signed-in account and travel in a full learning-note file. Choose Replace all records to restore a whole plan; Merge ratings imports ratings only. Back up the current file before replacing it, and check the save status if sync is pending.',
-        ],
-      },
-    ],
-  },
+    "zh": "学习规划",
+    "en": "Learning plans",
+    "topics": [
+        {
+            "zh": "按完整 List 安排每天",
+            "en": "Plan each day with whole Lists",
+            "cn": [
+                "在首页「今天的学习」或顶部「学习规划」中制定计划。可多选词表与生词本，设置开始日期和目标首轮完成日期。每日词数上限为选填，留空即可按目标日期安排。",
+                "每项任务明确列出词表、册名、List 与该组实际词数。没有 List 的词库按原分类安排，生词本按批次安排。先做 Phase 1 到期复习，再做 Phase 2 新学整组。",
+                "相同拼写忽略大小写与多余空格后只计一个词，但保留每份词表的释义与来源。词义相近不代表同一词，不会因此合并。跨 List 重复词沿用同一份真实自测记录。",
+                "上限按当天新学＋复习的不同单词总数计算，包含已经完成的词。完整 List 放不进上限时，会标明哪一组、还需多少词，并提示提高或清空上限；不会拆组，也不会自动超量。",
+                "点「打开整组」或「打开今日第一组」，依次回忆、揭晓释义与笔记，再提交红绿灯自测。只看释义不会完成任务；整组全部单词实际自测后才计入 List 覆盖。普通词表中对所选词的实际自测和完整测试作答也能接入。",
+                "制定计划后才开始积累带日期的学习记录。更早但没有可靠学习日期的红黄绿不会推算成计划完成。当天同词只计一次，并保留较不熟悉的反馈；反复标绿不会升级复习间隔。"
+            ],
+            "english": [
+                "Create a plan on the home page or from Learning plan in the header. Select several word banks or your notebook, a start date and a first-pass target. The daily word cap is optional: leave it empty to plan around the date.",
+                "Each task names its bank, volume, List and actual distinct-word count. Banks without Lists use source categories; notebook entries use batches. Phase 1 covers due reviews; Phase 2 covers whole new Lists.",
+                "Identical spellings count once after normalizing case and extra spaces, retaining every selected meaning and source. Similar meanings alone never merge words. Repeated words across Lists reuse actual self-check records.",
+                "The cap counts distinct new and reviewed words, including work completed today. If a whole List will not fit, the plan names it and its remaining word count, prompting you to raise or clear the cap. It never splits a List or silently exceeds the cap.",
+                "Open a whole List, recall each word, reveal meanings and notes, then submit a traffic-light self-check. Viewing meanings does not count as completion. Every word must be actually assessed before a List is covered. Real self-checks in ordinary bank views and full test answers also count.",
+                "Dated plan records begin after creating the plan. Earlier ratings without reliable study dates do not become invented completions. Each word counts once per day; the less-familiar answer is kept. Repeated green ratings do not advance intervals."
+            ]
+        },
+        {
+            "zh": "七天曲线、漏学与保存",
+            "en": "The seven-day chart, missed days and saving",
+            "cn": [
+                "七天图把「新学 · 预计安排」和「复习 · 已产生的任务」分开。复习线只根据实际完成的整组学习／复习产生下一轮日期，不会把未来计划当完成，也不假设未来全部答对。点击某一天，可查看具体 Phase 和 List。",
+                "首轮完成后，下一次复习在次日；整组到期自测全部为绿才逐步采用 2、4、7、15、30 天间隔，任一红或黄则在整组本轮完成后的次日重新巩固。只有实际完成本轮，才会产生下一轮；六轮顺利巩固后退出本轮计划。",
+                "漏学后按当天真实记录重排，不会把没做过的任务记成完成。若上限使预计首轮完成日期延后，会提示延后；保留你的上限。单组本身超过上限时，仅延后日期不能解决，需要提高或清空上限。",
+                "折线显示任务量，不是遗忘概率、记忆率或掌握保证。新学估算只考虑当前已产生的复习，实际新学后还会增加后续复习任务，所以日期会随学习继续调整。首轮覆盖不等于长期复习全部结束。",
+                "可以暂停或调整词表、目标日期和上限，保留已有答案；开始日期保持不变。设置和记录随当前学习空间保存，登录后同步到账号，完整便笺也会携带。恢复整份计划需确认「替换整份记录」，只「合并红黄绿」不会导入计划。"
+            ],
+            "english": [
+                "The chart separates planned new Lists from reviews already generated by actual work. Only a completed learning or review round creates the next due date: future plans never count as completed or assume green answers. Select a day to see its phases and named Lists.",
+                "The first full-List encounter schedules a review for the next day. Fully green due rounds then use 2, 4, 7, 15 and 30-day intervals. Any red or yellow resets the next round to the day after that full round finishes. A new round appears only after real completion; six successful reviews finish this plan cycle.",
+                "Missed work is recalculated from actual records without inventing completion. A cap that delays first-pass coverage produces a delay notice; your cap stays unchanged. If one List exceeds the cap by itself, postponing the date cannot make it smaller: raise or clear the cap.",
+                "The chart shows workload, not forgetting probability, measured retention or guaranteed mastery. New-learning estimates consider currently generated reviews only; real new work will create additional reviews and update the estimate. First-pass coverage is not the end of all long-term reviews.",
+                "Pause or adjust banks, target and cap while keeping answers; the start date remains unchanged. Settings and records save with the workspace, sync to a signed-in account and travel in full learning notes. Restoring a plan requires confirming Replace all records; Merge ratings does not import plans."
+            ]
+        }
+    ]
+},
   {
     zh: '复习与测试',
     en: 'Review and test',

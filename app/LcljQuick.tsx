@@ -122,7 +122,7 @@ export default function LcljQuick({ deck, ratings, onRate, pronounce }: {
 
   useEffect(() => {
     function keydown(event: KeyboardEvent) {
-      if (document.querySelector?.(".learningPlanOverlay, .onboardingOverlay")) return;
+      if (document.querySelector?.(".learningPlanOverlay, .onboardingOverlay, .workspaceMenuOverlay")) return;
       const target = event.target as HTMLElement | null;
       if (!active || event.metaKey || event.ctrlKey || event.altKey || target?.closest("input, textarea, select, [contenteditable='true'], summary")) return;
       const isArrow = event.key.startsWith("Arrow");

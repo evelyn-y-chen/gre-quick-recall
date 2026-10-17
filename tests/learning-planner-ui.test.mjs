@@ -40,7 +40,7 @@ function planner({seed=true,cap=2,day=firstDay,paused=false,persistResponses=[]}
   if(name.endsWith('.css'))return {};
   if(modules.has(name))return modules.get(name);
   const module={exports:{}};modules.set(name,module.exports);
-  const file='community/'+name.slice(2)+(name==='./LearningPlanner'?'.tsx':'.ts');
+  const file='community/'+name.slice(2)+(['./LearningPlanner','./ListStudy'].includes(name)?'.tsx':'.ts');
   const source=fs.readFileSync(file,'utf8');
   const compiled=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,jsx:ts.JsxEmit.ReactJSX,target:ts.ScriptTarget.ES2022}}).outputText;
   new Function('require','module','exports','window','document','setInterval','clearInterval',compiled)(load,module,module.exports,window,document,callback=>{const id=++timerId;timers.set(id,callback);return id;},id=>timers.delete(id));
@@ -97,7 +97,7 @@ test('creating and adjusting a plan keeps its ID and independent daily answers',
 
 test('today starts an independent word queue and revealing meanings alone records no completion',async()=>{
  const view=planner();try{
-  await view.click('开始今日任务');assert.equal(studyWord(view),'朗读 apple');
+  await view.click('打开今日第一组');assert.equal(studyWord(view),'朗读 apple');
   assert.equal(view.find('button','想起来了',view.scope('learningStudyPanel')).props.disabled,true);assert.doesNotMatch(view.text(view.scope('learningStudyPanel')),/苹果的释义/);
   await view.click('先回想一下，再看释义 ↓');assert.match(view.text(view.scope('learningStudyPanel')),/苹果的释义/);assert.deepEqual(view.state.answers,{});assert.equal(view.calls.length,0);
  }finally{view.close();}
@@ -105,18 +105,18 @@ test('today starts an independent word queue and revealing meanings alone record
 
 test('a rating must finish persistence before Next, then advances only the assigned queue and finishes',async()=>{
  const view=planner();try{
-  await view.click('开始今日任务');await view.click('先回想一下，再看释义 ↓');const held=deferred();view.queuePersistence(()=>held.promise);
+  await view.click('打开今日第一组');await view.click('先回想一下，再看释义 ↓');const held=deferred();view.queuePersistence(()=>held.promise);
   await view.click('想起来了');assert.equal(view.find('button','下一个词 →',view.scope('learningStudyPanel')),undefined);assert.equal(view.find('button','没想起',view.scope('learningStudyPanel')).props.disabled,true);
   held.resolve({destination:'account',synced:true});await view.flush();assert.ok(view.find('button','下一个词 →',view.scope('learningStudyPanel')));await view.click('下一个词 →');assert.equal(studyWord(view),'朗读 banal');
   await view.click('先回想一下，再看释义 ↓');await view.click('没想起');await view.click('下一个词 →');
-  assert.match(view.text(view.scope('learningStudyPanel')),/今天的任务完成了/);assert.equal(studyWord(view),undefined);assert.equal(view.state.answers.apple[firstDay],'green');assert.equal(view.state.answers.banal[firstDay],'red');assert.equal(view.calls.length,2);
-  assert.equal(view.state.answers.candid,undefined);assert.equal(view.state.answers.daunt,undefined);await view.click('返回我的计划');assert.equal(view.find('button','今天的任务完成了').props.disabled,true);
+  assert.match(view.text(view.scope('learningStudyPanel')),/这一组已完成/);assert.equal(studyWord(view),undefined);assert.equal(view.state.answers.apple[firstDay],'green');assert.equal(view.state.answers.banal[firstDay],'red');assert.equal(view.calls.length,2);
+  assert.equal(view.state.answers.candid,undefined);assert.equal(view.state.answers.daunt,undefined);await view.click('返回我的计划');assert.equal(view.find('button','请先调整计划').props.disabled,true);
  }finally{view.close();}
 });
 
 test('local persistence failure stays on the current word, keeps the answer and retries idempotently',async()=>{
  const view=planner();try{
-  await view.click('开始今日任务');await view.click('先回想一下，再看释义 ↓');view.queuePersistence(Error('本机保存失败，请重试。'));await view.click('有点模糊');
+  await view.click('打开今日第一组');await view.click('先回想一下，再看释义 ↓');view.queuePersistence(Error('本机保存失败，请重试。'));await view.click('有点模糊');
   assert.match(view.text(view.scope('learningStudyPanel')),/本机保存失败/);assert.equal(view.find('button','下一个词 →',view.scope('learningStudyPanel')),undefined);assert.equal(studyWord(view),'朗读 apple');
   await view.click('有点模糊');assert.ok(view.find('button','下一个词 →',view.scope('learningStudyPanel')));assert.equal(view.calls.length,2);assert.deepEqual(view.state.answers.apple,{[firstDay]:'yellow'});
  }finally{view.close();}
@@ -124,45 +124,45 @@ test('local persistence failure stays on the current word, keeps the answer and 
 
 test('an offline account result reports only local preservation and never claims account synchronization',async()=>{
  const view=planner();try{
-  await view.click('开始今日任务');await view.click('先回想一下，再看释义 ↓');view.queuePersistence({destination:'account',synced:false,message:'已保存到本机，账号同步尚未完成。'});await view.click('没想起');
+  await view.click('打开今日第一组');await view.click('先回想一下，再看释义 ↓');view.queuePersistence({destination:'account',synced:false,message:'已保存到本机，账号同步尚未完成。'});await view.click('没想起');
   const content=view.text(view.scope('learningStudyPanel'));assert.match(content,/账号同步尚未完成/);assert.doesNotMatch(content,/已同步到账号|这次想起来了/);assert.equal(view.state.answers.apple[firstDay],'red');
  }finally{view.close();}
 });
 
 test('crossing midnight before the clock refresh cannot write the old day and then rolls onto the actual new day',async()=>{
  const view=planner();try{
-  await view.click('开始今日任务');await view.click('先回想一下，再看释义 ↓');await view.advanceDay('2026-10-18',false);await view.click('想起来了');
+  await view.click('打开今日第一组');await view.click('先回想一下，再看释义 ↓');await view.advanceDay('2026-10-18',false);await view.click('想起来了');
   assert.match(view.text(view.scope('learningStudyPanel')),/新的一天开始了/);assert.deepEqual(view.state.answers,{});assert.equal(view.calls.length,0);
-  await view.advanceDay('2026-10-18');await view.click('想起来了');assert.deepEqual(view.state.answers.apple,{'2026-10-18':'green'});assert.equal(view.calls.length,1);
+  await view.advanceDay('2026-10-18');await view.click('想起来了');assert.deepEqual(view.state.answers,{});await view.click('保存并返回');await view.click('打开今日第一组');await view.click('先回想一下，再看释义 ↓');await view.click('想起来了');assert.deepEqual(view.state.answers.apple,{'2026-10-18':'green'});assert.equal(view.calls.length,1);
  }finally{view.close();}
 });
 
 test('pausing an open task blocks an answer and a fully used daily cap does not assign an extra word',async()=>{
  const paused=planner();try{
-  await paused.click('开始今日任务');await paused.click('先回想一下，再看释义 ↓');paused.store.pauseLearningPlan(true);await paused.flush();await paused.click('想起来了');
+  await paused.click('打开今日第一组');await paused.click('先回想一下，再看释义 ↓');paused.store.pauseLearningPlan(true);await paused.flush();await paused.click('想起来了');
   assert.match(paused.text(paused.scope('learningStudyPanel')),/计划已暂停/);assert.deepEqual(paused.state.answers,{});assert.equal(paused.calls.length,0);
  }finally{paused.close();}
- const capped=planner({cap:1});try{
-  await capped.click('开始今日任务');await capped.click('先回想一下，再看释义 ↓');capped.store.recordLearningPlanWord(capped.state,capped.selectedIds,'banal','green',firstDay);await capped.flush();await capped.click('想起来了');
+ const capped=planner({cap:2});try{
+  await capped.click('打开今日第一组');await capped.click('先回想一下，再看释义 ↓');capped.store.recordLearningPlanWord(capped.state,capped.selectedIds,'banal','green',firstDay);capped.store.recordLearningPlanWord(capped.state,capped.selectedIds,'candid','green',firstDay);await capped.flush();await capped.click('想起来了');
   assert.match(capped.text(capped.scope('learningStudyPanel')),/任务已更新/);assert.equal(capped.state.answers.apple,undefined);assert.equal(capped.calls.length,0);
  }finally{capped.close();}
 });
 
 test('closing keeps completed words and reopening resumes the remaining assigned task without grading reveals',async()=>{
  const view=planner();try{
-  await view.click('开始今日任务');await view.click('先回想一下，再看释义 ↓');await view.click('保存并返回');assert.deepEqual(view.state.answers,{});
-  await view.click('开始今日任务');assert.equal(studyWord(view),'朗读 apple');await view.click('先回想一下，再看释义 ↓');await view.click('想起来了');await view.click('保存并返回');
-  await view.click('开始今日任务');assert.equal(studyWord(view),'朗读 banal');assert.deepEqual(view.state.answers.apple,{[firstDay]:'green'});assert.equal(view.calls.length,1);
+  await view.click('打开今日第一组');await view.click('先回想一下，再看释义 ↓');await view.click('保存并返回');assert.deepEqual(view.state.answers,{});
+  await view.click('打开今日第一组');assert.equal(studyWord(view),'朗读 apple');await view.click('先回想一下，再看释义 ↓');await view.click('想起来了');await view.click('保存并返回');
+  await view.click('打开今日第一组');assert.equal(studyWord(view),'朗读 banal');assert.deepEqual(view.state.answers.apple,{[firstDay]:'green'});assert.equal(view.calls.length,1);
  }finally{view.close();}
 });
 
 test('not-started and initially paused plans never open a task queue or generate answers',async()=>{
  const future=planner({day:'2026-10-16'});try{
-  assert.equal(future.find('button','等待计划开始').props.disabled,true);assert.equal(future.nodes().some(node=>node.props?.['aria-label']==='今日学习任务'),false);assert.deepEqual(future.state.answers,{});assert.equal(future.calls.length,0);
+  assert.equal(future.find('button','今天暂无待学 List').props.disabled,true);assert.equal(future.nodes().some(node=>node.props?.['aria-label']==='今日学习任务'),false);assert.deepEqual(future.state.answers,{});assert.equal(future.calls.length,0);
  }finally{future.close();}
  const paused=planner({paused:true});try{
-  assert.match(paused.text(),/计划已暂停/);assert.equal(paused.find('button','今天可以休息').props.disabled,true);assert.equal(paused.nodes().some(node=>node.props?.['aria-label']==='今日学习任务'),false);assert.deepEqual(paused.state.answers,{});
-  await paused.click('继续计划');assert.equal(paused.state.paused,false);assert.equal(paused.find('button','开始今日任务').props.disabled,false);assert.equal(paused.calls.length,1);
+  assert.match(paused.text(),/计划已暂停/);assert.equal(paused.find('button','今天暂无待学 List').props.disabled,true);assert.equal(paused.nodes().some(node=>node.props?.['aria-label']==='今日学习任务'),false);assert.deepEqual(paused.state.answers,{});
+  await paused.click('继续计划');assert.equal(paused.state.paused,false);assert.equal(paused.find('button','打开今日第一组').props.disabled,false);assert.equal(paused.calls.length,1);
  }finally{paused.close();}
 });
 
@@ -170,7 +170,7 @@ test('invalid adjustments cannot replace settings or discard existing answer key
  const view=planner();try{
   view.store.recordLearningPlanWord(view.state,view.selectedIds,'apple','green',firstDay);await view.flush();const before=view.storage.exportStorage();
   await view.click('调整计划');view.change('每日总量上限','0');assert.equal(view.find('button','保存调整').props.disabled,true);
-  const form=view.nodes().find(node=>node.type==='form');form.props.onSubmit({preventDefault(){}});await view.flush();assert.match(view.text(),/请检查开始日期、目标日期和每日上限/);
+  const form=view.nodes().find(node=>node.type==='form');form.props.onSubmit({preventDefault(){}});await view.flush();assert.match(view.text(),/请检查词表、日期及每日上限/);
   assert.deepEqual(view.storage.exportStorage(),before);assert.equal(view.calls.length,0);
  }finally{view.close();}
 });

@@ -1,7 +1,7 @@
 import {REVIEW_INTERVALS,reviewDay} from './practiceReviewModel';
 
 export type LearningPlanRating='red'|'yellow'|'green';
-export type LearningPlanConfig={id:string;deckIds:string[];startDay:string;targetDay:string;dailyCap:number};
+export type LearningPlanConfig={id:string;deckIds:string[];startDay:string;targetDay:string;dailyCap:number|null};
 export type LearningPlanState={version:1;config:LearningPlanConfig;paused:boolean;answers:Record<string,Record<string,LearningPlanRating>>};
 export type LearningPlanSchedule={
  day:string;totalWords:number;learnedCount:number;remainingNewCount:number;
@@ -35,7 +35,7 @@ function validConfig(value:unknown):value is LearningPlanConfig{
   &&Array.isArray(value.deckIds)&&value.deckIds.length>0&&value.deckIds.length<=100
   &&value.deckIds.every(id=>typeof id==='string'&&id.length>0&&id.length<=120)
   &&validLearningPlanDay(value.startDay)&&validLearningPlanDay(value.targetDay)&&value.targetDay>=value.startDay
-  &&Number.isSafeInteger(value.dailyCap)&&Number(value.dailyCap)>=1&&Number(value.dailyCap)<=10_000;
+  &&(value.dailyCap===null||Number.isSafeInteger(value.dailyCap)&&Number(value.dailyCap)>=1&&Number(value.dailyCap)<=10_000);
 }
 export function validLearningPlan(value:unknown):value is LearningPlanState{
  if(!isObject(value)||value.version!==1||!validConfig(value.config)||typeof value.paused!=='boolean'||!isObject(value.answers))return false;
@@ -97,7 +97,7 @@ function remainingNewBudget(remaining:number,completedNew:number,day:number,star
 }
 function schedulePrepared(state:LearningPlanState,p:Prepared,today:string):LearningPlanSchedule{
  const date=dayNumber(today),active=!state.paused&&today>=state.config.startDay,completed=new Set(p.completedIds);
- let capacity=Math.max(0,state.config.dailyCap-p.completedIds.length);
+ let capacity=state.config.dailyCap===null?p.ids.length:Math.max(0,state.config.dailyCap-p.completedIds.length);
  const reviewIds=active?p.progress.filter(word=>word.due!==null&&word.due<=date&&!completed.has(word.id))
   .sort((a,b)=>a.due!-b.due!||a.index-b.index).slice(0,capacity).map(word=>word.id):[];
  capacity-=reviewIds.length;
@@ -141,7 +141,7 @@ export function projectLearningPlan(state:LearningPlanState,wordIds:readonly str
   while(day<=date+6||unseen<p.unseen.length){
    if(simulatedTasks>=MAX_SIMULATED_TASKS){truncated=true;break;}
    const dayText=dayString(day);if(!dayText){truncated=true;break;}
-   let slots=Math.max(0,state.config.dailyCap-(day===date?p.completedIds.length:0)),newCount=0,reviewCount=0;
+   let slots=state.config.dailyCap===null?p.ids.length:Math.max(0,state.config.dailyCap-(day===date?p.completedIds.length:0)),newCount=0,reviewCount=0;
    while(slots>0&&heap.size&&heap.peek().due!<=day){
     const old=heap.pop()!,next=afterAnswer(old,old.id,old.index,dayText,'green');
     if(next.due!==null)heap.push(next);slots--;reviewCount++;simulatedTasks++;

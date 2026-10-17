@@ -192,7 +192,7 @@ export default function VocabularyNotebook({ words, pronounce }: {
   }, [review, activeWordId, activeWordRevealed]);
 
   function handleKeyboard(event: KeyboardEvent) {
-    if(document.querySelector?.(".learningPlanOverlay, .onboardingOverlay"))return;
+    if(document.querySelector?.(".learningPlanOverlay, .onboardingOverlay, .workspaceMenuOverlay"))return;
     const target = event.target as HTMLElement | null;
     if (!review || !activeWord || !batch || loading || saving || event.isComposing || event.metaKey || event.ctrlKey || event.altKey || target?.closest("input, textarea, select, [contenteditable='true']")) return;
     if (target?.closest("button, summary, a") && (event.key === "Enter" || event.code === "Space")) return;

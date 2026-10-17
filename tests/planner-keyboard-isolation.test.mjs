@@ -27,7 +27,7 @@ function environment() {
   const calls = [];
   let overlay = false;
   const document = {querySelector(selector) {
-    assert.equal(selector, '.learningPlanOverlay, .onboardingOverlay');
+    assert.equal(selector, '.learningPlanOverlay, .onboardingOverlay, .workspaceMenuOverlay');
     return overlay ? {className: 'learningPlanOverlay'} : null;
   }};
   return {

@@ -1,4 +1,5 @@
 import {studyStorage} from "../community/storage";
+import {recordLearningPlanRatings} from "../community/learningPlanStore";
 import {appFetch} from "../community/api";
 "use client";
 
@@ -2555,6 +2556,7 @@ export default function Home() {
         mode: equivalentMode,
       }].slice(-3000),
     }));
+    recordLearningPlanRatings("equivalents",{[currentPair.id]:result==="correct"?"familiar":"unknown"});
     setQuickEquivalentRatings((value) => ({
       ...value,
       [currentPair.id]: result === "correct" ? "familiar" : "unknown",
@@ -2756,6 +2758,7 @@ export default function Home() {
   }
 
   function rateQuickWord(wordId: string, rating: QuickRating) {
+    recordLearningPlanRatings("words",{[wordId]:rating});
     setQuickRatings((value) => ({ ...value, [wordId]: rating }));
   }
 
@@ -2813,6 +2816,7 @@ export default function Home() {
   }
 
   function rateQuickEquivalentInPlace(pairId: string, direction: EquivalentCueDirection, rating: QuickRating) {
+    recordLearningPlanRatings("equivalents",{[quickEquivalentRatingKey(pairId,direction)]:rating});
     setQuickEquivalentRatings((value) => ({
       ...value,
       [quickEquivalentRatingKey(pairId, direction)]: rating,
@@ -2874,6 +2878,7 @@ export default function Home() {
   }
 
   function rateAPlusInPlace(entryId: string, direction: APlusCueDirection, rating: QuickRating) {
+    recordLearningPlanRatings("a-plus",{[aPlusRatingKey(entryId,direction)]:rating});
     setAPlusRatings((value) => ({ ...value, [aPlusRatingKey(entryId, direction)]: rating }));
     aPlusShouldScroll.current = false;
     setAPlusActiveId(entryId);
@@ -2935,6 +2940,7 @@ export default function Home() {
   }
 
   function rateGleeInPlace(wordId: string, rating: QuickRating) {
+    recordLearningPlanRatings("glee",{[wordId]:rating});
     setGleeRatings((value) => ({ ...value, [wordId]: rating }));
     setGleeRevealStage(wordId, 2);
     gleeShouldScroll.current = false;
@@ -2978,6 +2984,7 @@ export default function Home() {
   }
 
   function rateMathInPlace(wordId: string, rating: QuickRating) {
+    recordLearningPlanRatings("math",{[wordId]:rating});
     setMathRatings((value) => ({ ...value, [wordId]: rating }));
     setMathRevealed((value) => value.includes(wordId) ? value : [...value, wordId]);
     mathShouldScroll.current = false;
@@ -3021,6 +3028,7 @@ export default function Home() {
 
   useEffect(() => {
     function handleKeyboard(event: KeyboardEvent) {
+      if (document.querySelector?.(".learningPlanOverlay, .onboardingOverlay")) return;
       const target = event.target as HTMLElement | null;
       const editing = target?.matches("input, textarea, select, [contenteditable='true']");
       if (editing || event.metaKey || event.ctrlKey || event.altKey) return;
@@ -3357,7 +3365,7 @@ export default function Home() {
           {quickType === "bb" ? <BBQuick pronounce={pronounce}/> : quickType === "notebook" ? (
             <VocabularyNotebook words={words} pronounce={pronounce} />
           ) : quickType === "lclj-fill" || quickType === "lclj-reading" || quickType === "lclj-math" ? (
-            <LcljQuick key={quickType} deck={quickType} ratings={lcljRatings} onRate={(id, rating) => setLcljRatings((current) => ({ ...current, [id]: rating }))} pronounce={pronounce} />
+            <LcljQuick key={quickType} deck={quickType} ratings={lcljRatings} onRate={(id, rating) => {recordLearningPlanRatings("lclj",{[id]:rating});setLcljRatings((current) => ({ ...current, [id]: rating }));}} pronounce={pronounce} />
           ) : quickType === "words" ? (
             <>
               <div className="libraryHead">

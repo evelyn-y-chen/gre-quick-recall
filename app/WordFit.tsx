@@ -1,6 +1,6 @@
 "use client";
 import {useEffect} from "react";
-const selector=".quickWord strong,.quickPairWord strong,.aPlusWordChip,.bbPronounce,.mindMapWordMain strong,.sharedMemoryWord,.aPlusChoiceLabel strong,.aPlusQuestionHeading h2,.wordCard h2,.practiceQuestion h2,.practicePrompt.enWord,.practiceOptions .practiceEnglish,.practiceDueWords strong";
+const selector=".quickWord strong,.quickPairWord strong,.aPlusWordChip,.bbPronounce,.mindMapWordMain strong,.sharedMemoryWord,.aPlusChoiceLabel strong,.aPlusQuestionHeading h2,.wordCard h2,.practiceQuestion h2,.practicePrompt.enWord,.practiceOptions .practiceEnglish,.practiceDueWords strong,.learningStudyWord>.enWord";
 /** Keep English word labels intact; fit only labels, never meanings or notes. */
 export default function WordFit(){
  useEffect(()=>{

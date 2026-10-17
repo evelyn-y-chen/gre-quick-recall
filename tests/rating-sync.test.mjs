@@ -40,7 +40,7 @@ function ratingView(options={}){
   const result=options.deferPersist?await deferred(record):persistResult;
   if(result.synced)durable.push(record);return result;
  }};
- const dependencies={'../community/ratingMerge':loadTs('community/ratingMerge.ts'),'./ratingStorage':loadTs('app/ratingStorage.ts'),'react':react,'react/jsx-runtime':{jsx,jsxs:jsx},'../community/storage':storage,'../community/api':api,'../community/workspacePersistence':persistence,'./ratingSyncModel':model};
+ const dependencies={'../community/learningPlanStore':{recordLearningPlanRatings(){}},'../community/ratingMerge':loadTs('community/ratingMerge.ts'),'./ratingStorage':loadTs('app/ratingStorage.ts'),'react':react,'react/jsx-runtime':{jsx,jsxs:jsx},'../community/storage':storage,'../community/api':api,'../community/workspacePersistence':persistence,'./ratingSyncModel':model};
  const component={};new Function('require','exports','setTimeout','clearTimeout',compile('../app/RatingCloudSync.tsx'))(name=>{assert.ok(name in dependencies,name);return dependencies[name];},component,setTimeout,clearTimeout);
  function render(){if(!mounted)return;for(let n=0;n<15;n++){cursor=0;dirty=false;tree=component.default({module:'words',ratings,onLoad(value){loaded.push(clone(value));ratings=value;storage.studyStorage.setItem('gre-quick-ratings-v1',JSON.stringify(value));dirty=true;}});while(effects.length)effects.shift()();if(!dirty)return;}throw Error('Hook host did not settle');}
  function nodes(node){if(node==null||typeof node!=='object')return [];return Array.isArray(node)?node.flatMap(nodes):[node,...nodes(node.props?.children)];}

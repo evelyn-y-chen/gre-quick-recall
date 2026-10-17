@@ -42,6 +42,18 @@ function choose(base:Value|undefined,local:Value|undefined,remote:Value|undefine
  throw Error(`同一个词的旧版红黄绿记录不同，已保留本机记录。请先导出便笺，再核对 ${module} 的标记。`);
 }
 const same=(a:unknown,b:unknown)=>JSON.stringify(a)===JSON.stringify(b);
+type PlanAnswer='red'|'yellow'|'green';
+const planAnswerRank:Record<PlanAnswer,number>={red:0,yellow:1,green:2};
+function isPlanAnswerKey(key:string){
+ const match=/^lemnota-plan-answer:([A-Za-z0-9_-]{1,100}):([^:]{1,1500}):(\d{4}-\d{2}-\d{2})$/.exec(key);
+ if(!match)return false;
+ const date=new Date(`${match[3]}T00:00:00.000Z`);
+ if(!Number.isFinite(date.getTime())||date.toISOString().slice(0,10)!==match[3])return false;
+ try{const word=decodeURIComponent(match[2]);return word.length>0&&word.length<=500&&!/[\u0000-\u001f\u007f]/.test(word)&&encodeURIComponent(word)===match[2];}catch{return false;}
+}
+function planAnswer(raw:string|undefined):PlanAnswer|undefined{
+ const value=parse(raw);return value==='red'||value==='yellow'||value==='green'?value:undefined;
+}
 function mergeMap<T>(base:Record<string,T>,local:Record<string,T>,remote:Record<string,T>,preferLocal:(key:string)=>boolean=()=>false):Record<string,T>{
  const out:Record<string,T>={};for(const key of new Set([...Object.keys(base),...Object.keys(local),...Object.keys(remote)])){
   if(!safeKey(key))throw Error('便笺中有无效记录键，原有记录未被替换。');
@@ -56,8 +68,17 @@ export function mergeWorkspaceSnapshots(base:Snapshot|undefined,local:Snapshot,r
  const baseRows=rowMap(base),localRows=rowMap(local),remoteRows=rowMap(remote);
  for(const key of Object.keys(baseRows)){if(localRows[key]?.value===baseRows[key].value)localRows[key]=baseRows[key];if(remoteRows[key]?.value===baseRows[key].value)remoteRows[key]=baseRows[key];}
  for(const key of Object.keys(localRows))if(localRows[key]?.value===remoteRows[key]?.value)localRows[key]=remoteRows[key];
- const plainStorage=(s:Snapshot|undefined)=>Object.fromEntries(Object.entries(s?.storage??{}).filter(([k])=>!isRatingStorage(k)));
+ const snapshots=[base,local,remote];
+ // Answers are append-only daily facts: independent words/days are a union,
+ // and a missed answer remains recorded even if another device reports green.
+ // Malformed keys or values retain the ordinary conflict protection below.
+ const planKeys=new Set([...new Set(snapshots.flatMap(s=>Object.keys(s?.storage??{})))].filter(key=>isPlanAnswerKey(key)&&snapshots.every(s=>!s||!Object.hasOwn(s.storage,key)||planAnswer(s.storage[key])!==undefined)));
+ const plainStorage=(s:Snapshot|undefined)=>Object.fromEntries(Object.entries(s?.storage??{}).filter(([k])=>!isRatingStorage(k)&&!planKeys.has(k)));
  const storage=mergeMap(plainStorage(base),plainStorage(local),plainStorage(remote),key=>key==='lemnota-username'||key==='community-theme'||/^gre-.*(?:selection|lists|sets|categories|range|last-quick-type|study-list|auto-speak|source-order)/.test(key));
+ for(const key of [...planKeys].sort()){
+  const answers=snapshots.map(s=>planAnswer(s?.storage[key])).filter((value):value is PlanAnswer=>value!==undefined);
+  if(answers.length)storage[key]=JSON.stringify(answers.reduce((lowest,value)=>planAnswerRank[value]<planAnswerRank[lowest]?value:lowest));
+ }
  for(const [source,snapshot] of [['base',base],['local',local],['remote',remote]] as const)if(snapshot)for(const [key,raw] of Object.entries(snapshot.storage))if(isRatingStorage(key)&&key!==ratingClockKey&&!validRatings(parse(raw)))storage[`gre-rating-recovery:${key}:${source}`]=raw;
  const rows=Object.values(mergeMap(baseRows,localRows,remoteRows)),allClocks:Clocks={};
  for(const module of ratingModules){

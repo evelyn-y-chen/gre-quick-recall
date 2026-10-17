@@ -44,6 +44,7 @@ function practice({deck='words',data={}}={}){
   if(name.endsWith('/bbEquivalents.json'))return {default:bb};
   if(name.endsWith('/aPlusEquivalents.json')||name.endsWith('/equivalents.json'))return {default:[]};
   if(name==='../app/SharedWordMemory')return {default:()=>null};
+  if(name==='./learningPlanStore')return {recordLearningPlanWords(){}};
   if(name==='./analytics')return {trackUsage(){}};
   if(name==='./practiceCompletions')return {recordCompletedPractice(){},recordPracticeWord(){},recordPracticeWords(){}};
   if(!['./storage','./practiceModel','./practiceReviewModel','./Practice'].includes(name))throw Error('Unexpected import: '+name);

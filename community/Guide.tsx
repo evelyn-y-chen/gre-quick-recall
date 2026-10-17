@@ -13,14 +13,14 @@ const groups: GuideGroup[] = [
         en: 'Choose an account or learning-note mode',
         cn: [
           '账号模式：选择「登录 / 注册」，可创建用户名与密码，或使用已开放的第三方登录。无需填写邮箱。已有 GitHub 用户可登录后选择「设置用户名登录」，为原账号添加用户名与密码，保留已有进度。Google 是否可用以登录窗口为准。',
-          '登录后，已保存的笔记、红黄绿、生词本、测试进度、来源偏好和配色可同步到账号。在其他设备登录同一账号，即可读取。',
+          '登录后，已保存的笔记、红黄绿、生词本、测试进度、学习计划、来源偏好和配色可同步到账号。在其他设备登录同一账号，即可读取。',
           '已设置用户名且记得密码时，可在顶部「账号登录方式」验证当前密码、重新生成恢复码，旧码随即失效。忘记密码时先退出，再从登录页选择「使用恢复码找回账号」。',
           '便笺模式：无需注册，直接开始学习。记录保存在当前浏览器。选择「带走便笺」导出文件，下次或换设备时选择「读取便笺」恢复。账号模式也支持便笺备份。',
           '注册或设置用户名时，请保存恢复码。忘记密码可用恢复码设置新密码；恢复后请保存新码。密码和恢复码都遗失且没有其他已绑定登录方式时，将无法找回账号。请另行导出便笺留底。游客与各账号使用独立的学习空间。新账号可主动导入游客记录；已有账号先读取云端记录。退出账号后，恢复原来的游客空间。',
         ],
         english: [
           'Account mode: select “登录 / 注册” to create a username and password or use an available social sign-in. No email address is required. Existing GitHub users can sign in and select “设置用户名登录” to add credentials to the same account. Google availability is shown in the sign-in window.',
-          'An account syncs saved notes, familiarity ratings, notebook collections, test progress, source preferences and your theme. Sign into the same account on another device to load them.',
+          'An account syncs saved notes, familiarity ratings, notebook collections, test progress, learning plans, source preferences and your theme. Sign into the same account on another device to load them.',
           'If you remember your password, use “账号登录方式” in the header to verify it and generate a replacement recovery code; the old code stops working. If you forgot your password, sign out first and choose “使用恢复码找回账号” on the sign-in screen.',
           'Learning-note mode: start without registering. Records stay in this browser. Select “带走便笺” to export a file and “读取便笺” to restore it later or on another device. Account users can export backups too.',
           'Save your recovery code when you create or link a username. Use it to set a new password if needed, then keep the replacement code. Losing both your password and code, with no other linked sign-in, means the account cannot be recovered. Export learning notes as a separate backup. Guest and account workspaces are separate. A new account can explicitly import guest records; an existing account loads its cloud records first. Signing out restores the original guest workspace.',
@@ -38,6 +38,20 @@ const groups: GuideGroup[] = [
           'Select “开始刷词”, open a word bank, then choose a List, category or review range.',
           'Use the page controls to search, switch between original order and shuffle, filter ratings, or reveal content. Available controls vary by module.',
           'You can reopen this guide from the header at any time.',
+        ],
+      },
+      {
+        zh: '第一次使用与添加到桌面',
+        en: 'First visit and adding to your home screen',
+        cn: [
+          '首次进入学习空间时，会显示可左右翻页的功能卡片。可点击上一张／下一张、滑动或按左右方向键；点右上角 × 可随时关闭。同一浏览器关闭后不再自动弹出，也可从本指南的「翻看功能介绍」重新打开。',
+          '网页版的安装提示可以关闭。iPhone／iPad：在 Safari 点分享 → 添加到主屏幕 → 添加；如有「作为 Web App 打开」选项，可开启。Android／电脑 Chrome：从浏览器菜单选择安装或添加到主屏幕。Mac Safari：文件 → 添加到程序坞。不同版本的菜单名称可能略有差别。',
+          '在应用内浏览器找不到入口时，请先在 Safari／Chrome 打开。添加桌面本身不等于登录或备份；浏览器与独立网页 App 的游客存储可能分开，建议先登录账号或导出便笺。',
+        ],
+        english: [
+          'An illustrated card introduction appears on your first visit. Use Back / Next, swipe or press the arrow keys. Close it anytime with ×. Once closed, it will not reopen automatically in this browser; use “View the illustrated introduction” in this guide to revisit it.',
+          'The website’s installation tip can be dismissed. On iPhone / iPad, open Safari → Share → Add to Home Screen → Add; enable Open as Web App if offered. On Android / desktop Chrome, choose Install or Add to Home Screen from the browser menu. On Mac Safari, choose File → Add to Dock. Menu labels may vary by version.',
+          'If an in-app browser has no install option, open the site in Safari / Chrome. Adding an icon is not sign-in or a backup. Browser and standalone web-app guest storage may be separate, so sign in or export a learning note first.',
         ],
       },
     ],
@@ -86,6 +100,48 @@ const groups: GuideGroup[] = [
           'Some public guided memorization or practice videos for A+ and GLEE 1500 are available on the relevant websites or Bilibili. Search by course or word-list name to study alongside a video.',
           'Most default notes were organized from public A+, GLEE and other teaching videos, then deduplicated and shortened for review. BB memory methods come from the three original PDF volumes. You can edit the notes to suit the way you remember words.',
           'GLEE notes from List 22 onward were organized using AI. At the time these notes were compiled, the teacher’s videos had not yet covered those lists, so this material is not based on corresponding video explanations.',
+        ],
+      },
+    ],
+  },
+  {
+    zh: '学习规划',
+    en: 'Learning plans',
+    topics: [
+      {
+        zh: '制定计划与开始今日任务',
+        en: 'Create a plan and start today’s tasks',
+        cn: [
+          '在首页「今天的学习」选择「制定学习计划」。可多选词表（包括生词本），设置开始日期、目标首轮完成日期，以及新词＋复习的每日总上限。无需登录也能使用。',
+          '按相同拼写去重，忽略大小写和多余空格；不会仅因词义相近而合并。每个词只安排一次，保留所选词表中的全部释义与来源，可在词卡中查看。',
+          '每天先安排到期复习，再按剩余新词、目标日期和剩余容量分配新词。已完成的不同单词计入当日上限；不会为赶目标自动加量。计划日期按北京时间计算。',
+          '选择「开始今日任务」，逐词回忆、揭晓释义并做红绿灯自测。实际自评，或在支持的测试中完整提交该词的作答结果后，才计入完成；仅打开页面、看释义或完成测试的中间步骤不算。普通词表中对所选词的实际自测也会计入。',
+          '同一个词每天只计一次；当天出现红或黄会保留较不熟悉的记录，次日再复习。同日反复标绿不会提前升级间隔。计划外自行多学的词如实记录，达到上限后不再派发额外任务。',
+        ],
+        english: [
+          'On the home page, select “制定学习计划” under “今天的学习” (Daily plan). Choose several word banks, including your notebook, a start date, a first-pass target date and a daily cap covering new words plus reviews. No sign-in is required.',
+          'Identical spellings are deduplicated, ignoring case and extra spaces. Similar meanings alone do not merge words. Each word is scheduled once, retaining all meanings and sources from the selected banks for its card.',
+          'Due reviews come first. New words are then allocated using the remaining words, target date and available capacity. Distinct words already completed today count toward the daily cap; the plan never raises it to meet a deadline. Dates use Beijing time (UTC+8).',
+          'Select “开始今日任务” (Start today’s tasks) to recall, reveal and rate words one at a time. An actual self-assessment or a fully submitted answer for that word in a supported test counts as completion. Opening a page, revealing a meaning or completing an intermediate test step does not. Self-checks for selected words in ordinary word-bank views count too.',
+          'Each word counts once per day. A red or yellow response preserves the less-familiar result and brings the word back the next day. Repeated greens that day do not advance its interval. Extra self-study is recorded honestly; no further tasks are assigned once the cap is reached.',
+        ],
+      },
+      {
+        zh: '查看预测、调整与保存计划',
+        en: 'Read forecasts, adjust and save a plan',
+        cn: [
+          '首次学习后，按 1、2、4、7、15、30 天的间隔安排六轮巩固。红或黄会从次日重新开始；六次到期复习均顺利完成后，该词退出本轮计划。普通测试的长期复习计划不受影响。',
+          '未来七天图展示预计新词与复习量，今天包含已完成的词。预测假设未来按时完成且回答为绿；这是任务量估算，不是记忆率测量，也不表示永久掌握。',
+          '漏学或实际作答后，剩余任务会自动重新计算，并在预计首轮完成日期延后时提示。「首轮完成」指所有所选词至少实际学习一次，不表示六轮巩固或全部长期复习已结束。',
+          '可暂停或调整词表、目标日期与每日上限。暂停时不派新任务，已有记录保留；继续后按当天重新安排。调整保留已记录的答案，开始日期保持不变。',
+          '计划设置与逐词记录随当前学习空间保存，登录后同步到账号，也包含在完整便笺中。恢复整份计划时选择「替换整份记录」；「合并红黄绿记录」只合并标记。替换前请先备份当前便笺；同步未完成时以页面保存状态为准。',
+        ],
+        english: [
+          'After the first encounter, six consolidation reviews use intervals of 1, 2, 4, 7, 15 and 30 days. Red or yellow restarts the sequence the next day. After six successful due reviews, the word leaves this plan. Ordinary tests keep their separate long-term schedules.',
+          'The seven-day chart forecasts new words and reviews; today includes words already completed. It assumes future tasks are completed on time with green answers. This estimates workload, not a measured memory rate or permanent mastery.',
+          'Missed days and actual answers automatically recalculate remaining tasks, with a notice if the estimated first-pass date moves later. First-pass completion means studying every selected word at least once; it does not mean all six consolidation reviews or all long-term reviews have ended.',
+          'Pause the plan or adjust its word banks, target date and daily cap. Pausing stops new assignments and retains records; resuming recalculates from that day. Adjustments keep recorded answers, and the original start date stays unchanged.',
+          'Plan settings and word records save with the current workspace, sync to a signed-in account and travel in a full learning-note file. Choose Replace all records to restore a whole plan; Merge ratings imports ratings only. Back up the current file before replacing it, and check the save status if sync is pending.',
         ],
       },
     ],
@@ -260,13 +316,13 @@ const groups: GuideGroup[] = [
         zh: '导出、读取便笺与换设备',
         en: 'Export, restore and move between devices',
         cn: [
-          '导出：选择「带走便笺」，保存当前学习空间的文件。便笺包含已保存的笔记、红黄绿、生词本、测试与复习记录、来源偏好、昵称及配色。文件名包含昵称和导出日期时间。',
+          '导出：选择「带走便笺」，保存当前学习空间的文件。便笺包含已保存的笔记、红黄绿、生词本、测试与复习记录、学习计划与逐词记录、来源偏好、昵称及配色。文件名包含昵称和导出日期时间。',
           '读取：选择「读取便笺」并选取文件。可选择「合并红黄绿记录」，保留两边不同词的标记，以及当前笔记和设置；或选择「替换整份记录」恢复便笺中的全部内容。替换前请先导出当前记录。旧版 GRE JSON 备份仍可读取。',
           '换设备：可登录同一账号读取云端进度，也可导出便笺后在另一设备导入。',
           '便笺是普通数据文件，请妥善保管。清除网站数据、无痕浏览或浏览器清理可能导致本地记录丢失；同一浏览器配置下的游客共用一份记录。',
         ],
         english: [
-          'Export: select “带走便笺” to save a file for the current workspace. It contains saved notes, ratings, notebook collections, tests, review schedules, source preferences, nickname and theme. The filename includes your nickname and the export date/time.',
+          'Export: select “带走便笺” to save a file for the current workspace. It contains saved notes, ratings, notebook collections, tests, review schedules, learning plans and word records, source preferences, nickname and theme. The filename includes your nickname and the export date/time.',
           'Restore: select “读取便笺” and choose a file. Choose Merge ratings to combine familiarity ratings while keeping current notes and settings, or Replace all records to restore the entire file. Export your current records before replacing them. Older GRE JSON backups are supported.',
           'Change devices: sign into the same account to load cloud progress, or export a learning-note file and import it on the other device.',
           'Keep the file safe. Clearing site data, private browsing or browser cleanup can remove local records. Guests sharing one browser profile share its workspace.',
@@ -328,7 +384,7 @@ const groups: GuideGroup[] = [
   },
 ];
 
-export default function Guide() {
+export default function Guide({onTour}:{onTour?:()=>void}={}) {
   const [english, setEnglish] = useState(false);
 
   return (
@@ -337,6 +393,7 @@ export default function Guide() {
         <button aria-pressed={!english} onClick={() => setEnglish(false)}>中文</button>
         <button aria-pressed={english} onClick={() => setEnglish(true)}>English</button>
       </div>
+      {onTour&&<button className="guideTourButton" onClick={onTour}>{english?'View the illustrated introduction →':'翻看功能介绍 →'}</button>}
       <p>{english
         ? 'Choose how to save your progress, then open a topic for instructions. This guide is always available in the header.'
         : '先选择进度保存方式，再展开对应主题查看操作。顶部「使用指南」可随时查阅。'}</p>

@@ -56,6 +56,7 @@ function quickView(name, initialStorage = {}, initialDeck = 'lclj-fill') {
   };
   const jsx = (type, props) => ({ type, props: props ?? {} });
   function load(importName) {
+    if (importName === '../community/learningPlanStore') return {recordLearningPlanRatings(){}};
     if (importName === 'react') return react;
     if (importName === 'react/jsx-runtime') return { jsx, jsxs: jsx };
     if (importName === './SharedWordMemory') return { default: () => null, useWordMemory: () => undefined };

@@ -16,7 +16,7 @@ declare global {
 
 const DISMISS_KEY = "gre-pwa-install-dismissed";
 
-export default function PwaBridge() {
+export default function PwaBridge({onShowGuide,suppressBanner=false}:{onShowGuide?:()=>void;suppressBanner?:boolean}={}) {
   const [installPrompt, setInstallPrompt] = useState<InstallPromptEvent | null>(null);
   const [showIosGuide, setShowIosGuide] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
@@ -30,7 +30,7 @@ export default function PwaBridge() {
     const dismissed = studyStorage.getItem(DISMISS_KEY) === "yes";
     const ios = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
-    const iosPromptTimer = !standalone && !dismissed && ios
+    const iosPromptTimer = !standalone && !dismissed && (ios || !!onShowGuide)
       ? window.setTimeout(() => setShowBanner(true), 0)
       : undefined;
 
@@ -55,6 +55,7 @@ export default function PwaBridge() {
 
   async function install() {
     if (!installPrompt) {
+      if(onShowGuide){onShowGuide();return;}
       setShowIosGuide((current) => !current);
       return;
     }
@@ -69,14 +70,14 @@ export default function PwaBridge() {
     setShowBanner(false);
   }
 
-  if (!showBanner) return null;
+  if (!showBanner || suppressBanner) return null;
 
   return (
     <aside className="pwaBanner" aria-label="安装词笺 App">
       <span className="pwaBannerIcon"><img src={import.meta.env.BASE_URL+"icons/lemnota.svg"} width="38" height="38" alt="词笺图标"/></span>
       <div>
-        <strong>装到手机，随手背词</strong>
-        <p>{showIosGuide ? "在 Safari 点“分享” → “添加到主屏幕”，并打开“作为 Web App 打开”。" : "添加到主屏幕后会像 App 一样独立打开，打开更方便。"}</p>
+        <strong>把词笺放到主屏幕或桌面</strong>
+        <p>{showIosGuide ? "在 Safari 点“分享” → “添加到主屏幕”，并打开“作为 Web App 打开”。" : "下次点图标就能开始。可查看适合你设备的添加步骤。"}</p>
       </div>
       <button className="pwaInstall" type="button" onClick={install}>{installPrompt ? "安装" : showIosGuide ? "知道了" : "怎么装"}</button>
       <button className="pwaDismiss" type="button" onClick={dismiss} aria-label="关闭安装提示">×</button>

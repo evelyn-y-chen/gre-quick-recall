@@ -1,4 +1,6 @@
 import {studyStorage} from "../community/storage";
+import {recordLearningPlanWords} from "../community/learningPlanStore";
+import {reviewDay} from "../community/practiceReviewModel";
 import {appFetch} from "../community/api";
 "use client";
 
@@ -168,6 +170,8 @@ export default function VocabularyNotebook({ words, pronounce }: {
   }
 
   function rateWord(id: string, rating: NotebookRating, toggle = true) {
+    const word=batch?.words.find(w=>w.id===id);
+    if(word&&!(toggle&&word.rating===rating))recordLearningPlanWords([word.word],rating==="familiar"?"green":rating==="fuzzy"?"yellow":"red",reviewDay(),batch!.words.map(w=>w.word));
     if (batch) persist({...batch,words:batch.words.map((w) => w.id === id ? {...w,rating:toggle && w.rating === rating ? undefined : rating} : w)});
   }
 
@@ -188,6 +192,7 @@ export default function VocabularyNotebook({ words, pronounce }: {
   }, [review, activeWordId, activeWordRevealed]);
 
   function handleKeyboard(event: KeyboardEvent) {
+    if(document.querySelector?.(".learningPlanOverlay, .onboardingOverlay"))return;
     const target = event.target as HTMLElement | null;
     if (!review || !activeWord || !batch || loading || saving || event.isComposing || event.metaKey || event.ctrlKey || event.altKey || target?.closest("input, textarea, select, [contenteditable='true']")) return;
     if (target?.closest("button, summary, a") && (event.key === "Enter" || event.code === "Space")) return;

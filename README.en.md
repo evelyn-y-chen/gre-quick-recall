@@ -40,10 +40,13 @@ To note is both to notice and to write something down.
 
 ## Getting started
 
-1. Open the website and choose a palette. An optional nickname will appear in your backup filename.
+On your first visit, **nine illustrated feature cards** explain the core functions. Swipe, use Back / Next or the arrow keys, and switch between Chinese and English. Close anytime with **×**; it will not reopen automatically in the same browser. Reopen it through **使用指南 → 翻看功能介绍** (Guide → Illustrated introduction). A separate dismissible tip explains home-screen installation for iPhone, iPad, Android, Chrome and Mac Safari. Installation does not automatically move guest records; sign in or export a learning note first.
+
+
+1. Choose account sync (username/password without email, or an available social sign-in) or start without an account in learning-note mode. Then choose a palette and optional nickname for your backup filename.
 2. Select **开始刷词** (Start reviewing), choose a list and a small range, then review in order or shuffle.
 3. Recall the meaning before revealing it. Mark your confidence with red, yellow, or green, and edit a word's note when useful.
-4. Use **开始测试** (Start test) when you want to check your recall.
+4. Use **开始测试** (Start test) when you want to check your recall. For a daily schedule, create a plan under **今天的学习** (Daily plan) on the home page.
 5. Submit edits with their Save buttons. **已存到这台设备** (Saved on this device) confirms they have reached browser storage. Export a learning note periodically.
 
 The **使用指南** (Guide) is always available at the top. Select the **词笺 · Lemnota** wordmark to return to the start screen. **关于词笺** (About Lemnota) explains the name and the idea behind the project. The interface is currently in Chinese; this guide includes its key labels.
@@ -59,6 +62,19 @@ The **使用指南** (Guide) is always available at the top. Select the **词笺
 These are self-assessments for this review. You can change them at any time, and you do not have to get everything right. Filter review screens by familiarity; some allow several colors at once. Mark-saving controls save to your own current workspace.
 
 **The vocabulary notebook uses the same system.** Review your collection in compact rows, reveal definitions and notes, and rate each word. Keyboard navigation scrolls the active notebook word toward the middle of the screen.
+
+## Learning plans: set your daily pace
+
+On the home page, open **今天的学习 → 制定学习计划** (Daily plan → Create a learning plan). Select several word banks, including your notebook, a start date, a first-pass target date and a **daily cap for new words plus reviews**. No sign-in is required.
+
+- **Schedule each word once.** Identical spellings are deduplicated, ignoring case and extra spaces; similar meanings alone do not merge words. Cards retain all meanings and sources from the selected banks.
+- **Review due words first.** New words then use the remaining words, target date and available daily capacity. Distinct words already completed today count toward the cap, which is never raised automatically to meet a deadline. Dates use Beijing time (UTC+8).
+- **Count actual recall.** Select **开始今日任务** (Start today’s tasks) for a separate, one-word-at-a-time queue. A traffic-light self-assessment or a fully submitted answer for that word in a supported test counts toward today’s completion. Opening a page, revealing a meaning or completing an intermediate test step does not. Actual self-checks for selected words in ordinary word-bank views count too. Each word counts once per day; extra self-study is retained, and no further tasks are assigned once the cap is reached.
+- **Use six consolidation reviews.** After the first encounter, reviews use intervals of **1, 2, 4, 7, 15 and 30 days**. Red or yellow restarts the sequence the next day. The less-familiar result is retained for the day; repeated greens do not advance the interval. After six successful due reviews, the word leaves this plan. Ordinary tests keep their separate long-term schedules.
+- **Forecast seven days of workload.** The chart separates new words from reviews and includes today’s completed words. It assumes future tasks are completed on time with green answers. This is a workload estimate, not a measured memory rate or permanent mastery.
+- **Recalculate after missed days.** Remaining tasks reflect actual study records, with a notice if the estimated first-pass date moves later. First-pass completion means studying every selected word at least once; **it is not the end date of all six consolidation reviews or all long-term reviews**.
+- **Pause or adjust.** Pausing stops new assignments and keeps existing records; resuming recalculates from that day. Changing word banks, the target date or the cap retains recorded answers. The original start date stays unchanged.
+- **Save with an account or a full learning note.** Settings and word records save with the current workspace and sync to a signed-in account. Choose **Replace all records** to restore a whole plan from a file; **Merge ratings** imports ratings only. Back up the current file before replacing it, and check the page status to confirm whether sync has finished.
 
 ## Lists and modules
 
@@ -151,7 +167,7 @@ Follow the current module's on-screen hints. Typing in inputs or note editors do
 
 ### Save without signing in
 
-Saved notes, familiarity marks, tests/review history, source order, nickname, and palette are written automatically to the current browser's IndexedDB. Return with the **same website address and browser profile** to continue. Submit editor changes first, then check for **已存到这台设备** (Saved on this device).
+Saved notes, familiarity marks, tests/review history, learning plans and word records, source order, nickname, and palette are written automatically to the current browser's IndexedDB. Return with the **same website address and browser profile** to continue. Submit editor changes first, then check for **已存到这台设备** (Saved on this device).
 
 Devices and browser profiles have separate data; people sharing one profile share its workspace. Private browsing, clearing site data, or browser cleanup can remove local records. Revision checks help prevent stale tabs from overwriting new records, but editing in one tab is recommended.
 
@@ -170,7 +186,7 @@ Guests do not need an email or password. A learning note carries its data indepe
 
 **GitHub sign-in is enabled**, with account workspace synchronization implemented. Google sign-in is on hold. Email/password sign-in is retained; email registration and email links remain unavailable. GitHub sign-in does not require Gmail SMTP. Actual cross-device saving still needs verification; see [Project status](PROGRESS.md).
 
-Notes, familiarity marks, notebooks, tests, source preferences, and palettes save to the signed-in account. Guest data and per-account device caches stay separate. A new account can explicitly import guest records; existing cloud progress is read first. Concurrent conflicts retain a local backup rather than silently replacing cloud records. Signing out restores the guest workspace. Ratings save automatically and sync to the signed-in account without an extra save click. Offline edits remain in that account’s local cache; use **立即同步** (Sync now) to retry. Different-word ratings from two devices are combined, and the newer recorded edit wins for the same word. Reload the latest account progress on the other device to view the merged result.
+Notes, familiarity marks, notebooks, tests, learning plans and word records, source preferences, and palettes save to the signed-in account. Guest data and per-account device caches stay separate. A new account can explicitly import guest records; existing cloud progress is read first. Concurrent conflicts retain a local backup rather than silently replacing cloud records. Signing out restores the guest workspace. Ratings save automatically and sync to the signed-in account without an extra save click. Offline edits remain in that account’s local cache; use **立即同步** (Sync now) to retry. Different-word ratings from two devices are combined, and the newer recorded edit wins for the same word. Reload the latest account progress on the other device to view the merged result.
 
 See [authentication setup](AUTH_SETUP.md) for maintenance. After signing in with GitHub, check for the account-save confirmation and keep an exported learning note as a backup.
 

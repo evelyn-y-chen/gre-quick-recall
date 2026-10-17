@@ -7,6 +7,7 @@ import bb from '../app/bbEquivalents.json';
 import pairs from '../app/equivalents.json';
 import SharedWordMemory from '../app/SharedWordMemory';
 import {studyStorage} from './storage';
+import {recordLearningPlanWords} from './learningPlanStore';
 import {grade,optionsFor,shuffle,answerStep,type Term,type Choice,type Direction,type Result} from './practiceModel';
 import {REVIEW_INTERVALS,reviewDay,readPracticeReviewHistory,recordPracticeReview,duePracticeIds,type ReviewHistory} from './practiceReviewModel';
 export type Deck='words'|'a-plus'|'bb';
@@ -30,6 +31,7 @@ export default function Practice({deck,onClose}:{deck:Deck;onClose:()=>void}){
  function submit(uncertain=false){if(actionLocked.current||!run||!current||run.phase==='feedback'||(!uncertain&&run.selected===null))return;actionLocked.current=true;recordPracticeWord(current.word,deck);const ok=!uncertain&&!!run.options[run.selected!]?.correct;
  const outcome=answerStep(run.phase==='synonym'?'synonym':'meaning',run.pair,ok,run.meaningOK);
  if(outcome.phase==='synonym'){setRun({...run,meaningOK:ok,phase:'synonym',options:optionsFor(current,pool,run.direction,links,true),selected:null});return;}
+ recordLearningPlanWords([current.word],outcome.correct?'green':'red');
  const result=grade(run.results[current.id],outcome.correct),day=reviewDay(),nextHistory=recordPracticeReview(history,current.id,outcome.correct,result.done,day);studyStorage.setItem(reviewKey,JSON.stringify(nextHistory));setHistory(nextHistory);setToday(day);
  setRun({...run,meaningOK:outcome.meaningOK,phase:'feedback',feedbackStep:outcome.feedbackStep,results:{...run.results,[current.id]:result}});}
  function next(){if(actionLocked.current||!run||!current||run.phase!=='feedback')return;actionLocked.current=true;const queue=run.queue.slice(1);if(!run.results[current.id].done)queue.splice(Math.min(5,queue.length),0,current.id);const term=pool.find(t=>t.id===queue[0]);if(!term){recordCompletedPractice(run.sessionId??`legacy-${deck}-${run.turn+1}-${Object.keys(run.results).sort().join(',')}`,deck);trackUsage('practice_complete',deck==='words'?'all_words':deck==='bb'?'bb':'a_plus');}setRun({...run,queue,turn:run.turn+1,phase:'meaning',selected:null,meaningOK:false,options:term?optionsFor(term,pool,run.direction,links):[]});}

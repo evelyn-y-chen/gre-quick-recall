@@ -19,8 +19,11 @@ test('word highlight and group traffic light can be tried independently without 
 test('the sample note follows source switches but never imports the real memory store',()=>{
  const v=component('community/TourDemo.tsx',{id:'connections',english:false});v.change('textarea','我自己的联想');v.click('GLEE');assert.equal(v.node('textarea').props.value,'我自己的联想');v.click('BB');assert.equal(v.node('textarea').props.value,'我自己的联想');
 });
-test('both A+ and BB sample tests skip step two after a wrong meaning and show notes immediately',()=>{
- for(const bank of ['A+','BB']){const v=component('community/TourDemo.tsx',{id:'practice',english:false});v.click(bank);v.click('严厉的');assert.match(v.text,/正确释义：坦率的/);assert.match(v.text,/对应等价词：frank/);assert.match(v.text,/记忆笔记/);assert.equal(v.button('frank'),undefined);v.click('再试一次');v.click('坦率的');assert.ok(v.button('frank'));v.click('frank');assert.match(v.text,/答对了/);}
+test('A+ sample skips step two after a wrong meaning and shows notes immediately',()=>{
+ const v=component('community/TourDemo.tsx',{id:'practice',english:false});v.click('严厉的');assert.match(v.text,/正确释义：坦率的/);assert.match(v.text,/对应等价词：frank/);assert.match(v.text,/记忆笔记/);assert.equal(v.button('frank'),undefined);v.click('再试一次');v.click('坦率的');assert.ok(v.button('frank'));v.click('frank');assert.match(v.text,/答对了/);
+});
+test('BB example opens six synonym choices directly, including after retry',()=>{
+ const v=component('community/TourDemo.tsx',{id:'practice',english:false});v.click('BB');assert.equal(v.button('坦率的'),undefined);assert.ok(v.button('frank'));v.click('timid');assert.match(v.text,/正确等价词：frank/);assert.match(v.text,/记忆笔记/);v.click('再试一次');assert.ok(v.button('frank'));assert.equal(v.button('坦率的'),undefined);
 });
 test('the notebook demo reuses definitions and notes; the sample learning note round trip stays in the card',()=>{
  const n=component('community/TourDemo.tsx',{id:'notebook',english:false});n.change('select','lucid');n.click('选用释义与已有笔记');assert.match(n.text,/清晰的/);assert.match(n.text,/已放入示例生词本/);

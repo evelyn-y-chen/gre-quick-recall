@@ -1,3 +1,4 @@
+import type {PlanNavigation} from "../community/planNavigation";
 import {studyStorage} from "../community/storage";
 import {recordLearningPlanRatings} from "../community/learningPlanStore";
 import {readSavedRatings,writeSavedRatings} from "./ratingStorage";
@@ -16,7 +17,7 @@ const colors=[{value:"unknown",label:"不认识",color:"red"},{value:"fuzzy",lab
 const key="gre-bb-ratings-v1";
 const rangeKey="gre-bb-selection-v1";
 const occurrences=bbOccurrences(data);
-export default function BBQuick({pronounce}:{pronounce:(word:string)=>void}){
+export default function BBQuick({pronounce,planTarget,onPlanTargetHandled}:{pronounce:(word:string)=>void;planTarget?:PlanNavigation|null;onPlanTargetHandled?:()=>void}){
  const [ratings,setRatings]=useState<Ratings>({}),[ready,setReady]=useState(false),[query,setQuery]=useState(""),[filter,setFilter]=useState("全部"),[snapshot,setSnapshot]=useState<Ratings>({}),[revealed,setRevealed]=useState<string[]>([]),[activeId,setActiveId]=useState(""),[order,setOrder]=useState<string[]|null>(null);
  const [range,setRange]=useState<{value:BBRange;ready:boolean}>({value:{volume:"全部",lists:[1]},ready:false});
  const {volume,lists}=range.value;
@@ -28,6 +29,7 @@ export default function BBQuick({pronounce}:{pronounce:(word:string)=>void}){
  useEffect(()=>{const timer=window.setTimeout(()=>{let value:BBRange={volume:"全部",lists:[1]};try{value=restoreBBRange(studyStorage.getItem(rangeKey),data);}catch{}setRange(current=>current.ready?current:{value,ready:true});},0);return()=>window.clearTimeout(timer);},[]);
  useEffect(()=>{if(range.ready)try{studyStorage.setItem(rangeKey,JSON.stringify(range.value));}catch{}},[range]);
  function changeRange(value:BBRange){setRange({value,ready:true});}
+ useEffect(()=>{if(!planTarget||planTarget.deckId!=='bb'||!planTarget.list)return;changeRange({volume:planTarget.volume??'全部',lists:[planTarget.list]});setQuery('');setFilter('全部');setOrder(null);setActiveId('');onPlanTargetHandled?.();},[planTarget?.id]);
  const ordered=useMemo(()=>order?order.map(id=>data.find(e=>e.id===id)!):data,[order]);
  const q=query.trim().toLowerCase();
  const scoped=ordered.filter(e=>(volume==="全部"||e.volume===volume)&&lists.includes(e.list));

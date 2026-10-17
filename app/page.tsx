@@ -1,3 +1,4 @@
+import type {PlanNavigation} from "../community/planNavigation";
 import {studyStorage} from "../community/storage";
 import {recordLearningPlanRatings} from "../community/learningPlanStore";
 import {appFetch} from "../community/api";
@@ -1890,7 +1891,9 @@ function parseVocabulary(text: string): Word[] {
     }));
 }
 
-export default function Home() {
+export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanNavigation|null;onPlanTargetHandled?:()=>void}={}) {
+  const [requestedPlanRange,setRequestedPlanRange]=useState<PlanNavigation|null>(null);
+  const handledPlanTarget=useRef<string|null>(null);
   const [practiceDeck,setPracticeDeck]=useState<PracticeDeck|null>(null);
   const [words, setWords] = useState<Word[]>(SOURCE_WORDS);
   const [store, setStore] = useState<Store>(EMPTY_STORE);
@@ -2036,6 +2039,26 @@ export default function Home() {
     }, 0);
     return () => window.clearTimeout(timer);
   }, []);
+
+  useEffect(()=>{
+    if(!ready||!planTarget||handledPlanTarget.current===planTarget.id)return;
+    handledPlanTarget.current=planTarget.id;setView('quick');setAPlusMode('scan');setPracticeDeck(null);
+    setQuickType(planTarget.deckId as QuickType);
+    setQuickQuery('');setQuickRatingFilters([]);setQuickActiveId(null);
+    setQuickEquivalentQuery('');setQuickEquivalentRatingFilters([]);setQuickEquivalentActiveId(null);
+    setAPlusQuery('');setAPlusRatingFilters([]);setAPlusActiveId(null);
+    setGleeQuery('');setGleeRatingFilters([]);setGleeActiveId(null);
+    setMathQuery('');setMathRatingFilters([]);setMathActiveId(null);
+    if(planTarget.list){
+      if(planTarget.deckId==='words')setQuickWordLists([planTarget.list]);
+      if(planTarget.deckId==='equivalents')setQuickEquivalentSets([planTarget.list]);
+      if(planTarget.deckId==='a-plus')setAPlusLists([planTarget.list]);
+      if(planTarget.deckId==='glee')setGleeLists([planTarget.list]);
+    }
+    if(planTarget.deckId==='math'&&planTarget.category)setMathCategories([planTarget.category]);
+    if(planTarget.deckId==='bb'||planTarget.deckId.startsWith('lclj-')||planTarget.deckId==='notebook')setRequestedPlanRange(planTarget);
+    onPlanTargetHandled?.();
+  },[ready,planTarget?.id]);
 
   useEffect(() => {
     if (ready) studyStorage.setItem(STORAGE_KEY, JSON.stringify(store));
@@ -3354,7 +3377,7 @@ export default function Home() {
             ))}
           </div>
 
-          {["words","a-plus","bb"].includes(quickType)&&<div className="practiceEntry"><button className="primary" onClick={()=>setPracticeDeck(quickType as PracticeDeck)}>开始测试 · {quickType==="bb"?"释义与同义词":"双向释义"}</button><span>看英文选中文 / 看中文选英文 · 错题记忆笔记</span></div>}
+          {["words","bb"].includes(quickType)&&<div className="practiceEntry"><button className="primary" onClick={()=>setPracticeDeck(quickType as PracticeDeck)}>开始测试</button><span>{quickType==="bb"?"从六个词中选同义词 · 答后查看释义与记忆笔记":"选择对应释义 · 答后查看记忆笔记"}</span></div>}
           {practiceDeck&&<Practice key={"practice-"+practiceDeck} deck={practiceDeck} onClose={()=>setPracticeDeck(null)}/>}
           {ready && quickType !== "bb" && quickType !== "notebook" && quickType !== "mindmap" && !(quickType === "a-plus" && aPlusMode === "test") && <RatingCloudSync
             key={quickType.startsWith("lclj-") ? "lclj" : quickType}
@@ -3362,10 +3385,10 @@ export default function Home() {
             ratings={quickType === "words" ? quickRatings : quickType === "equivalents" ? quickEquivalentRatings : quickType === "a-plus" ? aPlusRatings : quickType === "glee" ? gleeRatings : quickType === "math" ? mathRatings : lcljRatings}
             onLoad={quickType === "words" ? setQuickRatings : quickType === "equivalents" ? setQuickEquivalentRatings : quickType === "a-plus" ? setAPlusRatings : quickType === "glee" ? setGleeRatings : quickType === "math" ? setMathRatings : setLcljRatings}
           />}
-          {quickType === "bb" ? <BBQuick pronounce={pronounce}/> : quickType === "notebook" ? (
-            <VocabularyNotebook words={words} pronounce={pronounce} />
+          {quickType === "bb" ? <BBQuick pronounce={pronounce} planTarget={requestedPlanRange} onPlanTargetHandled={()=>setRequestedPlanRange(null)}/> : quickType === "notebook" ? (
+            <VocabularyNotebook words={words} pronounce={pronounce} planTarget={requestedPlanRange} onPlanTargetHandled={()=>setRequestedPlanRange(null)}/>
           ) : quickType === "lclj-fill" || quickType === "lclj-reading" || quickType === "lclj-math" ? (
-            <LcljQuick key={quickType} deck={quickType} ratings={lcljRatings} onRate={(id, rating) => {recordLearningPlanRatings("lclj",{[id]:rating});setLcljRatings((current) => ({ ...current, [id]: rating }));}} pronounce={pronounce} />
+            <LcljQuick key={quickType} deck={quickType} planTarget={requestedPlanRange} onPlanTargetHandled={()=>setRequestedPlanRange(null)} ratings={lcljRatings} onRate={(id, rating) => {recordLearningPlanRatings("lclj",{[id]:rating});setLcljRatings((current) => ({ ...current, [id]: rating }));}} pronounce={pronounce} />
           ) : quickType === "words" ? (
             <>
               <div className="libraryHead">

@@ -38,14 +38,14 @@ test('future new work never invents review tasks or writes answers',()=>{
 });
 test('only actual full-List completion creates its next review; future rounds are not simulated',()=>{
  const units=[unit('one',['a','b'])];let s=answer(plan(),units,'a');assert.ok(project(s,units,day).days.every(d=>!d.reviewCount));
- s=answer(s,units,'b');let p=project(s,units,day);assert.deepEqual(p.days.filter(d=>d.reviewCount).map(d=>d.day),['2026-10-18']);
- s=finish(s,units,units[0],'2026-10-18');p=project(s,units,'2026-10-18');assert.deepEqual(p.days.filter(d=>d.reviewCount).map(d=>d.day),['2026-10-20']);
+ s=answer(s,units,'b');let p=project(s,units,day);assert.deepEqual(p.days.filter(d=>d.reviewCount).map(d=>d.day),['2026-10-20']);
+ s=finish(s,units,units[0],'2026-10-20');p=project(s,units,'2026-10-20');assert.deepEqual(p.days.filter(d=>d.reviewCount).map(d=>d.day),[]);assert.deepEqual(project(s,units,'2026-10-21').days.filter(d=>d.reviewCount).map(d=>d.day),['2026-10-27']);
  assert.equal(p.today.completedReviewIds.length,1);
 });
 test('partial due review waits for all actual answers and a red result resets the interval',()=>{
- const units=[unit('one',['a','b'])];let s=finish(plan(),units,units[0]);s=answer(s,units,'a','red','2026-10-18');
- const partial=schedule(s,units,'2026-10-18');assert.deepEqual(partial.reviewIds,['one']);assert.deepEqual(partial.required.one,['b']);assert.equal(partial.completedReviewIds.length,0);
- s=answer(s,units,'b','green','2026-10-18');assert.deepEqual(project(s,units,'2026-10-18').days.filter(d=>d.reviewCount).map(d=>d.day),['2026-10-19']);
+ const units=[unit('one',['a','b'])];let s=finish(plan(),units,units[0]);s=answer(s,units,'a','red','2026-10-20');
+ const partial=schedule(s,units,'2026-10-20');assert.deepEqual(partial.reviewIds,['one']);assert.deepEqual(partial.required.one,['b']);assert.equal(partial.completedReviewIds.length,0);
+ s=answer(s,units,'b','green','2026-10-20');assert.deepEqual(project(s,units,'2026-10-20').days.filter(d=>d.reviewCount).map(d=>d.day),['2026-10-21']);
 });
 test('daily List allocation is stable after finishing a List and does not refill itself',()=>{
  const units=[unit('one',['a']),unit('two',['b']),unit('three',['c'])],s=plan({targetDay:'2026-10-19'});
@@ -57,7 +57,7 @@ test('missed days replan to the actual day and show delay without silently lifti
 });
 test('unfit due Lists block new work and early practice never skips a due round',()=>{
  const units=[unit('one',['a','b']),unit('two',['c'])];let s=finish(plan({dailyCap:2}),units,units[0]);
- s={...s,config:{...s.config,dailyCap:1}};const p=project(s,units,'2026-10-18');assert.deepEqual(p.today.newIds,[]);assert.equal(p.today.blocked[0].id,'one');
+ s={...s,config:{...s.config,dailyCap:1}};const p=project(s,units,'2026-10-20');assert.deepEqual(p.today.newIds,[]);assert.equal(p.today.blocked[0].id,'one');
 });
 test('pausing and future starts do not create real completion, including in the forecast',()=>{
  const units=[unit('one',['a'])],s={...plan(),paused:true};assert.ok(project(s,units,day).days.every(d=>!d.totalCount));assert.equal(project(s,units,day).expectedFirstPassDay,null);

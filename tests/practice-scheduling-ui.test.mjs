@@ -83,7 +83,7 @@ function practice({deck='words',data={}}={}){
 
 function legacyRun(ids,results,pair=false){return {queue:ids,direction:'en-zh',pair,results,phase:'meaning',options:[],selected:null,meaningOK:false,turn:3};}
 
-for(const deck of ['words','bb']){
+for(const deck of ['words']){
  test(`${deck} migrates only answered legacy entries and starts due review across List boundaries`,()=>{
   const ids=deck==='words'?['w1','w3','w2']:['b1:0','b2:0','b1:1'];
   const view=practice({deck,data:{[runKey(deck)]:JSON.stringify(legacyRun(ids,{[ids[0]]:passed,[ids[1]]:{streak:0,errors:1,done:false},[ids[2]]:{streak:0,errors:0,done:false}},deck==='bb'))}});
@@ -103,29 +103,16 @@ test('starting a new test uses the selected Lists even when there are due words 
  try{view.range(2,2);view.click('开始新测试');assert.deepEqual([...view.run().queue].sort(),['w3','w4']);assert.equal(view.run().review,false);}finally{view.close();}
 });
 
-test('a correct BB meaning is intermediate and leaves its existing review schedule untouched',()=>{
- const view=practice({deck:'bb',data:{[reviewKey('bb')]:JSON.stringify({'b1:0':mature,'b1:1':mature})}});
- try{
-  view.click('开始新测试');const id=view.run().queue[0],before=view.history();
-  view.answer(true);assert.equal(view.run().phase,'synonym');assert.deepEqual(view.history(),before);
-  view.answer(true);assert.equal(view.run().phase,'feedback');assert.equal(view.run().results[id].done,true);
-  assert.deepEqual(view.history(),before,'Early correct practice must retain the next review date');
- }finally{view.close();}
+test('BB opens directly to one six-choice synonym question and retains early review history',()=>{
+ const v=practice({deck:'bb',data:{[reviewKey('bb')]:JSON.stringify({'b1:0':mature,'b1:1':mature})}});try{
+  assert.equal(v.find('button','开始到期复习'),undefined);v.click('开始新测试');assert.equal(v.run().phase,'synonym');assert.equal(v.run().options.length,6);const id=v.run().queue[0];v.answer(true);assert.equal(v.run().phase,'feedback');assert.equal(v.run().results[id].done,true);assert.deepEqual(v.history()[id],mature);
+ }finally{v.close();}
 });
-
-for(const stage of ['meaning','synonym'])for(const failure of ['wrong','uncertain']){
- test(`BB ${stage} ${failure} answer immediately resets a previously passed word for tomorrow`,()=>{
-  const view=practice({deck:'bb',data:{[reviewKey('bb')]:JSON.stringify({'b1:0':mature,'b1:1':mature})}});
-  try{
-   view.click('开始新测试');const id=view.run().queue[0];
-   if(stage==='synonym'){view.answer(true);assert.equal(view.run().phase,'synonym');assert.deepEqual(view.history()[id],mature);}
-   if(failure==='wrong')view.answer(false);else view.click('不确定');
-   assert.equal(view.run().phase,'feedback');assert.equal(view.run().feedbackStep,stage);
-   assert.deepEqual(view.history()[id],{level:0,due:TOMORROW,lastDay:TODAY,reviews:11});
-   if(stage==='meaning')assert.match(view.text(),/已跳过选同义词/);
-  }finally{view.close();}
- });
-}
+for(const failure of ['wrong','uncertain'])test(`BB single-step ${failure} answer shows feedback and resets review`,()=>{
+ const v=practice({deck:'bb',data:{[reviewKey('bb')]:JSON.stringify({'b1:0':mature,'b1:1':mature})}});try{
+  v.click('开始新测试');const id=v.run().queue[0];if(failure==='wrong')v.answer(false);else v.click('不确定');assert.equal(v.run().phase,'feedback');assert.equal(v.run().feedbackStep,'synonym');assert.deepEqual(v.history()[id],{level:0,due:TOMORROW,lastDay:TODAY,reviews:11});
+ }finally{v.close();}
+});
 
 test('same-day returned word successes cannot upgrade a reset curve, and closing preserves it',()=>{
  const model={};new Function('exports',ts.transpileModule(readFileSync('community/practiceModel.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText)(model);

@@ -1,3 +1,4 @@
+import type {PlanNavigation} from "../community/planNavigation";
 import {studyStorage} from "../community/storage";
 "use client";
 import RevealControls from "./RevealControls";
@@ -26,7 +27,8 @@ const ratingsList: Array<{ value: Filter; label: string; color: string }> = [
   { value: "unrated", label: "未标记", color: "" },
 ];
 
-export default function LcljQuick({ deck, ratings, onRate, pronounce }: {
+export default function LcljQuick({ deck, ratings, onRate, pronounce,planTarget,onPlanTargetHandled }: {
+  planTarget?:PlanNavigation|null;onPlanTargetHandled?:()=>void;
   deck: LcljDeck;
   ratings: Record<string, Rating>;
   onRate: (id: string, rating: Rating) => void;
@@ -37,6 +39,7 @@ export default function LcljQuick({ deck, ratings, onRate, pronounce }: {
   const storageKey = deck === "lclj-reading" ? "gre-lclj-reading-selection-v2" : `gre-${deck}-selection-v1`;
   const [range, setRange] = useState<{ key: string; selection: string[]; ready: boolean }>({ key: storageKey, selection: groups.slice(0, 1), ready: false });
   const selection = range.key === storageKey ? range.selection : groups.slice(0, 1);
+  useEffect(()=>{if(!planTarget||planTarget.deckId!==deck)return;const group=planTarget.list?`List ${String(planTarget.list).padStart(2,'0')}`:planTarget.category;if(group&&groups.includes(group)){setRange({key:storageKey,selection:[group],ready:true});setQuery('');setFilters([]);setOrder(null);setActiveId(null);}onPlanTargetHandled?.();},[planTarget?.id,deck]);
   const ready = range.key === storageKey && range.ready;
   const [query, setQuery] = useState("");
   const [filters, setFilters] = useState<Filter[]>([]);

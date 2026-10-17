@@ -1,3 +1,4 @@
+import type {PlanNavigation} from "../community/planNavigation";
 import {studyStorage} from "../community/storage";
 import {recordLearningPlanWords} from "../community/learningPlanStore";
 import {reviewDay} from "../community/practiceReviewModel";
@@ -31,7 +32,8 @@ function mergeSummaries(cloud: NotebookSummary[]) {
 const SOURCE_ORDER_KEY = "gre-notebook-source-order-v1";
 const today = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; };
 
-export default function VocabularyNotebook({ words, pronounce }: {
+export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanTargetHandled }: {
+  planTarget?:PlanNavigation|null;onPlanTargetHandled?:()=>void;
   words: Array<{id: string; word: string; meaning: string; list?: number; note?: string}>;
   pronounce: (word: string) => void;
 }) {
@@ -138,6 +140,7 @@ export default function VocabularyNotebook({ words, pronounce }: {
     } catch { setStatus("读取失败，请重试；当前收集未改变。"); }
     finally { setLoading(false); }
   }
+  useEffect(()=>{if(!planTarget||planTarget.deckId!=='notebook'||!planTarget.batchId)return;void open(planTarget.batchId).then(()=>{setReview(true);onPlanTargetHandled?.();});},[planTarget?.id]);
   async function save() {
     if (!batch) return;
     if (!validNotebookBatch(batch)) { setStatus("请填写来源和每条生词的英文；每次最多收集 1000 个词。"); return; }
@@ -169,7 +172,7 @@ export default function VocabularyNotebook({ words, pronounce }: {
     if (batch) persist({...batch,words:batch.words.map((w) => w.id === id ? {...w,[field]:value} : w)});
   }
 
-  function rateWord(id: string, rating: NotebookRating, toggle = true) {
+  function rateWord(id: string, rating: NotebookRating, toggle = false) {
     const word=batch?.words.find(w=>w.id===id);
     if(word&&!(toggle&&word.rating===rating))recordLearningPlanWords([word.word],rating==="familiar"?"green":rating==="fuzzy"?"yellow":"red",reviewDay(),batch!.words.map(w=>w.word));
     if (batch) persist({...batch,words:batch.words.map((w) => w.id === id ? {...w,rating:toggle && w.rating === rating ? undefined : rating} : w)});

@@ -27,6 +27,22 @@ const groups: GuideGroup[] = [
         ],
       },
       {
+        zh: '恢复与撤销',
+        en: 'Recovery and undo',
+        cn: [
+          '导入、替换或读取不同账号副本前，会先在当前浏览器保留完整副本，包含红黄绿、个人笔记、生词本和共享笔记草稿。若备份失败，操作会取消。最多保留最近 20 份操作前副本。',
+          '误导入后，可在顶部选择「撤销上次记录操作」。撤销前也会保存当前内容，可再次撤销；登录状态下会尝试同步到账号。副本保存在当前设备，不会自动出现在其他设备。',
+          '需要核对历史副本时，选择顶部「本机恢复检查（只读）」→「只读检查本机副本」→「导出检查到的全部副本」。检查页也会列出仍留在本机的冲突副本和同步基线，不会自行上传或替换。',
+          '请在发生问题的同一个浏览器或桌面网页 App 内检查。副本的来源和版本号不代表它一定更新；恢复文件请先核对内容。这项保护不能补建更新前从未保存过的历史。',
+        ],
+        english: [
+          'Before an import, replacement, or loading a different account copy, the current browser keeps a full checkpoint, including ratings, personal notes, notebook data and shared-note drafts. The operation stops if that checkpoint cannot be saved. The latest 20 checkpoints are retained.',
+          'Use “撤销上次记录操作” in the header to undo a mistaken import. The current contents are checkpointed again, so undo can be undone. Signed-in changes attempt account sync. Checkpoints remain on this device; they are not synced to other devices.',
+          'To inspect retained copies, select “本机恢复检查（只读）”, scan, then export all copies. This read-only page also lists retained conflict copies and sync baselines. It never uploads or replaces records.',
+          'Inspect in the same browser or installed web app where the problem occurred. Source labels and revision numbers do not prove a copy is newer. Check contents before restoring. This protection cannot recreate history that was never saved before the update.',
+        ],
+      },
+      {
         zh: '选择词库与复习范围',
         en: 'Choose a word bank and review range',
         cn: [

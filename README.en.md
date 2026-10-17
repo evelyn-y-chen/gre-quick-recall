@@ -249,3 +249,5 @@ In two-step equivalent-word tests (A+ and BB), an incorrect or uncertain meaning
 My progress shows practiced words, self-rated familiar words, completed rounds and traffic-light progress bars for the three modules with the most recorded practice. Words are deduplicated; conflicting ratings use the less-familiar state. Completion history starts with this version, supplemented by identifiable saved older rounds. Records travel with the account or learning-note file.
 
 Focused test panels keep Submit/Next visible on phones, tablets and computers. Long explanations and notes scroll inside their own areas at readable font sizes.
+
+Recovery and undo: imports, replacements and loading a different copy first save a full device checkpoint (the latest 20). Undo the last import/replacement from the header, or use the read-only device recovery page to export retained copies. Checkpoints stay in the current browser/web app and cannot recreate unsaved history from before this update.

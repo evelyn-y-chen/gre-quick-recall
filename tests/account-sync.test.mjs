@@ -5,6 +5,8 @@ import {readFileSync} from 'node:fs';
 import {createRequire} from 'node:module';
 const ts=createRequire(import.meta.url)('typescript');
 const compile=(file)=>ts.transpileModule(readFileSync(file,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
+const validation={exports:{}};new Function('require','module','exports',compile('community/database.ts'))(()=>({}),validation,validation.exports);
+const recovery={exports:{}};new Function('require','module','exports',compile('community/workspaceRecovery.ts'))(()=>validation.exports,recovery,recovery.exports);
 const planModule={exports:{}};
 planModule.exports=loadTs('community/workspacePlan.ts');
 const snapshot=(note)=>({version:1,rows:[],storage:{note}});
@@ -22,8 +24,8 @@ function harness(sharedRemote=new Map()){
  const imports={react,
   './cloud':{cloud:{auth},async readCloudWorkspace(s){if(readGate){const held=readGate;readGate=null;held.entered.resolve();await held.release.promise;}if(offline)throw Error('offline');return structuredClone(remote.get(s.user.id)??null);},async saveCloudWorkspace(s,value,expected){if(saveGate){const held=saveGate;saveGate=null;held.entered.resolve();await held.release.promise;}if(offline)throw Error('offline');const latest=remote.get(s.user.id);if((latest?.revision??0)!==expected)throw Object.assign(Error('conflict'),{code:'WORKSPACE_CONFLICT'});const revision=expected+1;remote.set(s.user.id,{revision,payload:structuredClone(value)});writes.push(s.user.id);return revision;}},
   './database':{exportWorkspace:()=>structuredClone(payload),async openWorkspace(next){payload=structuredClone(next??snapshot('blank'));},onWorkspaceChange(fn){change=fn;}},
-  './localWorkspace':{async readLocalWorkspace(key='local'){return structuredClone(cache.get(key));},async saveLocalWorkspace(value,expected,key='local',metadata={}){if(localFailure(key))throw Error('local save failure');if((cache.get(key)?.revision??0)!==expected)throw Error('cache conflict');cache.set(key,{revision:expected+1,payload:structuredClone(value),...metadata});return expected+1;}},
-  './api':{awaitWorkspaceApiIdle:()=>apiQueue,getWorkspaceGeneration:()=>apiGeneration,async switchWorkspace(fn){apiGeneration++;const next=apiQueue.then(fn);apiQueue=next.catch(()=>{});await next;}},'./workspacePlan':planModule.exports,'./ratingMerge':loadTs('community/ratingMerge.ts'),'./workspacePersistence':persistence.exports
+  './localWorkspace':{async readLocalWorkspace(key='local'){return structuredClone(cache.get(key));},async saveLocalWorkspace(value,expected,key='local',metadata={}){if(localFailure(key))throw Error('local save failure');if((cache.get(key)?.revision??0)!==expected)throw Error('cache conflict');const {checkpoint,checkpoints,...rest}=metadata;let history=recovery.exports.appendCheckpoint(cache.get(key)?.history);for(const item of checkpoints??[])history=recovery.exports.appendCheckpoint(history,item);history=recovery.exports.appendCheckpoint(history,checkpoint);cache.set(key,{revision:expected+1,payload:structuredClone(value),...rest,...(history.length?{history:structuredClone(history)}:{})});return expected+1;}},
+  './api':{awaitWorkspaceApiIdle:()=>apiQueue,getWorkspaceGeneration:()=>apiGeneration,async switchWorkspace(fn){apiGeneration++;const next=apiQueue.then(fn);apiQueue=next.catch(()=>{});await next;}},'./workspacePlan':planModule.exports,'./ratingMerge':loadTs('community/ratingMerge.ts'),'./workspacePersistence':persistence.exports,'./workspaceRecovery':recovery.exports
  };
  const browser={addEventListener(){},removeEventListener(){},confirm:()=>true},document={addEventListener(){},removeEventListener(){},visibilityState:'visible'};
  const module={exports:{}};new Function('require','module','exports','window','document',compile('community/useLearningWorkspace.ts'))(name=>imports[name],module,module.exports,browser,document);
@@ -196,5 +198,41 @@ test('ratings-only import waits for queued writes before capturing existing prog
 test('a note conflict keeps a durable local pending copy and never replaces the remote note',async()=>{
  const h=harness();try{await h.settle();h.remote.set('A',{revision:1,payload:snapshot('baseline')});h.login('A');await h.settle();h.edit('local changed');h.remote.set('A',{revision:2,payload:snapshot('remote changed')});
   assert.equal(await h.workspace.flush(),false);assert.equal(h.cache.get('account:A').pending,true);assert.equal(h.cache.get('account:A').payload.storage.note,'local changed');assert.equal(h.remote.get('A').payload.storage.note,'remote changed');
+ }finally{h.dispose();}
+});
+
+
+test('replacement atomically keeps the live notes, drafts and ratings as an undo checkpoint',async()=>{
+ const h=harness();try{await h.settle();h.remote.set('A',{revision:1,payload:snapshot('old account')});h.login('A');await h.settle();
+ const valuable={version:1,rows:[{key:'word-memory:example',value:'new BB note',revision:1,updated_at:'2026-10-17'}],storage:{'gre-bb-ratings-v1':'{"bb-one":"familiar"}','gre-shared-word-memory-drafts-v1':'{"other":{"text":"unfinished note","revision":0}}'}};
+ h.editSnapshot(valuable);await h.workspace.replace(snapshot('imported old file'));await h.settle();
+ assert.equal(h.note,'imported old file');assert.deepEqual(h.cache.get('account:A').history.at(-1).payload,valuable);
+ h.edit('one more change');await h.workspace.flush();assert.deepEqual(h.cache.get('account:A').history.at(-1).payload,valuable);
+ assert.equal(h.workspace.undoAvailable,true);await h.workspace.undo();await h.settle();assert.deepEqual(h.snapshot,valuable);
+ assert.equal(h.cache.get('account:A').history.at(-1).payload.storage.note,'one more change');
+ }finally{h.dispose();}
+});
+test('if the checkpoint cannot be stored replacement is cancelled before memory or cloud changes',async()=>{
+ const h=harness();try{await h.settle();h.remote.set('A',{revision:1,payload:snapshot('old account')});h.login('A');await h.settle();h.edit('unsaved BB notes');h.failLocal(()=>true);
+ await assert.rejects(h.workspace.replace(snapshot('stale file')),/local save failure/);await h.settle();assert.equal(h.note,'unsaved BB notes');assert.equal(h.remote.get('A').payload.storage.note,'old account');assert.deepEqual(h.writes,[]);
+ }finally{h.dispose();}
+});
+test('reading a different cloud copy preserves the previous account cache even after conflict is resolved',async()=>{
+ const h=harness();try{await h.settle();h.remote.set('A',{revision:1,payload:snapshot('first copy')});h.login('A');await h.settle();h.cache.set('conflict:A',{revision:1,pending:false,payload:snapshot('older retained copy')});h.remote.set('A',{revision:2,payload:snapshot('other device')});
+ await h.workspace.reload();await h.settle();assert.equal(h.note,'other device');assert.equal(h.cache.get('account:A').history.at(-1).payload.storage.note,'first copy');assert.equal(h.cache.get('conflict:A').payload.storage.note,'older retained copy');assert.equal(h.workspace.undoAvailable,true);await h.workspace.undo();await h.settle();assert.equal(h.note,'first copy');
+ }finally{h.dispose();}
+});
+
+
+test('undo belongs to its account and cannot restore another account history',async()=>{
+ const h=harness();try{await h.settle();h.remote.set('A',{revision:1,payload:snapshot('A notes')});h.login('A');await h.settle();await h.workspace.replace(snapshot('wrong import'));await h.settle();assert.equal(h.workspace.undoAvailable,true);
+ h.remote.set('B',{revision:1,payload:snapshot('B notes')});h.login('B');await h.settle();assert.equal(h.workspace.undoAvailable,false);await assert.rejects(h.workspace.undo(),/没有可撤销/);assert.equal(h.note,'B notes');
+ }finally{h.dispose();}
+});
+
+
+test('opening the account preserves a displaced sync baseline even if the visible copy matches cloud',async()=>{
+ const h=harness();try{await h.settle();const lost=snapshot('valuable previous baseline'),current=snapshot('visible overwritten copy');h.cache.set('account:A',{revision:8,cloudRevision:1,pending:true,payload:current,basePayload:lost});h.remote.set('A',{revision:1,payload:current});h.login('A');await h.settle();
+ assert.equal(h.note,'visible overwritten copy');assert.ok(h.cache.get('account:A').history.some(item=>item.payload.storage.note==='valuable previous baseline'));
  }finally{h.dispose();}
 });

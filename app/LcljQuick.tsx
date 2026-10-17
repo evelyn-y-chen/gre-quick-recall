@@ -1,16 +1,19 @@
 import {studyStorage} from "../community/storage";
 "use client";
+import RevealControls from "./RevealControls";
 import SharedWordMemory from "./SharedWordMemory";
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import fillData from "./lcljFill.json";
 import readingData from "./lcljReading.json";
 import mathData from "./lcljMath.json";
+import { restoreGroupRange } from "./quickRangeModel";
 
 export type LcljDeck = "lclj-fill" | "lclj-reading" | "lclj-math";
 type Rating = "unknown" | "fuzzy" | "familiar";
 type Filter = Rating | "unrated";
 type Entry = { id: string; word: string; meaning: string; list?: number; category?: string; context?: string; equivalent?: string; passage?: string; sourceRow?: number; page?: number };
+const groupOf = (entry: Entry) => entry.list ? `List ${String(entry.list).padStart(2, "0")}` : entry.category!;
 const decks: Record<LcljDeck, { title: string; entries: Entry[]; intro: string }> = {
   "lclj-fill": { title: "填空高频3000词", entries: fillData, intro: "根据网络资源整理，共 3,072 条。按原顺序每 50 条分为一组，共 62 个 List。" },
   "lclj-reading": { title: "阅读核心300词", entries: readingData.map((entry, index) => ({ ...entry, list: Math.floor(index / 50) + 1 })), intro: "原表共 318 条，按原顺序每 50 条分为一组，共 7 个 List，最后一组 18 条。" },
@@ -30,10 +33,11 @@ export default function LcljQuick({ deck, ratings, onRate, pronounce }: {
   pronounce: (word: string) => void;
 }) {
   const { title, entries, intro } = decks[deck];
-  const groupOf = (entry: Entry) => entry.list ? `List ${String(entry.list).padStart(2, "0")}` : entry.category!;
-  const groups = [...new Set(entries.map(groupOf))];
-  const [selection, setSelection] = useState<string[]>([groups[0]]);
-  const [ready, setReady] = useState(false);
+  const groups = useMemo(() => [...new Set(entries.map(groupOf))], [entries]);
+  const storageKey = deck === "lclj-reading" ? "gre-lclj-reading-selection-v2" : `gre-${deck}-selection-v1`;
+  const [range, setRange] = useState<{ key: string; selection: string[]; ready: boolean }>({ key: storageKey, selection: groups.slice(0, 1), ready: false });
+  const selection = range.key === storageKey ? range.selection : groups.slice(0, 1);
+  const ready = range.key === storageKey && range.ready;
   const [query, setQuery] = useState("");
   const [filters, setFilters] = useState<Filter[]>([]);
   const [snapshot, setSnapshot] = useState(ratings);
@@ -43,24 +47,24 @@ export default function LcljQuick({ deck, ratings, onRate, pronounce }: {
   const rows = useRef<Record<string, HTMLDivElement | null>>({});
   const scroll = useRef(false);
   const spoken = useRef("");
-  const storageKey = deck === "lclj-reading" ? "gre-lclj-reading-selection-v2" : `gre-${deck}-selection-v1`;
-
   useEffect(() => {
     const timer = window.setTimeout(() => {
+      let restored = groups.slice(0, 1);
       try {
-        const stored = JSON.parse(studyStorage.getItem(storageKey) ?? "null");
-        if (Array.isArray(stored)) setSelection(stored.filter((value) => groups.includes(value)));
+        restored = restoreGroupRange(studyStorage.getItem(storageKey), groups);
       } catch {}
-      setReady(true);
+      setRange(current => current.key === storageKey && current.ready ? current : { key: storageKey, selection: restored, ready: true });
     }, 0);
     return () => window.clearTimeout(timer);
-    // Mounted separately for each deck; its source groups never change.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [storageKey]);
+  }, [storageKey, groups]);
 
   useEffect(() => {
-    if (ready) studyStorage.setItem(storageKey, JSON.stringify(selection));
-  }, [ready, selection, storageKey]);
+    // Readiness belongs to this deck, preventing a previous selection from
+    // overwriting the next deck's saved range before restoration completes.
+    if (range.ready && range.key === storageKey) {
+      try { studyStorage.setItem(storageKey, JSON.stringify(range.selection)); } catch {}
+    }
+  }, [range, storageKey]);
 
   const ordered = useMemo(() => {
     if (!order) return entries;
@@ -101,7 +105,7 @@ export default function LcljQuick({ deck, ratings, onRate, pronounce }: {
     setRevealed((current) => current.includes(id) ? current : [...current, id]);
   }
   function changeSelection(next: string[]) {
-    setSelection(next);
+    setRange({ key: storageKey, selection: next, ready: true });
     setSnapshot({ ...ratings });
     setActiveId(null);
     setRevealed([]);
@@ -143,7 +147,7 @@ export default function LcljQuick({ deck, ratings, onRate, pronounce }: {
 
   return <div className="lcljQuick" tabIndex={-1}>
     <div className="libraryHead"><div><p className="eyebrow">VOCABULARY QUICK RECALL</p><h1>{title}</h1><p className="quickIntro">{intro}</p></div>
-      <div className="libraryActions"><button onClick={() => setRevealed(visible.map((entry) => entry.id))}>显示当前释义</button><button className="solid" onClick={() => setRevealed([])}>隐藏全部释义</button></div>
+      <div className="libraryActions"><RevealControls total={visible.length} shown={visible.filter((entry) => revealed.includes(entry.id)).length} onShow={() => setRevealed(visible.map((entry) => entry.id))} onHide={() => setRevealed([])} /></div>
     </div>
     <div className="quickStats" aria-label={`${title}掌握程度统计`}>
       {ratingsList.map(({ value, label, color }) => <button key={value} className={`${filters.includes(value) ? "active " : ""}${color}`} aria-pressed={filters.includes(value)} onClick={() => {

@@ -11,6 +11,7 @@ import QuickGleeMemory, {QuickGleeMemoryProvider} from "./QuickGleeMemory";
 import WordNoteCard from "../community/WordNoteCard";
 import Practice, {type Deck as PracticeDeck} from "../community/Practice";
 import BBQuick from "./BBQuick";
+import RevealControls from "./RevealControls";
 import APlusTest from "./APlusTest";
 import {APlusWordMarksProvider,APlusWordMark} from "./APlusWordMarks";
 import APlusNotes, { APlusNotesProvider } from "./APlusNotes";
@@ -957,6 +958,19 @@ function GleeMindMapLibrary({editWord,onTargetHandled}:{editWord:string|null;onT
   const [showOnlyUnmastered, setShowOnlyUnmastered] = useState(false);
   const [unmasteredFilterKeys, setUnmasteredFilterKeys] = useState<string[]>([]);
   const [mixedTableLists, setMixedTableLists] = useState<number[]>([]);
+  const [rangeReady, setRangeReady] = useState(false);
+  useEffect(() => {
+    try {
+      const saved = JSON.parse(studyStorage.getItem("glee-mind-map-range-v1") ?? "null");
+      const lists = new Set([...GLEE_MIND_MAPS.map((map) => map.list), ...GLEE_TABLE_LISTS.map((table) => table.list)]);
+      if (saved?.selectedList === "all" || lists.has(saved?.selectedList)) setSelectedList(saved.selectedList);
+      if (Array.isArray(saved?.mixedTableLists)) setMixedTableLists([...new Set<number>(saved.mixedTableLists.filter((list: unknown): list is number => typeof list === "number" && lists.has(list)))]);
+    } catch {}
+    setRangeReady(true);
+  }, []);
+  useEffect(() => {
+    if (rangeReady) try { studyStorage.setItem("glee-mind-map-range-v1", JSON.stringify({ selectedList, mixedTableLists })); } catch {}
+  }, [rangeReady, selectedList, mixedTableLists]);
   const [mindMapSearch, setMindMapSearch] = useState("");
   const [openMaps, setOpenMaps] = useState<string[]>(() => {
     if (typeof window === "undefined") return [GLEE_MIND_MAPS[0].id];
@@ -2027,6 +2041,8 @@ export default function Home() {
         if (savedAPlusLists) setAPlusLists(savedAPlusLists);
         if (savedGleeLists) setGleeLists(savedGleeLists);
         if (savedMathCategories) setMathCategories(savedMathCategories);
+        const savedQuickType = studyStorage.getItem("gre-last-quick-type-v1");
+        if (["notebook", "words", "equivalents", "a-plus", "bb", "glee", "mindmap", "math", "lclj-fill", "lclj-reading", "lclj-math"].includes(savedQuickType ?? "")) setQuickType(savedQuickType as QuickType);
         const savedManualDay = Number(studyStorage.getItem(PLAN_DAY_KEY));
         const savedPlanStart = Number(studyStorage.getItem(PLAN_START_KEY));
         const migratedDay = savedPlanStart ? planDay(savedPlanStart) : 1;
@@ -2086,6 +2102,10 @@ export default function Home() {
   useEffect(() => {
     if (ready) studyStorage.setItem(QUICK_WORD_LISTS_KEY, JSON.stringify(quickWordLists));
   }, [quickWordLists, ready]);
+
+  useEffect(() => {
+    if (ready) studyStorage.setItem("gre-last-quick-type-v1", quickType);
+  }, [quickType, ready]);
 
   useEffect(() => {
     if (ready) studyStorage.setItem(QUICK_EQUIVALENT_SETS_KEY, JSON.stringify(quickEquivalentSets));
@@ -3366,8 +3386,7 @@ export default function Home() {
                   <p className="quickIntro">词表来源：青山学堂。先看英文回忆，再揭晓释义，用红黄绿记录本次掌握情况。</p>
                 </div>
                 <div className="libraryActions">
-                  <button onClick={() => setQuickRevealed(filteredQuickWords.map((word) => word.id))}>显示当前释义</button>
-                  <button className="solid" onClick={() => setQuickRevealed([])}>隐藏全部释义</button>
+                  <RevealControls total={filteredQuickWords.length} shown={filteredQuickWords.filter((word) => quickRevealed.includes(word.id)).length} onShow={() => setQuickRevealed(filteredQuickWords.map((word) => word.id))} onHide={() => setQuickRevealed([])} />
                 </div>
               </div>
 
@@ -3424,8 +3443,7 @@ export default function Home() {
                   <p className="quickIntro">词表来源：青山学堂。默认由等价词 1 提示；也可以指定等价词 2、共同含义或三向混合，集中巩固不同提取方向。</p>
                 </div>
                 <div className="libraryActions">
-                  <button onClick={() => setQuickEquivalentRevealStages(Object.fromEntries(filteredQuickEquivalentPairs.map((pair) => [pair.id, 2])))}>全部揭晓</button>
-                  <button className="solid" onClick={() => setQuickEquivalentRevealStages({})}>重新遮挡</button>
+                  <RevealControls total={filteredQuickEquivalentPairs.length} shown={filteredQuickEquivalentPairs.filter((pair) => quickEquivalentRevealStages[pair.id] === 2).length} hidden={filteredQuickEquivalentPairs.filter((pair) => !quickEquivalentRevealStages[pair.id]).length} showLabel="全部揭晓" hideLabel="重新遮挡" onShow={() => setQuickEquivalentRevealStages(Object.fromEntries(filteredQuickEquivalentPairs.map((pair) => [pair.id, 2])))} onHide={() => setQuickEquivalentRevealStages({})} />
                 </div>
               </div>
 
@@ -3519,8 +3537,7 @@ export default function Home() {
                   <p className="quickIntro">PDF 共800条、80个 List。可以由核心词、整组六选二等价词或中文释义任一方向开始回忆。</p>
                 </div>
                 <div className="libraryActions">
-                  <button onClick={() => {setAPlusMeaningOverrides({});setAPlusRevealStages(Object.fromEntries(filteredAPlusEntries.map((entry) => [entry.id, 2])));}}>全部揭晓</button>
-                  <button className="solid" onClick={() => {setAPlusMeaningOverrides(Object.fromEntries(filteredAPlusEntries.map(entry=>[entry.id,false])));setAPlusRevealStages({});}}>重新遮挡</button>
+                  <RevealControls total={filteredAPlusEntries.length} shown={filteredAPlusEntries.filter((entry) => aPlusRevealStages[entry.id] === 2 && aPlusMeaningOverrides[entry.id] !== false).length} hidden={filteredAPlusEntries.filter((entry) => !aPlusRevealStages[entry.id] && aPlusMeaningOverrides[entry.id] !== true).length} showLabel="全部揭晓" hideLabel="重新遮挡" onShow={() => {setAPlusMeaningOverrides({});setAPlusRevealStages(Object.fromEntries(filteredAPlusEntries.map((entry) => [entry.id, 2])));}} onHide={() => {setAPlusMeaningOverrides(Object.fromEntries(filteredAPlusEntries.map(entry=>[entry.id,false])));setAPlusRevealStages({});}} />
                 </div>
               </div>
 
@@ -3599,8 +3616,7 @@ export default function Home() {
                   <p className="quickIntro">共30个 List、1500词。先凭英文词回忆GRE中文义，再揭晓英文考法；List 1–9 还可展开查看你整理的记忆锚点、词根词缀与辨析笔记。</p>
                 </div>
                 <div className="libraryActions">
-                  <button onClick={() => setGleeRevealStages(Object.fromEntries(filteredGleeWords.map((word) => [word.id, 2])))}>显示当前答案</button>
-                  <button className="solid" onClick={() => setGleeRevealStages({})}>隐藏全部答案</button>
+                  <RevealControls total={filteredGleeWords.length} shown={filteredGleeWords.filter((word) => gleeRevealStages[word.id] === 2).length} hidden={filteredGleeWords.filter((word) => !gleeRevealStages[word.id]).length} showLabel="显示当前答案" hideLabel="隐藏全部答案" onShow={() => setGleeRevealStages(Object.fromEntries(filteredGleeWords.map((word) => [word.id, 2])))} onHide={() => setGleeRevealStages({})} />
                 </div>
               </div>
 
@@ -3679,8 +3695,7 @@ export default function Home() {
                   <p className="quickIntro">按数学主题自由组合速刷。先看英文术语主动回忆，再揭晓 PDF 中文义；移动到下一词时会自动朗读。</p>
                 </div>
                 <div className="libraryActions">
-                  <button onClick={() => setMathRevealed(filteredMathWords.map((word) => word.id))}>显示当前释义</button>
-                  <button className="solid" onClick={() => setMathRevealed([])}>隐藏全部释义</button>
+                  <RevealControls total={filteredMathWords.length} shown={filteredMathWords.filter((word) => mathRevealed.includes(word.id)).length} onShow={() => setMathRevealed(filteredMathWords.map((word) => word.id))} onHide={() => setMathRevealed([])} />
                 </div>
               </div>
 

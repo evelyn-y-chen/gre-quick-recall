@@ -306,13 +306,27 @@ test('rotation requires both the correct account token and current password', as
  assert.equal(f.rows.get('learner').recovery_hash, hash);
 });
 
-test('rotation CAS rejects active recovery and concurrent stale hash updates', async () => {
+test('rotation CAS rejects active recovery and concurrent stale hash updates', {timeout: 10_000}, async () => {
  const f = fixture(); const original = (await f.invoke('register')).body;
  f.tokens.set('real-token', f.users.get(f.rows.get('learner').user_id));
  const row = f.rows.get('learner'); row.attempt = 'another-recovery'; const hash = row.recovery_hash;
  assert.equal((await f.invoke('rotate', {}, {authorization: 'Bearer real-token'})).response.status, 409);
  assert.equal(row.recovery_hash, hash); delete row.attempt;
+ // Promise.all starts both requests, but WebCrypto may schedule one complete
+ // rotation before the other reads its mapping. Hold both copied snapshots
+ // until they have the same old hash, then let the atomic CAS decide the winner.
+ const readByUserId = f.deps.store.byUserId;
+ let reads = 0, releaseReads;
+ const bothRead = new Promise(resolve => { releaseReads = resolve; });
+ f.deps.store.byUserId = async userId => {
+  const snapshot = await readByUserId(userId);
+  assert.equal(snapshot.recovery_hash, hash);
+  if (++reads === 2) releaseReads();
+  await bothRead;
+  return snapshot;
+ };
  const result = await Promise.all([f.invoke('rotate', {}, {authorization: 'Bearer real-token'}), f.invoke('rotate', {}, {authorization: 'Bearer real-token'})]);
+ assert.equal(reads, 2);
  assert.deepEqual(result.map(r => r.response.status).sort(), [200, 409]);
  assert.equal((await f.invoke('recover', {recoveryCode: original.recoveryCode})).response.status, 401);
 });

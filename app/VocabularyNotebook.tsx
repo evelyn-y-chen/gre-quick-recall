@@ -4,6 +4,7 @@ import {appFetch} from "../community/api";
 
 import SharedWordMemory,{useWordMemory} from "./SharedWordMemory";
 import DictionaryLookup from "./DictionaryLookup";
+import RevealControls from "./RevealControls";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { buildNotebookCatalog, type CatalogWord } from "./notebookCatalog";
 import { NOTEBOOK_DRAFT_KEY, hasNotebookSource, mergeNotebookCandidates, validNotebookBatch, type NotebookBatch, type NotebookDraft, type NotebookSummary, type NotebookWord, type NotebookRating } from "./notebookModel";
@@ -243,7 +244,7 @@ export default function VocabularyNotebook({ words, pronounce }: {
           }}>加入本次生词{selected.length ? `（${selected.length} 条所选释义）` : ""}</button>
         </section>
       </div>}
-      <div className="notebookListHead"><h2>{review ? "本次生词复习" : "本次生词"}</h2>{review && <button type="button" onClick={() => setRevealed(revealed.length ? [] : batch.words.map((w) => w.id))}>{revealed.length ? "隐藏全部释义" : "显示全部释义"}</button>}{removed && <button type="button" onClick={() => {const next=[...batch.words];next.splice(removed.index,0,removed.word);persist({...batch,words:next});setRemoved(null);}}>撤销移除 {removed.word.word}</button>}</div>
+      <div className="notebookListHead"><h2>{review ? "本次生词复习" : "本次生词"}</h2>{review && <RevealControls total={batch.words.length} shown={batch.words.filter((word) => revealed.includes(word.id)).length} showLabel="显示全部释义" onShow={() => setRevealed(batch.words.map((word) => word.id))} onHide={() => setRevealed([])} />}{removed && <button type="button" onClick={() => {const next=[...batch.words];next.splice(removed.index,0,removed.word);persist({...batch,words:next});setRemoved(null);}}>撤销移除 {removed.word.word}</button>}</div>
       {!batch.words.length && <p className="notebookEmpty">还没有生词。输入单词，勾选来源或填写释义，再点击「加入本次生词」。</p>}
       {review && !!batch.words.length && <div className="shortcutBar notebookShortcuts" aria-label="生词本复习快捷键"><span><kbd>↑</kbd><kbd>←</kbd> 上一词</span><span><kbd>↓</kbd><kbd>→</kbd> 下一词</span><span><kbd>Space</kbd> 发音</span><span><kbd>Enter</kbd> 显示 / 隐藏释义与笔记</span><span><kbd>1</kbd> 不认识</span><span><kbd>2</kbd> 模糊</span><span><kbd>3</kbd> 熟悉</span><span>标注时同时揭晓释义</span></div>}
       {review && !!batch.words.length && <div className="notebookRowHeader" aria-hidden="true"><span>单词</span><div><span>释义</span><span>记忆方法</span><span>词库来源</span></div><span>掌握程度</span></div>}

@@ -7,6 +7,7 @@ import {appFetch} from "../community/api";
 
 import SharedWordMemory,{useWordMemory} from "./SharedWordMemory";
 import DictionaryLookup from "./DictionaryLookup";
+import DictionaryLinks from "./DictionaryLinks";
 import RevealControls from "./RevealControls";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { buildNotebookCatalog, type CatalogWord } from "./notebookCatalog";
@@ -267,6 +268,7 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
           <button className="notebookReveal" type="button" aria-expanded={revealed.includes(w.id)} onClick={() => setRevealed((s) => s.includes(w.id) ? s.filter((id) => id!==w.id) : [...s,w.id])}>{revealed.includes(w.id) ? (w.meaning || "未填写释义").split("\n").map((line,i)=><span key={i} className={/^【.*】$/.test(line.trim())?"notebookMeaningSource":"notebookMeaningLine"}>{line||"\u00a0"}</span>) : "点击揭晓释义与笔记"}</button>
           {revealed.includes(w.id) && <div className="notebookCardNote"><SharedWordMemory word={w.word}/></div>}
           <div className="notebookCardSource"><span>词库来源</span><p>{w.origin || "未填写"}</p></div>
+          <details className="notebookCardDictionary"><summary>补查词典</summary><DictionaryLinks word={w.word}/></details>
         </div> : <div className="notebookEditGrid">
           <label>释义<textarea rows={2} maxLength={4000} value={w.meaning} placeholder="填写释义" onChange={(e) => editWord(w.id,"meaning",e.target.value)} /></label>
           <SharedWordMemory word={w.word} editing/>

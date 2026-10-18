@@ -80,7 +80,7 @@ Plans and learning history travel with the account or a full learning-note backu
 
 | Module | What you can do |
 | --- | --- |
-| 全能词速刷 — General vocabulary | Word lists from 青山学堂 (Qingshan Xuetang). Select Lists, search, shuffle or review in order, reveal meanings, and rate familiarity. Notes appear with definitions; sources remain below. Includes two-way meaning tests and scheduled reviews. |
+| 全能词速刷 — General vocabulary | Word lists from 青山学堂 (Qingshan Xuetang). The #number after each List is the word’s original position within that List and stays unchanged when searching, filtering or shuffling. Select Lists, search, shuffle or review in order, reveal meanings, and rate familiarity. Notes appear with definitions; sources remain below. Includes two-way meaning tests and scheduled reviews. |
 | 等价词速刷 — Equivalent pairs | Word lists from 青山学堂 (Qingshan Xuetang). Review word pairs, choose a prompt direction, and progressively reveal the other word and its meaning. |
 | A加GRE版等价词 — A+ GRE equivalents | A core word and its equivalents have individual cards. Toggle the PDF definition separately. Single-click to hear a word; double-click to highlight it as unfamiliar. **▸ 笔记** opens only that word's note; another control opens or closes all notes. |
 | BB六选二 — BB equivalents | Review the upper, middle, and lower volumes by List. Two words appear side by side; equivalents, definitions, and notes have separate controls. Repeats have links to every occurrence, and original memory methods remain for comparison. Includes definition and synonym tests. |
@@ -101,6 +101,7 @@ List names retain the source titles; title counts may differ from distinct extra
 - **Choose several definitions.** Select several sources for the same word. Within a collection, they combine under one entry with their source information retained.
 - **Set your source order.** Move sources up or down under **词库来源优先顺序**; results follow your preference.
 - **Use bilingual dictionary meanings.** If there is no list match, the dictionary/manual area opens using the word already typed. Choose ECDICT meanings to insert, then revise them.
+- **Look up words in Merriam-Webster and Dict.cn.** When adding a word, expand “查词典或补充这一个词”; for an existing entry, expand “补查词典”. Select “韦氏词典” (Merriam-Webster) or “海词词典” (Dict.cn) to open the word’s official entry in a new window, then return to keep editing. External definitions are not automatically imported and do not overwrite notes.
 - **Switch editing and review modes.** Edit words, definitions, and sources; review in compact rows with hidden meanings and notes until revealed. Subdued source labels keep definitions clear.
 - **Use marks and shortcuts.** Rate words and navigate with arrows, Enter, Space, and 1 / 2 / 3. An on-screen undo restores an accidentally removed word.
 

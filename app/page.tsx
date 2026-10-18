@@ -8,6 +8,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import SharedWordMemory, {useWordMemory} from "./SharedWordMemory";
 import {wordMemoryKey} from "./wordMemoryModel";
 import vocabulary from "./vocabulary.json";
+import { buildListWordNumbers } from "./listWordNumbers";
 import { findGleeMemoryLocation } from "./sharedGleeMemory";
 import QuickGleeMemory, {QuickGleeMemoryProvider} from "./QuickGleeMemory";
 import WordNoteCard from "../community/WordNoteCard";
@@ -46,6 +47,7 @@ type Word = {
   meaning: string;
   note?: string;
   list?: number;
+  number?: number;
   page?: number;
 };
 
@@ -1887,6 +1889,7 @@ function parseVocabulary(text: string): Word[] {
       phonetic: row[hasHeader ? header.findIndex((cell) => ["phonetic", "音标"].includes(cell)) : 3] || "",
       note: row[hasHeader ? header.findIndex((cell) => ["note", "备注"].includes(cell)) : 4] || "",
       list: Number(row[hasHeader ? header.findIndex((cell) => ["list", "列表"].includes(cell)) : 5]) || undefined,
+      number: hasHeader ? Number(row[header.findIndex((cell) => ["number", "序号"].includes(cell))]) || undefined : undefined,
       page: Number(row[hasHeader ? header.findIndex((cell) => ["page", "页码"].includes(cell)) : 6]) || undefined,
     }));
 }
@@ -2135,6 +2138,8 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
     });
     return [...counts.entries()].sort((a, b) => a[0] - b[0]);
   }, [words]);
+
+  const wordNumbers = useMemo(() => buildListWordNumbers(words, SOURCE_WORDS), [words]);
 
   const todayLists = useMemo(() => listsForDay(currentPlanDay), [currentPlanDay]);
   const todaySets = useMemo(() => setsForDay(currentPlanDay), [currentPlanDay]);
@@ -2644,6 +2649,7 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
       pos: item.pos || "",
       note: item.note || "",
       list: Number(item.list) || undefined,
+      number: Number(item.number) || undefined,
       page: Number(item.page) || undefined,
       }));
       setWords(normalized);
@@ -3432,7 +3438,7 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
                   const active = word.id === quickActiveWordId;
                   return (
                     <div className={`quickRow ${active ? "keyboardActive" : ""} ${rating ? `rated-${rating}` : ""}`} role="row" aria-current={active ? "true" : undefined} key={word.id} ref={(element) => { quickRowRefs.current[word.id] = element; }}>
-                      <button className="quickWord" onClick={() => { setQuickActiveId(word.id); pronounce(word.word); }} aria-label={`朗读 ${word.word}`}><strong>{word.word}</strong><small>List {String(word.list ?? "—").padStart(2, "0")} · {word.pos} {word.phonetic}</small></button>
+                      <button className="quickWord" onClick={() => { setQuickActiveId(word.id); pronounce(word.word); }} aria-label={`朗读 ${word.word}`}><strong>{word.word}</strong><small><span style={{whiteSpace:"nowrap"}} title="原词表中的 List 内序号">List {String(word.list ?? "—").padStart(2, "0")}{wordNumbers.has(word.id) ? ` · #${wordNumbers.get(word.id)}` : ""}</span> · {word.pos} {word.phonetic}</small></button>
                       <button className={`quickMeaning ${revealedMeaning ? "revealed" : ""}`} onClick={() => { setQuickActiveId(word.id); toggleQuickMeaning(word.id); }} aria-expanded={revealedMeaning}>{revealedMeaning ? word.meaning : <span>点击显示释义</span>}</button>
                       <QuickGleeMemory word={word.word} revealed={revealedMeaning} onEdit={target=>{setGleeEditWord(target);setQuickType("mindmap");}}/>
                       <div className="trafficLights" role="group" aria-label={`${word.word} 掌握程度`}>
@@ -3808,8 +3814,8 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
           <article className="quizCard">
             <div className="wordLine">
               <div>
-                <div className="wordMeta">
-                  <span className="listBadge">LIST {String(current.list ?? "—").padStart(2, "0")}</span>
+                <div className="wordMeta" style={{flexWrap:"wrap"}}>
+                  <span className="listBadge" title="原词表中的 List 内序号">LIST {String(current.list ?? "—").padStart(2, "0")}{wordNumbers.has(current.id) ? ` · #${wordNumbers.get(current.id)}` : ""}</span>
                   {readyWordRetry && (
                     <span className="retryBadge">
                       {readyWordRetry.reason === "bridge" ? "选择已通过 · 遮挡回忆" : `本关返场 · 还需清楚 ${readyWordRetry.passes} 次`}
@@ -4044,7 +4050,7 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
               const item = store.progress[word.id];
               return (
                 <div className="tableRow" role="row" key={word.id}>
-                  <span><strong>{word.word}</strong><small>List {String(word.list ?? "—").padStart(2, "0")} · {word.pos} {word.phonetic}</small></span>
+                  <span><strong>{word.word}</strong><small><span style={{whiteSpace:"nowrap"}} title="原词表中的 List 内序号">List {String(word.list ?? "—").padStart(2, "0")}{wordNumbers.has(word.id) ? ` · #${wordNumbers.get(word.id)}` : ""}</span> · {word.pos} {word.phonetic}</small></span>
                   <span>{word.meaning}</span>
                   <span><i className={`level level${Math.min(5, item?.level ?? 0)}`}>{item?.level >= 5 ? "稳定" : item?.level >= 2 ? "学习中" : "新词"}</i></span>
                   <span>{formatDue(item?.dueAt ?? 0, item?.dueDay, currentPlanDay)}</span>

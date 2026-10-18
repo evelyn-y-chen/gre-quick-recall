@@ -84,7 +84,7 @@ const groups: GuideGroup[] = [
         zh: '词库功能一览',
         en: 'Explore the word banks',
         cn: [
-          '全能词速刷：词表来自青山学堂，按 List 复习。释义与记忆方法一起揭晓，来源保留在下方；可从单一「开始测试」入口练习与复习。',
+          '全能词速刷：词表来自青山学堂，按 List 复习。List 后的 #序号是该词在原 List 中的位置，搜索、筛选或乱序后也不变。释义与记忆方法一起揭晓，来源保留在下方；可从单一「开始测试」入口练习与复习。',
           '等价词速刷：词表来自青山学堂，成对复习单词。可选择提示方向，分别揭晓另一词和释义。',
           'A加GRE版等价词：核心词与等价词以等宽卡片呈现。PDF 释义独立控制；每个词的笔记可分别展开。',
           'BB六选二：按上、中、下三册及 List 选择范围，两个词并排显示。等价词、释义与记忆方法分别控制；重复词保留全部出现位置，可点击定位。原文记法保留作对照。',
@@ -96,7 +96,7 @@ const groups: GuideGroup[] = [
           '生词本：收集阅读、做题或课程中遇到的词，自行编辑并复习。具体操作见下方「使用生词本」。',
         ],
         english: [
-          'General vocabulary (全能词速刷): review word lists from 青山学堂 (Qingshan Xuetang) by List. Meanings and memory notes are revealed together, with sources below. Two-way meaning tests and scheduled reviews are available.',
+          'General vocabulary (全能词速刷): review word lists from 青山学堂 (Qingshan Xuetang) by List. The #number after each List is the word’s original position, unchanged by searches, filters or shuffling. Meanings and memory notes are revealed together, with sources below. Two-way meaning tests and scheduled reviews are available.',
           'Equivalent pairs (等价词速刷): review word pairs from 青山学堂 (Qingshan Xuetang). Choose a prompt direction, then reveal the other word and its meaning separately.',
           'A+ GRE equivalents: core words and equivalents use equal-width cards. PDF meanings have a separate control; each word has its own expandable note.',
           'BB equivalents: select the upper, middle or lower volume and a List range. Word pairs appear side by side. Control equivalents, meanings and memory notes separately. Duplicate entries link to every occurrence; original memory methods remain for comparison.',
@@ -231,6 +231,7 @@ const groups: GuideGroup[] = [
           '收集单词：创建一次收集，填写文章、题目或课程来源及日期，以便回看语境。',
           '查找与添加：在搜索框查询各词库，按来源筛选结果。同一单词可勾选多份来源的解释，合并到一个词条下；也可自行添加新词。',
           '选择来源：在「词库来源优先顺序」中上下调整排序。词库无结果时，词典区自动沿用已输入的单词；选择词典释义后仍可修改。',
+          '查阅词典：添加生词时展开「查词典或补充这一个词」，已有生词展开「补查词典」。点击「韦氏词典」或「海词词典」可在新窗口查当前单词，返回后继续编辑；外部释义不会自动填入或覆盖笔记。',
           '编辑与复习：编辑模式可修改单词、释义和来源。复习模式逐行揭晓释义与笔记，并支持红黄绿、颜色筛选和快捷键；当前词会滚到屏幕中间。来源以较浅颜色显示，便于阅读释义。',
           '保存与撤销：选择「保存到当前工作区」保存生词本修改。记忆方法使用对应的「保存全部笔记」。误移除单词时，可选择「撤销移除」。',
         ],
@@ -238,6 +239,7 @@ const groups: GuideGroup[] = [
           'Collect words: create a collection with the article, question or course source and date to keep its context.',
           'Search and add: search across word banks and filter by source. Select definitions from several sources to combine them under one word, or add a new word manually.',
           'Set source preferences: reorder “词库来源优先顺序”. If the word banks have no match, the dictionary opens with the same query. You can edit a selected dictionary definition.',
+          'Look up a word: expand “查词典或补充这一个词” when adding a word, or “补查词典” on an existing entry. Select “韦氏词典” (Merriam-Webster) or “海词词典” (Dict.cn) to open its official entry in a new window. Return to keep editing; external definitions are not automatically inserted or used to overwrite notes.',
           'Edit and review: edit words, meanings and sources in edit mode. Review mode reveals meanings and notes row by row, with ratings, filters and shortcuts. The active word scrolls toward the center. Subdued source labels keep meanings clear.',
           'Save and undo: select “保存到当前工作区” to save notebook changes. Memory notes use their own Save all control. Select “撤销移除” to undo an accidental removal.',
         ],

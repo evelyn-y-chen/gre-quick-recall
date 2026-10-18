@@ -15,7 +15,7 @@ const deferred=()=>{let resolve,reject;const promise=new Promise((yes,no)=>{reso
 
 /** Execute the real planner, settings, runner, store and scheduling model.
  * Only the catalog, IO and heavy shared-memory subtree are controlled. */
-function planner({seed=true,cap=2,day=firstDay,paused=false,persistResponses=[]}={}){
+function planner({seed=true,cap=2,day=firstDay,paused=false,persistResponses=[],overview=false}={}){
  const fibers=new Map(),modules=new Map(),calls=[],timers=new Map(),windowListeners=new Map(),documentListeners=new Map();
  let active=null,cursor=0,tree,dirty=false,clock=day,apiGeneration=4,timerId=0,closed=0,durable=null;
  const document={body:{style:{overflow:''}},addEventListener(name,callback){documentListeners.set(name,callback);},removeEventListener(name){documentListeners.delete(name);}};
@@ -49,7 +49,7 @@ function planner({seed=true,cap=2,day=firstDay,paused=false,persistResponses=[]}
  }
  const storage=load('./storage'),store=load('./learningPlanStore'),model=load('./learningPlanModel');
  if(seed)store.saveLearningPlanSettings({id:'plan-test',deckIds:['glee'],startDay:firstDay,targetDay:firstDay,dailyCap:cap},paused,firstDay);
- const Root=load('./LearningPlanner').default;
+ const Root=load(overview?'./LearningOverview':'./LearningPlanner').default;
  function resolve(node,path){
   if(node==null||typeof node!=='object')return node;
   if(Array.isArray(node))return node.map((child,index)=>resolve(child,path+'/'+(child?.key??index)));
@@ -176,4 +176,36 @@ test('a new-plan durable save failure can retry its own locally written settings
 
  test('switching an existing automatic plan to manual retains its already completed Lists',async()=>{
  const v=planner({cap:null});try{await v.click('查看并确认安排');await v.click('确认并采用这份安排');v.store.recordLearningPlanWords(['apple','banal'],'green',firstDay);await v.flush();const answers=structuredClone(v.state.answers),oldId=v.agenda.tasks.find(t=>t.unitId==='glee:list-1').id;await v.click('调整目标与词表');await v.submit('预览调整后的安排');await v.click('确认并采用这份安排');assert.equal(v.state.config.completionMode,'manual');assert.equal(v.state.taskChecks[oldId],true);assert.deepEqual(v.state.answers,answers);assert.ok(v.nodes(v.scope('learningTodo')).some(n=>n.type==='s'&&v.text(n)==='GLEE · List 01'));}finally{v.close();}
+});
+
+
+test('the live overview has no long-term setup and supports past dates, corrections and undo',async()=>{
+ const v=planner({seed:false,overview:true});try{
+  assert.equal(v.find('button','制定学习计划'),undefined);v.change('总表词表','glee');
+  await v.pressAria('修改 GLEE List 01 第 1 轮 日期');v.change('修改实际完成日期','2026-10-16');await v.click('保存完成日期');
+  assert.ok(v.nodes().some(n=>n.props?.['aria-label']==='取消完成 GLEE List 01 第 1 轮'));assert.equal(v.state,null);
+  assert.ok(v.nodes().some(n=>n.props?.['aria-label']==='2026-10-19 待复习 1 组'));
+  await v.pressAria('修改 GLEE List 01 第 1 轮 日期');v.change('修改实际完成日期','2026-10-15');await v.click('保存完成日期');
+  assert.ok(v.nodes().some(n=>n.props?.['aria-label']==='2026-10-18 待复习 1 组'));
+  assert.ok(v.nodes().some(n=>n.props?.['aria-label']==='2026-10-19 待复习 0 组'));
+  await v.pressAria('取消完成 GLEE List 01 第 1 轮');assert.ok(v.nodes().some(n=>n.props?.['aria-label']==='2026-10-18 待复习 0 组'));
+  assert.equal(Object.keys(v.storage.exportStorage()).filter(k=>k.startsWith('lemnota-list-round:')).length,1);
+ }finally{v.close();}
+});
+test('today goals and master table share one completion and corrections survive reopening',async()=>{
+ const v=planner({seed:false,overview:true});try{
+  v.change('总表词表','glee');await v.click('＋ 添加今天的 List');await v.click('List 012 词');await v.click('加入今日清单（1 个 List）');await v.pressAria('完成 GLEE List 01');
+  assert.ok(v.nodes().some(n=>n.props?.['aria-label']==='取消完成 GLEE List 01 第 1 轮'));await v.pressAria('取消完成 GLEE List 01 第 1 轮');
+  assert.ok(v.nodes(v.scope('dailyGoals')).some(n=>n.props?.['aria-label']==='完成 GLEE List 01'));
+  await v.pressAria('完成 GLEE List 01');assert.equal(Object.keys(v.storage.exportStorage()).filter(k=>k.startsWith('lemnota-list-round:')).length,1);
+  await v.pressAria('修改 GLEE List 01 第 1 轮 日期');v.change('修改实际完成日期','2026-10-14');await v.click('保存完成日期');
+  assert.ok(v.nodes(v.scope('dailyGoals')).some(n=>n.props?.['aria-label']==='取消完成 GLEE List 01'));assert.equal(v.state,null);
+ }finally{v.close();}
+});
+test('overview prevents writes from a stale account and does not claim failed saves succeeded',async()=>{
+ const v=planner({seed:false,overview:true});try{v.change('总表词表','glee');v.queuePersistence(Error('本机保存失败'));await v.pressAria('完成 GLEE List 01 第 1 轮');assert.match(v.text(),/本机保存失败/);assert.doesNotMatch(v.text(),/已同步到账号/);await v.click('重试同步');assert.match(v.text(),/已同步到账号/);const before=v.storage.exportStorage();v.switchGeneration();await v.pressAria('完成 GLEE List 02 第 1 轮');assert.deepEqual(v.storage.exportStorage(),before);assert.match(v.text(),/学习空间或日期已变化/);}finally{v.close();}
+});
+
+test('checking the master table also checks an existing daily goal, without an extra round',async()=>{
+ const v=planner({seed:false,overview:true});try{v.change('总表词表','glee');await v.click('＋ 添加今天的 List');await v.click('List 012 词');await v.click('加入今日清单（1 个 List）');await v.pressAria('完成 GLEE List 01 第 1 轮');assert.ok(v.nodes(v.scope('dailyGoals')).some(n=>n.props?.['aria-label']==='取消完成 GLEE List 01'));await v.pressAria('取消完成 GLEE List 01');assert.ok(v.nodes().some(n=>n.props?.['aria-label']==='完成 GLEE List 01 第 1 轮'));assert.equal(Object.keys(v.storage.exportStorage()).filter(k=>k.startsWith('lemnota-list-round:')).length,1);}finally{v.close();}
 });

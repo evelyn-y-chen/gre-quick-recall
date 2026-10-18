@@ -63,21 +63,25 @@ These are self-assessments for this review. You can change them at any time, and
 
 **The vocabulary notebook uses the same system.** Review your collection in compact rows, reveal definitions and notes, and rate each word. Keyboard navigation scrolls the active notebook word toward the middle of the screen.
 
-## Learning plans: preview first, then choose your pace
+## Study checklist: one table for every round
 
-Two options use intact source Lists:
+**Today’s small goals**
 
-- **Today’s checklist.** Choose several banks and Lists, select new learning or review, and open self-checks or practice. Check off completed Lists yourself; automatic checking is optional. Unfinished items remain visible on the following day. No long-term plan is required.
-- **A long-term plan.** Select exactly which Lists to learn. Give each bank its own deadline or daily new-List count, so banks progress in parallel. The total daily word cap is optional; duplicate words count once and whole Lists remain intact.
-- **Edit by day.** Pick a date, then select several Lists for that day. Dark chips with a ✓ are selected; tap again to deselect. Change task type, study method and order, or move a whole day. Preview before confirming.
-- **Continue previous study.** Adopt existing ratings, read prior marks from a learning-note backup, or record previously studied Lists with their actual dates. These actions do not replace current notes or traffic lights. Undated marks are adopted today; partial progress is retained.
-- **Manual or automatic completion.** New plans default to manually checking off Lists. You may enable completion from original-bank self-checks and override it manually. A manual check records a study encounter, never a green rating.
-- **Choose review timing.** Request editable suggestions, arrange dates yourself, or skip review scheduling for now. Red suggests tomorrow; yellow two days; green three days, then 7, 15 and 30 after real due reviews. A manual encounter without a color initially suggests three days.
-- **Missed work stays editable.** Completed work remains; unfinished work becomes a carry-forward draft. Delayed completion is shown. The seven-day chart uses actual study and confirmed reservations, not a claimed forgetting probability.
+Open Study checklist on the home page or in the header. Select banks and Lists, new learning or review, and self-checks or supported practice. Dark chips with ✓ are selected. Check off completed Lists yourself or undo them. Unfinished goals remain visible the next day, without a long-term deadline.
 
-Practice settings also support multiple Lists and any combination of red, yellow, green and unrated entries. Selecting no colors yields no test entries. Multiple-choice practice is available for general vocabulary, A+ and BB; other banks use their existing traffic-light self-checks.
+**One table for every round**
 
-Plans, checklists and history travel with the account or a full learning-note backup. Ratings-only merge does not import a whole plan.
+The master table uses original Lists or categories: round 1 is initial study, later rounds are reviews. Choose how many rounds to display. Daily goals share these completion records. Check or undo a round, or select its date to correct it. Add past study using an actual date, round and several Lists, even if you had not opened Lemnota that day.
+
+**Seven days from actual study**
+
+Lists enter the review view after being checked off or backdated in the master table. The chart shows their next review from real progress. Overdue work appears today; later reviews are calculated after actual completion, without assuming future correct answers. Red suggests tomorrow, yellow two days, green three days, then 7, 15 and 30 after actual due reviews. Manual completion without a color initially suggests three days. These are suggestions, not forgetting probabilities or mandatory tasks. Today’s new-study count uses completed first rounds; future new learning is not guessed. Due words are deduplicated across banks.
+
+**Keep your earlier records**
+
+Checking a round never assigns green ratings. Undoing it does not delete actual self-checks, notes or traffic lights. Earlier manual completions remain readable; old future reservations no longer run or count as completions. Undated old ratings are not assigned invented dates; add past study yourself. Checklists and dates travel with your account or a full backup. Ratings-only merge does not import a whole checklist.
+
+Practice can combine Lists and any selection of red, yellow, green and unrated entries. Selecting no colors yields no test entries. General vocabulary, A+ and BB support multiple-choice practice; other banks use their existing self-checks.
 
 ## Lists and modules
 
@@ -132,7 +136,7 @@ Where memory notes are supported, the same word uses one personal note across mo
 - **BB** has one simple six-choice synonym test. Set a range and order, answer directly, then see the correct synonym, meanings and memory notes.
 - **General vocabulary** keeps one Start test entry with range, direction and order settings, plus notes after mistakes.
 
-Saved legacy test records are retained. Plans can open the original bank for self-checks, use practice where available, or be checked off manually. Tests can be saved and resumed; long feedback and notes scroll within their own areas.
+Saved legacy test records are retained. The study checklist can open the original bank for self-checks, use practice where available, or be checked off manually. Tests can be saved and resumed; long feedback and notes scroll within their own areas.
 
 ## Keyboard shortcuts
 
@@ -149,7 +153,7 @@ Follow the current module's on-screen hints. Typing in inputs or note editors do
 
 ### Save without signing in
 
-Saved notes, familiarity marks, tests/review history, learning plans and word records, source order, nickname, and palette are written automatically to the current browser's IndexedDB. Return with the **same website address and browser profile** to continue. Submit editor changes first, then check for **已存到这台设备** (Saved on this device).
+Saved notes, familiarity marks, tests/review history, study checklists and word records, source order, nickname, and palette are written automatically to the current browser's IndexedDB. Return with the **same website address and browser profile** to continue. Submit editor changes first, then check for **已存到这台设备** (Saved on this device).
 
 Devices and browser profiles have separate data; people sharing one profile share its workspace. Private browsing, clearing site data, or browser cleanup can remove local records. Revision checks help prevent stale tabs from overwriting new records, but editing in one tab is recommended.
 
@@ -168,7 +172,7 @@ Guests do not need an email or password. A learning note carries its data indepe
 
 **GitHub sign-in is enabled**, with account workspace synchronization implemented. Google sign-in is on hold. Email/password sign-in is retained; email registration and email links remain unavailable. GitHub sign-in does not require Gmail SMTP. Actual cross-device saving still needs verification; see [Project status](PROGRESS.md).
 
-Notes, familiarity marks, notebooks, tests, learning plans and word records, source preferences, and palettes save to the signed-in account. Guest data and per-account device caches stay separate. A new account can explicitly import guest records; existing cloud progress is read first. Concurrent conflicts retain a local backup rather than silently replacing cloud records. Signing out restores the guest workspace. Ratings save automatically and sync to the signed-in account without an extra save click. Offline edits remain in that account’s local cache; use **立即同步** (Sync now) to retry. Different-word ratings from two devices are combined, and the newer recorded edit wins for the same word. Reload the latest account progress on the other device to view the merged result.
+Notes, familiarity marks, notebooks, tests, study checklists and word records, source preferences, and palettes save to the signed-in account. Guest data and per-account device caches stay separate. A new account can explicitly import guest records; existing cloud progress is read first. Concurrent conflicts retain a local backup rather than silently replacing cloud records. Signing out restores the guest workspace. Ratings save automatically and sync to the signed-in account without an extra save click. Offline edits remain in that account’s local cache; use **立即同步** (Sync now) to retry. Different-word ratings from two devices are combined, and the newer recorded edit wins for the same word. Reload the latest account progress on the other device to view the merged result.
 
 See [authentication setup](AUTH_SETUP.md) for maintenance. After signing in with GitHub, check for the account-save confirmation and keep an exported learning note as a backup.
 

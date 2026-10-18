@@ -13,7 +13,7 @@ const groups: GuideGroup[] = [
         en: 'Choose an account or learning-note mode',
         cn: [
           '账号模式：选择「登录 / 注册」，可创建用户名与密码，或使用已开放的第三方登录。无需填写邮箱。已有 GitHub 用户可登录后选择「设置用户名登录」，为原账号添加用户名与密码，保留已有进度。Google 是否可用以登录窗口为准。',
-          '登录后，已保存的笔记、红黄绿、生词本、测试进度、学习计划、来源偏好和配色可同步到账号。在其他设备登录同一账号，即可读取。',
+          '登录后，已保存的笔记、红黄绿、生词本、测试进度、学习清单与日期、来源偏好和配色可同步到账号。在其他设备登录同一账号，即可读取。',
           '修改会自动写入这台设备，账号上传另行进行。点「立即同步」后按钮显示同步中，并核对账号记录；成功会显示确认时间和版本。失败或超时会明确提示，可重试或先导出便笺。没有新增修改时，也会确认账号连接，不再没有反馈。',
           '已设置用户名且记得密码时，可在顶部「更多」→「账号登录方式」验证当前密码、重新生成恢复码，旧码随即失效。忘记密码时先退出，再从登录页选择「使用恢复码找回账号」。',
           '便笺模式：无需注册，直接开始学习。记录保存在当前浏览器。选择「带走便笺」导出文件，下次或换设备时选择「读取便笺」恢复。账号模式也支持便笺备份。',
@@ -21,7 +21,7 @@ const groups: GuideGroup[] = [
         ],
         english: [
           'Account mode: select “登录 / 注册” to create a username and password or use an available social sign-in. No email address is required. Existing GitHub users can sign in and select “设置用户名登录” to add credentials to the same account. Google availability is shown in the sign-in window.',
-          'An account syncs saved notes, familiarity ratings, notebook collections, test progress, learning plans, source preferences and your theme. Sign into the same account on another device to load them.',
+          'An account syncs saved notes, familiarity ratings, notebook collections, test progress, study checklists and dates, source preferences and your theme. Sign into the same account on another device to load them.',
           'Edits are saved on this device independently of account uploads. “立即同步” shows a busy state and checks the account. A confirmed result shows its time and revision; failures or timeouts offer an explicit retry. Even with no new edits, the button checks the account connection and reports a result.',
           'If you remember your password, use “账号登录方式” in the header to verify it and generate a replacement recovery code; the old code stops working. If you forgot your password, sign out first and choose “使用恢复码找回账号” on the sign-in screen.',
           'Learning-note mode: start without registering. Records stay in this browser. Select “带走便笺” to export a file and “读取便笺” to restore it later or on another device. Account users can export backups too.',
@@ -50,7 +50,7 @@ const groups: GuideGroup[] = [
         cn: [
           '选择「开始刷词」，打开词库，再选择 List、分类或复习范围。',
           '使用页面上的搜索、顺序／乱序、颜色筛选和揭晓按钮调整复习方式。各模块提供的控制不同，以当前页面为准。',
-          '顶部保留学习规划与保存状态；我的进步、便笺导入导出、配色、账号、反馈和恢复工具集中在「更多」。程序更新时只保留当前版本的程序缓存，不删除学习记录。',
+          '顶部保留学习清单与保存状态；我的进步、便笺导入导出、配色、账号、反馈和恢复工具集中在「更多」。程序更新时只保留当前版本的程序缓存，不删除学习记录。',
           '需要查阅操作时，可随时从顶部「更多」重新打开「使用指南」。',
         ],
         english: [
@@ -125,49 +125,47 @@ const groups: GuideGroup[] = [
     ],
   },
   {
-  "zh": "学习规划",
-  "en": "Learning plans",
+  "zh": "学习清单与复习",
+  "en": "Study checklist and review",
   "topics": [
     {
-      "zh": "今天的清单，或长期计划",
-      "en": "A daily checklist or a long-term plan",
+      "zh": "今天的小目标",
+      "en": "Today’s small goals",
       "cn": [
-        "首页「今天想完成什么？」可以直接多选词表和 List，选择新学／复习，以及红绿灯自测或支持的测试方式，再加入今日清单。不制定计划也可以直接学习。",
-        "需要长期安排时，先选词表，再勾选想学的 List。每个词表分别选择完成日期或每天新学几个 List，多个词表同步推进。每日总词数上限选填，重复词去重，完整 List 不拆分。",
-        "生成草案后先点击某一天，再为那天勾选多个 List。深色 ✓ 表示已选，再次点击取消。可改类型、学习方式与顺序，也能整体移动当天任务，确认后才采用。"
+        "在首页或顶部「学习清单」选择词表和多个 List，选择新学／复习与自测／支持的测试，加入今日清单。深色 ✓ 表示已选。完成后自己打勾，也可取消；未完成的小目标次日继续显示，不设长期截止日期。"
       ],
       "english": [
-        "Use Today’s checklist to select several banks and Lists, new learning or review, and self-checks or supported practice. A long-term plan is optional; you can also study directly.",
-        "For a long-term plan, select exact Lists and give each bank its own deadline or daily new-List count. Banks progress in parallel. The total daily word cap is optional; repeated words count once and Lists remain intact.",
-        "Preview the draft, pick a day and choose several Lists for it. Dark chips with ✓ are selected; tap again to deselect. Change type, study method and order, or move a whole day. Confirm before adopting."
+        "Open Study checklist on the home page or in the header. Select banks and Lists, new learning or review, and self-checks or supported practice. Dark chips with ✓ are selected. Check off completed Lists yourself or undo them. Unfinished goals remain visible the next day, without a long-term deadline."
       ]
     },
     {
-      "zh": "接着已有学习继续，完成后亲手划掉",
-      "en": "Continue earlier study and check off your Lists",
+      "zh": "一张总表，记录每一轮",
+      "en": "One table for every round",
       "cn": [
-        "在计划设置的「接着之前的学习继续」中，可纳入已有红黄绿，读取便笺里的已学标记，或补记学过的 List 及实际日期。日期不详的旧标记以今天纳入；不会替换原笔记和红黄绿。",
-        "新计划默认自己勾选完成，可改为随原词表自测自动完成，也能手动取消或确认。手动勾选表示这组学过一次，不将词标成绿灯；原有红黄绿、笔记继续保留。",
-        "任务可直接打开对应 List。全能词、A+、BB 可选择题测试；其他词表使用原有红绿灯。测试设置还能组合多个 List 的红灯、黄灯、绿灯与未标记出题；全不选时没有测试词。"
+        "总表按原 List／分类记录第一轮初学、第二轮及之后的复习，可选择显示轮数。今日清单与总表共用完成记录。点圆圈完成或取消，点日期修改；「补记过去的学习」可选择实际日期、轮次和多个 List，即使当天没有打开词笺也能补上。"
       ],
       "english": [
-        "Under Continue previous study, adopt existing ratings, read prior marks from a learning-note backup, or add studied Lists and actual dates. Undated marks are adopted today; original notes and ratings are not replaced.",
-        "New plans default to manual checks. You may enable completion from original-bank assessments and still override it. A manual check records a study encounter, never a green rating.",
-        "Tasks open the selected List. General vocabulary, A+ and BB support multiple-choice practice; other banks use self-checks. Practice can combine several Lists and any selection of red, yellow, green and unrated entries. No selected colors means no test entries."
+        "The master table uses original Lists or categories: round 1 is initial study, later rounds are reviews. Choose how many rounds to display. Daily goals share these completion records. Check or undo a round, or select its date to correct it. Add past study using an actual date, round and several Lists, even if you had not opened Lemnota that day."
       ]
     },
     {
-      "zh": "复习日期由你决定",
-      "en": "Choose your review timing",
+      "zh": "未来七天来自真实进度",
+      "en": "Seven days from actual study",
       "cn": [
-        "可以让系统给出建议，自己选择日期，或先不安排复习。红色建议次日，黄色隔 2 天，绿色隔 3 天；按真实到期复习逐步延长至 7、15、30 天。只有手动确认而没有颜色时，首次建议隔 3 天。",
-        "漏学保留已做部分，未完成的内容形成顺延草案。先查看、调整并确认，预计首轮完成日期延后时会提示。曲线展示真实学习产生的复习建议和已确认安排，不表示遗忘概率。",
-        "计划、清单与学习历史保存在当前学习空间，可随账号同步或用完整便笺携带。只合并红黄绿不会导入整份计划。"
+        "总表勾选或补记过的 List 才进入复习一览，七天图只列每组已经产生的下一次复习，逾期列在今天；实际完成后再计算下一轮，不假设未来答对。红次日、黄隔 2 天、绿隔 3 天，再按真实到期复习延长至 7、15、30 天；无颜色的手动完成首次隔 3 天。这是建议，不是遗忘概率或强制任务。今天的新学量取已经完成的第一轮，未来新学不猜测，到期词数跨表去重。"
       ],
       "english": [
-        "Request editable suggestions, arrange reviews yourself, or skip review scheduling. Red suggests tomorrow, yellow two days and green three days, then 7, 15 and 30 after real due reviews. A manual encounter without a color initially suggests three days.",
-        "Missed work retains completed progress and becomes a carry-forward draft. Adjust and confirm before adopting; delayed completion is shown. The chart represents actual learning and confirmed tasks, not a forgetting probability.",
-        "Plans, checklists and history belong to the current workspace and travel with the account or a full backup. Ratings-only merge does not import a whole plan."
+        "Lists enter the review view after being checked off or backdated in the master table. The chart shows their next review from real progress. Overdue work appears today; later reviews are calculated after actual completion, without assuming future correct answers. Red suggests tomorrow, yellow two days, green three days, then 7, 15 and 30 after actual due reviews. Manual completion without a color initially suggests three days. These are suggestions, not forgetting probabilities or mandatory tasks. Today’s new-study count uses completed first rounds; future new learning is not guessed. Due words are deduplicated across banks."
+      ]
+    },
+    {
+      "zh": "原有记录继续保留",
+      "en": "Keep your earlier records",
+      "cn": [
+        "勾选不把词改成绿灯，取消一轮不删除实际自测、笔记和红黄绿。旧版已完成的手动记录继续读取，长期计划的未来排期不再执行或算作完成。没有日期的旧标记不猜测日期，可自行补记。清单、日期与记录随账号或完整便笺保存；只合并红黄绿不会导入整份清单。"
+      ],
+      "english": [
+        "Checking a round never assigns green ratings. Undoing it does not delete actual self-checks, notes or traffic lights. Earlier manual completions remain readable; old future reservations no longer run or count as completions. Undated old ratings are not assigned invented dates; add past study yourself. Checklists and dates travel with your account or a full backup. Ratings-only merge does not import a whole checklist."
       ]
     }
   ]
@@ -245,13 +243,13 @@ const groups: GuideGroup[] = [
     "A+ 保留「速刷与笔记／开始测试」里的原有等价词测试，不再额外提供另一套双向释义入口。先选释义，再选等价词；第一步答错或不确定就直接显示答案和笔记，跳过第二步。",
     "BB 保留一个简单等价词测试：选择 List 范围和顺序后，看单词，从六个词中选同义词。提交后直接看释义、正确词和记忆笔记，不再先做另一轮释义选择。",
     "全能词保留一个「开始测试」入口，可选范围、方向和顺序。测试结果与可继续的题目保存在当前学习空间。",
-    "测试是可选的。学习计划直接使用词表里的红绿灯记录，不要求先参加测试。"
+    "测试是可选的。七天复习一览直接使用词表里的真实红绿灯记录，不要求先参加测试。"
   ],
   "english": [
     "A+ keeps its original equivalents test under the Scan/notes–Start test switch, without a second meaning-test entry. A wrong or uncertain meaning shows feedback and notes immediately, skipping synonym selection.",
     "BB has one simple equivalents test: choose a List range and order, then pick a synonym from six words. Feedback shows meanings, the correct word and memory notes. There is no preliminary meaning question.",
     "General vocabulary keeps one Start test entry with range, direction and order settings. Tests can be saved and resumed in the current workspace.",
-    "Testing is optional. Learning plans use ratings made in the bank and do not require taking a test first."
+    "Testing is optional. The review view uses real ratings made in the bank; a test is not required."
   ]
 },
       {
@@ -260,13 +258,13 @@ const groups: GuideGroup[] = [
         cn: [
           'A+ 的「速刷与笔记／开始测试」切换区提供完整两步测试：先选核心词释义，再从六个词中选同义词。选词支持单选或不定项。',
           '第一步答错或不确定时，直接显示答案并跳过第二步。仅对实际作答的选词记录漏选与误选，相关选项会在下次保留。出错后需连续两次两步全对，再次出错则重新累计。',
-          'A+ 完整测试保留原有长期计划，复习间隔为 1、2、4、7、15、30 天。复习出错会重置该词的计划，第二天重新复习。测试的长期记录保留；学习规划仍可以只用原词表的红绿灯完成。',
+          'A+ 完整测试保留原有长期计划，复习间隔为 1、2、4、7、15、30 天。复习出错会重置该词的计划，第二天重新复习。测试的长期记录保留；学习清单仍可直接打开原词表自测。',
           '干扰词按已有同义关系过滤。如发现有争议的选项，可在反馈中注明核心词与选项。',
         ],
         english: [
           'The A+ “速刷与笔记／开始测试” switch opens the full two-step test: select the core word’s meaning, then synonyms from six options. Synonym questions can use single-answer or select-all-that-apply mode.',
           'A wrong or uncertain meaning shows the answer and skips the second step. Missed or incorrect synonyms are recorded only for a synonym step you attempted, and those options remain for the next appearance. Recovery requires two consecutive fully correct two-step attempts; another error resets the streak.',
-          'The full A+ test keeps its original schedule with intervals of 1, 2, 4, 7, 15 and 30 days. A review error resets the word for the next day. The original test history remains available; the daily planner can still be completed using bank self-ratings alone.',
+          'The full A+ test keeps its original schedule with intervals of 1, 2, 4, 7, 15 and 30 days. A review error resets the word for the next day. The original test history remains available; the study checklist can still open the original bank for self-checks.',
           'Distractors are filtered using known synonym relationships. Report a debatable option through Feedback, including the core word and choices.',
         ],
       },
@@ -324,7 +322,7 @@ const groups: GuideGroup[] = [
         zh: '导出、读取便笺与换设备',
         en: 'Export, restore and move between devices',
         cn: [
-          '导出：选择「带走便笺」，保存当前学习空间的文件。便笺包含已保存的笔记、红黄绿、生词本、测试与复习记录、学习计划与逐词记录、来源偏好、昵称及配色。文件名包含昵称和导出日期时间。',
+          '导出：选择「带走便笺」，保存当前学习空间的文件。便笺包含已保存的笔记、红黄绿、生词本、测试与复习记录、学习清单与逐词记录、来源偏好、昵称及配色。文件名包含昵称和导出日期时间。',
           '读取：选择「读取便笺」并选取文件。可选择「合并红黄绿记录」，保留两边不同词的标记，以及当前笔记和设置；或选择「替换整份记录」恢复便笺中的全部内容。替换前请先导出当前记录。旧版 GRE JSON 备份仍可读取。',
           '换设备：可登录同一账号读取云端进度，也可导出便笺后在另一设备导入。',
           '便笺是普通数据文件，请妥善保管。清除网站数据、无痕浏览或浏览器清理可能导致本地记录丢失；同一浏览器配置下的游客共用一份记录。',

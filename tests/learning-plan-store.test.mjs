@@ -34,7 +34,7 @@ function harness(){
  const storage=load('community/storage.ts'),store=load('community/learningPlanStore.ts'),model=load('community/learningPlanModel.ts');
  return {...store,model,storage:storage.studyStorage,snapshot:storage.exportStorage,restore:storage.loadStorage,setRows(next){rows=next;}};
 }
-const answerKeys=h=>Object.keys(h.snapshot()).filter(key=>key.startsWith(h.PLAN_ANSWER_PREFIX));
+const answerKeys=h=>Object.keys(h.snapshot()).filter(key=>key.startsWith(h.PLAN_ANSWER_PREFIX)&&!key.startsWith(h.PLAN_ANSWER_PREFIX+'study-log:'));
 function withoutThrow(task){try{return task();}catch{return undefined;}}
 
 test('settings remain small and every word/day answer has an independent JSON-valued storage key',()=>{
@@ -68,9 +68,9 @@ test('mixed single-word and pair ratings record each real word once with the low
  const before=h.snapshot();h.recordLearningPlanRatings('bb',{b1:'familiar'});assert.deepEqual(h.snapshot(),before);
 });
 
-test('paused and future-start plans retain history without recording new work',()=>{
- const h=harness();h.saveLearningPlanSettings(config());h.recordLearningPlanWords(['alpha'],'green',TODAY);h.pauseLearningPlan(true);const paused=h.snapshot();h.recordLearningPlanRatings('words',{w2:'unknown'});h.recordLearningPlanWords(['gamma'],'red',TODAY);assert.deepEqual(h.snapshot(),paused);
- h.pauseLearningPlan(false);h.saveLearningPlanSettings(config({startDay:'2026-10-18'}));const future=h.snapshot();h.recordLearningPlanRatings('words',{w2:'familiar'});h.recordLearningPlanWords(['gamma'],'green',TODAY);assert.deepEqual(h.snapshot(),future);
+test('pausing old scheduling does not stop recording real study for the overview',()=>{
+ const h=harness();h.saveLearningPlanSettings(config());h.recordLearningPlanWords(['alpha'],'green',TODAY);h.pauseLearningPlan(true);const old=h.readLearningPlanStore().answers;h.recordLearningPlanRatings('words',{w2:'unknown'});h.recordLearningPlanWords(['gamma'],'red',TODAY);assert.deepEqual(h.readLearningPlanStore().answers,old);assert.equal(h.storage.getItem(h.planAnswerKey('study-log','beta',TODAY)),'"red"');
+ h.pauseLearningPlan(false);h.saveLearningPlanSettings(config({startDay:'2026-10-18'}));h.recordLearningPlanWords(['gamma'],'green',TODAY);assert.deepEqual(h.readLearningPlanStore().answers,old);
 });
 
 test('account storage replacement never carries another account plan or answers',()=>{
@@ -90,8 +90,8 @@ test('a stale unpaused callback cannot bypass the current paused setting',()=>{
  withoutThrow(()=>h.recordLearningPlanWord(state,['alpha'],'alpha','green',TODAY));assert.deepEqual(h.snapshot(),before);
 });
 
-test('without an active plan, ordinary ratings never create plan or answer storage',()=>{
- const h=harness();h.storage.setItem('unrelated','keep');const before=h.snapshot();h.recordLearningPlanRatings('words',{w1:'familiar'});assert.equal(h.recordLearningPlanWords(['alpha'],'green',TODAY),false);assert.deepEqual(h.snapshot(),before);
+test('ordinary ratings record dated study without creating any long-term plan',()=>{
+ const h=harness();h.storage.setItem('unrelated','keep');h.recordLearningPlanRatings('words',{w1:'familiar'});assert.equal(h.recordLearningPlanWords(['alpha'],'green',TODAY),false);assert.equal(h.readLearningPlanStore(),null);assert.equal(h.storage.getItem(h.planAnswerKey('study-log','alpha',TODAY)),'"green"');assert.equal(h.storage.getItem('unrelated'),'keep');
 });
 
 test('invalid dates and unreadable settings are never replaced by empty/default plan data',()=>{
@@ -99,7 +99,7 @@ test('invalid dates and unreadable settings are never replaced by empty/default 
  withoutThrow(()=>h.recordLearningPlanWords(['beta'],'green','2026-10-32'));assert.deepEqual(h.snapshot(),before);
  assert.throws(()=>h.saveLearningPlanSettings(config({startDay:'2026-02-30'})));assert.deepEqual(h.snapshot(),before);
  for(const raw of ['{broken','null','{"version":2}','{"version":1,"config":{"id":"x"},"paused":false}']){
-  h.restore({...before,[h.LEARNING_PLAN_KEY]:raw});const corrupt=h.snapshot();assert.equal(h.readLearningPlanStore(),null);h.recordLearningPlanRatings('words',{w2:'familiar'});withoutThrow(()=>h.pauseLearningPlan(true));assert.deepEqual(h.snapshot(),corrupt);
+  h.restore({...before,[h.LEARNING_PLAN_KEY]:raw});const corrupt=h.snapshot();assert.equal(h.readLearningPlanStore(),null);h.recordLearningPlanRatings('words',{w2:'familiar'});withoutThrow(()=>h.pauseLearningPlan(true));assert.deepEqual(Object.fromEntries(Object.entries(h.snapshot()).filter(([k])=>!k.includes(':study-log:'))),Object.fromEntries(Object.entries(corrupt).filter(([k])=>!k.includes(':study-log:'))));
  }
 });
 

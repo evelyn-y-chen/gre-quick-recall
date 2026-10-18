@@ -1,3 +1,4 @@
+import {recordStudyAnswers} from './studyAnswerLog';
 import {readPlanChecks} from './planTaskChecks';
 import {selectPlannedLists} from './listLearningPlanModel';
 import {exportStorage,studyStorage} from './storage';
@@ -38,6 +39,7 @@ export function pauseLearningPlan(paused:boolean){
 /** Real daily answers are separate keys so two devices can merge different words. */
 let staticCatalog:ReturnType<typeof getLearningPlanCatalog>|undefined;
 export function recordLearningPlanWords(words:string[],rating:LearningPlanRating,today=reviewDay(),notebookWords:string[]=[]){
+ recordStudyAnswers(words,rating,today);
  let state=readLearningPlanStore();if(!state||state.paused||today<state.config.startDay)return false;
  const catalog=state.config.deckIds.includes("notebook")?getLearningPlanCatalog(exportWorkspace()):(staticCatalog??=getLearningPlanCatalog());
  const scoped=new Set(selectPlannedLists(catalog.words,state.config).flatMap(u=>u.words.map(w=>w.id)));
@@ -58,7 +60,6 @@ export function recordLearningPlanWord(state:LearningPlanState,wordIds:string[],
  return next;
 }
 export function recordLearningPlanRatings(module:string,changes:Ratings){
- const state=readLearningPlanStore();if(!state||state.paused)return;
  const grouped:Record<LearningPlanRating,string[]>={red:[],yellow:[],green:[]};
  for(const [id,value] of Object.entries(changes))grouped[value==='familiar'?'green':value==='fuzzy'?'yellow':'red'].push(...getPlanRatingWords(module,id));
  for(const rating of ['red','yellow','green'] as const)if(grouped[rating].length)recordLearningPlanWords(grouped[rating],rating);

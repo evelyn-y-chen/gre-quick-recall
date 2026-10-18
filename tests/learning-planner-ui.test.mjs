@@ -173,3 +173,7 @@ test('a new-plan durable save failure can retry its own locally written settings
  test('the quick daily checklist works without creating a long-term plan',async()=>{
  const v=planner({seed:false,cap:null});try{await v.click('＋ 添加今天的 List');await v.click('List 012 词');await v.click('List 022 词');await v.click('加入今日清单（2 个 List）');assert.equal(v.state,null);await v.pressAria('完成 GLEE List 01');assert.ok(v.nodes(v.scope('dailyGoals')).some(n=>n.type==='s'));await v.pressAria('取消完成 GLEE List 01');assert.equal(v.nodes(v.scope('dailyGoals')).some(n=>n.type==='s'),false);assert.equal(v.state,null);await v.advanceDay('2026-10-18');assert.match(v.text(v.scope('dailyGoals')),/从 2026-10-17 顺延/);}finally{v.close();}
 });
+
+ test('switching an existing automatic plan to manual retains its already completed Lists',async()=>{
+ const v=planner({cap:null});try{await v.click('查看并确认安排');await v.click('确认并采用这份安排');v.store.recordLearningPlanWords(['apple','banal'],'green',firstDay);await v.flush();const answers=structuredClone(v.state.answers),oldId=v.agenda.tasks.find(t=>t.unitId==='glee:list-1').id;await v.click('调整目标与词表');await v.submit('预览调整后的安排');await v.click('确认并采用这份安排');assert.equal(v.state.config.completionMode,'manual');assert.equal(v.state.taskChecks[oldId],true);assert.deepEqual(v.state.answers,answers);assert.ok(v.nodes(v.scope('learningTodo')).some(n=>n.type==='s'&&v.text(n)==='GLEE · List 01'));}finally{v.close();}
+});

@@ -17,6 +17,7 @@ export function readAgenda(raw:string|null,planId:string):LearningAgenda|null{
   return a;
  }catch{return null;}
 }
+function studiedToday(state:LearningPlanState,today:string){return [...new Set([...Object.entries(state.answers).filter(([,events])=>events[today]).map(([id])=>id),...Object.entries(state.studied??{}).filter(([,days])=>days.includes(today)).map(([id])=>id)])];}
 export function pendingTaskWords(task:AgendaTask,state:LearningPlanState,today:string):string[]{
  if(state.taskChecks?.[task.id]===true)return [];
  const pending=[...new Set(task.wordIds)].filter(id=>![...Object.keys(state.answers[id]??{}),...(state.studied?.[id]??[])].some(day=>validLearningPlanDay(day)&&day>=(task.kind==='new'?state.config.startDay:task.day)&&day<=today));
@@ -69,7 +70,7 @@ export function proposeAgenda(state:LearningPlanState,units:PlannedList[],today:
  }
  if(mode==='auto'&&(!previous||reset||tasks.length>retained.length||tasks.some(t=>t.carriedFrom))&&state.config.dailyCap!==null){
   const capacity=state.config.dailyCap,loads=new Map<string,Set<string>>();
-  loads.set(today,new Set(Object.entries(state.answers).filter(([,events])=>events[today]).map(([id])=>id)));
+  loads.set(today,new Set(studiedToday(state,today)));
   tasks.sort((a,b)=>a.day.localeCompare(b.day)||Number(!!b.carriedFrom)-Number(!!a.carriedFrom)||(a.kind===b.kind?0:a.kind==='review'?-1:1));
   for(const task of tasks){
    const words=pendingTaskWords(task,state,today);if(words.length>capacity)continue;
@@ -91,7 +92,7 @@ export function agendaForecast(agenda:LearningAgenda,state:LearningPlanState,uni
   const active=tasks.filter(t=>t.day===day.day),pending=active.filter(t=>pendingTaskWords(t,state,today).length);
   const ids=(kind:'new'|'review')=>[...new Set(pending.filter(t=>t.kind===kind).map(t=>t.unitId))];
   const wordIds=new Set(pending.flatMap(t=>pendingTaskWords(t,state,today)));
-  if(day.day===today)for(const [id,history] of Object.entries(state.answers))if(history[today])wordIds.add(id);
+  if(day.day===today)for(const id of studiedToday(state,today))wordIds.add(id);
   const newIds=ids('new'),reviewIds=ids('review'),completedCount=active.length-pending.length;
   return {...day,newIds,reviewIds,newCount:newIds.length,reviewCount:reviewIds.length,completedCount,totalCount:completedCount+pending.length,wordCount:wordIds.size,blocked:[]};
  });
@@ -106,6 +107,6 @@ export function agendaCapProblems(agenda:LearningAgenda,state:LearningPlanState,
  const cap=state.config.dailyCap;if(cap===null)return [];
  const days=new Map<string,Set<string>>();
  for(const t of agenda.tasks){const words=days.get(t.day)??new Set<string>();for(const id of pendingTaskWords(t,state,today))words.add(id);days.set(t.day,words);}
- if(days.has(today))for(const [id,history] of Object.entries(state.answers))if(history[today])days.get(today)!.add(id);
+ if(days.has(today))for(const id of studiedToday(state,today))days.get(today)!.add(id);
  return [...days].filter(([,words])=>words.size>cap).map(([day,words])=>({day,count:words.size,cap}));
 }

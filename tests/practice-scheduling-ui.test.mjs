@@ -43,11 +43,12 @@ function practice({deck='words',data={}}={}){
   if(name.endsWith('/vocabulary.json'))return {default:words};
   if(name.endsWith('/bbEquivalents.json'))return {default:bb};
   if(name.endsWith('/aPlusEquivalents.json')||name.endsWith('/equivalents.json'))return {default:[]};
-  if(name==='../app/SharedWordMemory')return {default:()=>null};
+  if(name==='../app/SharedWordMemory'||name==='./SelectionChips')return {default:()=>null};
+  if(name==='../app/ratingStorage')return {readSavedRatings:(storage,key)=>JSON.parse(storage.getItem(key)??'null')??undefined};
   if(name==='./learningPlanStore')return {recordLearningPlanWords(){}};
   if(name==='./analytics')return {trackUsage(){}};
   if(name==='./practiceCompletions')return {recordCompletedPractice(){},recordPracticeWord(){},recordPracticeWords(){}};
-  if(!['./storage','./practiceModel','./practiceReviewModel','./Practice'].includes(name))throw Error('Unexpected import: '+name);
+  if(!['./storage','./practiceModel','./practiceReviewModel','./testRatingFilter','./Practice'].includes(name))throw Error('Unexpected import: '+name);
   if(modules.has(name))return modules.get(name);
   const module={exports:{}};modules.set(name,module.exports);
   const source=readFileSync('community/'+name.slice(2)+(name==='./Practice'?'.tsx':'.ts'),'utf8');

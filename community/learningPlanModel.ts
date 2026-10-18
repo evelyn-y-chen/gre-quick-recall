@@ -1,8 +1,9 @@
 import {REVIEW_INTERVALS,reviewDay} from './practiceReviewModel';
 
 export type LearningPlanRating='red'|'yellow'|'green';
-export type LearningPlanConfig={id:string;deckIds:string[];startDay:string;targetDay:string;dailyCap:number|null};
-export type LearningPlanState={version:1;config:LearningPlanConfig;paused:boolean;answers:Record<string,Record<string,LearningPlanRating>>};
+export type DeckGoal={targetDay?:string;dailyLists?:number};
+export type LearningPlanConfig={id:string;deckIds:string[];startDay:string;targetDay:string;dailyCap:number|null;unitIds?:string[];deckGoals?:Record<string,DeckGoal>;completionMode?:'manual'|'auto';reviewMode?:'auto'|'manual'|'none'};
+export type LearningPlanState={version:1;config:LearningPlanConfig;paused:boolean;answers:Record<string,Record<string,LearningPlanRating>>;studied?:Record<string,string[]>;taskChecks?:Record<string,boolean>};
 export type LearningPlanSchedule={
  day:string;totalWords:number;learnedCount:number;remainingNewCount:number;
  completedIds:string[];completedNewIds:string[];completedReviewIds:string[];
@@ -35,6 +36,10 @@ function validConfig(value:unknown):value is LearningPlanConfig{
   &&Array.isArray(value.deckIds)&&value.deckIds.length>0&&value.deckIds.length<=100
   &&value.deckIds.every(id=>typeof id==='string'&&id.length>0&&id.length<=120)
   &&validLearningPlanDay(value.startDay)&&validLearningPlanDay(value.targetDay)&&value.targetDay>=value.startDay
+  &&(value.unitIds===undefined||Array.isArray(value.unitIds)&&value.unitIds.length<=5000&&value.unitIds.every(id=>typeof id==='string'&&id.length<=400))
+  &&(value.completionMode===undefined||['manual','auto'].includes(String(value.completionMode)))
+  &&(value.reviewMode===undefined||['auto','manual','none'].includes(String(value.reviewMode)))
+  &&(value.deckGoals===undefined||isObject(value.deckGoals)&&Object.entries(value.deckGoals).every(([id,g])=>(value.deckIds as string[]).includes(id)&&isObject(g)&&(g.targetDay===undefined||validLearningPlanDay(g.targetDay)&&g.targetDay>=value.startDay!)&&(g.dailyLists===undefined||Number.isInteger(g.dailyLists)&&Number(g.dailyLists)>=1&&Number(g.dailyLists)<=500)))
   &&(value.dailyCap===null||Number.isSafeInteger(value.dailyCap)&&Number(value.dailyCap)>=1&&Number(value.dailyCap)<=10_000);
 }
 export function validLearningPlan(value:unknown):value is LearningPlanState{
@@ -44,7 +49,7 @@ export function validLearningPlan(value:unknown):value is LearningPlanState{
 }
 export function createLearningPlan(config:LearningPlanConfig):LearningPlanState{
  if(!validConfig(config))throw new RangeError('Invalid learning plan configuration');
- return {version:1,config:{id:config.id,deckIds:[...new Set(config.deckIds)],startDay:config.startDay,targetDay:config.targetDay,dailyCap:config.dailyCap},paused:false,answers:{}};
+ return {version:1,config:{id:config.id,deckIds:[...new Set(config.deckIds)],startDay:config.startDay,targetDay:config.targetDay,dailyCap:config.dailyCap,...(config.unitIds?{unitIds:[...new Set(config.unitIds)]}:{}),...(config.deckGoals?{deckGoals:{...config.deckGoals}}:{}),...(config.completionMode?{completionMode:config.completionMode}:{}),...(config.reviewMode?{reviewMode:config.reviewMode}:{})},paused:false,answers:{}};
 }
 export function loadLearningPlan(saved:string|null):LearningPlanState|null{
  if(saved===null)return null;

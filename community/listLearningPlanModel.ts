@@ -1,4 +1,4 @@
-import {validLearningPlan,validLearningPlanDay,type LearningPlanState,type LearningPlanRating} from './learningPlanModel';
+import {validLearningPlan,validLearningPlanDay,type LearningPlanState,type LearningPlanRating,type LearningPlanConfig} from './learningPlanModel';
 import {selectPlanWords,type PlannedWord,type PlannedOccurrence} from './learningPlanCatalog';
 import {reviewDay} from './practiceReviewModel';
 export type PlannedList={id:string;deckId:string;deckName:string;label:string;words:PlannedWord[]};
@@ -22,6 +22,12 @@ export function buildPlannedLists(words:PlannedWord[],deckIds:string[]):PlannedL
  // Map insertion order follows each source's List / volume order, not a label sort.
  return [...grouped.values()].sort((a,b)=>deckIds.indexOf(a.deckId)-deckIds.indexOf(b.deckId)||Math.min(...order.get(a.id)!.values())-Math.min(...order.get(b.id)!.values()));
 }
+export function selectPlannedLists(words:PlannedWord[],config:LearningPlanConfig){return buildPlannedLists(words,config.deckIds).filter(u=>!config.unitIds||config.unitIds.includes(u.id));}
+function deckBudget(state:LearningPlanState,units:PlannedList[],covered:Set<string>,completed:Set<string>,day:string,deckId:string){
+ const group=units.filter(u=>u.deckId===deckId),goal=state.config.deckGoals?.[deckId];
+ const done=group.filter(u=>covered.has(u.id)).length,doneToday=group.filter(u=>completed.has(u.id)).length;
+ return goal?.dailyLists?Math.max(0,goal.dailyLists-doneToday):newBudget(group.length,done,doneToday,day,goal?.targetDay??state.config.targetDay,state.config.startDay);
+}
 function histories(state:LearningPlanState,today:string){
  return new Map(Object.entries(state.answers).map(([id,values])=>[id,Object.entries(values).filter(([day,value])=>validLearningPlanDay(day)&&day>=state.config.startDay&&day<=today&&rating(value)).sort(([a],[b])=>a.localeCompare(b))]));
 }
@@ -29,9 +35,13 @@ export const COLOR_REVIEW_DAYS={red:[1],yellow:[2],green:[3,7,15,30]} as const;
 /** Suggestions derived only from dated, real self-ratings. Early greens do not
  * fast-forward a review level; an uncertain answer can bring a date forward. */
 export function wordReview(state:LearningPlanState,id:string,today:string){
- const events=Object.entries(state.answers[id]??{}).filter(([d,r])=>d>=state.config.startDay&&d<=today&&validLearningPlanDay(d)&&rating(r)).sort(([a],[b])=>a.localeCompare(b));
+ const answerEvents=Object.entries(state.answers[id]??{}).filter(([d,r])=>d<=today&&validLearningPlanDay(d)&&rating(r)).sort(([a],[b])=>a.localeCompare(b));
+ const eventDays=[...new Set([...answerEvents.map(([d])=>d),...(state.studied?.[id]??[]).filter(d=>validLearningPlanDay(d)&&d<=today)])].sort();
+ const events=eventDays.map(day=>[day,answerEvents.find(([d])=>d===day)?.[1]??null] as const);
  let due:string|null=null,level=0,lastDay:string|null=null,color:LearningPlanRating|null=null;
- for(const [day,r] of events){
+ for(const [day,answer] of events){
+  const r:LearningPlanRating|null=answer??color;
+  if(r===null){if(!lastDay){due=plus(day,3);}else if(due&&day>=due){level=Math.min(level+1,3);due=plus(day,COLOR_REVIEW_DAYS.green[level]);}lastDay=day;continue;}
   if(!lastDay||r!=='green'||color!=='green'){level=0;due=plus(day,COLOR_REVIEW_DAYS[r][0]);}
   else if(due&&day>=due){level=Math.min(level+1,COLOR_REVIEW_DAYS.green.length-1);due=plus(day,COLOR_REVIEW_DAYS.green[level]);}
   lastDay=day;color=r;
@@ -49,7 +59,7 @@ function roundFor(unit:PlannedList,history:ReturnType<typeof histories>,today:st
 function prepare(state:LearningPlanState,units:PlannedList[],today:string){
  if(!validLearningPlan(state)||!validLearningPlanDay(today))throw new RangeError('Invalid learning plan');
  const history=histories(state,today),progress=new Map(units.map(u=>[u.id,roundFor(u,history,today,state)]));
- const known=new Set(units.flatMap(u=>u.words.map(w=>w.id))),doneWords=new Set([...known].filter(id=>rating(state.answers[id]?.[today])));
+ const known=new Set(units.flatMap(u=>u.words.map(w=>w.id))),doneWords=new Set([...known].filter(id=>rating(state.answers[id]?.[today])||state.studied?.[id]?.includes(today)));
  return {history,progress,doneWords,unseen:units.filter(u=>!progress.get(u.id)!.firstDay),due:units.filter(u=>progress.get(u.id)!.due).sort((a,b)=>progress.get(a.id)!.due!.localeCompare(progress.get(b.id)!.due!))};
 }
 const newBudget=(total:number,covered:number,completedToday:number,day:string,target:string,start:string)=>{
@@ -69,9 +79,10 @@ export function scheduleListPlan(state:LearningPlanState,units:PlannedList[],tod
   for(const id of ids)planned.add(id);capacity-=ids.length;target.push(unit.id);return true;
  };
  if(active){
-  for(const unit of due)if(progress.get(unit.id)!.due!<=today)take(unit,reviewIds);
-  if(!blocked.length){let budget=newBudget(units.length,units.length-unseen.length,completedNewIds.length,today,state.config.targetDay,state.config.startDay);const stopped=new Set<string>();
-   for(const unit of unseen){if(!budget)break;if(stopped.has(unit.deckId))continue;if(take(unit,newIds))budget--;else stopped.add(unit.deckId);}
+  for(const unit of due)if(state.config.reviewMode!=='none'&&state.config.reviewMode!=='manual'&&progress.get(unit.id)!.due!<=today)take(unit,reviewIds);
+  if(!blocked.length){const covered=new Set(units.filter(u=>progress.get(u.id)!.firstDay).map(u=>u.id)),completed=new Set(completedNewIds),budgets=new Map(state.config.deckIds.map(id=>[id,deckBudget(state,units,covered,completed,today,id)]));const stopped=new Set<string>();
+   for(const unit of unseen){if(!budgets.get(unit.deckId)||stopped.has(unit.deckId))continue;if(take(unit,newIds))budgets.set(unit.deckId,budgets.get(unit.deckId)!-1);else stopped.add(unit.deckId);}
+
   }
  }
  return {day:today,completedIds,completedNewIds,completedReviewIds,newIds,reviewIds,required,learnedCount:units.length-unseen.length,remainingNewCount:unseen.length,totalCount:completedIds.length+reviewIds.length+newIds.length,completedWordCount:doneWords.size,assignedWordCount:planned.size,blocked,paused:state.paused};
@@ -98,9 +109,10 @@ export function projectListPlan(state:LearningPlanState,units:PlannedList[],toda
    if(kind==='new'){reservedNew.add(unit.id);for(const id of required)reservedWords.add(id);newIds.push(unit.id);}else{for(const id of required)reservedReview.add(id);reviewIds.push(unit.id);}return true;
   };
   if(!state.paused&&day>=state.config.startDay){
-   for(const unit of due)if(progress.get(unit.id)!.due!<=day)take(unit,'review');
-   if(!blocked.length){let budget=newBudget(units.length,units.length-unseen.length+reservedNew.size,n===0?actual.completedNewIds.length:0,day,state.config.targetDay,state.config.startDay);const stopped=new Set<string>();
-    for(const unit of unseen){if(!budget)break;if(reservedNew.has(unit.id)||stopped.has(unit.deckId))continue;if(take(unit,'new'))budget--;else stopped.add(unit.deckId);}
+   for(const unit of due)if(state.config.reviewMode!=='none'&&state.config.reviewMode!=='manual'&&progress.get(unit.id)!.due!<=day)take(unit,'review');
+   if(!blocked.length){const covered=new Set([...units.filter(u=>progress.get(u.id)!.firstDay).map(u=>u.id),...reservedNew]),completedIds=new Set(n===0?actual.completedNewIds:[]),budgets=new Map(state.config.deckIds.map(id=>[id,deckBudget(state,units,covered,completedIds,day,id)]));const stopped=new Set<string>();
+    for(const unit of unseen){if(reservedNew.has(unit.id)||stopped.has(unit.deckId)||!budgets.get(unit.deckId))continue;if(take(unit,'new'))budgets.set(unit.deckId,budgets.get(unit.deckId)!-1);else stopped.add(unit.deckId);}
+
    }
    if(expected===null&&reservedNew.size===unseen.length&&units.length)expected=day;
   }

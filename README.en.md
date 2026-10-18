@@ -65,16 +65,19 @@ These are self-assessments for this review. You can change them at any time, and
 
 ## Learning plans: preview first, then choose your pace
 
-Select several banks, a start date and a first-pass target. **The daily word cap is optional.** Generate a draft, choose suggested or manual scheduling, edit Lists, dates, order and new/review tasks, then confirm the arrangement. Draft edits never count as completed learning.
+Two options use intact source Lists:
 
-- **One bank progress record.** To-dos open the original bank at the correct range. Use existing notes, reveals and traffic lights; there is no separate planner quiz. Reaffirming the same color can record a later review.
-- **Completed items stay visible.** Partial tasks show X/Y words recorded. All required words assessed means the item is checked and struck through. Red and yellow count as assessment, not mastery.
-- **Whole source Lists.** Preserve volumes, categories, actual counts and meanings; notebook words use batches. Repeated words connect across banks and count once per day. Resolve cap conflicts without splitting Lists or silently exceeding the cap.
-- **Color-based suggestions.** Red: tomorrow; yellow: two days; green: three days, then 7, 15 and 30 after actual due reviews. Dates remain editable suggestions.
-- **Missed work becomes a draft.** Keep completed work, carry the remainder forward and move whole later tasks as needed. Review and confirm the revised schedule, including any delayed completion estimate.
-- **A chart grounded in real work.** The next seven days show reviews generated from actual records and confirmed reservations, never assumed future success or a claimed forgetting probability. Existing ratings can optionally be adopted with today as their adoption date, without invented past dates.
+- **Today’s checklist.** Choose several banks and Lists, select new learning or review, and open self-checks or practice. Check off completed Lists yourself; automatic checking is optional. Unfinished items remain visible on the following day. No long-term plan is required.
+- **A long-term plan.** Select exactly which Lists to learn. Give each bank its own deadline or daily new-List count, so banks progress in parallel. The total daily word cap is optional; duplicate words count once and whole Lists remain intact.
+- **Edit by day.** Pick a date, then select several Lists for that day. Dark chips with a ✓ are selected; tap again to deselect. Change task type, study method and order, or move a whole day. Preview before confirming.
+- **Continue previous study.** Adopt existing ratings, read prior marks from a learning-note backup, or record previously studied Lists with their actual dates. These actions do not replace current notes or traffic lights. Undated marks are adopted today; partial progress is retained.
+- **Manual or automatic completion.** New plans default to manually checking off Lists. You may enable completion from original-bank self-checks and override it manually. A manual check records a study encounter, never a green rating.
+- **Choose review timing.** Request editable suggestions, arrange dates yourself, or skip review scheduling for now. Red suggests tomorrow; yellow two days; green three days, then 7, 15 and 30 after real due reviews. A manual encounter without a color initially suggests three days.
+- **Missed work stays editable.** Completed work remains; unfinished work becomes a carry-forward draft. Delayed completion is shown. The seven-day chart uses actual study and confirmed reservations, not a claimed forgetting probability.
 
-Plans and learning history travel with the account or a full learning-note backup. Ratings-only merging does not import the entire plan.
+Practice settings also support multiple Lists and any combination of red, yellow, green and unrated entries. Selecting no colors yields no test entries. Multiple-choice practice is available for general vocabulary, A+ and BB; other banks use their existing traffic-light self-checks.
+
+Plans, checklists and history travel with the account or a full learning-note backup. Ratings-only merge does not import a whole plan.
 
 ## Lists and modules
 
@@ -129,7 +132,7 @@ Where memory notes are supported, the same word uses one personal note across mo
 - **BB** has one simple six-choice synonym test. Set a range and order, answer directly, then see the correct synonym, meanings and memory notes.
 - **General vocabulary** keeps one Start test entry with range, direction and order settings, plus notes after mistakes.
 
-Saved legacy test records are retained. The daily planner requires no extra quiz: use the original bank traffic lights. Tests can be saved and resumed; long feedback and notes scroll within their own areas.
+Saved legacy test records are retained. Plans can open the original bank for self-checks, use practice where available, or be checked off manually. Tests can be saved and resumed; long feedback and notes scroll within their own areas.
 
 ## Keyboard shortcuts
 

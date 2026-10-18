@@ -80,7 +80,7 @@ function planner({seed=true,cap=2,day=firstDay,paused=false,persistResponses=[]}
  function change(aria,value){const input=nodes().find(node=>['input','select'].includes(node.type)&&node.props['aria-label']===aria);assert.ok(input,'Missing input '+aria);input.props.onChange({target:{value}});render();}
  async function submit(label){const button=find('button',label);assert.ok(button,'Missing submit '+label);assert.equal(!!button.props.disabled,false);const form=nodes().find(node=>node.type==='form'&&nodes(node).includes(button));assert.ok(form);form.props.onSubmit({preventDefault(){}});render();await flush();}
  render();
- return {calls,store,model,storage,render,flush,text,nodes,find,scope,click,change,submit,get agenda(){const state=store.readLearningPlanStore();return state?load('./learningAgendaModel').readAgenda(storage.studyStorage.getItem(load('./learningAgendaModel').agendaKey(state.config.id)),state.config.id):null;},switchGeneration(){apiGeneration++;},get durable(){return durable;},get closed(){return closed;},get state(){return store.readLearningPlanStore();},get selectedIds(){const state=store.readLearningPlanStore();return state?selectPlanWords(fixtureCatalog.words,state.config.deckIds).map(w=>w.id):[];},queuePersistence(...responses){persistResponses.push(...responses);},toggleDeck(name){const label=nodes().find(node=>node.type==='label'&&text(node).startsWith(name));assert.ok(label,'Missing deck '+name);nodes(label).find(node=>node.type==='input').props.onChange({target:{}});render();},async advanceDay(value,notify=true){clock=value;if(notify){for(const callback of timers.values())callback();windowListeners.get('focus')?.();}await flush();},close(){for(const fiber of fibers.values()){fiber.alive=false;for(const hook of fiber.hooks)hook?.cleanup?.();}fibers.clear();}};
+ return {calls,store,model,storage,render,flush,text,nodes,find,scope,click,change,submit,get agenda(){const state=store.readLearningPlanStore();return state?load('./learningAgendaModel').readAgenda(storage.studyStorage.getItem(load('./learningAgendaModel').agendaKey(state.config.id)),state.config.id):null;},switchGeneration(){apiGeneration++;},get durable(){return durable;},get closed(){return closed;},get state(){return store.readLearningPlanStore();},async pressAria(label){const button=nodes().find(n=>n.type==='button'&&n.props['aria-label']===label);assert.ok(button,'Missing '+label);assert.ok(!button.props.disabled);button.props.onClick();render();await flush();},get selectedIds(){const state=store.readLearningPlanStore();return state?selectPlanWords(fixtureCatalog.words,state.config.deckIds).map(w=>w.id):[];},queuePersistence(...responses){persistResponses.push(...responses);},toggleDeck(name){const label=nodes().find(node=>node.type==='label'&&text(node).startsWith(name));assert.ok(label,'Missing deck '+name);nodes(label).find(node=>node.type==='input').props.onChange({target:{}});render();},async advanceDay(value,notify=true){clock=value;if(notify){for(const callback of timers.values())callback();windowListeners.get('focus')?.();}await flush();},close(){for(const fiber of fibers.values()){fiber.alive=false;for(const hook of fiber.hooks)hook?.cleanup?.();}fibers.clear();}};
 }
 
 const studyWord=view=>view.nodes(view.scope('learningStudyPanel')).find(node=>node.type==='button'&&String(node.props['aria-label']??'').startsWith('朗读 '))?.props['aria-label'];
@@ -117,14 +117,14 @@ test('unfinished Lists carry only their remaining words into a new unapproved dr
 
 test('manual scheduling changes dates and task kind without grading or removing real history',async()=>{
  const v=planner({cap:null});try{
-  await v.click('调整每日安排');await v.click('自己安排');v.change('List 01任务日期','2026-10-19');v.change('List 01任务类型','review');assert.deepEqual(v.state.answers,{});
-  await v.click('确认并采用这份安排');assert.equal(v.agenda.mode,'manual');assert.equal(v.agenda.tasks[0].day,'2026-10-19');assert.equal(v.agenda.tasks[0].kind,'review');assert.deepEqual(v.state.answers,{});
+  await v.click('调整每日安排');await v.click('自己安排');v.change('移动到日期','2026-10-19');await v.click('移动当天任务');await v.click('移除安排');v.change('当天学习类型','review');await v.click('List 012 词');assert.deepEqual(v.state.answers,{});
+  await v.click('确认并采用这份安排');assert.equal(v.agenda.mode,'manual');assert.equal(v.agenda.tasks[0].day,'2026-10-19');assert.equal(v.agenda.tasks.find(t=>t.unitId==='glee:list-1').kind,'review');assert.deepEqual(v.state.answers,{});
  }finally{v.close();}
 });
 
 test('a combined whole-List cap must be resolved before confirmation',async()=>{
  const v=planner({cap:2});try{
-  await v.click('调整每日安排');v.change('添加任务的 List','glee:list-2');await v.click('加入安排');assert.match(v.text(),/超过你设置的 2 词上限/);assert.equal(v.find('button','确认并采用这份安排').props.disabled,true);assert.equal(v.agenda,null);assert.deepEqual(v.state.answers,{});
+  await v.click('调整每日安排');await v.click('List 022 词');assert.match(v.text(),/超过你设置的 2 词上限/);assert.equal(v.find('button','确认并采用这份安排').props.disabled,true);assert.equal(v.agenda,null);assert.deepEqual(v.state.answers,{});
  }finally{v.close();}
 });
 
@@ -160,9 +160,16 @@ test('an auto draft with an oversized whole List cannot silently confirm an empt
  const v=planner({cap:1});try{await v.click('调整每日安排');assert.match(v.text(),/超过每日上限，尚未排入/);assert.equal(v.find('button','确认并采用这份安排').props.disabled,true);assert.equal(v.agenda,null);}finally{v.close();}
 });
 test('adjusting a target preserves manually chosen List dates until the draft is confirmed',async()=>{
- const v=planner({cap:null});try{await v.click('调整每日安排');await v.click('自己安排');v.change('List 01任务日期','2026-10-20');await v.click('确认并采用这份安排');await v.click('调整目标与词表');v.change('目标首轮完成日期','2026-10-25');await v.submit('预览调整后的安排');assert.equal(v.agenda.tasks[0].day,'2026-10-20');await v.click('确认并采用这份安排');assert.equal(v.agenda.mode,'manual');assert.equal(v.agenda.tasks[0].day,'2026-10-20');assert.equal(v.state.config.targetDay,'2026-10-25');}finally{v.close();}
+ const v=planner({cap:null});try{await v.click('调整每日安排');await v.click('自己安排');v.change('移动到日期','2026-10-20');await v.click('移动当天任务');await v.click('确认并采用这份安排');await v.click('调整目标与词表');v.change('目标首轮完成日期','2026-10-25');await v.submit('预览调整后的安排');assert.equal(v.agenda.tasks[0].day,'2026-10-20');await v.click('确认并采用这份安排');assert.equal(v.agenda.mode,'manual');assert.equal(v.agenda.tasks[0].day,'2026-10-20');assert.equal(v.state.config.targetDay,'2026-10-25');}finally{v.close();}
 });
 
 test('a new-plan durable save failure can retry its own locally written settings safely',async()=>{
  const v=planner({seed:false});try{v.queuePersistence(Error('本机保存失败'));await v.click('制定学习计划');await v.submit('生成草案');await v.click('确认并采用这份安排');assert.match(v.text(),/本机保存失败/);assert.ok(v.find('button','确认并采用这份安排'));await v.click('确认并采用这份安排');assert.match(v.text(),/计划已同步到账号/);assert.equal(v.calls.length,2);}finally{v.close();}
+});
+
+ test('a new manual plan can be checked and reopened without replacing its real traffic light answers',async()=>{
+ const v=planner({seed:false,cap:null});try{await v.click('制定学习计划');await v.submit('生成草案');await v.click('确认并采用这份安排');assert.equal(v.state.config.completionMode,'manual');v.store.recordLearningPlanWords(['apple'],'red',firstDay);v.store.recordLearningPlanWords(['banal'],'yellow',firstDay);await v.flush();const answers=structuredClone(v.state.answers);await v.pressAria('完成 GLEE List 01');assert.ok(v.nodes(v.scope('learningTodo')).some(n=>n.type==='s'));assert.deepEqual(v.state.answers,answers);await v.pressAria('取消完成 GLEE List 01');assert.equal(v.nodes(v.scope('learningTodo')).some(n=>n.type==='s'),false);assert.deepEqual(v.state.answers,answers);}finally{v.close();}
+});
+ test('the quick daily checklist works without creating a long-term plan',async()=>{
+ const v=planner({seed:false,cap:null});try{await v.click('＋ 添加今天的 List');await v.click('List 012 词');await v.click('List 022 词');await v.click('加入今日清单（2 个 List）');assert.equal(v.state,null);await v.pressAria('完成 GLEE List 01');assert.ok(v.nodes(v.scope('dailyGoals')).some(n=>n.type==='s'));await v.pressAria('取消完成 GLEE List 01');assert.equal(v.nodes(v.scope('dailyGoals')).some(n=>n.type==='s'),false);assert.equal(v.state,null);await v.advanceDay('2026-10-18');assert.match(v.text(v.scope('dailyGoals')),/从 2026-10-17 顺延/);}finally{v.close();}
 });

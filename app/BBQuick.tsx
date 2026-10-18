@@ -4,6 +4,7 @@ import {recordLearningPlanRatings} from "../community/learningPlanStore";
 import {readSavedRatings,writeSavedRatings} from "./ratingStorage";
 "use client";
 import RevealControls from "./RevealControls";
+import SelectionChips from "../community/SelectionChips";
 import {useEffect,useMemo,useRef,useState} from "react";
 import data from "./bbEquivalents.json";
 import SharedWordMemory,{useWordMemory} from "./SharedWordMemory";
@@ -53,7 +54,7 @@ export default function BBQuick({pronounce,planTarget,onPlanTargetHandled}:{pron
   </div></div>
   {ready&&<RatingCloudSync module="bb" ratings={ratings} onLoad={r=>{setRatings(r);setSnapshot(r);}}/>}
   <div className="quickFilters"><label>分册 <select aria-label="BB 分册" value={volume} onChange={e=>{const v=e.target.value;changeRange({volume:v,lists:[...new Set(data.filter(x=>v==="全部"||x.volume===v).map(x=>x.list))]});setActiveId("");setRevealed([]);}}><option>全部</option>{Object.entries(volumes).map(([v,label])=><option key={v} value={v}>{label}</option>)}</select></label><input className="search" aria-label="搜索 BB六选二" placeholder="搜索当前范围的单词、释义或笔记…" value={query} onChange={e=>setQuery(e.target.value)}/>
-  <details className="rangePicker categoryPicker"><summary>选择范围 · {lists.length} 个 List</summary><div className="rangePickerPanel categoryPickerPanel"><button onClick={()=>changeRange({volume,lists:availableLists})}>全选</button><button onClick={()=>changeRange({volume,lists:[]})}>全不选</button>{availableLists.map(n=><button key={n} aria-pressed={lists.includes(n)} className={lists.includes(n)?"active":""} onClick={()=>{changeRange({volume,lists:lists.includes(n)?lists.filter(x=>x!==n):[...lists,n]});setActiveId("");}}>List {n} · {data.filter(x=>x.list===n).length} 组</button>)}</div></details></div>
+  <details className="rangePicker categoryPicker"><summary>选择范围 · {lists.length} 个 List</summary><div className="rangePickerPanel bbRangePanel"><SelectionChips label="BB List 范围" options={availableLists.map(n=>({id:String(n),label:`List ${n}`,detail:`${data.filter(x=>x.list===n&&(volume==='全部'||x.volume===volume)).length} 组`}))} selected={lists.map(String)} onChange={ids=>{changeRange({volume,lists:ids.map(Number)});setActiveId('');}}/></div></details></div>
   <div className="quickStats">{[{value:"全部",label:"全部",color:""},...colors,{value:"unrated",label:"未标记",color:""}].map(r=><button key={r.value} className={`${r.color} ${filter===r.value?"active":""}`} aria-pressed={filter===r.value} onClick={()=>{setFilter(r.value);setSnapshot({...ratings});setActiveId("");}}>{r.label} <strong>{scoped.filter(e=>r.value==="全部"||(ratings[e.id]??"unrated")===r.value).length}</strong></button>)}</div>
   <div className="shuffleControls"><button onClick={()=>order?setOrder(null):shuffle()}>{order?"恢复原顺序":"开启乱序"}</button>{order&&<button onClick={shuffle}>再打乱一次</button>}</div>
   <div className="shortcutBar"><span><kbd>↑</kbd><kbd>↓</kbd> 上 / 下一组</span><span><kbd>Enter</kbd> 等价词 → 释义</span><span><kbd>Space</kbd> 朗读第一个词</span><span><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> 红 / 黄 / 绿</span></div>

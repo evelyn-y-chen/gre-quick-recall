@@ -1,7 +1,7 @@
 import {projectListPlan,wordReview,type PlannedList} from './listLearningPlanModel';
 import {validLearningPlanDay,type LearningPlanState} from './learningPlanModel';
 
-export type AgendaTask={id:string;unitId:string;kind:'new'|'review';day:string;wordIds:string[];carriedFrom?:string};
+export type AgendaTask={id:string;unitId:string;kind:'new'|'review';day:string;wordIds:string[];method?:'self'|'test';carriedFrom?:string};
 export type LearningAgenda={version:1;planId:string;approvedOn:string;mode:'auto'|'manual';tasks:AgendaTask[];configKey?:string};
 export const AGENDA_PREFIX='lemnota-learning-agenda:';
 export const agendaKey=(planId:string)=>AGENDA_PREFIX+planId;
@@ -11,14 +11,16 @@ export function readAgenda(raw:string|null,planId:string):LearningAgenda|null{
   if(!a||a.version!==1||a.planId!==planId||!validLearningPlanDay(a.approvedOn)||!['auto','manual'].includes(a.mode)||a.configKey!==undefined&&typeof a.configKey!=='string'||!Array.isArray(a.tasks)||a.tasks.length>5000)return null;
   const ids=new Set<string>();
   for(const t of a.tasks){
-   if(!t||typeof t.id!=='string'||t.id.length>500||ids.has(t.id)||typeof t.unitId!=='string'||t.unitId.length>400||!['new','review'].includes(t.kind)||!validLearningPlanDay(t.day)||t.carriedFrom!==undefined&&!validLearningPlanDay(t.carriedFrom)||!Array.isArray(t.wordIds)||!t.wordIds.length||t.wordIds.length>50000||t.wordIds.some((w:unknown)=>typeof w!=='string'||!w||w.length>500))return null;
+   if(!t||typeof t.id!=='string'||t.id.length>500||ids.has(t.id)||typeof t.unitId!=='string'||t.unitId.length>400||!['new','review'].includes(t.kind)||t.method!==undefined&&!['self','test'].includes(t.method)||!validLearningPlanDay(t.day)||t.carriedFrom!==undefined&&!validLearningPlanDay(t.carriedFrom)||!Array.isArray(t.wordIds)||!t.wordIds.length||t.wordIds.length>50000||t.wordIds.some((w:unknown)=>typeof w!=='string'||!w||w.length>500))return null;
    ids.add(t.id);
   }
   return a;
  }catch{return null;}
 }
 export function pendingTaskWords(task:AgendaTask,state:LearningPlanState,today:string):string[]{
- return [...new Set(task.wordIds)].filter(id=>!Object.keys(state.answers[id]??{}).some(day=>validLearningPlanDay(day)&&day>=(task.kind==='new'?state.config.startDay:task.day)&&day<=today));
+ if(state.taskChecks?.[task.id]===true)return [];
+ const pending=[...new Set(task.wordIds)].filter(id=>![...Object.keys(state.answers[id]??{}),...(state.studied?.[id]??[])].some(day=>validLearningPlanDay(day)&&day>=(task.kind==='new'?state.config.startDay:task.day)&&day<=today));
+ return !pending.length&&(state.taskChecks?.[task.id]===false||state.config.completionMode==='manual')?[...new Set(task.wordIds)]:pending;
 }
 export function validAgendaTasks(agenda:LearningAgenda,units:PlannedList[]):AgendaTask[]{
  const known=new Map(units.map(u=>[u.id,new Set(u.words.map(w=>w.id))]));
@@ -33,7 +35,7 @@ export function missedAgendaTasks(agenda:LearningAgenda,state:LearningPlanState,
 export function agendaReady(agenda:LearningAgenda|null,state:LearningPlanState,units:PlannedList[],today:string){
  if(!agenda||agenda.approvedOn>today||missedAgendaTasks(agenda,state,units,today).length)return false;
  const valid=validAgendaTasks(agenda,units);
- if(agenda.mode==='auto'){
+ if(agenda.mode==='auto'&&state.config.reviewMode!=='none'&&state.config.reviewMode!=='manual'){
   const assigned=new Set(valid.filter(t=>t.kind==='review'&&t.day>=today).flatMap(t=>t.wordIds));
   const due=projectListPlan(state,units,today).today;
   if(due.reviewIds.some(id=>due.required[id].some(word=>!assigned.has(word))))return false;
@@ -97,7 +99,7 @@ export function agendaForecast(agenda:LearningAgenda,state:LearningPlanState,uni
  for(const task of tasks)if(task.kind==='new')for(const id of task.wordIds)if(!firstDays.get(id))firstDays.set(id,task.day);
  const allAssigned=[...firstDays.values()].every(Boolean);
  const lastAssigned=tasks.filter(t=>t.kind==='new').map(t=>t.day).sort().at(-1)??null;
- const expectedFirstPassDay=allAssigned?[...firstDays.values()].filter((d):d is string=>!!d).sort().at(-1)??null:agenda.mode==='manual'?null:base.expectedFirstPassDay&&lastAssigned?[base.expectedFirstPassDay,lastAssigned].sort().at(-1)!:base.expectedFirstPassDay;
+ const expectedFirstPassDay=allAssigned?[...firstDays.values()].filter((d):d is string=>!!d).sort().at(-1)??null:null;
  return {...base,days,expectedFirstPassDay,targetReachable:!!expectedFirstPassDay&&expectedFirstPassDay<=state.config.targetDay,delayDays:expectedFirstPassDay?Math.max(0,Math.round((Date.parse(expectedFirstPassDay)-Date.parse(state.config.targetDay))/86400000)):null};
 }
 export function agendaCapProblems(agenda:LearningAgenda,state:LearningPlanState,today:string){

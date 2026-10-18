@@ -56,6 +56,7 @@ function quickView(name, initialStorage = {}, initialDeck = 'lclj-fill') {
   };
   const jsx = (type, props) => ({ type, props: props ?? {} });
   function load(importName) {
+    if (importName === '../community/SelectionChips') {const out={};new Function('exports','require',ts.transpileModule(fs.readFileSync(new URL('../community/SelectionChips.tsx',import.meta.url),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,jsx:ts.JsxEmit.ReactJSX}}).outputText)(out,name=>({jsx,jsxs:jsx}));return out;}
     if (importName === '../community/learningPlanStore') return {recordLearningPlanRatings(){}};
     if (importName === 'react') return react;
     if (importName === 'react/jsx-runtime') return { jsx, jsxs: jsx };
@@ -73,15 +74,15 @@ function quickView(name, initialStorage = {}, initialDeck = 'lclj-fill') {
   const storage = load('../community/storage'); storage.loadStorage(initialStorage);
   const Component = load(`./${name}`).default;
   function render() { for (let n = 0; n < 10; n++) { dirty = false; cursor = 0; tree = Component({ deck, ratings: {}, onRate() {}, pronounce() {} }); while (effects.length) effects.shift()(); if (!dirty) return; } throw Error('Hook host did not settle'); }
-  function nodes(node) { if (!node || typeof node !== 'object') return []; return Array.isArray(node) ? node.flatMap(nodes) : [node, ...nodes(node.props?.children)]; }
+  function nodes(node) { if (!node || typeof node !== 'object') return []; return Array.isArray(node) ? node.flatMap(nodes) : typeof node.type==='function'?nodes(node.type(node.props)):[node, ...nodes(node.props?.children)]; }
   function text(node) { if (node == null || typeof node === 'boolean') return ''; if (Array.isArray(node)) return node.map(text).join(''); return typeof node === 'object' ? text(node.props?.children) : String(node); }
   function clean() { for (const hook of hooks) hook?.cleanup?.(); hooks = []; effects = []; }
   render();
   return {
     snapshot: () => storage.exportStorage(),
-    selected: () => nodes(tree).filter(node => node.type === 'button' && node.props['aria-pressed'] === true).map(text),
+    selected: () => nodes(tree).filter(node => node.type === 'button' && node.props['aria-pressed'] === true).map(node=>text(node).replace(/^✓ /,'')),
     volume: () => nodes(tree).find(node => node.type === 'select')?.props.value,
-    click(label) { const button = nodes(tree).find(node => node.type === 'button' && text(node).startsWith(label)); assert.ok(button, `Missing button ${label}`); button.props.onClick(); render(); },
+    click(label) { const button = nodes(tree).find(node => node.type === 'button' && text(node).replace(/^✓ /,'').startsWith(label)); assert.ok(button, `Missing button ${label}`); button.props.onClick(); render(); },
     flush() { const pending = [...timers.values()]; timers.clear(); for (const fn of pending) fn(); render(); },
     remount(nextDeck = deck, workspace) { clean(); if (workspace) storage.loadStorage(workspace); deck = nextDeck; render(); },
     changeDeck(nextDeck) { deck = nextDeck; render(); },
@@ -95,8 +96,8 @@ test('BB restores before writing, and scope persists across leaving and reenteri
   try {
     assert.equal(view.snapshot()[rangeKey], value, 'Initial default must not overwrite the stored lower-volume scope');
     view.flush(); assert.equal(view.volume(), '下');
-    assert.ok(view.selected().some(label => label.startsWith('List 31 ·')));
-    assert.ok(view.selected().some(label => label.startsWith('List 33 ·')));
+    assert.ok(view.selected().some(label => label.startsWith('List 31')));
+    assert.ok(view.selected().some(label => label.startsWith('List 33')));
     view.click('全不选'); assert.deepEqual(JSON.parse(view.snapshot()[rangeKey]), { volume: '下', lists: [] });
     view.remount(); view.flush(); assert.equal(view.volume(), '下'); assert.ok(!view.selected().some(label => label.startsWith('List ')));
     const firstWorkspace = view.snapshot();
@@ -117,4 +118,9 @@ test('Lclj switching decks never writes a previous range into the next deck befo
     view.remount('lclj-fill'); view.flush(); assert.ok(view.selected().includes('List 62'));
     view.remount('lclj-reading'); view.flush(); assert.ok(!view.selected().some(label => label.startsWith('List ')));
   } finally { view.close(); }
+});
+
+ test('BB last selection, clear and select all show the same state that is saved',()=>{
+ const key='gre-bb-selection-v1',v=quickView('BBQuick',{[key]:JSON.stringify({volume:'下',lists:[31]})});
+ try{v.flush();v.click('List 31');assert.deepEqual(JSON.parse(v.snapshot()[key]).lists,[]);assert.equal(v.selected().some(s=>s.startsWith('List ')),false);v.click('全选');const saved=JSON.parse(v.snapshot()[key]);assert.ok(saved.lists.length>1);assert.equal(v.selected().filter(s=>s.startsWith('List ')).length,saved.lists.length);v.click('全不选');assert.equal(v.selected().filter(s=>s.startsWith('List ')).length,0);}finally{v.close();}
 });

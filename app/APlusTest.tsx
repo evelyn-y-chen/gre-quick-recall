@@ -1,3 +1,6 @@
+import SelectionChips from '../community/SelectionChips';
+import {readSavedRatings} from './ratingStorage';
+import {testColors,matchesTestColors,ratingKeys,type TestColor} from '../community/testRatingFilter';
 import {studyStorage} from "../community/storage";
 import {appFetch} from "../community/api";
 "use client";
@@ -8,10 +11,12 @@ import {useEffect,useRef,useState} from "react";
 import {entries,byId,equivalents,makeQuestion,createSession,chooseMeaning,gradeQuestion,advanceSession,validSession,refreshAmbiguousQuestion,type Session,type Config} from "./aPlusTestModel";
 import {dueReviewIds,reviewDay,REVIEW_INTERVALS,type ReviewHistory} from "./aPlusReviewModel";
 const DRAFT="gre-a-plus-test-draft-v1";
-export default function APlusTest({pronounce}:{pronounce:(word:string)=>void}) {
+export default function APlusTest({pronounce,initialLists}:{pronounce:(word:string)=>void;initialLists?:number[]}) {
  const [session,setSession]=useState<Session|null>(null),[screen,setScreen]=useState<"setup"|"test">("setup");
- const [config,setConfig]=useState<Config>({lists:[1],order:"random",mode:"single"});
+ const [config,setConfig]=useState<Config>({lists:initialLists??[1],order:"random",mode:"single"});
  const [history,setHistory]=useState<ReviewHistory>({}),[today,setToday]=useState(reviewDay);
+ const [colors,setColors]=useState<TestColor[]>(testColors.map(c=>c.id));const savedRatings=readSavedRatings(studyStorage,ratingKeys['a-plus'])??{};
+ const selectedIds=entries.filter(e=>config.lists.includes(e.list)&&matchesTestColors('a-plus',e.id,savedRatings,colors)).map(e=>e.id);
  const [from,setFrom]=useState(1),[to,setTo]=useState(1);
  const [loading,setLoading]=useState(true),[saving,setSaving]=useState(false),[status,setStatus]=useState("正在读取上次测试…"),[blocked,setBlocked]=useState(false);
  const current=useRef<Session|null>(null),revision=useRef(0),pending=useRef(false),busy=useRef(false),alive=useRef(true),conflict=useRef(false);
@@ -61,7 +66,7 @@ export default function APlusTest({pronounce}:{pronounce:(word:string)=>void}) {
   }catch(error){setStatus(error instanceof Error&&error.message?error.message:"读取失败，请稍后重试。");}finally{setLoading(false);}
  }
  useEffect(()=>{const timer=setInterval(()=>setToday(reviewDay()),60000);const focus=()=>setToday(reviewDay());window.addEventListener("focus",focus);return()=>{clearInterval(timer);window.removeEventListener("focus",focus);};},[]);
- const due=dueReviewIds(history,today).filter(id=>byId.has(id));
+ const due=dueReviewIds(history,today).filter(id=>byId.has(id)&&matchesTestColors('a-plus',id,savedRatings,colors));
  const upcoming=Object.entries(history).filter(([,r])=>r.due>today).sort((a,b)=>a[1].due.localeCompare(b[1].due));
  function startReview(){
   if(!due.length||pending.current||saving||loading||blocked)return;
@@ -71,7 +76,7 @@ export default function APlusTest({pronounce}:{pronounce:(word:string)=>void}) {
   next.question=makeQuestion(next.order[0],config.mode,false,Math.random,history[next.order[0]].retryWords);
   update(next);setScreen("test");
  }
- function start(){if(!config.lists.length)return;update(createSession(config));setScreen("test");}
+ function start(){if(!selectedIds.length)return;update(createSession(config,Math.random,selectedIds));setScreen("test");}
  const focused=screen==="test"&&!!session&&session.stage!=="complete";
  useEffect(()=>{if(!focused)return;const old=document.body.style.overflow;document.body.style.overflow="hidden";return()=>{document.body.style.overflow=old;};},[focused]);
  const completed=session?session.order.filter(id=>session.progress[id].done).length:0;
@@ -86,10 +91,10 @@ export default function APlusTest({pronounce}:{pronounce:(word:string)=>void}) {
    {session&&<div className="aPlusResume"><span>上次测试：{session.order.length} 词 · 已完成 {completed} · {session.config.mode==="single"?"单选":"不定项"}</span><button type="button" className="solid" disabled={loading} onClick={()=>setScreen("test")}>{session.stage==="complete"?"查看测试结果":"继续上次测试"}</button></div>}
    <fieldset className="aPlusTestSetup" disabled={loading||blocked||saving}>
     <h2>选择范围</h2><div className="aPlusTestRange"><label>从 List<select value={from} onChange={e=>setFrom(Number(e.target.value))}>{Array.from({length:80},(_,i)=><option key={i+1}>{i+1}</option>)}</select></label><label>到 List<select value={to} onChange={e=>setTo(Number(e.target.value))}>{Array.from({length:80},(_,i)=><option key={i+1}>{i+1}</option>)}</select></label><button type="button" onClick={()=>setConfig({...config,lists:Array.from({length:Math.abs(to-from)+1},(_,i)=>Math.min(from,to)+i)})}>选中这个范围</button><button type="button" onClick={()=>setConfig({...config,lists:Array.from({length:80},(_,i)=>i+1)})}>全选</button><button type="button" onClick={()=>setConfig({...config,lists:[]})}>清空</button></div>
-    <details><summary>单独勾选 List（已选 {config.lists.length} 个）</summary><div className="aPlusListChecks">{Array.from({length:80},(_,i)=>i+1).map(n=><label key={n}><input type="checkbox" checked={config.lists.includes(n)} onChange={e=>setConfig({...config,lists:e.target.checked?[...config.lists,n]:config.lists.filter(x=>x!==n)})}/>List {n}</label>)}</div></details>
+    <SelectionChips label="A+ 测试 List" options={Array.from({length:80},(_,i)=>({id:String(i+1),label:`List ${i+1}`}))} selected={config.lists.map(String)} onChange={ids=>setConfig({...config,lists:ids.map(Number)})}/><div className="testColorFilter"><p>联动红绿灯：可同时选择多个颜色；全不选时不安排测试。不同方向的标记不同时，按较不熟悉的颜色筛选。</p><SelectionChips label="测试红绿灯范围" options={[...testColors]} selected={colors} onChange={ids=>setColors(ids as TestColor[])}/></div>
     <div className="aPlusTestSettings"><label>出题顺序<select value={config.order} onChange={e=>setConfig({...config,order:e.target.value as Config["order"]})}><option value="sequential">顺序</option><option value="random">乱序</option></select></label><label>同义词题型<select value={config.mode} onChange={e=>setConfig({...config,mode:e.target.value as Config["mode"]})}><option value="single">单选 · 6 个词中仅 1 个正确</option><option value="multiple">不定项 · 6 个词中选出所有同义词</option></select></label></div>
-    <p>已选 {entries.filter(e=>config.lists.includes(e.list)).length} 个核心词。中途任何一步出错，连续正确次数清零。剩余题目不足间隔时提前返场。</p>
-    <button type="button" className="solid" disabled={!config.lists.length} onClick={start}>{session?"开始新测试（保留长期复习计划）":"开始测试"}</button>
+    <p>已选 {selectedIds.length} 个核心词。中途任何一步出错，连续正确次数清零。剩余题目不足间隔时提前返场。</p>
+    <button type="button" className="solid" disabled={!selectedIds.length} onClick={start}>{session?"开始新测试（保留长期复习计划）":"开始测试"}</button>
    </fieldset>
   </>:session&&<>
    <div className="aPlusTestProgress"><strong>已完成 {completed} / {session.order.length}</strong><span>已答 {session.turn} 轮 · {errors.length} 个词曾出错</span><button type="button" onClick={()=>setScreen("setup")}>返回设置 / 暂停</button></div>

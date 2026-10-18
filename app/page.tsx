@@ -1898,6 +1898,7 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
   const [requestedPlanRange,setRequestedPlanRange]=useState<PlanNavigation|null>(null);
   const handledPlanTarget=useRef<string|null>(null);
   const [practiceDeck,setPracticeDeck]=useState<PracticeDeck|null>(null);
+  const [practiceScope,setPracticeScope]=useState<{lists?:number[];volume?:string}>({});
   const [words, setWords] = useState<Word[]>(SOURCE_WORDS);
   const [store, setStore] = useState<Store>(EMPTY_STORE);
   const [equivalentStore, setEquivalentStore] = useState<EquivalentStore>(EMPTY_EQUIVALENT_STORE);
@@ -2045,7 +2046,7 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
 
   useEffect(()=>{
     if(!ready||!planTarget||handledPlanTarget.current===planTarget.id)return;
-    handledPlanTarget.current=planTarget.id;setView('quick');setAPlusMode('scan');setPracticeDeck(null);
+    handledPlanTarget.current=planTarget.id;setView('quick');setAPlusMode(planTarget.method==='test'&&planTarget.deckId==='a-plus'?'test':'scan');setPracticeScope({lists:planTarget.list?[planTarget.list]:undefined,volume:planTarget.volume});setPracticeDeck(planTarget.method==='test'&&['words','bb'].includes(planTarget.deckId)?planTarget.deckId as PracticeDeck:null);
     setQuickType(planTarget.deckId as QuickType);
     setQuickQuery('');setQuickRatingFilters([]);setQuickActiveId(null);
     setQuickEquivalentQuery('');setQuickEquivalentRatingFilters([]);setQuickEquivalentActiveId(null);
@@ -3383,8 +3384,8 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
             ))}
           </div>
 
-          {["words","bb"].includes(quickType)&&<div className="practiceEntry"><button className="primary" onClick={()=>setPracticeDeck(quickType as PracticeDeck)}>开始测试</button><span>{quickType==="bb"?"从六个词中选同义词 · 答后查看释义与记忆笔记":"选择对应释义 · 答后查看记忆笔记"}</span></div>}
-          {practiceDeck&&<Practice key={"practice-"+practiceDeck} deck={practiceDeck} onClose={()=>setPracticeDeck(null)}/>}
+          {["words","bb"].includes(quickType)&&<div className="practiceEntry"><button className="primary" onClick={()=>{setPracticeScope({lists:quickType==='words'?quickWordLists:undefined});setPracticeDeck(quickType as PracticeDeck);}}>开始测试</button><span>{quickType==="bb"?"从六个词中选同义词 · 答后查看释义与记忆笔记":"选择对应释义 · 答后查看记忆笔记"}</span></div>}
+          {practiceDeck&&<Practice key={"practice-"+practiceDeck} deck={practiceDeck} initialLists={practiceScope.lists} initialVolume={practiceScope.volume} onClose={()=>setPracticeDeck(null)}/>}
           {ready && quickType !== "bb" && quickType !== "notebook" && quickType !== "mindmap" && !(quickType === "a-plus" && aPlusMode === "test") && <RatingCloudSync
             key={quickType.startsWith("lclj-") ? "lclj" : quickType}
             module={quickType.startsWith("lclj-") ? "lclj" : quickType}
@@ -3547,7 +3548,7 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
           ) : quickType === "a-plus" ? (
             <>
               <div className="notebookMode aPlusModeSwitch" aria-label="等价词学习模式"><button type="button" aria-pressed={aPlusMode==="scan"} onClick={()=>setAPlusMode("scan")}>速刷与笔记</button><button type="button" aria-pressed={aPlusMode==="test"} onClick={()=>setAPlusMode("test")}>开始测试</button></div>
-              {aPlusMode === "test" ? <APlusTest pronounce={pronounce}/> : <>
+              {aPlusMode === "test" ? <APlusTest pronounce={pronounce} initialLists={aPlusLists}/> : <>
               <div className="libraryHead">
                 <div>
                   <p className="eyebrow">A+ GRE QUICK EQUIVALENCE SCAN</p>

@@ -1,3 +1,5 @@
+import {readPlanChecks} from './planTaskChecks';
+import {selectPlannedLists} from './listLearningPlanModel';
 import {exportStorage,studyStorage} from './storage';
 import {exportWorkspace} from './database';
 import {createLearningPlan,loadLearningPlan,recordLearningPlanAnswer,validLearningPlanDay,type LearningPlanConfig,type LearningPlanRating,type LearningPlanState} from './learningPlanModel';
@@ -18,7 +20,7 @@ export function readLearningPlanStore(storage=exportStorage()):LearningPlanState
     const rating=JSON.parse(value);if(rating==='red'||rating==='yellow'||rating==='green')(answers[word]??={})[day]=rating;
    }catch{}
   }
-  return loadLearningPlan(JSON.stringify({...settings,answers}));
+  const result=loadLearningPlan(JSON.stringify({...settings,answers}));if(result){const extra=readPlanChecks(storage,result.config.id);result.studied=extra.studied;result.taskChecks=extra.checks;}return result;
  }catch{return null;}
 }
 export function readPlanBaseline():string|null{
@@ -38,7 +40,8 @@ let staticCatalog:ReturnType<typeof getLearningPlanCatalog>|undefined;
 export function recordLearningPlanWords(words:string[],rating:LearningPlanRating,today=reviewDay(),notebookWords:string[]=[]){
  let state=readLearningPlanStore();if(!state||state.paused||today<state.config.startDay)return false;
  const catalog=state.config.deckIds.includes("notebook")?getLearningPlanCatalog(exportWorkspace()):(staticCatalog??=getLearningPlanCatalog());
- const selected=selectPlanWords(catalog.words,state.config.deckIds);
+ const scoped=new Set(selectPlannedLists(catalog.words,state.config).flatMap(u=>u.words.map(w=>w.id)));
+ const selected=selectPlanWords(catalog.words,state.config.deckIds).filter(w=>scoped.has(w.id));
  const ids=[...new Set([...selected.map(w=>w.id),...(state.config.deckIds.includes("notebook")?notebookWords.map(wordMemoryKey):[])])],known=new Set(ids);let changed=false;
  for(const raw of new Set(words)){
   const id=wordMemoryKey(raw);if(!known.has(id))continue;

@@ -35,7 +35,7 @@ export default function App(){
  const [feedback,setFeedback]=useState(false),[progress,setProgress]=useState(false),[planOpen,setPlanOpen]=useState(false);
  const [activePlanUnit,setActivePlanUnit]=useState<{unit:PlannedList;generation:number}|null>(null);
  const [planTarget,setPlanTarget]=useState<(PlanNavigation&{generation:number})|null>(null);
- function openPlannedList(unit:PlannedList){setActivePlanUnit({unit,generation});setPlanTarget({...planNavigation(unit,crypto.randomUUID()),generation});setPlanOpen(false);setStarted(true);}
+ function openPlannedList(unit:PlannedList,method:'self'|'test'='self'){setActivePlanUnit({unit,generation});setPlanTarget({...planNavigation(unit,crypto.randomUUID()),method,generation});setPlanOpen(false);setStarted(true);}
  const [pendingImport,setPendingImport]=useState<{payload:Snapshot;name:string}|null>(null),[importBusy,setImportBusy]=useState(false);
  const [tourStart,setTourStart]=useState<number|null>(()=>{try{return needsWelcomeTour(window.localStorage)?0:null;}catch{return 0;}});
  function closeTour(){try{rememberWelcomeTour(window.localStorage);}catch{}setTourStart(null);}

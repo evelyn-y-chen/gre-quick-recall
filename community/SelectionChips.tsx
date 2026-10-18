@@ -1,0 +1,5 @@
+export type SelectionOption={id:string;label:string;detail?:string};
+export default function SelectionChips({label,options,selected,onChange,disabled=false}:{label:string;options:SelectionOption[];selected:string[];onChange:(ids:string[])=>void;disabled?:boolean}){
+ const ids=options.map(o=>o.id),chosen=new Set(selected),all=!!ids.length&&ids.every(id=>chosen.has(id));
+ return <div className="selectionChips" role="group" aria-label={label}><div className="selectionChipActions"><strong>{label} · 已选 {ids.filter(id=>chosen.has(id)).length}</strong><button type="button" disabled={disabled||!ids.length} aria-pressed={all} onClick={()=>onChange(ids)}>全选</button><button type="button" disabled={disabled} aria-pressed={!selected.length} onClick={()=>onChange([])}>全不选</button></div><div className="selectionChipGrid">{options.map(o=><button type="button" disabled={disabled} key={o.id} aria-pressed={chosen.has(o.id)} onClick={()=>onChange(chosen.has(o.id)?selected.filter(id=>id!==o.id):[...selected,o.id])}><span>{chosen.has(o.id)?'✓ ':''}{o.label}</span>{o.detail&&<small>{o.detail}</small>}</button>)}</div></div>;
+}

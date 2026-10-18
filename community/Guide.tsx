@@ -129,51 +129,45 @@ const groups: GuideGroup[] = [
   "en": "Learning plans",
   "topics": [
     {
-      "zh": "先生成草案，再确认采用",
-      "en": "Preview, adjust and confirm",
+      "zh": "今天的清单，或长期计划",
+      "en": "A daily checklist or a long-term plan",
       "cn": [
-        "在首页「今天的学习」或顶部「学习规划」选择词表、开始日期和目标首轮完成日期。每天的词数上限选填，留空即可。",
-        "点击「生成草案」后，先查看每天的具体 List、分类或生词本批次。可以使用系统建议，也可以选择「自己安排」，增减任务、调整日期、类型与先后顺序。",
-        "只有点击「确认并采用这份安排」才会保存安排。预览、移动和移除任务都不会改变实际学习记录；随时可以返回调整。",
-        "完整 List 保持原分组和实际词数。跨表同词只计一次，保留各处释义与来源。超出上限时先调整，不拆组或自动超量。"
+        "首页「今天想完成什么？」可以直接多选词表和 List，选择新学／复习，以及红绿灯自测或支持的测试方式，再加入今日清单。不制定计划也可以直接学习。",
+        "需要长期安排时，先选词表，再勾选想学的 List。每个词表分别选择完成日期或每天新学几个 List，多个词表同步推进。每日总词数上限选填，重复词去重，完整 List 不拆分。",
+        "生成草案后先点击某一天，再为那天勾选多个 List。深色 ✓ 表示已选，再次点击取消。可改类型、学习方式与顺序，也能整体移动当天任务，确认后才采用。"
       ],
       "english": [
-        "Choose banks, a start date and a first-pass target from Daily plan. The daily word cap is optional.",
-        "Generate a draft to see named Lists, source categories or notebook batches. Use suggestions or choose your own schedule; add, remove, reorder or move tasks and choose new learning or one review.",
-        "Only Confirm and adopt saves the schedule. Previewing or editing tasks never changes real learning records.",
-        "Original List boundaries and actual counts remain intact. Repeated spellings count once, retaining meanings and sources. Resolve cap conflicts before confirming; Lists are not split."
+        "Use Today’s checklist to select several banks and Lists, new learning or review, and self-checks or supported practice. A long-term plan is optional; you can also study directly.",
+        "For a long-term plan, select exact Lists and give each bank its own deadline or daily new-List count. Banks progress in parallel. The total daily word cap is optional; repeated words count once and Lists remain intact.",
+        "Preview the draft, pick a day and choose several Lists for it. Dark chips with ✓ are selected; tap again to deselect. Change type, study method and order, or move a whole day. Confirm before adopting."
       ]
     },
     {
-      "zh": "在原词表完成，待办自动划掉",
-      "en": "Study in the original bank; the to-do checks itself",
+      "zh": "接着已有学习继续，完成后亲手划掉",
+      "en": "Continue earlier study and check off your Lists",
       "cn": [
-        "点击待办中的「打开词表」会进入原页面，并选好该组范围。无需再做一套逐词测试；继续使用原来的笔记、遮挡和红黄绿。",
-        "标注后自动计入同一份学习进度；复习时即使仍是同一个颜色，也可以再次确认。只查看释义或编辑笔记不会代替自测。",
-        "部分完成显示「已记录 X／Y 词」。本次所需的词全部记录后，任务自动打勾并划线，仍可打开词表。红黄也算完成一次自测，绿色才表示当前熟悉。",
-        "首次制定计划可以选择纳入已有标记，以今天的确认作为纳入日期，不推测过去的学习时间。当天同词只计一次；当天多次反馈会保留较不熟悉的结果作为谨慎的复习建议。"
+        "在计划设置的「接着之前的学习继续」中，可纳入已有红黄绿，读取便笺里的已学标记，或补记学过的 List 及实际日期。日期不详的旧标记以今天纳入；不会替换原笔记和红黄绿。",
+        "新计划默认自己勾选完成，可改为随原词表自测自动完成，也能手动取消或确认。手动勾选表示这组学过一次，不将词标成绿灯；原有红黄绿、笔记继续保留。",
+        "任务可直接打开对应 List。全能词、A+、BB 可选择题测试；其他词表使用原有红绿灯。测试设置还能组合多个 List 的红灯、黄灯、绿灯与未标记出题；全不选时没有测试词。"
       ],
       "english": [
-        "Open a to-do item to enter the original bank with the correct range. Use the existing notes, reveals and traffic lights; there is no additional planner quiz.",
-        "Ratings feed the same learning history. Reaffirming the same color on a new day can record a review. Merely viewing meanings or editing notes is not an assessment.",
-        "Partial tasks show X/Y words recorded. Once all required words are assessed, the item is checked and struck through. Red and yellow count as an assessment, not mastery.",
-        "On first setup, optionally include existing ratings with today as their adoption date, without inventing old study dates. A word counts once per day; less-confident same-day feedback is retained for conservative advice."
+        "Under Continue previous study, adopt existing ratings, read prior marks from a learning-note backup, or add studied Lists and actual dates. Undated marks are adopted today; original notes and ratings are not replaced.",
+        "New plans default to manual checks. You may enable completion from original-bank assessments and still override it. A manual check records a study encounter, never a green rating.",
+        "Tasks open the selected List. General vocabulary, A+ and BB support multiple-choice practice; other banks use self-checks. Practice can combine several Lists and any selection of red, yellow, green and unrated entries. No selected colors means no test entries."
       ]
     },
     {
-      "zh": "按颜色建议复习，按自己的节奏调整",
-      "en": "Color-based suggestions, adjusted to your pace",
+      "zh": "复习日期由你决定",
+      "en": "Choose your review timing",
       "cn": [
-        "同一 List 的不同词可以有不同建议日期：红色建议次日，黄色隔 2 天，绿色隔 3 天；真实到期复习答绿后逐步延长到 7、15、30 天。提早反复标绿不会跳级。",
-        "这些日期只是学习建议，可以自行安排复习；没有强制要求一天全做完。未来七天展示真实记录产生的建议和你确认的安排，不把计划当完成，也不推算遗忘概率。",
-        "有漏学时，保留已经记录的部分，剩余内容生成顺延草案。若总量超过上限，系统建议把后面的整组任务往后排。先查看、调整并确认，再采用新安排。",
-        "预计首轮完成日期可能延后，会明确提示。计划、待办与学习记录随当前学习空间保存，登录后同步到账号，完整便笺也能携带；只合并红黄绿不会导入整份计划。"
+        "可以让系统给出建议，自己选择日期，或先不安排复习。红色建议次日，黄色隔 2 天，绿色隔 3 天；按真实到期复习逐步延长至 7、15、30 天。只有手动确认而没有颜色时，首次建议隔 3 天。",
+        "漏学保留已做部分，未完成的内容形成顺延草案。先查看、调整并确认，预计首轮完成日期延后时会提示。曲线展示真实学习产生的复习建议和已确认安排，不表示遗忘概率。",
+        "计划、清单与学习历史保存在当前学习空间，可随账号同步或用完整便笺携带。只合并红黄绿不会导入整份计划。"
       ],
       "english": [
-        "Words in one List can have different suggested dates: red tomorrow, yellow after two days, green after three. Actual due green reviews extend to 7, 15 and 30 days; early repeated greens do not skip levels.",
-        "Dates are suggestions you may edit. The seven-day chart uses real records and confirmed reservations, never assumed future success or a claimed forgetting probability.",
-        "Missed work keeps completed assessments and carries the remainder into an editable draft. Whole later tasks can move back to stay within the cap. Review and confirm before adopting changes.",
-        "The first-pass estimate may move later, with a notice. Plans, to-dos and learning records travel with the signed-in workspace or a full learning-note backup. Ratings-only merge does not import the whole plan."
+        "Request editable suggestions, arrange reviews yourself, or skip review scheduling. Red suggests tomorrow, yellow two days and green three days, then 7, 15 and 30 after real due reviews. A manual encounter without a color initially suggests three days.",
+        "Missed work retains completed progress and becomes a carry-forward draft. Adjust and confirm before adopting; delayed completion is shown. The chart represents actual learning and confirmed tasks, not a forgetting probability.",
+        "Plans, checklists and history belong to the current workspace and travel with the account or a full backup. Ratings-only merge does not import a whole plan."
       ]
     }
   ]

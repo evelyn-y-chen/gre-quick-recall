@@ -2,7 +2,7 @@ export type NotebookRating = "unknown" | "fuzzy" | "familiar";
 export type NotebookWord = { id: string; word: string; meaning: string; note: string; origin: string; rating?: NotebookRating };
 export type NotebookBatch = { id: string; source: string; date: string; words: NotebookWord[] };
 export type NotebookDraft = { batch: NotebookBatch; revision: number };
-export type NotebookSummary = { id: string; source: string; date: string; count: number; revision: number };
+export type NotebookSummary = { id: string; source: string; date: string; count: number; revision: number; draft?:boolean };
 export const NOTEBOOK_DRAFT_KEY = "gre-vocabulary-notebook-drafts-v1";
 export const notebookIdentity = (word: Pick<NotebookWord, "word" | "meaning">) => `${word.word.trim().toLowerCase()}\u0000${word.meaning.trim()}`;
 export function validNotebookBatch(value: unknown, complete = true): value is NotebookBatch {

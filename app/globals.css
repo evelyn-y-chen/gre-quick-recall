@@ -888,6 +888,11 @@ nav button.active { color: white; background: var(--ink); box-shadow: 0 5px 14px
 @media(max-width: 760px) { .notebookNew, .notebookBatchHead, .notebookAddGrid, .notebookEditGrid, .notebookSearch { grid-template-columns: minmax(0,1fr); } .notebookPanel, .notebookWord { padding: 14px; } }
 
 .dictionaryLookup { margin: 12px 0; min-width: 0; }
+.dictionaryPaste { padding: 14px; margin: 12px 0; border: 1px solid var(--community-line,var(--line)); border-radius: 12px; background: var(--community-surface,var(--card)); min-width: 0; }
+.dictionaryPaste label { display: grid; gap: 6px; margin: 12px 0 8px; }
+.dictionaryPaste textarea { width: 100%; min-height: 100px; box-sizing: border-box; font-size: 16px; line-height: 1.6; }
+.dictionaryPaste small { display: block; color: var(--community-muted,var(--muted)); line-height: 1.6; overflow-wrap: anywhere; }
+.dictionaryPaste button[aria-pressed="true"] { background: var(--community-accent,var(--navy))!important; color: var(--community-on,#fff)!important; border-color: var(--community-accent,var(--navy)); }
 .dictionaryLookup p { font-size: 13px; line-height: 1.6; }
 .dictionaryExternal { min-width: 0; margin: 10px 0 14px; }
 .dictionaryExternalLinks { display: flex; flex-wrap: wrap; gap: 8px; }

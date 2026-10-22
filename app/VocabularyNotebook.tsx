@@ -24,10 +24,10 @@ function drafts(): Record<string, NotebookDraft> {
     })) as Record<string, NotebookDraft>;
   } catch { return {}; }
 }
-const summary = (batch: NotebookBatch, revision: number): NotebookSummary => ({id: batch.id, source: batch.source, date: batch.date, count: batch.words.length, revision});
+const summary = (batch: NotebookBatch, revision: number, draft=false): NotebookSummary => ({id: batch.id, source: batch.source, date: batch.date, count: batch.words.length, revision,...(draft?{draft:true}:{})});
 function mergeSummaries(cloud: NotebookSummary[]) {
   const result = new Map(cloud.map((item) => [item.id,item]));
-  Object.values(drafts()).forEach((d) => result.set(d.batch.id,summary(d.batch,d.revision)));
+  Object.values(drafts()).forEach((d) => result.set(d.batch.id,summary(d.batch,d.revision,true)));
   return [...result.values()].sort((a,b) => b.date.localeCompare(a.date));
 }
 const SOURCE_ORDER_KEY = "gre-notebook-source-order-v1";
@@ -113,7 +113,7 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
 
   function persist(next: NotebookBatch, rev = revision) {
     setBatch(next); setDirty(true); setConflict(false);
-    setBatches((items) => [summary(next,rev),...items.filter((item) => item.id !== next.id)]);
+    setBatches((items) => [summary(next,rev,true),...items.filter((item) => item.id !== next.id)]);
     try {
       studyStorage.setItem(NOTEBOOK_DRAFT_KEY,JSON.stringify({...drafts(),[next.id]:{batch:next,revision:rev}}));
       setStatus("本机草稿已保留，记得保存到当前工作区。");
@@ -224,8 +224,9 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
         <label>这次生词的来源<input required maxLength={300} value={source} onChange={(e) => setSource(e.target.value)} placeholder="例如：阅读机经 Passage 11 · 第二次练习" /></label>
         <label>日期<input required type="date" value={date} onChange={(e) => setDate(e.target.value)} /></label><button className="solid" type="submit">开始这次收集</button>
       </form>
-      <label className="notebookHistory">以前的收集<select value={batch?.id ?? ""} onChange={(e) => void open(e.target.value)}><option value="">选择一次收集…</option>{batches.map((b) => <option key={b.id} value={b.id}>{b.date} · {b.source}（{b.count} 词）</option>)}</select></label>
+      <label className="notebookHistory">以前的收集 · {batches.length} 次{batches.some(b=>b.draft)?`（含 ${batches.filter(b=>b.draft).length} 次草稿）`:''}<select value={batch?.id ?? ""} onChange={(e) => void open(e.target.value)}><option value="">选择一次收集…</option>{batches.map((b) => <option key={b.id} value={b.id}>{b.date} · {b.source}（{b.count} 词{b.draft?' · 草稿':''}）</option>)}</select></label>
     </fieldset>
+    <p className="notebookHint">账号模式下，其他设备的收集还没显示？可在「更多」→「检查账号同步」核对并读取；会先保全本机修改。</p>
     <p className="notebookStatus" role="status">{status}</p>
     {conflict && batch && <button type="button" onClick={() => {setRevision(0);persist({...batch,id:crypto.randomUUID(),source:`${batch.source.slice(0,280)}（本机副本）`},0);}}>将本机草稿另存为新收集</button>}
     {batch && <fieldset disabled={loading || saving} className="notebookControls">
@@ -243,7 +244,7 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
           {matches.length>100 && <p className="notebookHint">共 {matches.length} 条，显示前 100 条。可缩小关键词或选择词库。</p>}
           {!!query.trim() && <details className="notebookSupplement" key={query.trim()} open={!matches.length || undefined}>
             <summary>{matches.length ? "查词典或补充这一个词" : `词库未找到「${query.trim()}」，查词典或直接填写`}</summary>
-            <DictionaryLookup word={query.trim()} meaning={manual.meaning} onApply={(meaning) => setManual({...manual,meaning,origin:"词典 · ECDICT"})} />
+            <DictionaryLookup word={query.trim()} meaning={manual.meaning} origin={manual.origin} onApply={(meaning,origin) => setManual(previous=>({...previous,meaning,origin}))} />
             <div className="notebookSupplementFields"><label>补充释义<textarea rows={2} maxLength={4000} value={manual.meaning} placeholder="选择词典释义，或直接填写…" onChange={(e) => setManual({...manual,meaning:e.target.value})} /></label><SharedWordMemory word={query.trim()} editing/><label>这条释义的来源<input maxLength={1000} value={manual.origin} onChange={(e) => setManual({...manual,origin:e.target.value})} /></label></div>
           </details>}
           <button type="button" className="solid" disabled={!selected.length && !query.trim()} onClick={() => {
@@ -273,7 +274,7 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
           <label>释义<textarea rows={2} maxLength={4000} value={w.meaning} placeholder="填写释义" onChange={(e) => editWord(w.id,"meaning",e.target.value)} /></label>
           <SharedWordMemory word={w.word} editing/>
           <label>词库来源<textarea rows={1} maxLength={1000} value={w.origin} onChange={(e) => editWord(w.id,"origin",e.target.value)} /></label>
-          <details className="notebookCardDictionary"><summary>补查词典</summary><DictionaryLookup word={w.word} meaning={w.meaning} onApply={(meaning) => editWord(w.id,"meaning",meaning)} /></details>
+          <details className="notebookCardDictionary"><summary>补查词典</summary><DictionaryLookup word={w.word} meaning={w.meaning} origin={w.origin} onApply={(meaning,origin) => {if(batch)persist({...batch,words:batch.words.map(item=>item.id===w.id?{...item,meaning,origin}:item)});}} /></details>
         </div>}
         <div className="notebookRating"><span>掌握程度{!w.rating ? " · 未标注" : ""}</span><div className="trafficLights" role="group" aria-label={`${w.word} 掌握程度`}>
           {([{value:"unknown",label:"不认识",color:"red"},{value:"fuzzy",label:"模糊",color:"yellow"},{value:"familiar",label:"熟悉",color:"green"}] as const).map((r) => <button key={r.value} type="button" className={`${r.color}${w.rating === r.value ? " active" : ""}`} aria-pressed={w.rating === r.value} onClick={() => rateWord(w.id,r.value)}><i /><span>{r.label}</span></button>)}

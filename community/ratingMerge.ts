@@ -99,3 +99,19 @@ export function mergeImportedRatings(current:Snapshot,incoming:Snapshot):Snapsho
  const ratingsOnly={version:1 as const,rows:[...current.rows.filter(r=>!isRatingRow(r.key)),...incoming.rows.filter(r=>isRatingRow(r.key))],storage:{...Object.fromEntries(Object.entries(current.storage).filter(([k])=>!isRatingStorage(k))),...Object.fromEntries(Object.entries(incoming.storage).filter(([k])=>isRatingStorage(k)))}};
  return mergeWorkspaceSnapshots(undefined,current,ratingsOnly);
 }
+/** Historical notebook imports only fill unmarked words; they never recolor an existing mark. */
+export function mergeMissingImportedRatings(current:Snapshot,incoming:Snapshot):{payload:Snapshot;added:number}{
+ const rows=[...current.rows],storage={...current.storage};let added=0;
+ for(const module of ratingModules){
+  const present=moduleValues(current,module),other=moduleValues(incoming,module),missing=Object.entries(other).filter(([id])=>!Object.hasOwn(present,id));
+  if(!missing.length)continue;
+  const values:Ratings=Object.fromEntries(Object.entries(present).map(([id,v])=>[id,v.rating]));
+  for(const [id,value] of missing){
+   const key=`quick-rating:${module}:${id}`;
+   if(rows.some(r=>r.key===key))continue; // Preserve even an unreadable current row for recovery.
+   values[id]=value.rating;rows.push(value.row??{key,value:JSON.stringify(value.rating),revision:1,updated_at:new Date(value.at||0).toISOString()});added++;
+  }
+  storage[storageKeys[module]]=JSON.stringify(values);
+ }
+ return {payload:{version:1,rows,storage},added};
+}

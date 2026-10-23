@@ -77,6 +77,8 @@ function quickView(name, initialStorage = {}, initialDeck = 'lclj-fill') {
   function nodes(node) { if (!node || typeof node !== 'object') return []; return Array.isArray(node) ? node.flatMap(nodes) : typeof node.type==='function'?nodes(node.type(node.props)):[node, ...nodes(node.props?.children)]; }
   function text(node) { if (node == null || typeof node === 'boolean') return ''; if (Array.isArray(node)) return node.map(text).join(''); return typeof node === 'object' ? text(node.props?.children) : String(node); }
   function clean() { for (const hook of hooks) hook?.cleanup?.(); hooks = []; effects = []; }
+  const bbLabel = entry => `第 ${entry.number} 组 · ${entry.words[0].word}`;
+  const colorGroup = () => nodes(tree).find(node => node.props?.['aria-label'] === 'BB 复习颜色（可多选）');
   render();
   return {
     snapshot: () => storage.exportStorage(),
@@ -86,6 +88,11 @@ function quickView(name, initialStorage = {}, initialDeck = 'lclj-fill') {
     flush() { const pending = [...timers.values()]; timers.clear(); for (const fn of pending) fn(); render(); },
     remount(nextDeck = deck, workspace) { clean(); if (workspace) storage.loadStorage(workspace); deck = nextDeck; render(); },
     changeDeck(nextDeck) { deck = nextDeck; render(); },
+    bbVisible: () => nodes(tree).filter(node => node.type === 'article').map(node => node.props['aria-label']),
+    bbSelectedColors: () => nodes(colorGroup()).filter(node => node.type === 'button' && node.props['aria-pressed']).map(node => text(node).replace(/\s*\d+$/, '').trim()),
+    bbColorCount(label) { const button = nodes(colorGroup()).find(node => node.type === 'button' && text(node).startsWith(label)); return Number(text(button).match(/\d+$/)?.[0]); },
+    bbRate(id, label) { const entry = bb.find(entry => entry.id === id); const article = nodes(tree).find(node => node.type === 'article' && node.props['aria-label'] === bbLabel(entry)); assert.ok(article); const button = nodes(article).find(node => node.type === 'button' && text(node) === label); assert.ok(button); button.props.onClick(); render(); },
+    search(value) { const input = nodes(tree).find(node => node.type === 'input' && node.props['aria-label']?.startsWith('搜索')); assert.ok(input); input.props.onChange({ target: { value } }); render(); },
     close: clean,
   };
 }
@@ -123,4 +130,74 @@ test('Lclj switching decks never writes a previous range into the next deck befo
  test('BB last selection, clear and select all show the same state that is saved',()=>{
  const key='gre-bb-selection-v1',v=quickView('BBQuick',{[key]:JSON.stringify({volume:'下',lists:[31]})});
  try{v.flush();v.click('List 31');assert.deepEqual(JSON.parse(v.snapshot()[key]).lists,[]);assert.equal(v.selected().some(s=>s.startsWith('List ')),false);v.click('全选');const saved=JSON.parse(v.snapshot()[key]);assert.ok(saved.lists.length>1);assert.equal(v.selected().filter(s=>s.startsWith('List ')).length,saved.lists.length);v.click('全不选');assert.equal(v.selected().filter(s=>s.startsWith('List ')).length,0);}finally{v.close();}
+});
+
+const bbReviewLabels = entries => entries.map(entry => `第 ${entry.number} 组 · ${entry.words[0].word}`);
+
+test('BB review can combine red, yellow and unrated groups without changing saved ratings', () => {
+  const scoped = bb.filter(entry => entry.list === 1);
+  const [red, yellow, green] = scoped;
+  const ratings = { [red.id]: 'unknown', [yellow.id]: 'fuzzy', [green.id]: 'familiar' };
+  const view = quickView('BBQuick', { 'gre-bb-ratings-v1': JSON.stringify(ratings) });
+  try {
+    view.flush();
+    assert.deepEqual(view.bbSelectedColors(), ['全部']);
+    view.click('不认识'); view.click('模糊');
+    assert.deepEqual(view.bbSelectedColors(), ['不认识', '模糊']);
+    assert.deepEqual(view.bbVisible(), bbReviewLabels([red, yellow]));
+    assert.equal(view.bbColorCount('不认识'), 1);
+    assert.equal(view.bbColorCount('模糊'), 1);
+    view.click('未标记');
+    assert.deepEqual(view.bbVisible(), bbReviewLabels(scoped.filter(entry => entry.id !== green.id)));
+    view.click('不认识');
+    assert.deepEqual(view.bbSelectedColors(), ['模糊', '未标记']);
+    assert.deepEqual(view.bbVisible(), bbReviewLabels(scoped.filter(entry => ![red.id, green.id].includes(entry.id))));
+    view.click('全部');
+    assert.deepEqual(view.bbSelectedColors(), ['全部']);
+    assert.deepEqual(view.bbVisible(), bbReviewLabels(scoped));
+    assert.deepEqual(JSON.parse(view.snapshot()['gre-bb-ratings-v1']), ratings);
+  } finally { view.close(); }
+});
+
+test('BB combined review keeps rerated cards in this round and refreshes only when filtering again', () => {
+  const [red, yellow] = bb.filter(entry => entry.list === 1);
+  const view = quickView('BBQuick', { 'gre-bb-ratings-v1': JSON.stringify({ [red.id]: 'unknown', [yellow.id]: 'fuzzy' }) });
+  try {
+    view.flush(); view.click('不认识'); view.click('模糊');
+    view.bbRate(red.id, '熟悉');
+    assert.deepEqual(view.bbVisible(), bbReviewLabels([red, yellow]), 'A newly green card must not disappear during review');
+    assert.equal(view.bbColorCount('不认识'), 0);
+    assert.equal(view.bbColorCount('熟悉'), 1);
+    assert.equal(JSON.parse(view.snapshot()['gre-bb-ratings-v1'])[red.id], 'familiar');
+    view.click('不认识');
+    assert.deepEqual(view.bbSelectedColors(), ['模糊']);
+    assert.deepEqual(view.bbVisible(), bbReviewLabels([yellow]));
+    view.bbRate(yellow.id, '熟悉');
+    assert.deepEqual(view.bbVisible(), bbReviewLabels([yellow]));
+    view.click('模糊');
+    assert.deepEqual(view.bbSelectedColors(), ['模糊'], 'Clicking the sole selected color refreshes it, as in other decks');
+    assert.deepEqual(view.bbVisible(), []);
+    view.click('熟悉');
+    assert.deepEqual(view.bbVisible(), bbReviewLabels([red, yellow]));
+  } finally { view.close(); }
+});
+
+test('BB color combinations intersect the current List range and search, including empty results', () => {
+  const [red, yellow] = bb.filter(entry => entry.list === 1);
+  const otherList = bb.find(entry => entry.list === 2);
+  const ratings = { [red.id]: 'unknown', [yellow.id]: 'fuzzy', [otherList.id]: 'unknown' };
+  const view = quickView('BBQuick', { 'gre-bb-ratings-v1': JSON.stringify(ratings) });
+  try {
+    view.flush(); view.click('不认识'); view.click('模糊');
+    assert.deepEqual(view.bbVisible(), bbReviewLabels([red, yellow]));
+    view.search(red.words[0].word);
+    const query = red.words[0].word.toLowerCase();
+    assert.deepEqual(view.bbVisible(), bbReviewLabels([red, yellow].filter(entry => [entry.comparison, ...entry.words.flatMap(word => [word.word, word.meaning, word.memory])].join(' ').toLowerCase().includes(query))));
+    view.search('definitely-not-a-word-987654321'); assert.deepEqual(view.bbVisible(), []);
+    view.search(''); view.click('List 2');
+    assert.deepEqual(view.bbVisible(), bbReviewLabels([red, yellow, otherList]));
+    view.click('全不选'); assert.deepEqual(view.bbVisible(), []);
+    assert.deepEqual(view.bbSelectedColors(), ['不认识', '模糊']);
+    view.click('List 1'); assert.deepEqual(view.bbVisible(), bbReviewLabels([red, yellow]));
+  } finally { view.close(); }
 });

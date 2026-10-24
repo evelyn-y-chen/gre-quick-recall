@@ -25,6 +25,11 @@ test('large terminal lists form horizontal racks rather than a single 150-row co
  assert.equal(leaves.length, 150); assert.equal(new Set(leaves.map(x => x.x)).size, 4);
  assert.ok(layout.bounds.height < 4000); assert.equal(layout.racks.length, 1);
 });
+test('English notes reserve space for whole-word wrapping inside the card',()=>{
+ const root={id:'r',label:'Root',children:[{id:'note',label:'Notes',details:['extraordinary extraordinary extraordinary extraordinary']}]};
+ const layout=layoutClozeMap(root,new Set(['r','note']));
+ assert.ok(layout.nodes.find(x=>x.node.id==='note').height>=160);
+});
 test('collapse removes descendants without changing the source data and a focused subtree excludes the other wing', () => {
  const root = tree(), before = JSON.stringify(root);
  assert.deepEqual(layoutClozeMap(root, new Set()).nodes.map(x => x.node.id), ['r']);

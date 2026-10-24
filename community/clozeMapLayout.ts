@@ -12,20 +12,23 @@ const GAP = 64, ROW_GAP = 28, RACK_GAP = 16, PAD = 18;
 
 function textLines(text: string, width: number, fontSize: number): number {
  let lines = 1, used = 0;
- for (const char of text) {
-  if (char === '\n') {lines++; used = 0; continue;}
-  const unit = /[^\u0000-\u007f]/.test(char) ? fontSize : /[MW@%]/.test(char) ? fontSize * .9 : fontSize * .57;
-  if (used + unit > width) {lines++; used = 0;}
-  used += unit;
+ const advance = (char:string) => /[^\u0000-\u007f]/.test(char) ? fontSize : /[MW@%]/.test(char) ? fontSize * .9 : fontSize * .57;
+ // Match normal word wrapping before the anywhere fallback for long tokens.
+ for (const token of text.match(/\n|[\u3000-\u9fff]|[^\s\u3000-\u9fff]+|[^\S\n]+/g) ?? []) {
+  if (token === '\n') {lines++; used = 0; continue;}
+  const span=[...token].reduce((sum,char)=>sum+advance(char),0);
+  if (/^\s+$/.test(token)) {if(used)used+=span;continue;}
+  if(used && used+span>width){lines++;used=0;}
+  for(const char of token){const unit=advance(char);if(used+unit>width){lines++;used=0;}used+=unit;}
  }
  return lines;
 }
 function dimensions(node: ClozeLogicNode, open: boolean, leaf: boolean) {
  const width = leaf ? 182 : 218;
- const labelWidth = width - 52;
+ const labelWidth = width - 60;
  const labelHeight = Math.max(1, textLines(node.label, labelWidth, 14)) * 22 + 24;
- const detailsHeight = open && node.details?.length ? node.details.reduce((sum, line) => sum + textLines(line, width - 38, 13) * 20 + 7, 7) + 15 : 0;
- return {width, height: Math.max(52, labelHeight + detailsHeight)};
+ const detailsHeight = open && node.details?.length ? node.details.reduce((sum, line) => sum + textLines(line, width - 43, 13) * 20 + 7, 7) + 15 : 0;
+ return {width, height: Math.max(50, labelHeight) + detailsHeight + 2};
 }
 function shift(plan: Plan, dx: number, dy: number) {
  const nodes = plan.nodes.map(node => ({...node, x: node.x + dx, y: node.y + dy}));
@@ -80,7 +83,7 @@ function branchPlan(node: ClozeLogicNode, expanded: ReadonlySet<string>, inherit
 }
 
 export function layoutClozeMap(root: ClozeLogicNode, expanded: ReadonlySet<string>): LogicMapLayout {
- const rootDetails = expanded.has(root.id) && root.details?.length ? root.details.reduce((sum, line) => sum + textLines(line, 186, 13) * 20 + 7, 22) : 0;
+ const rootDetails = expanded.has(root.id) && root.details?.length ? root.details.reduce((sum, line) => sum + textLines(line, 180, 13) * 20 + 7, 22) : 0;
  const rootSize = {width: 224, height: Math.max(72, textLines(root.label, 164, 18) * 26 + 40) + rootDetails};
  const rootPosition: PositionedLogicNode = {...rootSize, x: -rootSize.width / 2, y: -rootSize.height / 2, node: root, tone: root.tone ?? 'neutral', ancestors: [], leaf: !root.children?.length};
  const nodes = [rootPosition], edges: PlanEdge[] = [], racks: LogicMapRack[] = [];

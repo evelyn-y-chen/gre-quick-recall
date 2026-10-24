@@ -17,3 +17,23 @@ grant select on table public.admin_course_maps to authenticated;
 create policy admin_course_maps_read on public.admin_course_maps
  for select to authenticated
  using ((select public.is_analytics_admin()));
+
+-- Only administrators may edit content. Versions are managed by the database.
+grant update (content) on public.admin_course_maps to authenticated;
+create policy admin_course_maps_update on public.admin_course_maps
+ for update to authenticated
+ using ((select public.is_analytics_admin()))
+ with check ((select public.is_analytics_admin()));
+create or replace function public.advance_admin_course_map_version()
+returns trigger language plpgsql security invoker set search_path = ''
+as $$
+begin
+ new.version := old.version + 1;
+ new.updated_at := pg_catalog.now();
+ return new;
+end;
+$$;
+revoke all on function public.advance_admin_course_map_version() from public, anon, authenticated;
+create trigger advance_admin_course_map_version
+ before update on public.admin_course_maps
+ for each row execute function public.advance_admin_course_map_version();

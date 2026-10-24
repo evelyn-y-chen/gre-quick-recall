@@ -1,12 +1,21 @@
 export type ClozeMapTone = 'opposite' | 'same' | 'neutral';
+export type CourseQuestion = {
+ id: string;
+ stem: string;
+ options?: {label: string; text: string}[];
+ answer?: string;
+ notes?: string[];
+ source: {course: string; page: number; exercise?: string};
+};
 export type ClozeLogicNode = {
  id: string;
  label: string;
  details?: string[];
  tone?: ClozeMapTone;
+ questionIds?: string[];
  children?: ClozeLogicNode[];
 };
-export type ClozeLogicContent = {schemaVersion: 1; root: ClozeLogicNode};
+export type ClozeLogicContent = {schemaVersion: 1; root: ClozeLogicNode; questions?: CourseQuestion[]};
 export type AdminCourseMap = {
  id: 'gre-cloze-signals';
  title: string;
@@ -15,7 +24,7 @@ export type AdminCourseMap = {
  updated_at: string;
 };
 
-const NODE_KEYS = new Set(['id', 'label', 'details', 'tone', 'children']);
+const NODE_KEYS = new Set(['id', 'label', 'details', 'tone', 'questionIds', 'children']);
 function object(value: unknown): value is Record<string, unknown> {
  return !!value && typeof value === 'object' && !Array.isArray(value);
 }
@@ -25,7 +34,27 @@ function boundedText(value: unknown, maximum: number): value is string {
 
 /** A closed, bounded tree schema. React renders all labels as text, never HTML. */
 export function parseClozeLogicContent(value: unknown): ClozeLogicContent | null {
- if (!object(value) || value.schemaVersion !== 1 || Object.keys(value).some(key => !['schemaVersion', 'root'].includes(key))) return null;
+ if (!object(value) || value.schemaVersion !== 1 || Object.keys(value).some(key => !['schemaVersion', 'root', 'questions'].includes(key))) return null;
+ const questions: CourseQuestion[] = [], questionIds = new Set<string>();
+ if (value.questions !== undefined) {
+  if (!Array.isArray(value.questions) || value.questions.length > 250) return null;
+  for (const raw of value.questions) {
+   if (!object(raw) || Object.keys(raw).some(key => !['id', 'stem', 'options', 'answer', 'notes', 'source'].includes(key)) || !boundedText(raw.id,160) || questionIds.has(raw.id) || !boundedText(raw.stem,12000)) return null;
+   if (!object(raw.source) || Object.keys(raw.source).some(key => !['course','page','exercise'].includes(key)) || !boundedText(raw.source.course,160) || !Number.isSafeInteger(raw.source.page) || Number(raw.source.page)<1 || Number(raw.source.page)>2000 || (raw.source.exercise!==undefined && !boundedText(raw.source.exercise,60))) return null;
+   if (raw.answer!==undefined && !boundedText(raw.answer,600)) return null;
+   if (raw.notes!==undefined && (!Array.isArray(raw.notes) || raw.notes.length>20 || !raw.notes.every(line=>boundedText(line,3000)))) return null;
+   const options: {label:string;text:string}[] = [], labels=new Set<string>();
+   if (raw.options!==undefined) {
+    if (!Array.isArray(raw.options) || raw.options.length>18) return null;
+    for (const option of raw.options) {
+     if (!object(option) || Object.keys(option).some(key=>!['label','text'].includes(key)) || !boundedText(option.label,24) || !boundedText(option.text,1600) || labels.has(option.label)) return null;
+     labels.add(option.label); options.push({label:option.label,text:option.text});
+    }
+   }
+   questionIds.add(raw.id);
+   questions.push({id:raw.id,stem:raw.stem,source:{course:raw.source.course,page:Number(raw.source.page),...(raw.source.exercise!==undefined?{exercise:raw.source.exercise as string}:{})},...(raw.options!==undefined?{options}:{}),...(raw.answer!==undefined?{answer:raw.answer as string}:{}),...(raw.notes!==undefined?{notes:[...raw.notes as string[]]}:{})});
+  }
+ }
  const ids = new Set<string>(), ancestors = new Set<object>();
  let count = 0;
  function visit(raw: unknown, depth: number): ClozeLogicNode | null {
@@ -33,6 +62,7 @@ export function parseClozeLogicContent(value: unknown): ClozeLogicContent | null
   if (Object.keys(raw).some(key => !NODE_KEYS.has(key)) || !boundedText(raw.id, 160) || !boundedText(raw.label, 600) || ids.has(raw.id)) return null;
   if (raw.tone !== undefined && (typeof raw.tone !== 'string' || !['opposite', 'same', 'neutral'].includes(raw.tone))) return null;
   if (raw.details !== undefined && (!Array.isArray(raw.details) || raw.details.length > 40 || !raw.details.every(line => boundedText(line, 2400)))) return null;
+  if (raw.questionIds !== undefined && (!Array.isArray(raw.questionIds) || raw.questionIds.length>250 || new Set(raw.questionIds).size!==raw.questionIds.length || !raw.questionIds.every(id=>typeof id==='string' && questionIds.has(id)))) return null;
   if (raw.children !== undefined && (!Array.isArray(raw.children) || raw.children.length > 300)) return null;
   ids.add(raw.id); ancestors.add(raw);
   const children: ClozeLogicNode[] = [];
@@ -47,11 +77,30 @@ export function parseClozeLogicContent(value: unknown): ClozeLogicContent | null
    label: raw.label,
    ...(raw.tone !== undefined ? {tone: raw.tone as ClozeMapTone} : {}),
    ...(raw.details !== undefined ? {details: [...raw.details as string[]]} : {}),
+   ...(raw.questionIds !== undefined ? {questionIds: [...raw.questionIds as string[]]} : {}),
    ...(raw.children !== undefined ? {children} : {}),
   };
  }
  const root = visit(value.root, 0);
- return root ? {schemaVersion: 1, root} : null;
+ return root ? {schemaVersion: 1, root, ...(value.questions!==undefined?{questions}:{})} : null;
+}
+
+export function questionsForNode(content: ClozeLogicContent, node: ClozeLogicNode): CourseQuestion[] {
+ const wanted=new Set(node.questionIds ?? []);
+ return (content.questions ?? []).filter(question=>wanted.has(question.id));
+}
+
+export function updateLogicNode(root: ClozeLogicNode, nodeId: string, change: {label:string;details?:string[]}): ClozeLogicNode | null {
+ if (!boundedText(change.label,600) || (change.details!==undefined && (change.details.length>40 || !change.details.every(line=>boundedText(line,2400))))) return null;
+ let found=false;
+ function visit(node:ClozeLogicNode):ClozeLogicNode {
+  if(node.id===nodeId){found=true;return {...node,label:change.label.trim(),details:[...(change.details ?? [])]};}
+  if(!node.children)return node;
+  const children=node.children.map(visit);
+  return children.some((child,index)=>child!==node.children![index])?{...node,children}:node;
+ }
+ const next=visit(root);
+ return found?next:null;
 }
 
 export function parseAdminCourseMap(value: unknown): AdminCourseMap | null {

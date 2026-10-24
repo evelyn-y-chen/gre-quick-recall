@@ -15,6 +15,7 @@ function loadTs(path, dependencies = {}) {
  return exports;
 }
 const model = loadTs('community/clozeLogicMapModel.ts');
+const layoutModel = loadTs('community/clozeMapLayout.ts');
 const content = () => ({schemaVersion: 1, root: {id: 'r', label: '测试根', children: [
  {id: 'a', label: '第一分支', tone: 'opposite', children: [{id: 'a1', label: '规则甲', details: ['原文第一行', '原文第二行']}]},
  {id: 'b', label: '第二分支', tone: 'same', children: [{id: 'b1', label: '规则乙'}]},
@@ -56,6 +57,33 @@ test('arbitrary subtree folding preserves descendants and all-expand/all-collaps
  assert.deepEqual([...all], ['r', 'a', 'a1', 'b']);
  assert.deepEqual(model.visibleNodeIds(root, new Set()), ['r']);
  assert.deepEqual(model.visibleNodeIds(root, model.toggleExpandedId(folded, 'a')), model.visibleNodeIds(root, all));
+});
+
+test('question associations are bounded, closed and preserve literal classroom text', () => {
+ const sample=content();sample.questions=[{id:'q1',stem:'原题 <b>literal</b> ____',options:[{label:'A',text:'option'}],answer:'A',notes:['板书原句'],source:{course:'测试课堂',page:63,exercise:'1'}}];
+ sample.root.children[0].questionIds=['q1'];
+ const parsed=model.parseClozeLogicContent(sample);
+ assert.equal(model.questionsForNode(parsed,parsed.root.children[0])[0].stem,'原题 <b>literal</b> ____');
+ const variants=[];
+ const change=fn=>{const v=structuredClone(sample);fn(v);variants.push(v);};
+ change(v=>v.root.questionIds=['missing']);
+ change(v=>v.root.questionIds=['q1','q1']);
+ change(v=>v.questions.push(v.questions[0]));
+ change(v=>v.questions[0].source.page=0);
+ change(v=>v.questions[0].source.url='https://untrusted.invalid');
+ change(v=>v.questions[0].options.push({label:'A',text:'duplicate'}));
+ change(v=>v.questions[0].html='<script>');
+ for(const v of variants)assert.equal(model.parseClozeLogicContent(v),null);
+ parsed.questions[0].notes.push('edit');assert.deepEqual(sample.questions[0].notes,['板书原句']);
+});
+
+test('editing a node preserves its questions and descendants without mutating the loaded tree',()=>{
+ const root=content().root;root.children[0].questionIds=['q1'];
+ const changed=model.updateLogicNode(root,'a',{label:'新标题',details:['课堂规则']});
+ assert.equal(root.children[0].label,'第一分支');assert.equal(changed.children[0].label,'新标题');
+ assert.deepEqual(changed.children[0].questionIds,['q1']);assert.equal(changed.children[0].children,root.children[0].children);
+ assert.equal(model.updateLogicNode(root,'missing',{label:'无'}),null);
+ assert.equal(model.updateLogicNode(root,'a',{label:' '}),null);
 });
 
 function accessHarness({permission = {data: true, error: null}, result = {data: row(), error: null}} = {}) {
@@ -128,8 +156,46 @@ test('aborting a delayed content response does not return private content even i
  assert.equal(h.signals[1].aborted, true);
 });
 
+function saveHarness({permission={data:true,error:null},result={data:{...row(),version:2},error:null}}={}) {
+ const calls=[],configs=[];
+ const module=loadTs('community/adminCourseMapAccess.ts',{
+  '@supabase/supabase-js':{createClient(_url,_key,config){configs.push(config);const chain={
+   update(payload){calls.push(['update',payload]);return chain;},eq(key,value){calls.push(['eq',key,value]);return chain;},select(columns){calls.push(['select',columns]);return chain;},abortSignal(signal){calls.push(['signal',signal]);return chain;},maybeSingle(){return Promise.resolve(result);},
+  };return {rpc(name){calls.push(['rpc',name]);return {abortSignal(){return Promise.resolve(permission);}};},from(table){calls.push(['from',table]);return chain;}};}},
+  './publicCloud.json':{default:{url:'https://example.invalid',publishableKey:'test'}},'./clozeLogicMapModel':model,
+ });return {module,calls,configs};
+}
+test('administrator edits update only content with both ID and version conditions',async()=>{
+ const h=saveHarness(),account=session(),input=row();
+ const saved=await h.module.saveAdminCourseMap(account,input,new AbortController().signal);
+ assert.equal(saved.version,2);
+ assert.deepEqual(h.calls.filter(x=>x[0]==='update'),[['update',{content:input.content}]]);
+ assert.deepEqual(h.calls.filter(x=>x[0]==='eq'),[['eq','id','gre-cloze-signals'],['eq','version',1]]);
+ account.access_token='changed';assert.equal(await h.configs[0].accessToken(),'a-captured-token');
+ assert.equal(h.configs[0].auth.persistSession,false);
+});
+test('denied, missing, invalid and cancelled edits cannot start a write',async()=>{
+ const denied=saveHarness({permission:{data:false,error:null}});
+ await assert.rejects(denied.module.saveAdminCourseMap(session(),row(),new AbortController().signal),e=>e.code==='denied');
+ assert.deepEqual(denied.calls,[['rpc','is_analytics_admin']]);
+ const missing=saveHarness();await assert.rejects(missing.module.saveAdminCourseMap(null,row(),new AbortController().signal),e=>e.code==='login');assert.equal(missing.configs.length,0);
+ const invalid=saveHarness();await assert.rejects(invalid.module.saveAdminCourseMap(session(),{...row(),content:{}},new AbortController().signal),e=>e.code==='invalid');assert.equal(invalid.configs.length,0);
+ const aborted=new AbortController();aborted.abort();const cancelled=saveHarness();await assert.rejects(cancelled.module.saveAdminCourseMap(session(),row(),aborted.signal),e=>e.name==='AbortError');assert.equal(cancelled.configs.length,0);
+});
+test('concurrent edits report a conflict and never blindly retry over newer content',async()=>{
+ const h=saveHarness({result:{data:null,error:null}});
+ await assert.rejects(h.module.saveAdminCourseMap(session(),row(),new AbortController().signal),e=>e.code==='conflict');
+ assert.equal(h.calls.filter(x=>x[0]==='update').length,1);
+});
+test('changing account cancels a pending permission check before it can write',async()=>{
+ const role=deferred(),h=saveHarness({permission:role.promise}),controller=new AbortController();
+ const pending=h.module.saveAdminCourseMap(session(),row(),controller.signal);controller.abort();
+ await assert.rejects(pending,e=>e.name==='AbortError');role.resolve({data:true,error:null});await tick();
+ assert.deepEqual(h.calls,[['rpc','is_analytics_admin']]);
+});
+
 function componentHarness() {
- const hooks = [], effects = [], calls = [];
+ const hooks = [], effects = [], calls = [], saves = [];
  let cursor = 0, tree, props = {session: session('a'), onClose() {}}, mounted = true;
  const jsx = (type, next) => ({type, props: next ?? {}});
  const react = {
@@ -140,14 +206,14 @@ function componentHarness() {
  class ErrorType extends Error {}
  const module = loadTs('community/ClozeLogicMap.tsx', {
   react, 'react/jsx-runtime': {jsx, jsxs: jsx, Fragment: 'fragment'},
-  './clozeLogicMapModel': model, './clozeLogicMap.css': {},
-  './adminCourseMapAccess': {CourseMapAccessError: ErrorType, readAdminCourseMap(account, signal) {const delayed = deferred(); calls.push({account, signal, ...delayed}); return delayed.promise;}},
+  './clozeLogicMapModel': model, './clozeMapLayout': layoutModel, './clozeLogicMap.css': {},
+  './adminCourseMapAccess': {CourseMapAccessError: ErrorType, readAdminCourseMap(account, signal) {const delayed = deferred(); calls.push({account, signal, ...delayed}); return delayed.promise;}, saveAdminCourseMap(account, map, signal) {const delayed = deferred(); saves.push({account,map,signal,...delayed}); return delayed.promise;}},
  });
  function render(runEffects = true) {if (!mounted) return; cursor = 0; tree = module.default(props); if (runEffects) while (effects.length) effects.shift()(); return tree;}
  function nodes(node) {if (!node || typeof node !== 'object') return []; if (Array.isArray(node)) return node.flatMap(nodes); return [node, ...nodes(node.props?.children)];}
  function text(node) {if (Array.isArray(node)) return node.map(text).join(''); if (node == null || typeof node === 'boolean') return ''; if (typeof node === 'object') return text(node.props?.children); return String(node);}
  render();
- return {calls, render, text: () => text(tree), find: (type, label) => nodes(tree).find(node => node.type === type && text(node).includes(label)),
+ return {calls, saves, render, text: () => text(tree), find: (type, label) => nodes(tree).find(node => node.type === type && text(node).includes(label)), byLabel: label=>nodes(tree).find(node=>node.props?.['aria-label']===label), conflictError:()=>Object.assign(new ErrorType('请读取最新版本'),{code:'conflict'}),
   updateSession(next, runEffects = true) {props = {...props, session: next}; render(runEffects);},
   async flush() {for (let i = 0; i < 4; i++) {await tick(); render();}},
   unmount() {mounted = false; for (const hook of hooks) hook?.cleanup?.();},
@@ -193,4 +259,49 @@ test('map keyboard events cannot reach background study shortcuts and preserve n
   assert.equal(prevented, true); assert.equal(stopped, true);
   assert.equal(view.calls[0].signal.aborted, true);
  } finally {view.unmount();}
+});
+
+function classroomRow(){const input=row();input.content.questions=[{id:'q1',stem:'课堂原题 ____',options:[{label:'A',text:'alpha'}],answer:'A',source:{course:'测试课',page:63,exercise:'1'}}];input.content.root.children[0].children[0].questionIds=['q1'];return input;}
+test('clicking a marked word opens its source question; the answer stays hidden until requested',async()=>{
+ const view=componentHarness();try{
+  view.calls[0].resolve(classroomRow());await view.flush();
+  view.find('button','规则甲').props.onClick();view.render();
+  assert.match(view.text(),/课堂原题 ____/);assert.match(view.text(),/测试课/);assert.match(view.text(),/alpha/);
+  assert.equal(view.find('button','查看答案').props['aria-expanded'],false);
+  view.find('button','查看答案').props.onClick();view.render();assert.equal(view.find('button','收起答案').props['aria-expanded'],true);
+  view.updateSession(null,false);assert.doesNotMatch(view.text(),/课堂原题 ____/);
+ }finally{view.unmount();}
+});
+test('editing is explicit and cancellation performs no write; saves retain question associations',async()=>{
+ const view=componentHarness();try{
+  const input=classroomRow();view.calls[0].resolve(input);await view.flush();
+  view.find('button','规则甲').props.onClick();view.render();view.find('button','编辑节点').props.onClick();view.render();
+  view.find('input','').props.onChange({target:{value:'草稿名称'}});view.render();
+  assert.equal(view.saves.length,0);view.find('button','取消').props.onClick();view.render();assert.equal(view.saves.length,0);
+  view.find('button','编辑节点').props.onClick();view.render();view.find('input','').props.onChange({target:{value:'课堂修改'}});view.render();
+  const pending=view.find('form','').props.onSubmit({preventDefault(){}});view.render();
+  assert.equal(view.saves.length,1);assert.equal(input.content.root.children[0].children[0].label,'规则甲');
+  const changed=view.saves[0].map.content.root.children[0].children[0];assert.equal(changed.label,'课堂修改');assert.deepEqual(changed.questionIds,['q1']);
+  view.saves[0].resolve({...view.saves[0].map,version:2});await pending;await view.flush();assert.match(view.text(),/课堂修改/);assert.equal(view.find('form',''),undefined);
+ }finally{view.unmount();}
+});
+test('a pending edit is cancelled on account change and cannot replace the next account map',async()=>{
+ const view=componentHarness();try{
+  view.calls[0].resolve(row());await view.flush();view.find('button','编辑节点').props.onClick();view.render();
+  view.find('input','').props.onChange({target:{value:'旧账号草稿'}});view.render();const pending=view.find('form','').props.onSubmit({preventDefault(){}});view.render();
+  view.updateSession(session('b'),false);assert.doesNotMatch(view.text(),/旧账号草稿/);view.render();assert.equal(view.saves[0].signal.aborted,true);
+  view.calls[1].resolve({...row(),title:'新账号导图'});view.saves[0].resolve({...view.saves[0].map,version:2});await pending;await view.flush();
+  assert.match(view.text(),/新账号导图/);assert.doesNotMatch(view.text(),/旧账号草稿/);
+ }finally{view.unmount();}
+});
+test('a version conflict keeps the draft and rereads before the user can explicitly save again',async()=>{
+ const view=componentHarness();try{
+  view.calls[0].resolve(row());await view.flush();view.find('button','编辑节点').props.onClick();view.render();view.find('input','').props.onChange({target:{value:'保留的草稿'}});view.render();
+  const pending=view.find('form','').props.onSubmit({preventDefault(){}});view.saves[0].reject(view.conflictError());await pending;await view.flush();
+  assert.equal(view.find('input','').props.value,'保留的草稿');assert.equal(view.saves.length,1);
+  const refresh=view.find('button','读取最新版本并核对').props.onClick();view.render();const latest=row();latest.version=3;latest.content.root.children[1].label='其他设备修改';
+  view.calls[1].resolve(latest);await refresh;await view.flush();assert.equal(view.find('input','').props.value,'保留的草稿');assert.equal(view.saves.length,1);
+  const retry=view.find('form','').props.onSubmit({preventDefault(){}});assert.equal(view.saves[1].map.version,3);assert.equal(view.saves[1].map.content.root.children[1].label,'其他设备修改');
+  view.saves[1].resolve({...view.saves[1].map,version:4});await retry;await view.flush();
+ }finally{view.unmount();}
 });

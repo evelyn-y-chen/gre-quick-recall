@@ -5,8 +5,10 @@ export type CourseQuestion = {
  options?: {label: string; text: string}[];
  answer?: string;
  notes?: string[];
+ images?: {id: string; caption?: string}[];
  source: {course: string; page: number; exercise?: string};
 };
+export type AdminCourseImage = {id:string;mimeType:'image/jpeg'|'image/png'|'image/webp';data:string;width:number;height:number};
 export type ClozeLogicNode = {
  id: string;
  label: string;
@@ -39,10 +41,18 @@ export function parseClozeLogicContent(value: unknown): ClozeLogicContent | null
  if (value.questions !== undefined) {
   if (!Array.isArray(value.questions) || value.questions.length > 250) return null;
   for (const raw of value.questions) {
-   if (!object(raw) || Object.keys(raw).some(key => !['id', 'stem', 'options', 'answer', 'notes', 'source'].includes(key)) || !boundedText(raw.id,160) || questionIds.has(raw.id) || !boundedText(raw.stem,12000)) return null;
+   if (!object(raw) || Object.keys(raw).some(key => !['id', 'stem', 'options', 'answer', 'notes', 'images', 'source'].includes(key)) || !boundedText(raw.id,160) || questionIds.has(raw.id) || !boundedText(raw.stem,12000)) return null;
    if (!object(raw.source) || Object.keys(raw.source).some(key => !['course','page','exercise'].includes(key)) || !boundedText(raw.source.course,160) || !Number.isSafeInteger(raw.source.page) || Number(raw.source.page)<1 || Number(raw.source.page)>2000 || (raw.source.exercise!==undefined && !boundedText(raw.source.exercise,60))) return null;
    if (raw.answer!==undefined && !boundedText(raw.answer,600)) return null;
    if (raw.notes!==undefined && (!Array.isArray(raw.notes) || raw.notes.length>20 || !raw.notes.every(line=>boundedText(line,3000)))) return null;
+   const images:{id:string;caption?:string}[]=[];const imageIds=new Set<string>();
+   if(raw.images!==undefined){
+    if(!Array.isArray(raw.images)||raw.images.length>6)return null;
+    for(const image of raw.images){
+     if(!object(image)||Object.keys(image).some(key=>!['id','caption'].includes(key))||typeof image.id!=='string'||!/^[A-Za-z0-9._-]{1,160}$/.test(image.id)||imageIds.has(image.id)||(image.caption!==undefined&&!boundedText(image.caption,240)))return null;
+     imageIds.add(image.id);images.push({id:image.id,...(image.caption!==undefined?{caption:image.caption as string}:{})});
+    }
+   }
    const options: {label:string;text:string}[] = [], labels=new Set<string>();
    if (raw.options!==undefined) {
     if (!Array.isArray(raw.options) || raw.options.length>18) return null;
@@ -52,7 +62,7 @@ export function parseClozeLogicContent(value: unknown): ClozeLogicContent | null
     }
    }
    questionIds.add(raw.id);
-   questions.push({id:raw.id,stem:raw.stem,source:{course:raw.source.course,page:Number(raw.source.page),...(raw.source.exercise!==undefined?{exercise:raw.source.exercise as string}:{})},...(raw.options!==undefined?{options}:{}),...(raw.answer!==undefined?{answer:raw.answer as string}:{}),...(raw.notes!==undefined?{notes:[...raw.notes as string[]]}:{})});
+   questions.push({id:raw.id,stem:raw.stem,source:{course:raw.source.course,page:Number(raw.source.page),...(raw.source.exercise!==undefined?{exercise:raw.source.exercise as string}:{})},...(raw.options!==undefined?{options}:{}),...(raw.answer!==undefined?{answer:raw.answer as string}:{}),...(raw.notes!==undefined?{notes:[...raw.notes as string[]]}:{}),...(raw.images!==undefined?{images}:{})});
   }
  }
  const ids = new Set<string>(), ancestors = new Set<object>();
@@ -83,6 +93,11 @@ export function parseClozeLogicContent(value: unknown): ClozeLogicContent | null
  }
  const root = visit(value.root, 0);
  return root ? {schemaVersion: 1, root, ...(value.questions!==undefined?{questions}:{})} : null;
+}
+
+export function parseAdminCourseImage(raw:unknown):AdminCourseImage|null{
+ if(!object(raw)||typeof raw.id!=='string'||!/^[A-Za-z0-9._-]{1,160}$/.test(raw.id)||!['image/jpeg','image/png','image/webp'].includes(String(raw.mime_type))||typeof raw.data_base64!=='string'||raw.data_base64.length<4||raw.data_base64.length>600000||raw.data_base64.length%4!==0||!/^[A-Za-z0-9+/]+={0,2}$/.test(raw.data_base64)||!Number.isSafeInteger(raw.width)||!Number.isSafeInteger(raw.height)||Number(raw.width)<1||Number(raw.width)>5000||Number(raw.height)<1||Number(raw.height)>12000)return null;
+ return {id:raw.id,mimeType:raw.mime_type as AdminCourseImage['mimeType'],data:raw.data_base64,width:Number(raw.width),height:Number(raw.height)};
 }
 
 export function questionsForNode(content: ClozeLogicContent, node: ClozeLogicNode): CourseQuestion[] {

@@ -76,6 +76,18 @@ test('question associations are bounded, closed and preserve literal classroom t
  for(const v of variants)assert.equal(model.parseClozeLogicContent(v),null);
  parsed.questions[0].notes.push('edit');assert.deepEqual(sample.questions[0].notes,['板书原句']);
 });
+test('classroom image references accept private IDs only and reject URLs, duplicates and extra fields',()=>{
+ const sample=classroomRow().content;sample.questions[0].images=[{id:'day7-p63-q1-a',caption:'课堂原笔记'}];
+ assert.equal(model.parseClozeLogicContent(sample).questions[0].images[0].id,'day7-p63-q1-a');
+ for(const images of [[{id:'https://example.invalid/a.jpg'}],[{id:'x'},{id:'x'}],[{id:'x',url:'https://example.invalid'}],[{id:'x',caption:''}]]){
+  const raw=structuredClone(sample);raw.questions[0].images=images;assert.equal(model.parseClozeLogicContent(raw),null);
+ }
+});
+test('private image parsing allows bounded raster data and rejects executable or malformed media',()=>{
+ const raw={id:'photo-1',mime_type:'image/jpeg',data_base64:'/9j/2Q==',width:100,height:80};
+ assert.equal(model.parseAdminCourseImage(raw).mimeType,'image/jpeg');
+ for(const change of [{mime_type:'image/svg+xml'},{data_base64:'data:image/png;base64,abc'},{data_base64:'abc'},{width:0},{height:12001},{id:'../outside'}])assert.equal(model.parseAdminCourseImage({...raw,...change}),null);
+});
 
 test('editing a node preserves its questions and descendants without mutating the loaded tree',()=>{
  const root=content().root;root.children[0].questionIds=['q1'];
@@ -129,6 +141,20 @@ test('an authorized read captures its token, uses no session persistence and req
  globalThis.fetch = async (...args) => {requested = args; return new Response();};
  try {await h.options[0].global.fetch('https://example.invalid', {cache: 'force-cache'}); assert.equal(requested[1].cache, 'no-store');}
  finally {globalThis.fetch = previousFetch;}
+});
+test('private classroom screenshots verify administrator access and request one bounded image without caching',async()=>{
+ const result={data:{id:'photo-1',mime_type:'image/jpeg',data_base64:'/9j/2Q==',width:100,height:80},error:null};
+ const h=accessHarness({result}),account=session();const image=await h.module.readAdminCourseImage(account,'photo-1',new AbortController().signal);
+ assert.equal(image.id,'photo-1');assert.deepEqual(h.calls.filter(x=>x[0]==='from'),[['from','admin_course_images']]);
+ assert.deepEqual(h.calls.filter(x=>x[0]==='eq'),[['eq','id','photo-1'],['eq','map_id','gre-cloze-signals']]);
+ account.access_token='changed';assert.equal(await h.options[0].accessToken(),'a-captured-token');assert.equal(h.options[0].auth.persistSession,false);
+ const previousFetch=globalThis.fetch;let init;globalThis.fetch=async(_url,options)=>{init=options;return new Response();};
+ try{await h.options[0].global.fetch('https://example.invalid',{cache:'force-cache'});assert.equal(init.cache,'no-store');}finally{globalThis.fetch=previousFetch;}
+});
+test('denied and cancelled screenshot reads cannot query the private image table',async()=>{
+ const h=accessHarness({permission:{data:false,error:null}});await assert.rejects(h.module.readAdminCourseImage(session(),'photo-1',new AbortController().signal),e=>e.code==='denied');assert.deepEqual(h.calls,[['rpc','is_analytics_admin']]);
+ const invalid=accessHarness();await assert.rejects(invalid.module.readAdminCourseImage(session(),'../outside',new AbortController().signal),e=>e.code==='invalid');assert.equal(invalid.options.length,0);
+ const role=deferred(),late=accessHarness({permission:role.promise}),controller=new AbortController();const pending=late.module.readAdminCourseImage(session(),'photo-1',controller.signal);controller.abort();await assert.rejects(pending,e=>e.name==='AbortError');role.resolve({data:true,error:null});await tick();assert.deepEqual(late.calls,[['rpc','is_analytics_admin']]);
 });
 test('empty, malformed and RLS-denied rows have distinct safe failures', async () => {
  for (const [result, expected] of [[{data: null, error: null}, 'empty'], [{data: {...row(), content: {schemaVersion: 9}}, error: null}, 'invalid'], [{data: null, error: {code: '42501'}}, 'denied']]) {
@@ -195,7 +221,7 @@ test('changing account cancels a pending permission check before it can write',a
 });
 
 function componentHarness() {
- const hooks = [], effects = [], calls = [], saves = [];
+ const hooks = [], effects = [], calls = [], saves = [], imageCalls = [];
  let cursor = 0, tree, props = {session: session('a'), onClose() {}}, mounted = true;
  const jsx = (type, next) => ({type, props: next ?? {}});
  const react = {
@@ -207,13 +233,13 @@ function componentHarness() {
  const module = loadTs('community/ClozeLogicMap.tsx', {
   react, 'react/jsx-runtime': {jsx, jsxs: jsx, Fragment: 'fragment'},
   './clozeLogicMapModel': model, './clozeMapLayout': layoutModel, './clozeLogicMap.css': {},
-  './adminCourseMapAccess': {CourseMapAccessError: ErrorType, readAdminCourseMap(account, signal) {const delayed = deferred(); calls.push({account, signal, ...delayed}); return delayed.promise;}, saveAdminCourseMap(account, map, signal) {const delayed = deferred(); saves.push({account,map,signal,...delayed}); return delayed.promise;}},
+  './adminCourseMapAccess': {CourseMapAccessError: ErrorType, readAdminCourseMap(account, signal) {const delayed = deferred(); calls.push({account, signal, ...delayed}); return delayed.promise;}, saveAdminCourseMap(account, map, signal) {const delayed = deferred(); saves.push({account,map,signal,...delayed}); return delayed.promise;}, readAdminCourseImage(account, imageId, signal) {const delayed = deferred(); imageCalls.push({account,imageId,signal,...delayed}); return delayed.promise;}},
  });
  function render(runEffects = true) {if (!mounted) return; cursor = 0; tree = module.default(props); if (runEffects) while (effects.length) effects.shift()(); return tree;}
  function nodes(node) {if (!node || typeof node !== 'object') return []; if (Array.isArray(node)) return node.flatMap(nodes); return [node, ...nodes(node.props?.children)];}
  function text(node) {if (Array.isArray(node)) return node.map(text).join(''); if (node == null || typeof node === 'boolean') return ''; if (typeof node === 'object') return text(node.props?.children); return String(node);}
  render();
- return {calls, saves, render, text: () => text(tree), find: (type, label) => nodes(tree).find(node => node.type === type && text(node).includes(label)), byLabel: label=>nodes(tree).find(node=>node.props?.['aria-label']===label), conflictError:()=>Object.assign(new ErrorType('请读取最新版本'),{code:'conflict'}),
+ return {calls, saves, imageCalls, render, text: () => text(tree), find: (type, label) => nodes(tree).find(node => node.type === type && text(node).includes(label)), byClass: name=>nodes(tree).find(node=>node.props?.className?.split(' ').includes(name)), byLabel: label=>nodes(tree).find(node=>node.props?.['aria-label']===label), conflictError:()=>Object.assign(new ErrorType('请读取最新版本'),{code:'conflict'}),
   updateSession(next, runEffects = true) {props = {...props, session: next}; render(runEffects);},
   async flush() {for (let i = 0; i < 4; i++) {await tick(); render();}},
   unmount() {mounted = false; for (const hook of hooks) hook?.cleanup?.();},
@@ -304,4 +330,147 @@ test('a version conflict keeps the draft and rereads before the user can explici
   const retry=view.find('form','').props.onSubmit({preventDefault(){}});assert.equal(view.saves[1].map.version,3);assert.equal(view.saves[1].map.content.root.children[1].label,'其他设备修改');
   view.saves[1].resolve({...view.saves[1].map,version:4});await retry;await view.flush();
  }finally{view.unmount();}
+});
+
+test('SVG contains only graphics and native HTML nodes share its transformed stage',async()=>{
+ const view=componentHarness();try{
+  view.calls[0].resolve(row());await view.flush();
+  assert.equal(view.find('foreignObject',''),undefined);
+  const stage=view.byClass('clozeMapStage'),node=view.byClass('clozeMapHtmlNode');
+  assert.match(stage.props.style.transform,/^translate\(.+px, .+px\) scale\(.+\)$/);
+  assert.equal(typeof node.props.style.left,'number');assert.equal(typeof node.props.style.top,'number');
+  assert.equal(view.find('svg','').props['aria-hidden'],'true');
+  assert.equal(view.find('button','第一分支').props.type,'button');
+ }finally{view.unmount();}
+});
+
+test('touch taps retain the native node target; only a real drag captures and consumes its click',async()=>{
+ const view=componentHarness();try{
+  view.calls[0].resolve(classroomRow());await view.flush();
+  let captures=0,releases=0;
+  const surface={setPointerCapture(){captures++;},hasPointerCapture(){return captures>releases;},releasePointerCapture(){releases++;}};
+  const event=(x,y,interactive=true)=>({button:0,pointerId:1,pointerType:'touch',clientX:x,clientY:y,currentTarget:surface,target:{closest(){return interactive?{matches(){return false;}}:null;}}});
+  const region=()=>view.byLabel('可平移缩放的填空标志词导图');
+  region().props.onPointerDown(event(40,40));region().props.onPointerUp(event(40,40));assert.equal(captures,0);
+  let blocked=false;region().props.onClickCapture({detail:1,preventDefault(){blocked=true;},stopPropagation(){}});assert.equal(blocked,false);
+  view.find('button','规则甲').props.onClick({detail:1});view.render();assert.match(view.text(),/课堂原题 ____/);
+  region().props.onPointerDown(event(40,40,false));region().props.onPointerMove(event(65,70,false));region().props.onPointerUp(event(65,70,false));assert.equal(captures,1);assert.equal(releases,1);
+  blocked=false;region().props.onClickCapture({detail:0,preventDefault(){blocked=true;},stopPropagation(){}});assert.equal(blocked,false,'keyboard activation must remain available after a drag');
+  region().props.onClickCapture({detail:1,preventDefault(){blocked=true;},stopPropagation(){}});assert.equal(blocked,true,'the drag click must be consumed');
+  region().props.onPointerDown(event(10,10));region().props.onPointerUp(event(10,10));blocked=false;
+  region().props.onClickCapture({detail:1,preventDefault(){blocked=true;},stopPropagation(){}});assert.equal(blocked,false,'the next independent tap must be available immediately');
+ }finally{view.unmount();}
+});
+
+test('a background mouse release outside the viewport cannot turn later hover into a drag',async()=>{
+ const view=componentHarness();try{
+  view.calls[0].resolve(row());await view.flush();
+  let captured=false,captures=0,releases=0;
+  const surface={setPointerCapture(){captured=true;captures++;},hasPointerCapture(){return captured;},releasePointerCapture(){captured=false;releases++;}};
+  const event=(x,buttons)=>({button:0,buttons,pointerId:9,pointerType:'mouse',clientX:x,clientY:1,currentTarget:surface,target:{closest(){return null;}}});
+  const region=()=>view.byLabel('可平移缩放的填空标志词导图');
+  region().props.onPointerDown(event(1,1));assert.equal(captures,1,'background captures before reaching the movement threshold');
+  region().props.onPointerUp(event(-5,0));assert.equal(releases,1);
+  const initial=view.byClass('clozeMapStage').props.style.transform;
+  region().props.onPointerMove(event(90,0));view.render();assert.equal(view.byClass('clozeMapStage').props.style.transform,initial);
+  region().props.onPointerDown(event(1,1));
+  region().props.onPointerMove(event(90,0));view.render();assert.equal(view.byClass('clozeMapStage').props.style.transform,initial,'a missing release is defensively cleared when no mouse button is held');
+  assert.equal(releases,2);
+ }finally{view.unmount();}
+});
+
+function illustratedClassroomRow(){
+ const value=classroomRow();value.content.questions[0].images=[{id:'image-one',caption:'课堂笔记原图'}];
+ value.content.questions.push({id:'q2',stem:'第二道课堂原题',images:[{id:'image-two'}],source:{course:'测试课堂',page:2}});
+ value.content.root.children[0].children[0].questionIds.push('q2');return value;
+}
+const classroomImage=(id,data='cHJpdmF0ZS1pbWFnZQ==')=>({id,mimeType:'image/png',data,width:1000,height:1400});
+
+test('classroom images load only for the opened question and default to the screenshot reader',async()=>{
+ const view=componentHarness();try{
+  view.calls[0].resolve(illustratedClassroomRow());await view.flush();assert.equal(view.imageCalls.length,0);
+  view.find('button','规则甲').props.onClick({detail:0});view.render();assert.equal(view.imageCalls.length,1);assert.equal(view.imageCalls[0].imageId,'image-one');
+  assert.doesNotMatch(view.text(),/课堂原题 ____/);view.imageCalls[0].resolve(classroomImage('image-one'));await view.flush();
+  assert.match(view.find('img','').props.src,/^data:image\/png;base64,/);
+  view.byLabel('展开课堂截图').props.onClick();view.render();assert.match(view.byClass('clozeMapWorkspace').props.className,/isReadingImage/);
+  view.find('button','原尺寸').props.onClick();view.render();assert.equal(view.byClass('clozeMapImageOpen').props.style.width,1000);
+  view.find('button','文字版').props.onClick();view.render();assert.equal(view.find('img',''),undefined);assert.equal(view.imageCalls[0].signal.aborted,true);assert.match(view.text(),/课堂原题 ____/);
+ }finally{view.unmount();}
+});
+
+test('switching questions or accounts hides image bytes immediately and ignores cancelled responses',async()=>{
+ const view=componentHarness();try{
+  view.calls[0].resolve(illustratedClassroomRow());await view.flush();view.find('button','规则甲').props.onClick({detail:0});view.render();
+  view.imageCalls[0].resolve(classroomImage('image-one','b2xkLWFjY291bnQ='));await view.flush();assert.ok(view.find('img',''));
+  view.find('button','题 2').props.onClick();view.render(false);assert.equal(view.find('img',''),undefined);view.render();assert.equal(view.imageCalls[0].signal.aborted,true);
+  assert.equal(view.imageCalls[1].imageId,'image-two');view.updateSession(session('b'),false);assert.equal(view.find('img',''),undefined);view.render();assert.equal(view.imageCalls[1].signal.aborted,true);
+  view.imageCalls[1].resolve(classroomImage('image-two'));view.calls[1].resolve({...row(),title:'新账号导图'});await view.flush();assert.equal(view.find('img',''),undefined);assert.match(view.text(),/新账号导图/);
+ }finally{view.unmount();}
+});
+
+test('a failed screenshot can retry and closing the reader cancels its pending image request',async()=>{
+ const view=componentHarness();try{
+  view.calls[0].resolve(illustratedClassroomRow());await view.flush();view.find('button','规则甲').props.onClick({detail:0});view.render();
+  view.imageCalls[0].reject(Error('截图读取失败'));await view.flush();assert.match(view.text(),/截图读取失败/);
+  view.find('button','重新读取截图').props.onClick();view.render();assert.equal(view.imageCalls.length,2);assert.equal(view.imageCalls[0].signal.aborted,true);
+  view.byLabel('关闭侧栏').props.onClick();view.render();assert.equal(view.imageCalls[1].signal.aborted,true);
+  view.imageCalls[1].resolve(classroomImage('image-one'));await view.flush();assert.equal(view.find('img',''),undefined);
+ }finally{view.unmount();}
+});
+
+test('fullscreen calls the browser API and an unsupported browser retains the full viewport view',async()=>{
+ const view=componentHarness(),before=globalThis.document;
+ try{
+  let requested=0,exited=0;const host={requestFullscreen(){requested++;return Promise.resolve();}};
+  view.byClass('clozeMapOverlay').props.ref.current=host;
+  globalThis.document={fullscreenElement:null,exitFullscreen(){exited++;return Promise.resolve();}};
+  await view.find('button','全屏').props.onClick();assert.equal(requested,1);
+  globalThis.document.fullscreenElement=host;await view.find('button','全屏').props.onClick();assert.equal(exited,1);
+  globalThis.document.fullscreenElement=null;delete host.requestFullscreen;await view.find('button','全屏').props.onClick();view.render();assert.match(view.text(),/已铺满当前浏览器窗口/);
+ }finally{globalThis.document=before;view.unmount();}
+});
+
+function controlledClickTimers(){
+ const originalSet=globalThis.setTimeout,originalClear=globalThis.clearTimeout,timers=new Map();let now=0,nextId=0;
+ globalThis.setTimeout=(run,delay)=>{const id=++nextId;timers.set(id,{run,at:now+delay});return id;};
+ globalThis.clearTimeout=id=>timers.delete(id);
+ return {advance(ms){now+=ms;for(const [id,timer] of [...timers].sort((a,b)=>a[1].at-b[1].at)){if(timer.at<=now&&timers.has(id)){timers.delete(id);timer.run();}}},count:()=>timers.size,restore(){globalThis.setTimeout=originalSet;globalThis.clearTimeout=originalClear;}};
+}
+function nodePointerEvent(type='mouse'){
+ return {button:0,buttons:1,pointerId:1,pointerType:type,clientX:100,clientY:100,target:{closest(){return {matches(){return false;}};}},currentTarget:{setPointerCapture(){},hasPointerCapture(){return false;},releasePointerCapture(){}}};
+}
+test('a full physical double-click sequence keeps the first hit target still and focuses that same branch',async()=>{
+ const view=componentHarness(),clock=controlledClickTimers();try{
+  view.calls[0].resolve(row());await view.flush();view.find('button','第一分支').props.onClick({detail:0});view.render();
+  const before={...view.byClass('clozeMapStage').props.style},region=()=>view.byLabel('可平移缩放的填空标志词导图');
+  region().props.onPointerDown(nodePointerEvent());region().props.onPointerUp(nodePointerEvent());
+  view.find('button','第一分支').props.onClick({detail:1,nativeEvent:{pointerType:'mouse'}});view.render();
+  assert.equal(view.find('button','第一分支').props['aria-expanded'],false);assert.deepEqual(view.byClass('clozeMapStage').props.style,before,'the first click must not reflow the physical second-click target');
+  clock.advance(100);view.render();assert.deepEqual(view.byClass('clozeMapStage').props.style,before);
+  region().props.onPointerDown(nodePointerEvent());region().props.onPointerUp(nodePointerEvent());
+  view.find('button','第一分支').props.onClick({detail:2,nativeEvent:{pointerType:'mouse'}});view.render();
+  view.find('button','第一分支').props.onDoubleClick({detail:2,preventDefault(){}});view.render();
+  assert.equal(view.find('button','第一分支').props['aria-expanded'],true);assert.equal(view.find('button','第一分支').props['aria-pressed'],true);assert.equal(view.find('button','第二分支').props['aria-pressed'],false);
+  assert.match(view.text(),/规则甲/);assert.equal(clock.count(),0);
+  clock.advance(500);view.render();assert.equal(view.find('button','第一分支').props['aria-expanded'],true,'no delayed single-click may collapse the focused branch');
+ }finally{view.unmount();clock.restore();}
+});
+test('mouse single clicks wait once while touch and keyboard node activation remain immediate',async()=>{
+ const view=componentHarness(),clock=controlledClickTimers();try{
+  view.calls[0].resolve(row());await view.flush();view.find('button','第一分支').props.onClick({detail:0});view.render();
+  view.find('button','第一分支').props.onClick({detail:1,nativeEvent:{pointerType:'mouse'}});view.render();
+  clock.advance(259);view.render();assert.equal(view.find('button','第一分支').props['aria-expanded'],false);
+  clock.advance(1);view.render();assert.equal(view.find('button','第一分支').props['aria-expanded'],true);assert.equal(clock.count(),0);
+  view.byLabel('可平移缩放的填空标志词导图').props.onPointerDown(nodePointerEvent('touch'));
+  view.find('button','第一分支').props.onClick({detail:1,nativeEvent:{pointerType:'touch'}});view.render();assert.equal(view.find('button','第一分支').props['aria-expanded'],false);assert.equal(clock.count(),0);
+  view.find('button','第一分支').props.onClick({detail:0});view.render();assert.equal(view.find('button','第一分支').props['aria-expanded'],true);assert.equal(clock.count(),0);
+ }finally{view.unmount();clock.restore();}
+});
+test('account changes and unmount cancel pending mouse node actions',async()=>{
+ const view=componentHarness(),clock=controlledClickTimers();try{
+  view.calls[0].resolve(row());await view.flush();view.find('button','第一分支').props.onClick({detail:1,nativeEvent:{pointerType:'mouse'}});assert.equal(clock.count(),1);
+  view.updateSession(session('b'));assert.equal(clock.count(),0);clock.advance(500);view.render();assert.doesNotMatch(view.text(),/第一分支/);
+  view.calls[1].resolve(row());await view.flush();view.find('button','第一分支').props.onClick({detail:1,nativeEvent:{pointerType:'mouse'}});assert.equal(clock.count(),1);
+  view.unmount();assert.equal(clock.count(),0);
+ }finally{view.unmount();clock.restore();}
 });

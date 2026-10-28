@@ -50,7 +50,7 @@ export default function Feedback({admin=false,session,onClose,onLogin}:Props){
   try{if(!client)throw Error();const {error}=await client.rpc('reply_app_feedback',{p_id:item.id,p_reply:value});if(error)throw error;if(!alive.current)return;setItems(rows=>rows.map(row=>row.id===item.id?{...row,reply:value,replied_at:new Date().toISOString()}:row));setStatus(item.is_public?'回复已公开保存，所有人均可查看。 / Public reply saved.':'私人回复已保存，仅提交账号和作者可见。 / Private reply saved.');}catch{if(alive.current)setStatus('回复保存失败，文字仍保留，请重试。 / Could not save the reply. Your text is still here.');}finally{if(alive.current)setBusy(false);}
  }
  return <div className="analyticsOverlay feedbackOverlay" role="dialog" aria-modal="true" aria-labelledby="feedbackTitle"><section className="analyticsDashboard feedbackPanel">
-  <header><div><p className="eyebrow">LEMNOTA · FEEDBACK</p><h2 id="feedbackTitle">{admin?'用户反馈 · Feedback':'建议与回复 · Feedback'}</h2></div><button onClick={onClose}>关闭 / Close</button></header>
+  <header><div><p className="eyebrow">INKLING · FEEDBACK</p><h2 id="feedbackTitle">{admin?'用户反馈 · Feedback':'建议与回复 · Feedback'}</h2></div><button onClick={onClose}>关闭 / Close</button></header>
   {!admin&&<>
    <p>遇到问题，或有想改进的地方，都可以告诉我。公开建议和回复所有人都能看到；登录后，也可以只向作者发送私人反馈。</p>
    <p className="feedbackEnglish" lang="en">Share a problem or an idea. Public suggestions and replies are visible to everyone. Sign in to send private feedback to the author.</p>

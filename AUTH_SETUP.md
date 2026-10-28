@@ -1,4 +1,4 @@
-# 词笺账号登录配置
+# Inkling 账号登录配置
 
 分享网址：**https://evelyn-y-chen.github.io/gre-quick-recall/**
 
@@ -31,14 +31,14 @@
 
 | 字段 | 内容 |
 | --- | --- |
-| Application name | Lemnota · 词笺 |
+| Application name | Inkling |
 | Homepage URL | https://evelyn-y-chen.github.io/gre-quick-recall/ |
 | Application description | A personal vocabulary journal. Sign in to save your own notes and learning progress across devices. |
 | Authorization callback URL | https://mzsyfxhvxzdoomfvumxe.supabase.co/auth/v1/callback |
 
 不勾选 Device Flow 或 wildcard matching；Expire user access tokens 保持默认勾选。由账号所有者点击 Register application，然后生成 Client secret。将 Client ID 和 secret **直接填到** [Supabase 登录供应商](https://supabase.com/dashboard/project/mzsyfxhvxzdoomfvumxe/auth/providers) 的 GitHub 设置中并启用。不要提交到 GitHub 源码，不要发到聊天里。
 
-如果你已建立词笺 OAuth 应用，只需修改它的 Homepage URL。Supabase 项目未改名，Authorization callback URL 保持不变。原来的 Codex 仓库连接与词笺登录应用用途不同，不能混用。
+如果你已建立 OAuth 应用，可以把显示名称改为 Inkling；已有 Homepage URL 保持当前分享网址。Supabase 项目未改名，Authorization callback URL 保持不变。原来的 Codex 仓库连接与 Inkling 登录应用用途不同，不能混用。
 
 ## 2. 登录返回网址（必须更新）
 
@@ -54,10 +54,10 @@
 
 在 [Google Cloud](https://console.cloud.google.com/) 选择或建立项目，然后进入 [Google Auth Platform](https://console.cloud.google.com/auth/overview)。
 
-1. **Branding**：应用名称填 `词笺 · Lemnota`；支持邮箱与开发者联系邮箱填自己的邮箱。账号验证、条款等步骤由账号所有者完成。
+1. **Branding**：应用名称填 `Inkling`；支持邮箱与开发者联系邮箱填自己的邮箱。账号验证、条款等步骤由账号所有者完成。
 2. **Audience**：选择 **External**；测试阶段把自己的 Google 账号加入 **Test users**。开放给其他使用者前，完成控制台要求的发布与验证步骤。
 3. **Data Access**：仅选 `openid`、`.../auth/userinfo.email`、`.../auth/userinfo.profile`。
-4. **Clients → Create client**：类型选 **Web application**，名称填 `Lemnota Web`，下列两项照填。
+4. **Clients → Create client**：类型选 **Web application**，名称填 `Inkling Web`，下列两项照填。
 
 | 字段 | 内容 |
 | --- | --- |
@@ -65,7 +65,7 @@
 | Authorized redirect URIs | https://mzsyfxhvxzdoomfvumxe.supabase.co/auth/v1/callback |
 
 5. 点击 **Create**。由账号所有者把生成的 **Client ID** 和 **Client secret** 直接填入 [Supabase 登录供应商](https://supabase.com/dashboard/project/mzsyfxhvxzdoomfvumxe/auth/providers) → **Google**，启用并保存，保持 nonce 检查启用。
-6. 重新打开词笺登录弹窗，用 Test users 中的账号完成登录并核对返回网址。供应商启用只代表可以开始实测，不代表登录和保存均已验证。
+6. 重新打开 Inkling 登录弹窗，用 Test users 中的账号完成登录并核对返回网址。供应商启用只代表可以开始实测，不代表登录和保存均已验证。
 
 Client secret 只填到 Supabase 后台；不要发送到聊天、上传截图或提交到源码。Google 登录与 SMTP 分别配置，这里不用填写日常邮箱密码或 Gmail 应用专用密码。配置依据：[Supabase Google 登录文档](https://supabase.com/docs/guides/auth/social-login/auth-google)。
 

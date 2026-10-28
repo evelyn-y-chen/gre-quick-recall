@@ -51,7 +51,7 @@ export function accountFailureMessage(error:unknown){
  return failure;
 }
 export function recoveryNote(username:string,code:string){
- return `词笺 · Lemnota 账号恢复码\n\n用户名：${username}\n恢复码：${code}\n\n请保存到只有你能访问的位置，不要公开或发送给他人。\n忘记密码时，在词笺登录页选择“使用恢复码找回账号”。成功找回后会产生新的恢复码，旧恢复码随即失效。\n本文件不包含密码或登录令牌。\n`;
+ return `Inkling 账号恢复码\n\n用户名：${username}\n恢复码：${code}\n\n请保存到只有你能访问的位置，不要公开或发送给他人。\n忘记密码时，在 Inkling 登录页选择“使用恢复码找回账号”。成功找回后会产生新的恢复码，旧恢复码随即失效。\n本文件不包含密码或登录令牌。\n`;
 }
 
 /** Decode only to detect local account-switch races; this never authorizes requests. */

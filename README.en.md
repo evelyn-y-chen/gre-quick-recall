@@ -1,18 +1,18 @@
-# 词笺 · Lemnota
+# Inkling
 
 *Worth noting.*
 
 A personal vocabulary journal, built around words, notes, and the connections between them.
 
-**[Open Lemnota](https://evelyn-y-chen.github.io/gre-quick-recall/)** · **[中文版](README.md)** · **[Suggestions & issues](https://github.com/evelyn-y-chen/gre-quick-recall/issues)**
+**[Open Inkling](https://evelyn-y-chen.github.io/gre-quick-recall/)** · **[中文版](README.md)** · **[Suggestions & issues](https://github.com/evelyn-y-chen/gre-quick-recall/issues)**
 
 No registration is needed. Choose a few words, try to recall them, and use red, yellow, or green to record how familiar they feel today. When you want to check your recall more closely, start a test.
 
-## Why I made Lemnota
+## Why I made Inkling
 
 I wanted a vocabulary tool that felt easier to begin using.
 
-Many study apps start with a test. For me, the fear of getting things wrong could turn into anxiety before I had even begun, and sometimes I would avoid opening the app altogether. Lemnota puts a simple red–yellow–green review mode first: record what you remember today, start whenever you feel ready, and stop whenever you need to. Tests are still available when you want to check your memory.
+Many study apps start with a test. For me, the fear of getting things wrong could turn into anxiety before I had even begun, and sometimes I would avoid opening the app altogether. Inkling puts a simple red–yellow–green review mode first: record what you remember today, start whenever you feel ready, and stop whenever you need to. Tests are still available when you want to check your memory.
 
 I also wanted somewhere to keep my own notes. Few vocabulary apps I had tried let me freely record and revise a memory method for each word. A teacher's explanation, a connection that suddenly makes sense, or a distinction between confusing words can disappear if I do not write it down. I wanted a small space beside each word where those thoughts could stay—and change as I learned.
 
@@ -20,15 +20,11 @@ This began as something for myself. I am sharing it free of charge in the hope t
 
 ## Behind the Name · 名字的由来
 
-### 词笺 · Between Words
+### Inkling · A small beginning
 
-*Jian* (笺) means both a slip of paper and a written annotation. The name also echoes 词间 (“between words”), reflecting the connections we discover through language.
+An *inkling* is a slight idea or a first hint of understanding. Learning a word can begin with a faint impression or a connection that starts to make sense. Inkling is a place to keep those small insights and build on them.
 
-### Lemnota · Words & Notes
-
-From *lemma*, a dictionary headword, and *nota*, Latin for a mark or note.
-
-*A word, and the thoughts we leave beside it.*
+The *ink* in the name also brings writing to mind: a space beside each word for thoughts of your own.
 
 ### Worth noting.
 
@@ -49,7 +45,7 @@ On your first visit, **nine illustrated feature cards** explain the core functio
 4. Use **开始测试** (Start test) when you want to check your recall. For a daily schedule, create a plan under **今天的学习** (Daily plan) on the home page.
 5. Submit edits with their Save buttons. **已存到这台设备** (Saved on this device) confirms they have reached browser storage. Export a learning note periodically.
 
-The **使用指南** (Guide) is always available at the top. Select the **词笺 · Lemnota** wordmark to return to the start screen. **关于词笺** (About Lemnota) explains the name and the idea behind the project. The interface is currently in Chinese; this guide includes its key labels.
+The **使用指南** (Guide) is always available at the top. Select the **Inkling** wordmark to return to the start screen. **关于 Inkling** (About Inkling) explains the name and the idea behind the project. The interface is currently in Chinese; this guide includes its key labels.
 
 ## Red, yellow, green: record how it feels today
 
@@ -71,7 +67,7 @@ Open Study checklist on the home page or in the header. Select banks and Lists, 
 
 **One table for every round**
 
-The master table uses original Lists or categories: round 1 is initial study, later rounds are reviews. Choose how many rounds to display. Daily goals share these completion records. Check or undo a round, or select its date to correct it. Add past study using an actual date, round and several Lists, even if you had not opened Lemnota that day.
+The master table uses original Lists or categories: round 1 is initial study, later rounds are reviews. Choose how many rounds to display. Daily goals share these completion records. Check or undo a round, or select its date to correct it. Add past study using an actual date, round and several Lists, even if you had not opened Inkling that day.
 
 **Seven days from actual study**
 
@@ -160,8 +156,8 @@ Devices and browser profiles have separate data; people sharing one profile shar
 ### Take a learning note with you
 
 1. Save edits and select **带走便笺 / 导出我的便笺** (Export my learning note).
-2. Download a JSON file named with your nickname and local date/time, such as `词笺_小词_便笺_2026-10-14_153538.json`. Without a nickname, it uses 我的 (“mine”).
-3. Open Lemnota on the new device, choose **读取便笺 / 我有一张便笺** (Import a learning note), select the file, and confirm.
+2. Download a JSON file named with your nickname and local date/time, such as `Inkling_小词_便笺_2026-10-14_153538.json`. Without a nickname, it uses 我的 (“mine”).
+3. Open Inkling on the new device, choose **读取便笺 / 我有一张便笺** (Import a learning note), select the file, and confirm.
 4. Saved records and palette return, followed by a brief confetti message.
 
 Choose **Merge ratings** to combine different-word ratings while keeping your current notes, notebook, tests and theme. For the same word, the newer recorded edit wins; ambiguous older records require review. **Replace all records** restores the entire file and overwrites the destination workspace, so export current records first. Legacy GRE JSON backups are supported. Slips are ordinary, unencrypted files; keep them private. Unsaved drafts are not guaranteed to be restored.
@@ -221,12 +217,12 @@ Learning requires agreement to basic usage analytics; previous consent does not 
 
 Only the author's server-verified GitHub identity can open the dashboard. It shows real account totals, daily/monthly consenting visitors, review actions, note saves, completed practices, learning-note exports, trends, feature use and 7-day retention. Guest-to-account transitions and changing browsers can duplicate visitor counts. Review actions are reveal/rating interactions, not a count of unique words. There are no demonstration statistics.
 
-The personal edition can export a sharing-edition learning note from its library-and-records section. The new Lemnota icon is used for installation and browser icons. An existing home-screen shortcut may need to be added again to update its icon; keep a backup first.
+The personal edition can export a sharing-edition learning note from its library-and-records section. The new Inkling icon is used for installation and browser icons. An existing home-screen shortcut may need to be added again to update its icon; keep a backup first.
 
 
 ## Account or learning-note mode
 
-Choose GitHub sign-in (the first sign-in creates your Lemnota account) for account sync, or use directly without registering and export/import learning-note files. The in-app guide has Chinese and English instructions for all modules, notebook collection and review, traffic-light self-checks, notes, tests, scheduled reviews, shortcuts, backups, themes and feedback.
+Choose GitHub sign-in (the first sign-in creates your Inkling account) for account sync, or use directly without registering and export/import learning-note files. The in-app guide has Chinese and English instructions for all modules, notebook collection and review, traffic-light self-checks, notes, tests, scheduled reviews, shortcuts, backups, themes and feedback.
 
 Feedback is available to guests and account users. Guest submissions are public; signed-in users can choose Public or Private, defaulting to Private. Everyone can read public suggestions and replies; private feedback stays between its submitting account and the author. Existing messages remain private. The author replies from Statistics → User feedback, and users refresh Feedback to check; no notification emails are sent. Analytics supports 7, 30, 90 days and All time, with active visitors, review actions and new accounts for the selected range.
 

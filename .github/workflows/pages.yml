@@ -1,4 +1,4 @@
-name: Deploy GRE community to Pages
+name: Deploy Inkling to Pages
 on:
   push:
     branches: [main]

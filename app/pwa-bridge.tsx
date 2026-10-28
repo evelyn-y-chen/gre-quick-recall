@@ -73,10 +73,10 @@ export default function PwaBridge({onShowGuide,suppressBanner=false}:{onShowGuid
   if (!showBanner || suppressBanner) return null;
 
   return (
-    <aside className="pwaBanner" aria-label="安装词笺 App">
-      <span className="pwaBannerIcon"><img src={import.meta.env.BASE_URL+"icons/lemnota.svg"} width="38" height="38" alt="词笺图标"/></span>
+    <aside className="pwaBanner" aria-label="安装 Inkling App">
+      <span className="pwaBannerIcon"><img src={import.meta.env.BASE_URL+"icons/inkling.svg"} width="38" height="38" alt="Inkling 图标"/></span>
       <div>
-        <strong>把词笺放到主屏幕或桌面</strong>
+        <strong>把 Inkling 放到主屏幕或桌面</strong>
         <p>{showIosGuide ? "在 Safari 点“分享” → “添加到主屏幕”，并打开“作为 Web App 打开”。" : "下次点图标就能开始。可查看适合你设备的添加步骤。"}</p>
       </div>
       <button className="pwaInstall" type="button" onClick={install}>{installPrompt ? "安装" : showIosGuide ? "知道了" : "怎么装"}</button>

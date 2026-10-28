@@ -142,10 +142,10 @@ const groups: GuideGroup[] = [
       "zh": "一张总表，记录每一轮",
       "en": "One table for every round",
       "cn": [
-        "总表按原 List／分类记录第一轮初学、第二轮及之后的复习，可选择显示轮数。今日清单与总表共用完成记录。点圆圈完成或取消，点日期修改；「补记过去的学习」可选择实际日期、轮次和多个 List，即使当天没有打开词笺也能补上。"
+        "总表按原 List／分类记录第一轮初学、第二轮及之后的复习，可选择显示轮数。今日清单与总表共用完成记录。点圆圈完成或取消，点日期修改；「补记过去的学习」可选择实际日期、轮次和多个 List，即使当天没有打开 Inkling 也能补上。"
       ],
       "english": [
-        "The master table uses original Lists or categories: round 1 is initial study, later rounds are reviews. Choose how many rounds to display. Daily goals share these completion records. Check or undo a round, or select its date to correct it. Add past study using an actual date, round and several Lists, even if you had not opened Lemnota that day."
+        "The master table uses original Lists or categories: round 1 is initial study, later rounds are reviews. Choose how many rounds to display. Daily goals share these completion records. Check or undo a round, or select its date to correct it. Add past study using an actual date, round and several Lists, even if you had not opened Inkling that day."
       ]
     },
     {
@@ -343,7 +343,7 @@ const groups: GuideGroup[] = [
         ],
         english: [
           'Open Themes to choose Snowy Sunset, Lakeside Iris, Twilight Forest or Apple Paper. The four swatches represent background, cards, primary buttons and selection/highlights. Themes travel with accounts and files; the meaning of familiarity ratings stays the same.',
-          'Use Lemnota in a phone, iPad or computer browser. Choose Add to Home Screen or Install App where supported. It is not currently listed in app stores, and full offline use is not guaranteed.',
+          'Use Inkling in a phone, iPad or computer browser. Choose Add to Home Screen or Install App where supported. It is not currently listed in app stores, and full offline use is not guaranteed.',
         ],
       },
     ],

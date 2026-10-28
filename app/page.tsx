@@ -3265,8 +3265,8 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
     <main className="shell">
       <header className="topbar">
         <button className="brand" onClick={() => setView("quick")} aria-label="返回速刷">
-          <span className="brandMark">笺</span>
-          <span><strong>词笺 · Lemnota</strong><small>Worth noting.</small></span>
+          <span className="brandMark" lang="en">I</span>
+          <span><strong>Inkling</strong><small>Worth noting.</small></span>
         </button>
         <span className="freeModeBadge">自由速刷</span>
       </header>

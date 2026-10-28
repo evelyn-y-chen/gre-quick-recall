@@ -103,12 +103,12 @@ export default function Account({onClose,beforeLogin,session=null}:{onClose:()=>
  function changeMode(next:UsernameAction){if(locked.current||recovery||!isCurrent())return;setMode(next);setPassword('');setConfirmation('');setRecoveryCode('');setMessage('');}
  function downloadRecovery(){
   if(!recovery||!isCurrent())return;const url=URL.createObjectURL(new Blob([recoveryNote(recovery.username,recovery.code)],{type:'text/plain;charset=utf-8'}));
-  const link=document.createElement('a');link.href=url;link.download=`词笺_${recovery.username}_恢复码.txt`;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  const link=document.createElement('a');link.href=url;link.download=`Inkling_${recovery.username}_恢复码.txt`;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
  }
  async function finishRecovery(){if(locked.current||!isCurrent())return;if(sessionReady){onClose();return;}await run(async ticket=>{if(await establishSession(ticket)&&isCurrent(ticket))onClose();});}
  return <div className="communityModal" role="dialog" aria-modal="true" aria-label="账号登录"><section>
   <button className="modalClose" disabled={busy||!!recovery} aria-label="关闭登录" onClick={onClose}>×</button>
-  <h2>{recovery?'请保存账号恢复码':mode==='rotate'?'账号登录方式':mode==='link'?'为当前账号设置用户名':mode==='recover'?'找回用户名账号':'登录词笺'}</h2>
+  <h2>{recovery?'请保存账号恢复码':mode==='rotate'?'账号登录方式':mode==='link'?'为当前账号设置用户名':mode==='recover'?'找回用户名账号':'登录Inkling'}</h2>
   {stale?<section><p>账号已切换。为保护各账号的记录，请关闭此窗口后重新打开。</p><button onClick={onClose}>关闭此窗口</button></section>:recovery?<section className="accountRecovery" aria-label="账号恢复码"><p>用户名：<strong>{recovery.username}</strong></p><p>恢复码只在这里显示一次。请下载或复制保存；忘记密码时可以用它找回账号。不要公开或交给他人。</p><label>账号恢复码<input aria-label="账号恢复码" readOnly value={recovery.code} onFocus={event=>event.currentTarget.select()}/></label><p>找回账号后恢复码会更新，旧码失效。下载文件不包含密码或登录令牌。</p><div className="accountAlternatives"><button type="button" onClick={downloadRecovery}>下载恢复码 .txt</button><button type="button" className="primary" disabled={busy} onClick={()=>void finishRecovery()}>{sessionReady?'已保存，继续':'已保存，重试登录'}</button></div>{!sessionReady&&<small className="accountNotice">恢复码已生成，登录尚未完成。请先保存恢复码，再重试登录。</small>}</section>:<>
    <p>{mode==='rotate'?'验证当前密码后，可以生成新的账号恢复码。旧恢复码会立即失效，已有笔记和学习进度保留在当前账号。':mode==='link'?'这会为当前账号增加用户名和密码，保留已有笔记及学习进度。以后可用用户名或原来的登录方式进入同一账号。':'用用户名和密码登录，在其他设备继续笔记、红绿灯自测和测试进度。无需邮箱或验证邮件；不登录也可以用便笺保存。'}</p>
    {!usernameReady&&<p className="accountNotice" role="status">用户名登录正在配置，暂未开放。请先使用其他可用的登录方式。</p>}

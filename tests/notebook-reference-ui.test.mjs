@@ -10,10 +10,17 @@ const original = {
 
 // Mount the real notebook with isolated IO. SharedWordMemory remains a separate
 // subtree so a collection reference can never silently replace a shared note.
-function notebook() {
-  const modules = new Map(), storage = new Map(), calls = [], listeners = new Map();
+function notebook({ storage = new Map() } = {}) {
+  const modules = new Map(), calls = [], listeners = new Map();
   let hooks = [], effects = [], cursor = 0, dirty = false, tree;
   const jsx = (type, props) => ({ type, props: props ?? {} });
+  // The real memory provider lives above the notebook. Keep its draft outside
+  // the conditional child so toggling that child exercises the same boundary.
+  const memory = {
+    drafts: {},
+    edit(word, value) { memory.drafts[word] = { text: value, revision: 3 }; dirty = true; },
+    save: async () => true,
+  };
   const react = {
     useState(initial) { const i = cursor++; if (!(i in hooks)) hooks[i] = typeof initial === 'function' ? initial() : initial; return [hooks[i], value => { const next = typeof value === 'function' ? value(hooks[i]) : value; if (!Object.is(next, hooks[i])) { hooks[i] = next; dirty = true; } }]; },
     useRef(initial) { const i = cursor++; return hooks[i] ?? (hooks[i] = { current: initial }); },
@@ -34,7 +41,7 @@ function notebook() {
     if (name === '../community/api') return { appFetch };
     if (name === '../community/learningPlanStore') return { recordLearningPlanWords() {} };
     if (name === '../community/practiceReviewModel') return { reviewDay: () => '2026-10-29' };
-    if (name === './SharedWordMemory') return { default: props => jsx('aside', { 'data-shared-word': props.word, 'data-editing': !!props.editing, children: '共享记忆：把论据串起来' }), useWordMemory: () => ({ drafts: {}, save: async () => true }) };
+    if (name === './SharedWordMemory') return { default: props => jsx('aside', { 'data-shared-word': props.word, 'data-editing': !!props.editing, children: props.editing ? jsx('textarea', { 'aria-label': `${props.word} 的记忆方法`, value: memory.drafts[props.word]?.text ?? '共享记忆：把论据串起来', onChange: e => memory.edit(props.word, e.target.value) }) : memory.drafts[props.word]?.text ?? '共享记忆：把论据串起来' }), useWordMemory: () => memory };
     if (['./DictionaryLinks', './DictionaryLookup', './RevealControls'].includes(name)) return { default: () => null };
     if (name === './notebookCatalog') return { buildNotebookCatalog: () => [] };
     assert.ok(['./VocabularyNotebook', './notebookModel'].includes(name), `Unexpected import ${name}`);
@@ -47,21 +54,26 @@ function notebook() {
   }
   const model = load('./notebookModel');
   const savedDraft = JSON.stringify({ [original.id]: { batch: original, revision: 7 } });
-  storage.set(model.NOTEBOOK_DRAFT_KEY, savedDraft);
+  if (!storage.has(model.NOTEBOOK_DRAFT_KEY)) storage.set(model.NOTEBOOK_DRAFT_KEY, savedDraft);
   const Component = load('./VocabularyNotebook').default;
   function render() { for (let n = 0; n < 20; n++) { dirty = false; cursor = 0; tree = Component({ words: [], pronounce() {} }); while (effects.length) effects.shift()(); if (!dirty) return; } throw Error('Notebook hook host did not settle'); }
   function nodes(node) { if (!arguments.length) node = tree; if (!node || typeof node !== 'object') return []; if (Array.isArray(node)) return node.flatMap(n => nodes(n)); if (typeof node.type === 'function') return nodes(node.type(node.props)); return [node, ...nodes(node.props?.children)]; }
   function text(node) { if (node == null || typeof node === 'boolean') return ''; if (Array.isArray(node)) return node.map(text).join(''); return typeof node === 'object' ? text(node.props?.children) : String(node); }
   async function settle() { for (let n = 0; n < 8; n++) { await Promise.resolve(); render(); } }
   function findButton(label) { const button = nodes().find(n => n.type === 'button' && text(n) === label); assert.ok(button, `Missing button ${label}`); return button; }
+  function checkbox(label) { const wrapper = nodes().find(n => n.type === 'label' && text(n) === label); const input = wrapper && nodes(wrapper).find(n => n.type === 'input' && n.props.type === 'checkbox'); assert.ok(input, `Missing checkbox ${label}`); return input; }
   render();
   return {
     ready: async () => { await settle(); const history = nodes().find(n => n.type === 'select' && nodes().some(parent => parent.props?.className === 'notebookHistory' && nodes(parent).includes(n))); assert.ok(history); history.props.onChange({ target: { value: original.id } }); await settle(); },
-    nodes, text, calls, savedDraft,
+    nodes, text, calls, savedDraft, storage,
     draft: () => JSON.parse(storage.get(model.NOTEBOOK_DRAFT_KEY)),
     rawDraft: () => storage.get(model.NOTEBOOK_DRAFT_KEY),
     click: async label => { await findButton(label).props.onClick(); await settle(); },
+    checked: label => checkbox(label).props.checked,
+    toggle: async (label, checked) => { checkbox(label).props.onChange({ target: { checked } }); await settle(); },
     edit(label, value) { const wrapper = nodes().find(n => n.type === 'label' && text(n).startsWith(label) && nodes(n).some(child => child.type === 'textarea')); assert.ok(wrapper, `Missing textarea label ${label}`); nodes(wrapper).find(n => n.type === 'textarea').props.onChange({ target: { value } }); render(); },
+    editMemory(value) { const input = nodes().find(n => n.type === 'textarea' && n.props['aria-label'] === `${original.words[0].word} 的记忆方法`); assert.ok(input); input.props.onChange({ target: { value } }); render(); },
+    memoryDraft: () => structuredClone(memory.drafts),
     close() { for (const hook of hooks) hook?.cleanup?.(); },
   };
 }
@@ -109,4 +121,102 @@ test('notebook review masks collection and shared notes until reveal and hides b
     assert.equal(view.rawDraft(), view.savedDraft, 'Review controls must not change existing data or ratings');
     assert.equal(view.calls.filter(call => call.method === 'PUT').length, 0);
   } finally { view.close(); }
+});
+
+for (const mode of ['edit', 'review']) {
+  test(`notebook independently hides reference and memory in ${mode} without changing learning data`, async () => {
+    const view = notebook();
+    try {
+      await view.ready();
+      if (mode === 'review') { await view.click('遮挡复习'); await view.click('点击揭晓释义与笔记'); }
+      const reference = () => view.nodes().some(n => (n.type === 'textarea' && n.props.value === original.words[0].note) || n.props?.className === 'notebookCollectionNote');
+      const memory = () => view.nodes().some(n => n.props?.['data-shared-word'] === original.words[0].word);
+      const collapsed = () => view.nodes().some(n => n.type === 'section' && n.props.className?.split(' ').includes('notebookNotesHidden'));
+      assert.equal(view.checked('显示对照释义'), true);
+      assert.equal(view.checked('显示记忆笔记'), true);
+      assert.ok(reference()); assert.ok(memory());
+
+      await view.toggle('显示对照释义', false);
+      assert.ok(!reference(), 'Reference content must be removed from the rendered tree');
+      assert.ok(memory(), 'The memory column remains available independently');
+      assert.ok(!collapsed());
+      await view.toggle('显示对照释义', true);
+      await view.toggle('显示记忆笔记', false);
+      assert.ok(reference(), 'The collection reference remains available independently');
+      assert.ok(!memory(), 'Shared memory must be removed from the rendered tree');
+
+      await view.toggle('显示对照释义', false);
+      assert.ok(!reference()); assert.ok(!memory()); assert.ok(collapsed());
+      assert.ok(!view.nodes().some(n => n.props?.className === 'notebookCardNote'), 'Both hidden must remove the empty note column');
+      await view.toggle('显示记忆笔记', true);
+      await view.toggle('显示对照释义', true);
+      assert.ok(reference()); assert.ok(memory()); assert.ok(!collapsed());
+      assert.equal(view.rawDraft(), view.savedDraft, 'Display preferences must not change the batch, meanings, or ratings');
+      assert.deepEqual(view.memoryDraft(), {}, 'Display preferences must not create or delete shared notes');
+      assert.equal(view.calls.filter(call => call.method === 'PUT').length, 0);
+    } finally { view.close(); }
+  });
+}
+
+test('notebook keeps unsaved reference and shared memory drafts when hidden and shown again', async () => {
+  const view = notebook();
+  try {
+    await view.ready();
+    const reference = '【GLEE】我补充的对照释义';
+    const memory = '我还没保存的联想记忆';
+    view.edit('对照释义与收集笔记', reference);
+    view.editMemory(memory);
+    const before = view.rawDraft(), sharedBefore = view.memoryDraft();
+    await view.toggle('显示对照释义', false);
+    await view.toggle('显示记忆笔记', false);
+    await view.click('遮挡复习');
+    await view.click('点击揭晓释义与笔记');
+    assert.ok(!view.nodes().some(n => n.props?.className === 'notebookCardNote'));
+    await view.toggle('显示对照释义', true);
+    await view.toggle('显示记忆笔记', true);
+    assert.ok(view.nodes().some(n => n.props?.className === 'notebookCollectionNote' && view.text(n).includes(reference)));
+    assert.ok(view.nodes().some(n => n.props?.['data-shared-word'] === 'cogent' && view.text(n) === memory));
+    await view.click('收集与编辑');
+    assert.ok(view.nodes().some(n => n.type === 'textarea' && n.props.value === reference));
+    assert.ok(view.nodes().some(n => n.type === 'textarea' && n.props['aria-label'] === 'cogent 的记忆方法' && n.props.value === memory));
+    assert.equal(view.rawDraft(), before);
+    assert.deepEqual(view.memoryDraft(), sharedBefore);
+    assert.deepEqual(view.draft()[original.id].batch.words[0], { ...original.words[0], note: reference });
+    assert.equal(view.calls.filter(call => call.method === 'PUT').length, 0);
+  } finally { view.close(); }
+});
+
+test('notebook remembers display choices across reopening without embedding them in learning data', async () => {
+  const storage = new Map();
+  const first = notebook({ storage });
+  try {
+    await first.ready();
+    await first.toggle('显示对照释义', false);
+    assert.deepEqual(JSON.parse(storage.get('gre-notebook-display-v1')), { showReference: false, showMemory: true });
+    assert.equal(first.rawDraft(), first.savedDraft);
+  } finally { first.close(); }
+  const reopened = notebook({ storage });
+  try {
+    await reopened.ready();
+    assert.equal(reopened.checked('显示对照释义'), false);
+    assert.equal(reopened.checked('显示记忆笔记'), true);
+    assert.ok(!reopened.nodes().some(n => n.type === 'textarea' && n.props.value === original.words[0].note));
+    assert.ok(reopened.nodes().some(n => n.props?.['data-shared-word'] === 'cogent'));
+    assert.equal(reopened.rawDraft(), reopened.savedDraft);
+    assert.equal(reopened.calls.filter(call => call.method === 'PUT').length, 0);
+  } finally { reopened.close(); }
+});
+
+test('notebook handles absent, malformed, and partial display preferences safely', async () => {
+  for (const [saved, expected] of [[undefined, [true, true]], ['{broken', [true, true]], ['null', [true, true]], [JSON.stringify({ showReference: false }), [false, true]], [JSON.stringify({ showMemory: false }), [true, false]]]) {
+    const storage = new Map();
+    if (saved !== undefined) storage.set('gre-notebook-display-v1', saved);
+    const view = notebook({ storage });
+    try {
+      await view.ready();
+      assert.deepEqual([view.checked('显示对照释义'), view.checked('显示记忆笔记')], expected, `Unexpected fallback for ${saved}`);
+      assert.equal(view.rawDraft(), view.savedDraft);
+      assert.equal(view.calls.filter(call => call.method === 'PUT').length, 0);
+    } finally { view.close(); }
+  }
 });

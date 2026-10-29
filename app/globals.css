@@ -1004,8 +1004,15 @@ nav button.active { color: white; background: var(--ink); box-shadow: 0 5px 14px
 .notebookCollectionNote > strong { display: block; font-size: 13px; color: var(--muted); }
 .notebookCollectionNote + .sharedWordMemory { margin-top: 10px; }
 .notebookEditGrid .notebookCardNote { min-width: 0; }
+.notebookDisplay { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 18px; margin: 12px 0 18px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; }
+.notebookDisplay > span, .notebookDisplay > small { color: var(--muted); font-size: 13px; }
+.notebookDisplay label { display: inline-flex; align-items: center; gap: 7px; min-height: 36px; cursor: pointer; font-size: 14px; }
+.notebookDisplay input { width: 17px; height: 17px; margin: 0; accent-color: var(--ink); }
+.notebookNotesHidden .notebookWord .notebookEditGrid, .notebookNotesHidden .notebookCardReview, .notebookNotesHidden .notebookRowHeader > div { grid-template-columns: minmax(0, 1.6fr) minmax(0, .8fr); }
+.notebookNotesHidden .notebookCardReview .notebookCardSource { grid-column: 2; }
 @media(max-width:1150px) { .notebookRowHeader { display:none; } }
 @media(max-width:600px) { .notebookCardReview .notebookCardNote, .notebookCardReview .notebookCardSource { grid-column:1; } }
+@media(max-width:600px) { .notebookNotesHidden .notebookWord .notebookEditGrid, .notebookNotesHidden .notebookCardReview { grid-template-columns: minmax(0, 1fr); } .notebookNotesHidden .notebookCardReview .notebookCardSource { grid-column:1; } }
 
 .notebookSearchDictionary { padding: 14px; margin-top: 10px; border: 1px solid var(--line); border-radius: 10px; background: #f4f7fb; }
 .notebookSearchDictionary h3 { margin: 0 0 8px; font-size: 16px; overflow-wrap: anywhere; }

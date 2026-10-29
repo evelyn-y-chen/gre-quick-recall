@@ -257,7 +257,7 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
       <div className="notebookListHead"><h2>{review ? "本次生词复习" : "本次生词"}</h2>{review && <RevealControls total={batch.words.length} shown={batch.words.filter((word) => revealed.includes(word.id)).length} showLabel="显示全部释义" onShow={() => setRevealed(batch.words.map((word) => word.id))} onHide={() => setRevealed([])} />}{removed && <button type="button" onClick={() => {const next=[...batch.words];next.splice(removed.index,0,removed.word);persist({...batch,words:next});setRemoved(null);}}>撤销移除 {removed.word.word}</button>}</div>
       {!batch.words.length && <p className="notebookEmpty">还没有生词。输入单词，勾选来源或填写释义，再点击「加入本次生词」。</p>}
       {review && !!batch.words.length && <div className="shortcutBar notebookShortcuts" aria-label="生词本复习快捷键"><span><kbd>↑</kbd><kbd>←</kbd> 上一词</span><span><kbd>↓</kbd><kbd>→</kbd> 下一词</span><span><kbd>Space</kbd> 发音</span><span><kbd>Enter</kbd> 显示 / 隐藏释义与笔记</span><span><kbd>1</kbd> 不认识</span><span><kbd>2</kbd> 模糊</span><span><kbd>3</kbd> 熟悉</span><span>标注时同时揭晓释义</span></div>}
-      {review && !!batch.words.length && <div className="notebookRowHeader" aria-hidden="true"><span>单词</span><div><span>释义</span><span>记忆方法</span><span>词库来源</span></div><span>掌握程度</span></div>}
+      {review && !!batch.words.length && <div className="notebookRowHeader" aria-hidden="true"><span>单词</span><div><span>释义</span><span>对照与记忆笔记</span><span>词库来源</span></div><span>掌握程度</span></div>}
       <div className="notebookWords">{batch.words.map((w,index) => <article className={`notebookWord${w.rating ? ` rated-${w.rating}` : ""}${review && activeWord?.id === w.id ? " notebookActive" : ""}`} key={w.id} tabIndex={review ? 0 : undefined} aria-current={review && activeWord?.id === w.id ? "true" : undefined} ref={(node) => {rowRefs.current[w.id]=node;}} onClick={() => setActiveId(w.id)} onFocus={() => setActiveId(w.id)}>
         <div className="notebookWordHead">
           <span className="notebookWordNumber">{index+1}</span>
@@ -267,12 +267,12 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
         </div>
         {review ? <div className="notebookCardReview">
           <button className="notebookReveal" type="button" aria-expanded={revealed.includes(w.id)} onClick={() => setRevealed((s) => s.includes(w.id) ? s.filter((id) => id!==w.id) : [...s,w.id])}>{revealed.includes(w.id) ? (w.meaning || "未填写释义").split("\n").map((line,i)=><span key={i} className={/^【.*】$/.test(line.trim())?"notebookMeaningSource":"notebookMeaningLine"}>{line||"\u00a0"}</span>) : "点击揭晓释义与笔记"}</button>
-          {revealed.includes(w.id) && <div className="notebookCardNote"><SharedWordMemory word={w.word}/></div>}
+          {revealed.includes(w.id) && <div className="notebookCardNote">{w.note && <section className="notebookCollectionNote"><strong>对照释义与收集笔记</strong><p>{w.note}</p></section>}<SharedWordMemory word={w.word}/></div>}
           <div className="notebookCardSource"><span>词库来源</span><p>{w.origin || "未填写"}</p></div>
           <details className="notebookCardDictionary"><summary>补查词典</summary><DictionaryLinks word={w.word}/></details>
         </div> : <div className="notebookEditGrid">
           <label>释义<textarea rows={2} maxLength={4000} value={w.meaning} placeholder="填写释义" onChange={(e) => editWord(w.id,"meaning",e.target.value)} /></label>
-          <SharedWordMemory word={w.word} editing/>
+          <div className="notebookCardNote"><label>对照释义与收集笔记<textarea rows={4} maxLength={4000} value={w.note} placeholder="保留词库中的释义、来源或本次收集的补充笔记，与左侧释义分开。" onChange={(e) => editWord(w.id,"note",e.target.value)} /></label><SharedWordMemory word={w.word} editing/></div>
           <label>词库来源<textarea rows={1} maxLength={1000} value={w.origin} onChange={(e) => editWord(w.id,"origin",e.target.value)} /></label>
           <details className="notebookCardDictionary"><summary>补查词典</summary><DictionaryLookup word={w.word} meaning={w.meaning} origin={w.origin} onApply={(meaning,origin) => {if(batch)persist({...batch,words:batch.words.map(item=>item.id===w.id?{...item,meaning,origin}:item)});}} /></details>
         </div>}

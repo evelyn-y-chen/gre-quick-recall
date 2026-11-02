@@ -1,3 +1,4 @@
+import TestQuestionHistory,{readTestLookback,appendTestLookback,captureTestNotes,type TestQuestionSnapshot} from "./TestQuestionHistory";
 import NotebookFrequencyBadge from "./NotebookFrequency";
 import SelectionChips from '../community/SelectionChips';
 import {readSavedRatings} from './ratingStorage';
@@ -7,7 +8,7 @@ import {appFetch} from "../community/api";
 "use client";
 import {recordCompletedPractice,recordPracticeWords} from "../community/practiceCompletions";
 import {createPortal} from "react-dom";
-import SharedWordMemory from "./SharedWordMemory";
+import SharedWordMemory,{useWordMemory} from "./SharedWordMemory";
 import {useEffect,useRef,useState} from "react";
 import {entries,byId,equivalents,makeQuestion,createSession,chooseMeaning,gradeQuestion,advanceSession,validSession,refreshAmbiguousQuestion,type Session,type Config} from "./aPlusTestModel";
 import {dueReviewIds,reviewDay,REVIEW_INTERVALS,type ReviewHistory} from "./aPlusReviewModel";
@@ -22,6 +23,8 @@ export default function APlusTest({pronounce,initialLists}:{pronounce:(word:stri
  const [loading,setLoading]=useState(true),[saving,setSaving]=useState(false),[status,setStatus]=useState("正在读取上次测试…"),[blocked,setBlocked]=useState(false);
  const current=useRef<Session|null>(null),revision=useRef(0),pending=useRef(false),busy=useRef(false),alive=useRef(true),conflict=useRef(false);
  const questionRef=useRef<HTMLElement|null>(null);
+ const [lookbackAt,setLookbackAt]=useState<number|null>(null),memory=useWordMemory();
+ const lookback=readTestLookback((session as (Session&{lookback?:TestQuestionSnapshot[]})|null)?.lookback);
  function draft(){try{studyStorage.setItem(DRAFT,JSON.stringify({session:current.current,revision:revision.current}));}catch{if(alive.current)setStatus("无法保存本机草稿，请保持页面打开，等待工作区保存。");}}
  async function upload(){
   if(busy.current||conflict.current||!pending.current||!current.current)return;
@@ -58,7 +61,7 @@ export default function APlusTest({pronounce,initialLists}:{pronounce:(word:stri
   })();
   return()=>{alive.current=false;};
  },[]);
- function update(next:Session){if(current.current&&current.current.id!==next.id){const old=current.current;recordPracticeWords(Object.entries(old.progress).filter(([,p])=>p.attempts>0).map(([id])=>byId.get(id)?.word).filter((w):w is string=>!!w),"a-plus");if(old.stage==="complete")recordCompletedPractice("a-plus-full:"+old.id,"a-plus");}current.current=next;setSession(next);pending.current=true;draft();void upload();}
+ function update(next:Session){if(current.current?.id!==next.id)setLookbackAt(null);if(current.current&&current.current.id!==next.id){const old=current.current;recordPracticeWords(Object.entries(old.progress).filter(([,p])=>p.attempts>0).map(([id])=>byId.get(id)?.word).filter((w):w is string=>!!w),"a-plus");if(old.stage==="complete")recordCompletedPractice("a-plus-full:"+old.id,"a-plus");}current.current=next;setSession(next);pending.current=true;draft();void upload();}
  async function useCloud(){
   setLoading(true);
   try{const r=await appFetch("/api/a-plus-test",{cache:"no-store"});if(!r.ok)throw Error();const d=await r.json();
@@ -78,11 +81,20 @@ export default function APlusTest({pronounce,initialLists}:{pronounce:(word:stri
   update(next);setScreen("test");
  }
  function start(){if(!selectedIds.length)return;update(createSession(config,Math.random,selectedIds));setScreen("test");}
- const focused=screen==="test"&&!!session&&session.stage!=="complete";
+ const focused=screen==="test"&&!!session&&(session.stage!=="complete"||lookbackAt!==null);
  useEffect(()=>{if(!focused)return;const old=document.body.style.overflow;document.body.style.overflow="hidden";return()=>{document.body.style.overflow=old;};},[focused]);
  const completed=session?session.order.filter(id=>session.progress[id].done).length:0;
  const errors=session?session.order.filter(id=>session.progress[id].hadError):[];
  const q=session?.question,entry=q?byId.get(q.entryId):null;
+ function advanceWithReceipt(){
+  if(!session?.question||session.stage!=="feedback"||lookbackAt!==null)return;
+  const question=session.question,word=byId.get(question.entryId)!,progress=session.progress[word.id];
+  const snapshot:TestQuestionSnapshot={id:question.id,word:word.word,meaning:word.meaning,status:`本轮第 ${progress.attempts} 次作答 · ${progress.done?"这一词已完成":`还需连续答对 ${Math.max(0,2-progress.correct)} 次`}`,steps:[
+   {label:"释义",chosen:session.meaningChoice?[session.meaningChoice]:[],correct:[word.meaning],options:question.meanings.map(text=>({text,chosen:text===session.meaningChoice,correct:text===word.meaning}))},
+   {label:session.synonymSkipped?"同义词（释义未通过，已跳过）":"同义词",chosen:session.synonymSkipped?[]:session.synonymUncertain?["不确定"]:session.selected,correct:question.options.filter(option=>option.correct).map(option=>option.word),options:question.options.map(option=>({text:option.word+" · "+option.meaning,chosen:!session.synonymSkipped&&session.selected.includes(option.word),correct:option.correct}))}
+  ],notes:captureTestNotes([word.word,...question.options.filter(option=>option.correct).map(option=>option.word)],memory)};
+  update({...advanceSession(session),lookback:appendTestLookback(lookback,snapshot)} as Session);
+ }
  const content=<section className={`aPlusTest${focused?" aPlusFocusTest":""}`} role={focused?"dialog":undefined} aria-modal={focused?true:undefined} aria-label={focused?"A+ 等价词测试":undefined} onKeyDown={e=>e.stopPropagation()}>
   <div className="libraryHead"><div><p className="eyebrow">A+ GRE TEST</p><h1>A加等价词测试</h1><p>先辨词义，再找同义词。首轮全对直接完成；错词隔 5 题返场，连续全对 2 次才完成。</p></div></div>
   <div className="aPlusTestSync"><span role="status">{saving?"正在保存测试进度…":status}</span>{pending.current&&!saving&&!blocked&&<button type="button" onClick={upload}>重试保存</button>}</div>
@@ -98,17 +110,19 @@ export default function APlusTest({pronounce,initialLists}:{pronounce:(word:stri
     <button type="button" className="solid" disabled={!selectedIds.length} onClick={start}>{session?"开始新测试（保留长期复习计划）":"开始测试"}</button>
    </fieldset>
   </>:session&&<>
-   <div className="aPlusTestProgress"><strong>已完成 {completed} / {session.order.length}</strong><span>已答 {session.turn} 轮 · {errors.length} 个词曾出错</span><button type="button" onClick={()=>setScreen("setup")}>返回设置 / 暂停</button></div>
+   <div className="aPlusTestProgress"><strong>已完成 {completed} / {session.order.length}</strong><span>已答 {session.turn} 轮 · {errors.length} 个词曾出错</span><button type="button" disabled={!lookback.length} onClick={()=>setLookbackAt(lookback.length-1)}>上一词回看</button><button type="button" onClick={()=>{setLookbackAt(null);setScreen("setup");}}>返回设置 / 暂停</button></div>
    <progress value={completed} max={session.order.length}/>
    <div ref={node=>{questionRef.current=node;}} className="aPlusQuestionAnchor">
-   {q&&entry&&session.stage!=="complete"?<Question key={q.id} session={session} disabled={blocked} pronounce={pronounce} onMeaning={choice=>update(chooseMeaning(session,choice))} onGrade={(selected,uncertain)=>update(gradeQuestion(session,selected,uncertain))} onNext={()=>update(advanceSession(session))}/>:<div className="aPlusTestDone"><h2>本次测试完成</h2><p>{completed} 个词已完成；{session.order.length-errors.length} 个首次两步全对，{errors.length} 个经过返场巩固。</p><button type="button" onClick={()=>setScreen("setup")}>选择下一轮范围</button></div>}
-   </div>
+   {lookbackAt!==null&&<TestQuestionHistory snapshots={lookback} index={lookbackAt} onIndex={setLookbackAt} onReturn={()=>setLookbackAt(null)}/>}
+   <div hidden={lookbackAt!==null}>
+   {q&&entry&&session.stage!=="complete"?<Question key={q.id} session={session} disabled={blocked} active={lookbackAt===null} pronounce={pronounce} onMeaning={choice=>update(chooseMeaning(session,choice))} onGrade={(selected,uncertain)=>update(gradeQuestion(session,selected,uncertain))} onNext={advanceWithReceipt}/>:<div className="aPlusTestDone"><h2>本次测试完成</h2><p>{completed} 个词已完成；{session.order.length-errors.length} 个首次两步全对，{errors.length} 个经过返场巩固。</p><button type="button" onClick={()=>setScreen("setup")}>选择下一轮范围</button></div>}
+   </div></div>
    {!!errors.length&&<details className="aPlusTestErrors" open={session.stage==="complete"}><summary>漏选与错题记录 · {errors.length} 个词</summary>{errors.map(id=>{const p=session.progress[id],e=byId.get(id)!;return <article key={id}><strong>{e.word}</strong><NotebookFrequencyBadge word={e.word}/><span>List {e.list} · {p.done?"已完成":`连续全对 ${p.correct}/2`} · 词义错误 {p.meaningErrors} 次</span><p>漏选：{Object.entries(p.missed).map(([w,n])=>`${w}（${n}次）`).join("、")||"无"}</p><p>误选：{Object.entries(p.extra).map(([w,n])=>`${w}（${n}次）`).join("、")||"无"}</p></article>;})}</details>}
   </>}
  </section>;
  return focused?createPortal(content,document.body):content;
 }
-export function Question({session,disabled,pronounce,onMeaning,onGrade,onNext}:{session:Session;disabled:boolean;pronounce:(w:string)=>void;onMeaning:(m:string)=>void;onGrade:(words:string[],uncertain?:boolean)=>void;onNext:()=>void}) {
+export function Question({session,disabled,active=true,pronounce,onMeaning,onGrade,onNext}:{session:Session;disabled:boolean;active?:boolean;pronounce:(w:string)=>void;onMeaning:(m:string)=>void;onGrade:(words:string[],uncertain?:boolean)=>void;onNext:()=>void}) {
  const q=session.question!,e=byId.get(q.entryId)!,p=session.progress[e.id];
  const [meaning,setMeaning]=useState(""),[selected,setSelected]=useState<string[]>([]),[uncertain,setUncertain]=useState(false);
  const locked=useRef(false);
@@ -116,27 +130,35 @@ export function Question({session,disabled,pronounce,onMeaning,onGrade,onNext}:{
  const skipped=feedback&&session.synonymSkipped===true;
  const missed=skipped?[]:q.options.filter(o=>o.correct&&!session.selected.includes(o.word)),extra=skipped?[]:q.options.filter(o=>!o.correct&&session.selected.includes(o.word));
  const allOK=meaningOK&&!missed.length&&!extra.length;
- const canSubmit=!disabled&&(feedback|| (meaningStage?!!meaning:uncertain||selected.length>0));
+ const canSubmit=active&&!disabled&&(feedback|| (meaningStage?!!meaning:uncertain||selected.length>0));
  useEffect(()=>{locked.current=false;},[session.stage]);
  function submit(){
   if(!canSubmit||locked.current)return;locked.current=true;
   if(feedback)onNext();else if(meaningStage)onMeaning(meaning);else onGrade(selected,uncertain);
  }
- function handleEnter(event:KeyboardEvent){
-  if(event.key!=="Enter"||event.repeat||event.isComposing||event.ctrlKey||event.metaKey||event.altKey||event.shiftKey)return;
+ function selectOption(index:number){
+  if(!active||disabled||feedback||locked.current)return;
+  if(meaningStage){if(q.meanings[index]!==undefined)setMeaning(q.meanings[index]);return;}
+  const option=q.options[index];if(!option)return;
+  setUncertain(false);setSelected(values=>session.config.mode==="single"?[option.word]:values.includes(option.word)?values.filter(word=>word!==option.word):[...values,option.word]);
+ }
+ function markUncertain(){if(!active||disabled||feedback||locked.current)return;if(meaningStage)setMeaning("不确定");else{setUncertain(true);setSelected([]);}}
+ function handleKey(event:KeyboardEvent){
+  if(!active||event.repeat||event.isComposing||event.ctrlKey||event.metaKey||event.altKey||event.shiftKey)return;
   const target=event.target as HTMLElement|null;
-  if(target?.closest("textarea, select, input:not([type='radio']):not([type='checkbox']), [contenteditable='true'], [data-native-enter], a, summary"))return;
-  if(target?.closest('[data-uncertain][aria-pressed="false"]'))return;
-  if(!canSubmit)return;
+  if(target?.closest("textarea, select, input:not([type='radio']):not([type='checkbox']), [contenteditable='true'], a, summary"))return;
+  const key=event.key.toLowerCase();
+  if(!feedback&&!disabled&&(key==='u'||/^[a-f]$/.test(key))){if(target?.closest('input'))return;event.preventDefault();key==='u'?markUncertain():selectOption(key.charCodeAt(0)-97);return;}
+  if(event.key!=="Enter"||target?.closest('[data-native-enter]')||target?.closest('[data-uncertain][aria-pressed="false"]')||!canSubmit)return;
   event.preventDefault();submit();
  }
- useEffect(()=>{window.addEventListener("keydown",handleEnter);return()=>window.removeEventListener("keydown",handleEnter);});
- return <article className="aPlusQuestion aPlusQuestionCompact" onKeyDown={event=>{event.stopPropagation();handleEnter(event.nativeEvent);}}>
+ useEffect(()=>{window.addEventListener("keydown",handleKey);return()=>window.removeEventListener("keydown",handleKey);});
+ return <article className="aPlusQuestion aPlusQuestionCompact" onKeyDown={event=>{event.stopPropagation();handleKey(event.nativeEvent);}}>
   <div className="aPlusQuestionTop"><span>List {e.list} · #{e.number} · {p.attempts>(feedback?1:0)?"返场巩固":"首次测试"} <NotebookFrequencyBadge word={e.word}/></span><span className="aPlusTestModeBadge">{session.config.mode==="single"?"单选":"不定项"}</span></div>
   <div className="aPlusQuestionHeading"><h2>{e.word}<button data-native-enter type="button" aria-label={`朗读 ${e.word}`} onClick={()=>pronounce(e.word)}>▶</button></h2><div className="aPlusStepTrack" aria-label="测试步骤"><span className={meaningStage?"current":"finished"}>01 选释义</span><span className={!meaningStage&&!skipped?"current":""}>{skipped?"02 已跳过":"02 选同义词"}</span></div></div>
-  <div className={`aPlusQuestionBody${feedback?" hasFeedback":""}`}><div className="aPlusAnswerContent">
+  {feedback&&<p className="testAttemptStatus">本轮第 {p.attempts} 次作答 · {p.done?"这一词已完成":`还需连续答对 ${Math.max(0,2-p.correct)} 次`}</p>}<div className={`aPlusQuestionBody${feedback?" hasFeedback":""}`}><div className="aPlusAnswerContent">
   {q.early&&<p className="aPlusTestHint">已无其他待测词，提前复习这一词。</p>}
-  {meaningStage?<fieldset disabled={disabled}><legend>选择核心词的释义</legend><div className="aPlusMeaningChoices">{q.meanings.map((m,i)=><button type="button" key={m} className={meaning===m?"selected":""} aria-pressed={meaning===m} onClick={()=>setMeaning(m)}><b>{String.fromCharCode(65+i)}</b><span>{m}</span></button>)}</div><button type="button" data-uncertain className="aPlusUncertain" aria-pressed={meaning==="不确定"} onClick={()=>setMeaning("不确定")}>？ 不确定</button><p className="aPlusUncertainHint">不需要猜，确认后这一词会进入返场巩固。</p></fieldset>:<>
+  {meaningStage?<fieldset disabled={disabled}><legend>选择核心词的释义</legend><div className="aPlusMeaningChoices">{q.meanings.map((m,i)=><button type="button" key={m} className={meaning===m?"selected":""} aria-pressed={meaning===m} onClick={()=>selectOption(i)} aria-keyshortcuts={String.fromCharCode(65+i)}><b>{String.fromCharCode(65+i)}</b><span>{m}</span></button>)}</div><button type="button" data-uncertain className="aPlusUncertain" aria-pressed={meaning==="不确定"} onClick={markUncertain} aria-keyshortcuts="U">？ 不确定 · U</button><p className="aPlusUncertainHint">不需要猜，确认后这一词会进入返场巩固。</p></fieldset>:<>
    <div className={`aPlusMeaningReceipt${feedback?(meaningOK?" correct":" incorrect"):""}`}><span>{feedback?(meaningOK?"释义正确":"释义需巩固"):"已选释义"}</span><strong>{feedback?e.meaning:session.meaningChoice}</strong>{feedback&&!meaningOK&&<small>你的选择：{session.meaningChoice}</small>}</div>
    {skipped?<div className="aPlusMeaningReceipt incorrect" role="status"><strong>{session.meaningChoice==="不确定"?"释义不确定，先看正确答案":"释义答错了，先看正确答案"}</strong><p>正确释义：{e.meaning}</p><p>对应等价词：{equivalents(e).join(" · ")}</p><small>本轮已跳过选同义词，不计作漏选；稍后返场复习。</small></div>:<fieldset disabled={disabled}><legend>{feedback?"本题解析":session.config.mode==="single"?"选出唯一的同义词":"选出所有同义词（可能不止一个）"}</legend>
     {feedback&&<p className={`aPlusInlineResult${allOK?" correct":" incorrect"}`} role="status"><strong>{allOK?"两步全对":session.synonymUncertain||session.meaningChoice==="不确定"?"本轮不确定，待巩固":"本轮有误"}</strong><span>漏选 {missed.length} · 误选 {extra.length}</span></p>}
@@ -144,14 +166,14 @@ export function Question({session,disabled,pronounce,onMeaning,onGrade,onNext}:{
      const picked=feedback?session.selected.includes(o.word):selected.includes(o.word);
      const state=feedback?(o.correct?(picked?"correct":"missed"):(picked?"incorrect":"neutral")):(picked?"selected":"");
      return <div className={`aPlusChoiceTile ${state}`} key={o.word}>
-      <label className="aPlusChoiceLabel"><input type={session.config.mode==="single"?"radio":"checkbox"} name={`syn-${q.id}`} checked={picked} disabled={feedback} onChange={()=>{setUncertain(false);setSelected(s=>session.config.mode==="single"?[o.word]:s.includes(o.word)?s.filter(w=>w!==o.word):[...s,o.word]);}}/><span className="aPlusChoiceLetter">{String.fromCharCode(65+i)}</span><strong>{o.word}</strong>{feedback&&<small className="aPlusChoiceResult">{o.correct?(picked?"选对":"漏选"):(picked?"误选":"干扰项")}</small>}</label>
+      <label className="aPlusChoiceLabel"><input type={session.config.mode==="single"?"radio":"checkbox"} name={`syn-${q.id}`} checked={picked} disabled={feedback} onChange={()=>selectOption(i)} aria-keyshortcuts={String.fromCharCode(65+i)}/><span className="aPlusChoiceLetter">{String.fromCharCode(65+i)}</span><strong>{o.word}</strong>{feedback&&<small className="aPlusChoiceResult">{o.correct?(picked?"选对":"漏选"):(picked?"误选":"干扰项")}</small>}</label>
       {feedback&&<div className="aPlusChoiceExplanation"><p className="aPlusChoiceGloss">{o.meaning}</p><button data-native-enter className="aPlusOptionSpeak" type="button" aria-label={`朗读 ${o.word}`} onClick={()=>pronounce(o.word)}>▶</button></div>}
      </div>;
     })}</div>
-    {!feedback&&<><button type="button" data-uncertain className="aPlusUncertain" aria-pressed={uncertain} onClick={()=>{setUncertain(true);setSelected([]);}}>？ 不确定</button><p className="aPlusUncertainHint">不需要猜，提交后查看全部释义，并进入返场巩固。</p></>}
+    {!feedback&&<><button type="button" data-uncertain className="aPlusUncertain" aria-pressed={uncertain} onClick={markUncertain} aria-keyshortcuts="U">？ 不确定 · U</button><p className="aPlusUncertainHint">不需要猜，提交后查看全部释义，并进入返场巩固。</p></>}
    </fieldset>}
   </>}
   </div>{feedback&&<aside className="aPlusMemoryPanel" aria-label="记忆方法"><SharedWordMemory word={e.word}/></aside>}</div>
-  <div className="aPlusQuestionActions"><div>{feedback?<span>{p.done?"这一词已完成，不再返场。":`连续全对 ${p.correct}/2 · 隔 5 题返场${missed.length||extra.length?"，漏选和误选词会再次出现":""}`}</span>:<span>{meaningStage?"选好释义后确认":"选好后提交，释义会在各选项下展开"}</span>}<small><kbd>Enter</kbd> {feedback?"下一题":meaningStage?"确认释义":"提交答案"}</small></div><button type="button" className="solid" disabled={!canSubmit} onClick={submit}>{feedback?"继续下一题":meaningStage?"确认释义":uncertain?"不确定，查看解析":"提交答案"}<span aria-hidden="true"> ↵</span></button></div>
+  <div className="aPlusQuestionActions"><div>{feedback?<span>{p.done?"这一词已完成，不再返场。":`连续全对 ${p.correct}/2 · 隔 5 题返场${missed.length||extra.length?"，漏选和误选词会再次出现":""}`}</span>:<span>{meaningStage?"选好释义后确认":"选好后提交，释义会在各选项下展开"}</span>}<small>{!feedback&&<><kbd>A–F</kbd> 选项 · <kbd>U</kbd> 不确定 · </>}<kbd>Enter</kbd> {feedback?"下一题":meaningStage?"确认释义":"提交答案"}</small></div><button type="button" className="solid" disabled={!canSubmit} onClick={submit}>{feedback?"继续下一题":meaningStage?"确认释义":uncertain?"不确定，查看解析":"提交答案"}<span aria-hidden="true"> ↵</span></button></div>
  </article>;
 }

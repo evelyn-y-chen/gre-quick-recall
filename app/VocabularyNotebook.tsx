@@ -7,6 +7,9 @@ import {appFetch} from "../community/api";
 
 import SharedWordMemory,{useWordMemory} from "./SharedWordMemory";
 import NotebookFrequencyBadge from "./NotebookFrequency";
+import {alphabeticalIds} from "./studyWordOrder";
+import {buildNotebookPractice} from "./notebookPracticeModel";
+import Practice,{type NotebookPractice} from "../community/Practice";
 import DictionaryLookup from "./DictionaryLookup";
 import DictionaryLinks from "./DictionaryLinks";
 import RevealControls from "./RevealControls";
@@ -67,6 +70,12 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
   const [revealed,setRevealed] = useState<string[]>([]);
   const [display,setDisplay] = useState(displayPreferences);
   const [displayStatus,setDisplayStatus] = useState("");
+  const [wordOrder,setWordOrder] = useState<string[] | null>(null);
+  const [alphabetical,setAlphabetical] = useState(false);
+  const [testCollections,setTestCollections] = useState<string[]>([]);
+  const [testLoading,setTestLoading] = useState(false);
+  const [testStatus,setTestStatus] = useState("");
+  const [testing,setTesting] = useState<NotebookPractice|null>(null);
   const [removed,setRemoved] = useState<{word: NotebookWord; index: number} | null>(null);
   const [cloudMaps,setCloudMaps] = useState<GleeMindMap[] | undefined>();
   const [cloudTables,setCloudTables] = useState<GleeTableList[] | undefined>();
@@ -136,7 +145,7 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
       setStatus("本机草稿已保留，记得保存到当前工作区。");
     } catch { setStatus("本机草稿空间不足，请立即保存到当前工作区。"); }
   }
-  function resetView() { setActiveId(""); setSelected([]); setRemoved(null); setRevealed([]); setReview(false); setConflict(false); }
+  function resetView() { setActiveId(""); setSelected([]); setRemoved(null); setRevealed([]); setReview(false); setConflict(false); setWordOrder(null); setAlphabetical(false); }
   function create() {
     if (!source.trim() || !date) return;
     resetView(); setRevision(0);
@@ -189,6 +198,27 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
   function editWord(id: string, field: "word"|"meaning"|"note"|"origin", value: string) {
     if (batch) persist({...batch,words:batch.words.map((w) => w.id === id ? {...w,[field]:value} : w)});
   }
+  async function startNotebookTest() {
+    if (!testCollections.length || testLoading) return;
+    setTestLoading(true); setTestStatus("正在准备所选收集…");
+    try {
+      const local=drafts();
+      const selected=await Promise.all(testCollections.map(async id=>{
+        if (batch?.id===id) return batch;
+        if (local[id]) return local[id].batch;
+        const response=await appFetch(`/api/notebook?id=${encodeURIComponent(id)}`,{cache:"no-store"});
+        if (!response.ok) throw Error("部分收集未能读取，请重试；原有记录没有改变。");
+        const saved=await response.json();
+        if (!validNotebookBatch(saved.batch,false)) throw Error("部分收集格式不完整，请先打开核对。");
+        return saved.batch;
+      }));
+      const prepared=buildNotebookPractice(selected);
+      if (!prepared.terms.length) throw Error("这些收集中还没有可测试的释义，请先补充释义。");
+      setTestStatus(`已合并 ${prepared.collections} 次收集，共 ${prepared.terms.length} 个词${prepared.duplicates?`（同词合并 ${prepared.duplicates} 条）`:""}${prepared.missingMeanings?`；${prepared.missingMeanings} 条未填写释义，暂不出题`:""}。`);
+      setTesting(prepared);
+    } catch(error) { setTestStatus(error instanceof Error?error.message:"测试尚未开始，请重试。"); }
+    finally { setTestLoading(false); }
+  }
 
   function rateWord(id: string, rating: NotebookRating, toggle = false) {
     const word=batch?.words.find(w=>w.id===id);
@@ -196,7 +226,21 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
     if (batch) persist({...batch,words:batch.words.map((w) => w.id === id ? {...w,rating:toggle && w.rating === rating ? undefined : rating} : w)});
   }
 
-  const activeWord = batch?.words.find((w) => w.id === activeId) ?? batch?.words[0];
+  const displayWords = useMemo(() => {
+    const words = batch?.words ?? [];
+    const ids = alphabetical ? alphabeticalIds(words,word=>word.word) : wordOrder;
+    if (!ids) return words;
+    const byId = new Map(words.map(word=>[word.id,word]));
+    return [...ids.map(id=>byId.get(id)).filter((word): word is NotebookWord=>!!word),...words.filter(word=>!ids.includes(word.id))];
+  },[batch,wordOrder,alphabetical]);
+  function changeWordOrder(mode:"original"|"shuffle"|"alphabetical") {
+    setAlphabetical(mode === "alphabetical"); setActiveId("");
+    if (mode !== "shuffle") { setWordOrder(null); return; }
+    const ids = (batch?.words ?? []).map(word=>word.id);
+    for (let i=ids.length-1;i>0;i--) { const j=Math.floor(Math.random()*(i+1)); [ids[i],ids[j]]=[ids[j],ids[i]]; }
+    setWordOrder(ids);
+  }
+  const activeWord = displayWords.find((w) => w.id === activeId) ?? displayWords[0];
   const activeWordId = activeWord?.id;
   const activeWordRevealed = !!activeWordId && revealed.includes(activeWordId);
   useEffect(() => {
@@ -222,8 +266,8 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
     if (event.repeat && !backward && !forward) return;
     if (backward || forward) {
       event.preventDefault();
-      const index = batch.words.findIndex((w) => w.id === activeWord.id);
-      const next = batch.words[Math.max(0, Math.min(batch.words.length - 1, index + (forward ? 1 : -1)))];
+      const index = displayWords.findIndex((w) => w.id === activeWord.id);
+      const next = displayWords[Math.max(0, Math.min(displayWords.length - 1, index + (forward ? 1 : -1)))];
       setActiveId(next.id); rowRefs.current[next.id]?.focus({preventScroll:true});
       return;
     }
@@ -245,6 +289,15 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
     </fieldset>
     <p className="notebookHint">账号模式下，其他设备的收集还没显示？可在「更多」→「检查账号同步」核对并读取；会先保全本机修改。</p>
     <p className="notebookStatus" role="status">{status}</p>
+    {!!batches.length && <section className="notebookCombinedTest">
+      <details><summary>多次收集一起测试 · 已选 {testCollections.length} 次</summary>
+        <p>选择要一起复习的收集。同词合并释义与来源，不改变各次收集；当前草稿也会保留。</p>
+        <div className="notebookTestActions"><button type="button" disabled={testLoading} onClick={()=>setTestCollections(batches.map(item=>item.id))}>全选收集</button><button type="button" disabled={testLoading} onClick={()=>setTestCollections([])}>清空选择</button></div>
+        <div className="notebookTestChoices">{batches.map(item=><label key={item.id}><input type="checkbox" disabled={testLoading} checked={testCollections.includes(item.id)} onChange={e=>setTestCollections(ids=>e.target.checked?[...ids,item.id]:ids.filter(id=>id!==item.id))}/><span>{item.source}<small>{item.date} · {item.count} 词{item.draft?" · 草稿":""}</small></span></label>)}</div>
+      </details>
+      <button className="solid" type="button" disabled={!testCollections.length||testLoading||loading} onClick={()=>void startNotebookTest()}>{testLoading?"正在准备…":`测试所选 ${testCollections.length} 次收集`}</button>
+      {testStatus&&<p role="status">{testStatus}</p>}
+    </section>}
     {conflict && batch && <button type="button" onClick={() => {setRevision(0);persist({...batch,id:crypto.randomUUID(),source:`${batch.source.slice(0,280)}（本机副本）`},0);}}>将本机草稿另存为新收集</button>}
     {batch && <fieldset disabled={loading || saving} className="notebookControls">
       <div className="notebookBatchHead"><label>本次来源<input required maxLength={300} value={batch.source} onChange={(e) => persist({...batch,source:e.target.value})} /></label><label>收集日期<input type="date" value={batch.date} onChange={(e) => persist({...batch,date:e.target.value})} /></label><button className="solid" type="button" onClick={save}>{saving ? "保存中…" : dirty ? "保存到当前工作区 · 有修改" : "保存到当前工作区"}</button></div>
@@ -256,6 +309,7 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
         <small>只调整显示，内容会保留。</small>
       </div>
       {displayStatus && <p className="notebookHint" role="status">{displayStatus}</p>}
+      {!!batch.words.length && <div className="shuffleControls" role="group" aria-label="生词本显示顺序"><button type="button" aria-pressed={!wordOrder&&!alphabetical} onClick={()=>changeWordOrder("original")}>原顺序</button><button type="button" aria-pressed={!!wordOrder&&!alphabetical} onClick={()=>changeWordOrder("shuffle")}>一键打乱</button><button type="button" aria-pressed={alphabetical} onClick={()=>changeWordOrder("alphabetical")}>A–Z 字母排序</button></div>}
       {!review && <div className="notebookAddGrid notebookUnifiedAdd">
         <section className="notebookPanel"><h2>添加生词</h2><div className="notebookSearch"><input aria-label="搜索所有模块的生词" value={query} onChange={(e) => {setQuery(e.target.value);setManual({meaning:"",note:"",origin:"手动补充"});}} placeholder="输入英文、中文释义或来源…" /><select aria-label="筛选词库" value={module} onChange={(e) => setModule(e.target.value)}><option>全部词库</option>{modules.map((m) => <option key={m}>{m}</option>)}</select></div><p className="notebookHint">同一个词可勾选多个来源，释义会合并到一行。{catalogStatus}</p>
           <details className="notebookSourcePreferences"><summary>词库来源优先顺序</summary>
@@ -282,12 +336,12 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
       {!batch.words.length && <p className="notebookEmpty">还没有生词。输入单词，勾选来源或填写释义，再点击「加入本次生词」。</p>}
       {review && !!batch.words.length && <div className="shortcutBar notebookShortcuts" aria-label="生词本复习快捷键"><span><kbd>↑</kbd><kbd>←</kbd> 上一词</span><span><kbd>↓</kbd><kbd>→</kbd> 下一词</span><span><kbd>Space</kbd> 发音</span><span><kbd>Enter</kbd> 显示 / 隐藏释义与笔记</span><span><kbd>1</kbd> 不认识</span><span><kbd>2</kbd> 模糊</span><span><kbd>3</kbd> 熟悉</span><span>标注时同时揭晓释义</span></div>}
       {review && !!batch.words.length && <div className="notebookRowHeader" aria-hidden="true"><span>单词</span><div><span>释义</span>{showNotes && <span>{display.showReference && display.showMemory ? "对照与记忆笔记" : display.showReference ? "对照释义" : "记忆笔记"}</span>}<span>词库来源</span></div><span>掌握程度</span></div>}
-      <div className="notebookWords">{batch.words.map((w,index) => <article className={`notebookWord${w.rating ? ` rated-${w.rating}` : ""}${review && activeWord?.id === w.id ? " notebookActive" : ""}`} key={w.id} tabIndex={review ? 0 : undefined} aria-current={review && activeWord?.id === w.id ? "true" : undefined} ref={(node) => {rowRefs.current[w.id]=node;}} onClick={() => setActiveId(w.id)} onFocus={() => setActiveId(w.id)}>
+      <div className="notebookWords">{displayWords.map((w,index) => <article className={`notebookWord${w.rating ? ` rated-${w.rating}` : ""}${review && activeWord?.id === w.id ? " notebookActive" : ""}`} key={w.id} tabIndex={review ? 0 : undefined} aria-current={review && activeWord?.id === w.id ? "true" : undefined} ref={(node) => {rowRefs.current[w.id]=node;}} onClick={() => setActiveId(w.id)} onFocus={() => setActiveId(w.id)}>
         <div className="notebookWordHead">
           <span className="notebookWordNumber">{index+1}</span>
           <div className="notebookWordLabel">{review ? <strong className="notebookCardTitle">{w.word}</strong> : <input className="notebookCardTitle" aria-label={`第 ${index+1} 个单词`} maxLength={300} value={w.word} onChange={(e) => editWord(w.id,"word",e.target.value)} />}<NotebookFrequencyBadge word={w.word}/></div>
           <button className="notebookPronounce" type="button" onClick={() => pronounce(w.word)} aria-label={`朗读生词 ${w.word}`} title="朗读">▶</button>
-          {!review && <button className="notebookRemove" type="button" aria-label={`移除 ${w.word}`} onClick={() => {setRemoved({word:w,index});persist({...batch,words:batch.words.filter((x) => x.id!==w.id)});}}>移除</button>}
+          {!review && <button className="notebookRemove" type="button" aria-label={`移除 ${w.word}`} onClick={() => {setRemoved({word:w,index:batch.words.findIndex(word=>word.id===w.id)});persist({...batch,words:batch.words.filter((x) => x.id!==w.id)});}}>移除</button>}
         </div>
         {review ? <div className="notebookCardReview">
           <button className="notebookReveal" type="button" aria-expanded={revealed.includes(w.id)} onClick={() => setRevealed((s) => s.includes(w.id) ? s.filter((id) => id!==w.id) : [...s,w.id])}>{revealed.includes(w.id) ? (w.meaning || "未填写释义").split("\n").map((line,i)=><span key={i} className={/^【.*】$/.test(line.trim())?"notebookMeaningSource":"notebookMeaningLine"}>{line||"\u00a0"}</span>) : "点击揭晓释义与笔记"}</button>
@@ -306,5 +360,6 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
       </article>)}</div>
       {!!batch.words.length && <div className="notebookListSave"><span>标注、释义和笔记一起保存</span><button className="solid" type="button" onClick={save}>{saving ? "保存中…" : dirty ? "保存全部修改" : "已保存"}</button></div>}
     </fieldset>}
+    {testing && <Practice key={testing.id} deck="notebook" notebook={testing} onClose={()=>setTesting(null)}/>}
   </section>;
 }

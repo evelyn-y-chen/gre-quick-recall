@@ -1,5 +1,6 @@
 import data from "./aPlusEquivalents.json";
 import synonymPairs from "./equivalents.json";
+import {areQuizWordsConfusable,areQuizMorphologicalVariants,isAmbiguousQuizDistractor,rankQuizDistractors} from "./quizDistractors";
 export type Entry = typeof data[number];
 export type TestMode = "single" | "multiple";
 export type Config = {lists:number[];order:"sequential"|"random";mode:TestMode};
@@ -37,7 +38,7 @@ const safeGroups=new Map<string,Entry[]>();
 export function distractorGroups(entryId:string):Entry[]{
  const cached=safeGroups.get(entryId);if(cached)return cached;
  const e=byId.get(entryId)!,related=connected(e),blocked=new Set([...related].flatMap(terms));
- const safe=entries.filter(x=>!related.has(x)&&!terms(x).some(w=>blocked.has(w))&&![...related].some(g=>nearbySense(g.meaning,x.meaning)));
+ const safe=entries.filter(x=>!related.has(x)&&!terms(x).some(w=>blocked.has(w))&&![...related].some(g=>nearbySense(g.meaning,x.meaning)||terms(g).some(a=>terms(x).some(b=>areQuizWordsConfusable(a,b)))));
  const unsafeWords=new Set(entries.filter(x=>!safe.includes(x)).flatMap(terms));
  const result=safe.filter(x=>equivalents(x).some(w=>!unsafeWords.has(w)));
  safeGroups.set(entryId,result);return result;
@@ -45,8 +46,9 @@ export function distractorGroups(entryId:string):Entry[]{
 export function makeQuestion(entryId:string,mode:TestMode,early=false,random:()=>number=Math.random,retryWords:string[]=[]):Question {
  const e=byId.get(entryId)!,positives=equivalents(e),safe=distractorGroups(entryId);
  const safeSet=new Set(safe);
- const allowed=(w:string)=>(groups.get(w)??[]).every(g=>safeSet.has(g));
- const poolSafe=pool.filter(allowed);
+ const gloss=(w:string)=>[...new Set((groups.get(w)??[]).map(g=>g.meaning))].join("；");
+ const allowed=(w:string)=>(groups.get(w)??[]).every(g=>safeSet.has(g))&&!isAmbiguousQuizDistractor(e,{word:w,meaning:gloss(w)})&&![e.word,...positives].some(answer=>areQuizMorphologicalVariants(answer,w));
+ const poolSafe=rankQuizDistractors(e,shuffle(pool.filter(allowed),random).map(word=>({word,meaning:gloss(word)}))).map(item=>item.word);
  const required=[...new Set(retryWords)];
  const requiredPositives=required.filter(w=>positives.includes(w)).slice(0,mode==="single"?1:5);
  const requiredNegatives=required.filter(w=>poolSafe.includes(w)).slice(0,6-Math.max(1,requiredPositives.length));
@@ -57,8 +59,7 @@ export function makeQuestion(entryId:string,mode:TestMode,early=false,random:()=
   const group=shuffle(safe,random).find(g=>equivalents(g).filter(w=>allowed(w)&&!negatives.includes(w)).length>=2);
   if(group)negatives.push(...shuffle(equivalents(group).filter(w=>allowed(w)&&!negatives.includes(w)),random).slice(0,2));
  }
- for(const word of shuffle(poolSafe,random)){if(negatives.length>=6-count)break;if(!negatives.includes(word))negatives.push(word);}
- const gloss=(w:string)=>[...new Set((groups.get(w)??[]).map(g=>g.meaning))].join("；");
+ for(const word of poolSafe){if(negatives.length>=6-count)break;if(!negatives.includes(word))negatives.push(word);}
  const options=shuffle([...chosen.map(word=>({word,meaning:gloss(word),correct:true})),...negatives.map(word=>({word,meaning:gloss(word),correct:false}))],random);
  const meanings=shuffle([e.meaning,...shuffle([...new Set(safe.map(x=>x.meaning))],random).slice(0,3)],random);
  if(options.length!==6||meanings.length!==4)throw Error("无法生成足够的题目选项");
@@ -123,6 +124,7 @@ export function refreshAmbiguousQuestion(session:Session):Session{
  if(session.stage==="synonyms"&&session.question&&session.meaningChoice!==byId.get(session.question.entryId)!.meaning)return chooseMeaning({...session,stage:"meaning"},session.meaningChoice??"不确定");
  if(!session.question||!["meaning","synonyms"].includes(session.stage))return session;
  const safe=new Set(distractorGroups(session.question.entryId));
- if(!session.question.options.some(option=>!option.correct&&(groups.get(option.word)??[]).some(group=>!safe.has(group))))return session;
+ const entry=byId.get(session.question.entryId)!;
+ if(!session.question.options.some(option=>!option.correct&&((groups.get(option.word)??[]).some(group=>!safe.has(group))||isAmbiguousQuizDistractor(entry,option)||[entry.word,...equivalents(entry)].some(word=>areQuizMorphologicalVariants(word,option.word)))))return session;
  return {...session,question:makeQuestion(session.question.entryId,session.config.mode,session.question.early,Math.random,session.progress[session.question.entryId].retryWords),stage:"meaning",meaningChoice:null,selected:[],synonymUncertain:false};
 }

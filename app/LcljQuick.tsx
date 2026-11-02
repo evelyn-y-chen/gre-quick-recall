@@ -1,4 +1,5 @@
 import NotebookFrequencyBadge from "./NotebookFrequency";
+import {alphabeticalIds} from "./studyWordOrder";
 import type {PlanNavigation} from "../community/planNavigation";
 import {studyStorage} from "../community/storage";
 "use client";
@@ -40,7 +41,7 @@ export default function LcljQuick({ deck, ratings, onRate, pronounce,planTarget,
   const storageKey = deck === "lclj-reading" ? "gre-lclj-reading-selection-v2" : `gre-${deck}-selection-v1`;
   const [range, setRange] = useState<{ key: string; selection: string[]; ready: boolean }>({ key: storageKey, selection: groups.slice(0, 1), ready: false });
   const selection = range.key === storageKey ? range.selection : groups.slice(0, 1);
-  useEffect(()=>{if(!planTarget||planTarget.deckId!==deck)return;const group=planTarget.list?`List ${String(planTarget.list).padStart(2,'0')}`:planTarget.category;if(group&&groups.includes(group)){setRange({key:storageKey,selection:[group],ready:true});setQuery('');setFilters([]);setOrder(null);setActiveId(null);}onPlanTargetHandled?.();},[planTarget?.id,deck]);
+  useEffect(()=>{if(!planTarget||planTarget.deckId!==deck)return;const group=planTarget.list?`List ${String(planTarget.list).padStart(2,'0')}`:planTarget.category;if(group&&groups.includes(group)){setRange({key:storageKey,selection:[group],ready:true});setQuery('');setFilters([]);setOrder(null);setAlphabetical(false);setActiveId(null);}onPlanTargetHandled?.();},[planTarget?.id,deck]);
   const ready = range.key === storageKey && range.ready;
   const [query, setQuery] = useState("");
   const [filters, setFilters] = useState<Filter[]>([]);
@@ -48,6 +49,7 @@ export default function LcljQuick({ deck, ratings, onRate, pronounce,planTarget,
   const [revealed, setRevealed] = useState<string[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [order, setOrder] = useState<string[] | null>(null);
+  const [alphabetical, setAlphabetical] = useState(false);
   const rows = useRef<Record<string, HTMLDivElement | null>>({});
   const scroll = useRef(false);
   const spoken = useRef("");
@@ -71,10 +73,11 @@ export default function LcljQuick({ deck, ratings, onRate, pronounce,planTarget,
   }, [range, storageKey]);
 
   const ordered = useMemo(() => {
-    if (!order) return entries;
+    const ids = alphabetical ? alphabeticalIds(entries,entry=>entry.word) : order;
+    if (!ids) return entries;
     const byId = new Map(entries.map((entry) => [entry.id, entry]));
-    return order.map((id) => byId.get(id)!);
-  }, [entries, order]);
+    return [...ids.map((id) => byId.get(id)).filter((entry): entry is Entry => !!entry),...entries.filter(entry=>!ids.includes(entry.id))];
+  }, [entries, order, alphabetical]);
   const scoped = ordered.filter((entry) => selection.includes(groupOf(entry)));
   const keyword = query.trim().toLocaleLowerCase();
   const visible = scoped.filter((entry) =>
@@ -120,7 +123,7 @@ export default function LcljQuick({ deck, ratings, onRate, pronounce,planTarget,
       const j = Math.floor(Math.random() * (i + 1));
       [ids[i], ids[j]] = [ids[j], ids[i]];
     }
-    setOrder(ids);
+    setAlphabetical(false); setOrder(ids);
     setActiveId(null);
   }
 
@@ -170,7 +173,7 @@ export default function LcljQuick({ deck, ratings, onRate, pronounce,planTarget,
       </details>
       <button className="filterReset" onClick={() => { setFilters([]); setSnapshot({ ...ratings }); }}>显示全部颜色</button>
     </div>
-    <div className="shuffleControls"><button className={order ? "active" : ""} aria-pressed={!!order} onClick={() => order ? (setOrder(null), setActiveId(null)) : shuffle()}>{order ? "关闭乱序，恢复正序" : "开启乱序"}</button>{order && <button onClick={shuffle}>再打乱一次</button>}</div>
+    <div className="shuffleControls" role="group" aria-label="词表显示顺序"><button className={!order&&!alphabetical?"active":""} aria-pressed={!order&&!alphabetical} onClick={()=>{setOrder(null);setAlphabetical(false);setActiveId(null);}}>原顺序</button><button className={order&&!alphabetical?"active":""} aria-pressed={!!order&&!alphabetical} onClick={shuffle}>一键打乱</button><button className={alphabetical?"active":""} aria-pressed={alphabetical} onClick={()=>{setOrder(null);setAlphabetical(true);setActiveId(null);}}>A–Z 字母排序</button></div>
     <p className="quickCount">词库 {entries.length} 条 · 当前范围 {scoped.length} 条 · 正在显示 {visible.length} 条 · 当前：{active?.word ?? "无匹配词"}</p>
     <div className="shortcutBar"><span><kbd>↑</kbd><kbd>↓</kbd> 上 / 下一词</span><span><kbd>Space</kbd> 发音</span><span><kbd>Enter</kbd> 揭晓 / 遮挡</span><span><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> 红 / 黄 / 绿</span></div>
     <div className="quickTable mathQuickTable lcljQuickTable" role="table" aria-label={`${title}速刷表`}>

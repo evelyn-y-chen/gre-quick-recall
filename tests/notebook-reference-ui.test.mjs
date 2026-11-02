@@ -10,7 +10,7 @@ const original = {
 
 // Mount the real notebook with isolated IO. SharedWordMemory remains a separate
 // subtree so a collection reference can never silently replace a shared note.
-function notebook({ storage = new Map() } = {}) {
+function notebook({ storage = new Map(), fixture = original, savedCollections = [], failedReads = new Set() } = {}) {
   const modules = new Map(), calls = [], listeners = new Map();
   let hooks = [], effects = [], cursor = 0, dirty = false, tree;
   const jsx = (type, props) => ({ type, props: props ?? {} });
@@ -32,7 +32,12 @@ function notebook({ storage = new Map() } = {}) {
     calls.push({ url, ...options });
     if (url === '/api/mind-map') return { ok: true, json: async () => ({ maps: [], tables: [] }) };
     if (options?.method === 'PUT') return { ok: true, json: async () => ({ revision: 8 }) };
-    return { ok: true, json: async () => ({ batches: [] }) };
+    if (url.startsWith('/api/notebook?id=')) {
+      const id = decodeURIComponent(url.slice('/api/notebook?id='.length));
+      const saved = savedCollections.find(item => item.id === id);
+      return { ok: !!saved && !failedReads.has(id), json: async () => saved && !failedReads.has(id) ? { batch: saved, revision: 5 } : { error: '读取失败' } };
+    }
+    return { ok: true, json: async () => ({ batches: savedCollections.map(item => ({ id: item.id, source: item.source, date: item.date, count: item.words.length, revision: 5 })) }) };
   }
   function load(name) {
     if (name === 'react') return react;
@@ -41,10 +46,11 @@ function notebook({ storage = new Map() } = {}) {
     if (name === '../community/api') return { appFetch };
     if (name === '../community/learningPlanStore') return { recordLearningPlanWords() {} };
     if (name === '../community/practiceReviewModel') return { reviewDay: () => '2026-10-29' };
+    if (name === '../community/Practice') return { default: props => jsx('section', { 'data-notebook-practice': props }) };
     if (name === './SharedWordMemory') return { default: props => jsx('aside', { 'data-shared-word': props.word, 'data-editing': !!props.editing, children: props.editing ? jsx('textarea', { 'aria-label': `${props.word} 的记忆方法`, value: memory.drafts[props.word]?.text ?? '共享记忆：把论据串起来', onChange: e => memory.edit(props.word, e.target.value) }) : memory.drafts[props.word]?.text ?? '共享记忆：把论据串起来' }), useWordMemory: () => memory };
     if (['./DictionaryLinks', './DictionaryLookup', './RevealControls', './NotebookFrequency'].includes(name)) return { default: () => null };
     if (name === './notebookCatalog') return { buildNotebookCatalog: () => [] };
-    assert.ok(['./VocabularyNotebook', './notebookModel'].includes(name), `Unexpected import ${name}`);
+    assert.ok(['./VocabularyNotebook', './notebookModel', './studyWordOrder', './notebookPracticeModel', './notebookFrequencyModel'].includes(name), `Unexpected import ${name}`);
     if (modules.has(name)) return modules.get(name);
     const exported = {}; modules.set(name, exported);
     const source = fs.readFileSync(new URL(`../app/${name.slice(2)}${name === './VocabularyNotebook' ? '.tsx' : '.ts'}`, import.meta.url), 'utf8');
@@ -53,7 +59,7 @@ function notebook({ storage = new Map() } = {}) {
     return exported;
   }
   const model = load('./notebookModel');
-  const savedDraft = JSON.stringify({ [original.id]: { batch: original, revision: 7 } });
+  const savedDraft = JSON.stringify({ [fixture.id]: { batch: fixture, revision: 7 } });
   if (!storage.has(model.NOTEBOOK_DRAFT_KEY)) storage.set(model.NOTEBOOK_DRAFT_KEY, savedDraft);
   const Component = load('./VocabularyNotebook').default;
   function render() { for (let n = 0; n < 20; n++) { dirty = false; cursor = 0; tree = Component({ words: [], pronounce() {} }); while (effects.length) effects.shift()(); if (!dirty) return; } throw Error('Notebook hook host did not settle'); }
@@ -64,15 +70,18 @@ function notebook({ storage = new Map() } = {}) {
   function checkbox(label) { const wrapper = nodes().find(n => n.type === 'label' && text(n) === label); const input = wrapper && nodes(wrapper).find(n => n.type === 'input' && n.props.type === 'checkbox'); assert.ok(input, `Missing checkbox ${label}`); return input; }
   render();
   return {
-    ready: async () => { await settle(); const history = nodes().find(n => n.type === 'select' && nodes().some(parent => parent.props?.className === 'notebookHistory' && nodes(parent).includes(n))); assert.ok(history); history.props.onChange({ target: { value: original.id } }); await settle(); },
+    ready: async () => { await settle(); const history = nodes().find(n => n.type === 'select' && nodes().some(parent => parent.props?.className === 'notebookHistory' && nodes(parent).includes(n))); assert.ok(history); history.props.onChange({ target: { value: fixture.id } }); await settle(); },
     nodes, text, calls, savedDraft, storage,
     draft: () => JSON.parse(storage.get(model.NOTEBOOK_DRAFT_KEY)),
     rawDraft: () => storage.get(model.NOTEBOOK_DRAFT_KEY),
     click: async label => { await findButton(label).props.onClick(); await settle(); },
+    clickAria: async label => { const button = nodes().find(n => n.type === 'button' && n.props['aria-label'] === label); assert.ok(button, `Missing button ${label}`); await button.props.onClick(); await settle(); },
     checked: label => checkbox(label).props.checked,
     toggle: async (label, checked) => { checkbox(label).props.onChange({ target: { checked } }); await settle(); },
+    selectCollection: async (source, checked = true) => { const wrapper = nodes().find(n => n.type === 'label' && nodes(n).some(child => child.type === 'span' && text(child).startsWith(source))); const input = wrapper && nodes(wrapper).find(n => n.type === 'input' && n.props.type === 'checkbox'); assert.ok(input, `Missing collection ${source}`); input.props.onChange({ target: { checked } }); await settle(); },
+    practice: () => nodes().find(n => n.props?.['data-notebook-practice'])?.props['data-notebook-practice'],
     edit(label, value) { const wrapper = nodes().find(n => n.type === 'label' && text(n).startsWith(label) && nodes(n).some(child => child.type === 'textarea')); assert.ok(wrapper, `Missing textarea label ${label}`); nodes(wrapper).find(n => n.type === 'textarea').props.onChange({ target: { value } }); render(); },
-    editMemory(value) { const input = nodes().find(n => n.type === 'textarea' && n.props['aria-label'] === `${original.words[0].word} 的记忆方法`); assert.ok(input); input.props.onChange({ target: { value } }); render(); },
+    editMemory(value) { const input = nodes().find(n => n.type === 'textarea' && n.props['aria-label'] === `${fixture.words[0].word} 的记忆方法`); assert.ok(input); input.props.onChange({ target: { value } }); render(); },
     memoryDraft: () => structuredClone(memory.drafts),
     close() { for (const hook of hooks) hook?.cleanup?.(); },
   };
@@ -219,4 +228,134 @@ test('notebook handles absent, malformed, and partial display preferences safely
       assert.equal(view.calls.filter(call => call.method === 'PUT').length, 0);
     } finally { view.close(); }
   }
+});
+
+const sortingFixture = {
+  ...original,
+  words: ['zeta', 'lucid', 'abate', 'cogent'].map((word, index) => ({
+    id: `sorting-${word}`, word, meaning: `我的释义 ${index}`, note: `对照笔记 ${index}`,
+    origin: `List 04 · 第 ${index + 1} 词`, rating: ['unknown', 'fuzzy', 'familiar', 'fuzzy'][index],
+  })),
+};
+function displayedNotebookWords(view) {
+  return view.nodes().filter(node => node.type === 'article' && node.props.className?.split(' ').includes('notebookWord')).map(row => {
+    const heading = view.nodes(row).find(node => node.props?.className === 'notebookCardTitle');
+    return heading.type === 'input' ? heading.props.value : view.text(heading);
+  });
+}
+function selectedNotebookOrder(view) {
+  const controls = view.nodes().find(node => node.props?.['aria-label'] === '生词本显示顺序');
+  return view.nodes(controls).filter(node => node.type === 'button' && node.props['aria-pressed']).map(view.text);
+}
+
+test('notebook A–Z is a display choice in edit and review and never rewrites collection order or learning data', async () => {
+  const view = notebook({ fixture: sortingFixture });
+  try {
+    await view.ready();
+    const originalWords = sortingFixture.words.map(word => word.word);
+    assert.deepEqual(displayedNotebookWords(view), originalWords);
+    await view.click('A–Z 字母排序');
+    assert.deepEqual(selectedNotebookOrder(view), ['A–Z 字母排序']);
+    assert.deepEqual(displayedNotebookWords(view), ['abate', 'cogent', 'lucid', 'zeta']);
+    assert.equal(view.rawDraft(), view.savedDraft);
+    assert.deepEqual(view.draft()[sortingFixture.id], { batch: sortingFixture, revision: 7 });
+    await view.click('遮挡复习');
+    assert.deepEqual(displayedNotebookWords(view), ['abate', 'cogent', 'lucid', 'zeta']);
+    assert.deepEqual(selectedNotebookOrder(view), ['A–Z 字母排序']);
+    await view.click('原顺序');
+    assert.deepEqual(displayedNotebookWords(view), originalWords);
+    assert.deepEqual(selectedNotebookOrder(view), ['原顺序']);
+    assert.equal(view.rawDraft(), view.savedDraft, 'View controls must not alter word order, meaning, note, origin or rating');
+    assert.equal(view.calls.filter(call => call.method === 'PUT').length, 0);
+    assert.deepEqual(view.memoryDraft(), {});
+  } finally { view.close(); }
+});
+
+test('removing and undoing a notebook word while sorted restores its original collection position', async () => {
+  const view = notebook({ fixture: sortingFixture });
+  try {
+    await view.ready(); await view.click('A–Z 字母排序');
+    await view.clickAria('移除 abate');
+    assert.deepEqual(displayedNotebookWords(view), ['cogent', 'lucid', 'zeta']);
+    assert.deepEqual(view.draft()[sortingFixture.id].batch.words, sortingFixture.words.filter(word => word.word !== 'abate'));
+    await view.click('撤销移除 abate');
+    assert.deepEqual(displayedNotebookWords(view), ['abate', 'cogent', 'lucid', 'zeta']);
+    assert.deepEqual(view.draft()[sortingFixture.id].batch, sortingFixture);
+    await view.click('原顺序');
+    assert.deepEqual(displayedNotebookWords(view), ['zeta', 'lucid', 'abate', 'cogent']);
+    assert.deepEqual(view.draft()[sortingFixture.id].batch.words[2], sortingFixture.words[2], 'Undo must use the original data index, not the sorted display index');
+    assert.equal(view.calls.filter(call => call.method === 'PUT').length, 0);
+  } finally { view.close(); }
+});
+
+const practiceCollection = (id, source, words) => ({
+  id, source, date: '2026-11-02',
+  words: words.map((word, index) => ({ id: `${id}-word-${index}`, word, meaning: `${source} 的 ${word} 释义`, note: `${source} 的笔记`, origin: `第 ${index + 1} 题` })),
+});
+
+test('notebook tests only selected saved collections and the current unsaved draft without saving or changing either', async () => {
+  const saved = practiceCollection('saved-practice', '已保存课堂收集', ['lucid']);
+  const ignored = practiceCollection('ignored-practice', '未选择的收集', ['exclude-me']);
+  const view = notebook({ savedCollections: [saved, ignored] });
+  try {
+    await view.ready();
+    view.edit('释义', '我的尚未保存的新释义');
+    const beforeDraft = view.rawDraft(), beforeSaved = structuredClone(saved);
+    await view.selectCollection(original.source);
+    await view.selectCollection(saved.source);
+    await view.selectCollection(ignored.source);
+    await view.selectCollection(ignored.source, false);
+    await view.click('测试所选 2 次收集');
+    const props = view.practice(); assert.ok(props, 'Selected collections should open the actual Practice integration boundary');
+    assert.equal(props.deck, 'notebook');
+    assert.deepEqual(props.notebook.terms.map(term => term.word), ['cogent', 'lucid']);
+    assert.equal(props.notebook.terms[0].meaning, '我的尚未保存的新释义');
+    assert.equal(props.notebook.collections, 2);
+    assert.ok(!props.notebook.source.includes(ignored.source));
+    assert.deepEqual(view.calls.filter(call => call.url.startsWith('/api/notebook?id=')).map(call => call.url), ['/api/notebook?id=saved-practice']);
+    assert.equal(view.rawDraft(), beforeDraft, 'Opening a combined test must not save, remove or replace the current draft');
+    assert.deepEqual(saved, beforeSaved);
+    assert.equal(view.calls.filter(call => call.method === 'PUT').length, 0);
+    props.onClose();
+  } finally { view.close(); }
+});
+
+test('notebook can combine an unopened local draft with a saved collection without implicitly adding the open collection', async () => {
+  const local = practiceCollection('unopened-draft', '尚未打开的草稿', ['lucid']);
+  local.words[0].meaning = '草稿中清楚的释义';
+  const saved = practiceCollection('saved-second', '另一份已保存收集', ['abate']);
+  const rawDraft = JSON.stringify({ [original.id]: { batch: original, revision: 7 }, [local.id]: { batch: local, revision: 0 } });
+  const storage = new Map([['gre-vocabulary-notebook-drafts-v1', rawDraft]]);
+  const view = notebook({ storage, savedCollections: [saved] });
+  try {
+    await view.ready();
+    await view.selectCollection(local.source);
+    await view.selectCollection(saved.source);
+    await view.click('测试所选 2 次收集');
+    const props = view.practice(); assert.ok(props);
+    assert.deepEqual(props.notebook.terms.map(term => term.word).sort(), ['abate', 'lucid']);
+    assert.equal(props.notebook.terms.find(term => term.word === 'lucid').meaning, '草稿中清楚的释义');
+    assert.ok(!props.notebook.terms.some(term => term.word === 'cogent'), 'The currently open collection is not automatically part of a different selection');
+    assert.equal(view.rawDraft(), rawDraft);
+    assert.ok(!view.calls.some(call => call.url.includes('id=unopened-draft')), 'Local drafts must not be replaced with older saved copies');
+    assert.equal(view.calls.filter(call => call.method === 'PUT').length, 0);
+  } finally { view.close(); }
+});
+
+test('one failed collection read prevents a partial notebook test and leaves every local draft intact', async () => {
+  const missing = practiceCollection('cannot-read', '读取失败的收集', ['lucid']);
+  const view = notebook({ savedCollections: [missing], failedReads: new Set([missing.id]) });
+  try {
+    await view.ready();
+    view.edit('释义', '必须保留的未保存批注');
+    const beforeDraft = view.rawDraft();
+    await view.selectCollection(original.source);
+    await view.selectCollection(missing.source);
+    await view.click('测试所选 2 次收集');
+    assert.equal(view.practice(), undefined, 'A failed selected collection must not silently launch a smaller test');
+    assert.ok(view.nodes().some(node => node.props?.role === 'status' && view.text(node).includes('部分收集未能读取')));
+    assert.equal(view.rawDraft(), beforeDraft);
+    assert.deepEqual(view.memoryDraft(), {});
+    assert.equal(view.calls.filter(call => call.method === 'PUT').length, 0);
+  } finally { view.close(); }
 });

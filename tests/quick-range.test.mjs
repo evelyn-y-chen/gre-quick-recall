@@ -44,8 +44,8 @@ test('fill, reading and math-index selections independently round-trip against t
 // Execute the real components in the same small hook host used by scheduling
 // tests. The browser timers stay pending until requested, making restore/write
 // races observable without touching any real browser or user storage.
-function quickView(name, initialStorage = {}, initialDeck = 'lclj-fill') {
-  const modules = new Map(), timers = new Map();
+function quickView(name, initialStorage = {}, initialDeck = 'lclj-fill', initialRatings = {}) {
+  const modules = new Map(), timers = new Map(), rateCalls = [];
   let timerId = 0, hooks = [], effects = [], cursor = 0, dirty = false, tree, deck = initialDeck;
   const browser = { setTimeout(fn) { const id = ++timerId; timers.set(id, fn); return id; }, clearTimeout(id) { timers.delete(id); }, addEventListener() {}, removeEventListener() {} };
   const react = {
@@ -64,7 +64,7 @@ function quickView(name, initialStorage = {}, initialDeck = 'lclj-fill') {
     if (importName === './RatingCloudSync' || importName === './RevealControls' || importName === './NotebookFrequency') return { default: () => null };
     if (importName.endsWith('.json')) return { default: data(importName.slice(2, -5)) };
     if (modules.has(importName)) return modules.get(importName);
-    assert.ok(['./BBQuick', './LcljQuick', './quickRangeModel', './ratingSyncModel', './ratingStorage', './wordMemoryModel', './bbModel', '../community/storage'].includes(importName), `Unexpected import: ${importName}`);
+    assert.ok(['./BBQuick', './LcljQuick', './quickRangeModel', './ratingSyncModel', './ratingStorage', './wordMemoryModel', './bbModel', './studyWordOrder', '../community/storage'].includes(importName), `Unexpected import: ${importName}`);
     const file = importName === '../community/storage' ? '../community/storage.ts' : `../app/${importName.slice(2)}${['./BBQuick', './LcljQuick'].includes(importName) ? '.tsx' : '.ts'}`;
     const exported = {}; modules.set(importName, exported);
     const output = ts.transpileModule(fs.readFileSync(new URL(file, import.meta.url), 'utf8'), { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX } }).outputText;
@@ -73,7 +73,7 @@ function quickView(name, initialStorage = {}, initialDeck = 'lclj-fill') {
   }
   const storage = load('../community/storage'); storage.loadStorage(initialStorage);
   const Component = load(`./${name}`).default;
-  function render() { for (let n = 0; n < 10; n++) { dirty = false; cursor = 0; tree = Component({ deck, ratings: {}, onRate() {}, pronounce() {} }); while (effects.length) effects.shift()(); if (!dirty) return; } throw Error('Hook host did not settle'); }
+  function render() { for (let n = 0; n < 10; n++) { dirty = false; cursor = 0; tree = Component({ deck, ratings: initialRatings, onRate: (...args) => rateCalls.push(args), pronounce() {} }); while (effects.length) effects.shift()(); if (!dirty) return; } throw Error('Hook host did not settle'); }
   function nodes(node) { if (!node || typeof node !== 'object') return []; return Array.isArray(node) ? node.flatMap(nodes) : typeof node.type==='function'?nodes(node.type(node.props)):[node, ...nodes(node.props?.children)]; }
   function text(node) { if (node == null || typeof node === 'boolean') return ''; if (Array.isArray(node)) return node.map(text).join(''); return typeof node === 'object' ? text(node.props?.children) : String(node); }
   function clean() { for (const hook of hooks) hook?.cleanup?.(); hooks = []; effects = []; }
@@ -81,6 +81,7 @@ function quickView(name, initialStorage = {}, initialDeck = 'lclj-fill') {
   const colorGroup = () => nodes(tree).find(node => node.props?.['aria-label'] === 'BB 复习颜色（可多选）');
   render();
   return {
+    nodes: () => nodes(tree), text, rateCalls,
     snapshot: () => storage.exportStorage(),
     selected: () => nodes(tree).filter(node => node.type === 'button' && node.props['aria-pressed'] === true).map(node=>text(node).replace(/^✓ /,'')),
     volume: () => nodes(tree).find(node => node.type === 'select')?.props.value,
@@ -89,6 +90,8 @@ function quickView(name, initialStorage = {}, initialDeck = 'lclj-fill') {
     remount(nextDeck = deck, workspace) { clean(); if (workspace) storage.loadStorage(workspace); deck = nextDeck; render(); },
     changeDeck(nextDeck) { deck = nextDeck; render(); },
     bbVisible: () => nodes(tree).filter(node => node.type === 'article').map(node => node.props['aria-label']),
+    bbRows: () => nodes(tree).filter(node => node.type === 'article').map(node => ({ label: node.props['aria-label'], header: text(nodes(node).find(child => child.type === 'header')), rating: nodes(node).filter(child => child.type === 'button' && child.props['aria-pressed'] === true).map(text) })),
+    lcljRows: () => nodes(tree).filter(node => node.props?.role === 'row' && !node.props.className?.includes('quickHeader')).map(node => ({ word: text(nodes(node).find(child => child.props?.className === 'quickWord')), source: text(nodes(node).find(child => child.props?.className?.includes('lcljSource'))), rating: nodes(node).filter(child => child.type === 'button' && child.props['aria-pressed'] === true).map(text) })),
     bbSelectedColors: () => nodes(colorGroup()).filter(node => node.type === 'button' && node.props['aria-pressed']).map(node => text(node).replace(/\s*\d+$/, '').trim()),
     bbColorCount(label) { const button = nodes(colorGroup()).find(node => node.type === 'button' && text(node).startsWith(label)); return Number(text(button).match(/\d+$/)?.[0]); },
     bbRate(id, label) { const entry = bb.find(entry => entry.id === id); const article = nodes(tree).find(node => node.type === 'article' && node.props['aria-label'] === bbLabel(entry)); assert.ok(article); const button = nodes(article).find(node => node.type === 'button' && text(node) === label); assert.ok(button); button.props.onClick(); render(); },
@@ -201,3 +204,71 @@ test('BB color combinations intersect the current List range and search, includi
     view.click('List 1'); assert.deepEqual(view.bbVisible(), bbReviewLabels([red, yellow]));
   } finally { view.close(); }
 });
+
+test('BB A–Z sorts by the visible core word within the same range and preserves group labels and ratings', () => {
+  const rangeKey = 'gre-bb-selection-v1';
+  const selected = bb.filter(entry => entry.volume === '下' && [31, 33].includes(entry.list));
+  const ratings = { [selected[0].id]: 'unknown', [selected[1].id]: 'fuzzy' };
+  const view = quickView('BBQuick', {
+    [rangeKey]: JSON.stringify({ volume: '下', lists: [31, 33] }),
+    'gre-bb-ratings-v1': JSON.stringify(ratings),
+  });
+  try {
+    view.flush();
+    const beforeStorage = view.snapshot(), originalRows = view.bbRows();
+    assert.deepEqual(view.bbVisible(), bbReviewLabels(selected));
+    view.click('A–Z 字母排序');
+    assert.ok(view.selected().includes('A–Z 字母排序'));
+    assert.ok(!view.selected().includes('原顺序'));
+    const collator = new Intl.Collator('en', { sensitivity: 'base', numeric: true });
+    const expected = [...selected].sort((left, right) => collator.compare(left.words[0].word, right.words[0].word));
+    assert.deepEqual(view.bbVisible(), bbReviewLabels(expected));
+    assert.notDeepEqual(view.bbVisible(), bbReviewLabels(selected), 'The fixture must visibly exercise a changed display order');
+    assert.deepEqual(new Set(view.bbVisible()), new Set(bbReviewLabels(selected)));
+    const byLabel = new Map(originalRows.map(row => [row.label, row]));
+    for (const row of view.bbRows()) assert.deepEqual(row, byLabel.get(row.label), 'Original List/group/page labels and rating remain attached to the same group');
+    assert.deepEqual(view.snapshot(), beforeStorage, 'Changing display order must not write range or learning data');
+    view.click('原顺序');
+    assert.ok(view.selected().includes('原顺序'));
+    assert.ok(!view.selected().includes('A–Z 字母排序'));
+    assert.deepEqual(view.bbRows(), originalRows);
+    assert.deepEqual(view.snapshot(), beforeStorage);
+  } finally { view.close(); }
+});
+
+for (const [deck, file, selectedGroups] of [
+  ['lclj-fill', 'lcljFill', ['List 01', 'List 02']],
+  ['lclj-reading', 'lcljReading', ['List 01', 'List 02']],
+  ['lclj-math', 'lcljMath', null],
+]) {
+  test(`${deck} A–Z preserves selected membership, source labels and ratings and can restore original order`, () => {
+    const source = data(file).map((entry, index) => deck === 'lclj-reading' ? { ...entry, list: Math.floor(index / 50) + 1 } : entry);
+    const group = entry => entry.list ? `List ${String(entry.list).padStart(2, '0')}` : entry.category;
+    const groups = selectedGroups ?? groupsOf(source).slice(0, 2);
+    const selected = source.filter(entry => groups.includes(group(entry)));
+    const key = deck === 'lclj-reading' ? 'gre-lclj-reading-selection-v2' : `gre-${deck}-selection-v1`;
+    const ratings = { [selected[0].id]: 'familiar', [selected[1].id]: 'fuzzy' };
+    const beforeRatings = structuredClone(ratings);
+    const view = quickView('LcljQuick', { [key]: JSON.stringify(groups) }, deck, ratings);
+    try {
+      view.flush();
+      const originalRows = view.lcljRows(), beforeStorage = view.snapshot();
+      assert.deepEqual(originalRows.map(row => row.word), selected.map(entry => entry.word));
+      view.click('A–Z 字母排序');
+      assert.ok(view.selected().includes('A–Z 字母排序'));
+      assert.ok(!view.selected().includes('原顺序'));
+      const collator = new Intl.Collator('en', { sensitivity: 'base', numeric: true });
+      const expected = [...selected].sort((left, right) => collator.compare(left.word.normalize('NFKC').trim().replace(/\s+/g, ' '), right.word.normalize('NFKC').trim().replace(/\s+/g, ' ')));
+      const rows = view.lcljRows();
+      assert.deepEqual(rows.map(row => row.word), expected.map(entry => entry.word));
+      assert.deepEqual(rows.map(row => JSON.stringify(row)).sort(), originalRows.map(row => JSON.stringify(row)).sort(), 'Only row positions change; labels and marks stay attached');
+      assert.deepEqual(view.snapshot(), beforeStorage);
+      assert.deepEqual(ratings, beforeRatings);
+      assert.deepEqual(view.rateCalls, []);
+      view.click('原顺序');
+      assert.ok(view.selected().includes('原顺序'));
+      assert.ok(!view.selected().includes('A–Z 字母排序'));
+      assert.deepEqual(view.lcljRows(), originalRows);
+    } finally { view.close(); }
+  });
+}

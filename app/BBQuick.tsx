@@ -1,4 +1,5 @@
 import NotebookFrequencyBadge from "./NotebookFrequency";
+import {alphabeticalIds} from "./studyWordOrder";
 import type {PlanNavigation} from "../community/planNavigation";
 import {studyStorage} from "../community/storage";
 import {recordLearningPlanRatings} from "../community/learningPlanStore";
@@ -26,6 +27,7 @@ export default function BBQuick({pronounce,planTarget,onPlanTargetHandled}:{pron
  const [range,setRange]=useState<{value:BBRange;ready:boolean}>({value:{volume:"全部",lists:[1]},ready:false});
  const {volume,lists}=range.value;
  const [equivalents,setEquivalents]=useState<string[]>([]);
+ const [alphabetical,setAlphabetical]=useState(false);
  const [notes,setNotes]=useState<string[]>([]);
  const refs=useRef<Record<string,HTMLElement|null>>({}),scroll=useRef(false),memory=useWordMemory();
  useEffect(()=>{const stored=readSavedRatings(studyStorage,key);if(stored){setRatings(stored);setSnapshot(stored);}setReady(true);},[]);
@@ -33,8 +35,8 @@ export default function BBQuick({pronounce,planTarget,onPlanTargetHandled}:{pron
  useEffect(()=>{const timer=window.setTimeout(()=>{let value:BBRange={volume:"全部",lists:[1]};try{value=restoreBBRange(studyStorage.getItem(rangeKey),data);}catch{}setRange(current=>current.ready?current:{value,ready:true});},0);return()=>window.clearTimeout(timer);},[]);
  useEffect(()=>{if(range.ready)try{studyStorage.setItem(rangeKey,JSON.stringify(range.value));}catch{}},[range]);
  function changeRange(value:BBRange){setRange({value,ready:true});}
- useEffect(()=>{if(!planTarget||planTarget.deckId!=='bb'||!planTarget.list)return;changeRange({volume:planTarget.volume??'全部',lists:[planTarget.list]});setQuery('');setFilters([]);setOrder(null);setActiveId('');onPlanTargetHandled?.();},[planTarget?.id]);
- const ordered=useMemo(()=>order?order.map(id=>data.find(e=>e.id===id)!):data,[order]);
+ useEffect(()=>{if(!planTarget||planTarget.deckId!=='bb'||!planTarget.list)return;changeRange({volume:planTarget.volume??'全部',lists:[planTarget.list]});setQuery('');setFilters([]);setOrder(null);setAlphabetical(false);setActiveId('');onPlanTargetHandled?.();},[planTarget?.id]);
+ const ordered=useMemo(()=>{const ids=alphabetical?alphabeticalIds(data,e=>e.words[0].word):order;return ids?ids.map(id=>data.find(e=>e.id===id)!):data;},[order,alphabetical]);
  const q=query.trim().toLowerCase();
  const scoped=ordered.filter(e=>(volume==="全部"||e.volume===volume)&&lists.includes(e.list));
  const entries=scoped.filter(e=>(!filters.length||filters.includes(snapshot[e.id]??"unrated"))&&(!q||[e.comparison,...e.words.flatMap(w=>[w.word,w.meaning,w.memory,memory?.drafts[wordMemoryKey(w.word)]?.text??memory?.records[wordMemoryKey(w.word)]?.text??""])].join(" ").toLowerCase().includes(q)));
@@ -46,7 +48,7 @@ export default function BBQuick({pronounce,planTarget,onPlanTargetHandled}:{pron
   setFilters(current=>value==="all"?[]:current.includes(value)?current.length===1?current:current.filter(item=>item!==value):[...current,value]);
   setSnapshot({...ratings});setActiveId("");
  }
- function shuffle(){const ids=data.map(e=>e.id);for(let i=ids.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[ids[i],ids[j]]=[ids[j],ids[i]];}setOrder(ids);setActiveId("");}
+ function shuffle(){const ids=data.map(e=>e.id);for(let i=ids.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[ids[i],ids[j]]=[ids[j],ids[i]];}setAlphabetical(false);setOrder(ids);setActiveId("");}
  useEffect(()=>{if(scroll.current&&current){refs.current[current.id]?.scrollIntoView({block:"center",behavior:"smooth"});scroll.current=false;}},[current?.id]);
  useEffect(()=>{function keydown(e:KeyboardEvent){if(document.querySelector?.(".learningPlanOverlay, .onboardingOverlay, .workspaceMenuOverlay"))return;const target=e.target as HTMLElement|null;if(!current||e.isComposing||e.metaKey||e.ctrlKey||e.altKey||target?.closest("input,textarea,select,summary,[contenteditable='true']"))return;if(target?.closest("button,a")&&(e.key==="Enter"||e.code==="Space"))return;if(e.repeat&&!e.key.startsWith("Arrow"))return;
  if(["ArrowUp","ArrowLeft","ArrowDown","ArrowRight"].includes(e.key)){e.preventDefault();const offset=["ArrowUp","ArrowLeft"].includes(e.key)?-1:1;const next=entries[Math.max(0,Math.min(entries.length-1,entries.findIndex(x=>x.id===current.id)+offset))];scroll.current=true;setActiveId(next.id);}
@@ -64,7 +66,7 @@ export default function BBQuick({pronounce,planTarget,onPlanTargetHandled}:{pron
   <details className="rangePicker categoryPicker"><summary>选择范围 · {lists.length} 个 List</summary><div className="rangePickerPanel bbRangePanel"><SelectionChips label="BB List 范围" options={availableLists.map(n=>({id:String(n),label:`List ${n}`,detail:`${data.filter(x=>x.list===n&&(volume==='全部'||x.volume===volume)).length} 组`}))} selected={lists.map(String)} onChange={ids=>{changeRange({volume,lists:ids.map(Number)});setActiveId('');}}/></div></details></div>
   <div className="quickStats" role="group" aria-label="BB 复习颜色（可多选）">{filterOptions.map(r=>{const selected=r.value==="all"?!filters.length:filters.includes(r.value);return <button type="button" key={r.value} className={`${r.color} ${selected?"active":""}`} aria-pressed={selected} onClick={()=>changeColorFilter(r.value)}>{r.value!=="all"&&<i aria-hidden="true"/>}{r.label} <strong>{scoped.filter(e=>r.value==="all"||(ratings[e.id]??"unrated")===r.value).length}</strong></button>;})}</div>
   <p className="filterHint">颜色可多选，可同时复习红色「不认识」和黄色「模糊」。标记后本轮名单保持不变；再次点击唯一已选颜色可刷新，点击「全部」重置。</p>
-  <div className="shuffleControls"><button onClick={()=>order?setOrder(null):shuffle()}>{order?"恢复原顺序":"开启乱序"}</button>{order&&<button onClick={shuffle}>再打乱一次</button>}</div>
+  <div className="shuffleControls" role="group" aria-label="BB 显示顺序"><button className={!order&&!alphabetical?"active":""} aria-pressed={!order&&!alphabetical} onClick={()=>{setOrder(null);setAlphabetical(false);setActiveId("");}}>原顺序</button><button className={order&&!alphabetical?"active":""} aria-pressed={!!order&&!alphabetical} onClick={shuffle}>一键打乱</button><button className={alphabetical?"active":""} aria-pressed={alphabetical} onClick={()=>{setOrder(null);setAlphabetical(true);setActiveId("");}}>A–Z 字母排序</button></div>
   <div className="shortcutBar"><span><kbd>↑</kbd><kbd>↓</kbd> 上 / 下一组</span><span><kbd>Enter</kbd> 等价词 → 释义</span><span><kbd>Space</kbd> 朗读第一个词</span><span><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> 红 / 黄 / 绿</span></div>
   <p className="quickCount">默认显示每组第一个词，等价词与释义可分别揭晓。当前范围 {scoped.length} 组 · 正在显示 {entries.length} 组 · 记忆方法按同词共享，可直接编辑并一次保存。</p>
   <div className="bbEntries">{entries.map(entry=>{const shown=revealed.includes(entry.id),equivalentShown=equivalents.includes(entry.id);return <article key={entry.id} ref={el=>{refs.current[entry.id]=el;}} className={`bbEntry ${current?.id===entry.id?"keyboardActive":""} ${ratings[entry.id]?`rated-${ratings[entry.id]}`:""}`} aria-label={`第 ${entry.number} 组 · ${entry.words[0].word}`}>

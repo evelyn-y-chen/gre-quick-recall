@@ -1,3 +1,4 @@
+import {alphabeticalIds} from "./studyWordOrder";
 import NotebookFrequencyBadge from "./NotebookFrequency";
 import type {PlanNavigation} from "../community/planNavigation";
 import {studyStorage} from "../community/storage";
@@ -155,7 +156,8 @@ type EquivalentCueMode = "mixed" | EquivalentCueDirection;
 type APlusCueDirection = "word" | "equivalents" | "meaning";
 type APlusCueMode = "mixed" | APlusCueDirection;
 type QuickType = "bb" | "notebook" | LcljDeck | "words" | "equivalents" | "a-plus" | "glee" | "mindmap" | "math";
-type ShuffleSetting = { enabled: boolean; seed: number };
+type StudyWordOrder = "original" | "random" | "alphabetical";
+type ShuffleSetting = { enabled: boolean; seed: number; alphabetical?: boolean };
 
 const STORAGE_KEY = "gre-quanneng-vocab-v1";
 const EQUIVALENT_KEY = "gre-equivalent-v1";
@@ -342,7 +344,11 @@ function stableScore(text: string, seed: number) {
   return [...text].reduce((sum, character) => (sum * 31 + character.charCodeAt(0)) % 1_000_003, seed);
 }
 
-function shuffled<T>(items: T[], setting: ShuffleSetting) {
+function shuffled<T extends {id:string}>(items: T[], setting: ShuffleSetting, getWord: (item:T) => string) {
+  if (setting.alphabetical) {
+    const byId = new Map(items.map(item => [item.id, item]));
+    return alphabeticalIds(items, getWord).map(id => byId.get(id)!);
+  }
   if (!setting.enabled) return items;
   const result = [...items];
   let state = setting.seed >>> 0;
@@ -568,21 +574,16 @@ function CategoryPicker({
 }
 
 function ShuffleControls({
-  enabled,
-  onToggle,
-  onReshuffle,
+  mode,
+  onChange,
 }: {
-  enabled: boolean;
-  onToggle: () => void;
-  onReshuffle: () => void;
+  mode: StudyWordOrder;
+  onChange: (mode: StudyWordOrder) => void;
 }) {
   return (
     <div className="shuffleControls" aria-label="词条顺序">
-      <button type="button" className={enabled ? "active" : ""} aria-pressed={enabled} onClick={onToggle}>
-        <span aria-hidden="true">⇄</span>{enabled ? "关闭乱序，恢复正序" : "开启乱序"}
-      </button>
-      {enabled && <button type="button" className="reshuffle" onClick={onReshuffle}>再打乱一次</button>}
-      <small>{enabled ? "本轮顺序已固定；再次打乱会生成新顺序。" : "按原词表顺序显示。"}</small>
+      {([{value:"original",label:"原顺序"},{value:"random",label:"一键打乱"},{value:"alphabetical",label:"A–Z 字母排序"}] as const).map(option => <button key={option.value} type="button" className={mode === option.value ? "active" : ""} aria-pressed={mode === option.value} onClick={() => onChange(option.value)}>{option.label}</button>)}
+      <small>{mode === "alphabetical" ? "按英文单词 A–Z 排序；同组词保持在一起。" : mode === "random" ? "本轮顺序已固定；再次点击“一键打乱”会生成新顺序。" : "按原词表顺序显示。"}</small>
     </div>
   );
 }
@@ -990,6 +991,7 @@ function GleeMindMapLibrary({editWord,onTargetHandled}:{editWord:string|null;onT
   const [revealedNodes, setRevealedNodes] = useState<string[]>([]);
   const [revealedTableWords, setRevealedTableWords] = useState<string[]>([]);
   const [shuffledTableOrders, setShuffledTableOrders] = useState<Record<string, string[]> | null>(null);
+  const [tableAlphabetical, setTableAlphabetical] = useState(false);
   const [unmasteredNodes, setUnmasteredNodes] = useState<Record<string, true>>(() => {
     if (typeof window === "undefined") return {};
     try {
@@ -1237,11 +1239,9 @@ function GleeMindMapLibrary({editWord,onTargetHandled}:{editWord:string|null;onT
     setMindMaps((current) => syncMindMapWordField(current, sourceTable.list, oldWord, field, value));
   }
 
-  function toggleTableShuffle() {
-    if (showOnlyUnmastered) {
-      setUnmasteredFilterKeys(Object.keys(unmasteredNodes).filter((key) => unmasteredNodes[key]));
-    }
-    if (shuffledTableOrders) {
+  function changeTableOrder(mode: StudyWordOrder) {
+    setTableAlphabetical(mode === "alphabetical");
+    if (mode !== "random") {
       setShuffledTableOrders(null);
       return;
     }
@@ -1562,9 +1562,10 @@ function GleeMindMapLibrary({editWord,onTargetHandled}:{editWord:string|null;onT
                 <button className="gleeCoverAllButton" type="button" onClick={() => setRevealedTableWords([])} disabled={editing || revealedTableWords.length === 0}>
                   一键遮挡
                 </button>
-                <button className={`gleeShuffleButton ${shuffledTableOrders ? "active" : ""}`} type="button" onClick={toggleTableShuffle} disabled={editing} aria-pressed={Boolean(shuffledTableOrders)}>
-                  {shuffledTableOrders ? "恢复课程顺序" : "随机打乱"}
-                </button>
+                {([{value:"original",label:"原顺序"},{value:"random",label:"一键打乱"},{value:"alphabetical",label:"A–Z 字母排序"}] as const).map(option => {
+                  const mode = tableAlphabetical ? "alphabetical" : shuffledTableOrders ? "random" : "original";
+                  return <button key={option.value} className={`gleeShuffleButton ${mode === option.value ? "active" : ""}`} type="button" onClick={() => changeTableOrder(option.value)} disabled={editing} aria-pressed={mode === option.value}>{option.label}</button>;
+                })}
               </div>
             </div>
           </div>
@@ -1580,14 +1581,16 @@ function GleeMindMapLibrary({editWord,onTargetHandled}:{editWord:string|null;onT
           ).map((section) => {
             const isMixed = section.id === "mixed-tables";
             const tableUnmasteredCount = section.tables.reduce((total, table) => total + table.words.filter((item) => unmasteredNodes[tableReviewNodeKey(table, item.id, item.word)]).length, 0);
-            const shuffleOrder = shuffledTableOrders?.[section.id];
-            const orderById = shuffleOrder ? new Map(shuffleOrder.map((id, index) => [id, index])) : null;
-            const displayedWords = section.tables
+            const scopedWords = section.tables
               .flatMap((table) => table.words.map((item, wordIndex) => ({ table, item, wordIndex, orderKey: isMixed ? `${table.id}:${item.id}` : item.id })))
-              .filter(({ table, item }) => !showOnlyUnmastered || unmasteredFilterKeySet.has(tableReviewNodeKey(table, item.id, item.word)))
-              .sort((left, right) => editing || !orderById
-                ? left.table.list - right.table.list || left.wordIndex - right.wordIndex
-                : (orderById.get(left.orderKey) ?? Number.MAX_SAFE_INTEGER) - (orderById.get(right.orderKey) ?? Number.MAX_SAFE_INTEGER));
+              .filter(({ table, item }) => !showOnlyUnmastered || unmasteredFilterKeySet.has(tableReviewNodeKey(table, item.id, item.word)));
+            const chosenOrder = tableAlphabetical
+              ? alphabeticalIds(scopedWords.map(word => ({id:word.orderKey,word:word.item.word})), word => word.word)
+              : shuffledTableOrders?.[section.id];
+            const orderById = chosenOrder ? new Map(chosenOrder.map((id, index) => [id, index])) : null;
+            const displayedWords = scopedWords.sort((left, right) => editing || !orderById
+              ? left.table.list - right.table.list || left.wordIndex - right.wordIndex
+              : (orderById.get(left.orderKey) ?? Number.MAX_SAFE_INTEGER) - (orderById.get(right.orderKey) ?? Number.MAX_SAFE_INTEGER));
             return (
               <article className={`gleeTableCard ${editing ? "is-editing" : ""} ${isMixed ? "is-mixed" : ""}`} key={section.id}>
                 <header>
@@ -2178,7 +2181,7 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
 
   const quickWords = useMemo(() => {
     const selected = words.filter((word) => quickWordLists.includes(word.list ?? 0));
-    return shuffled(selected, quickShuffle.words);
+    return shuffled(selected, quickShuffle.words, word => word.word);
   }, [quickShuffle.words, quickWordLists, words]);
   const filteredQuickWords = quickWords.filter((word) => {
     const ratingAtFilterTime = quickRatingSnapshot[word.id];
@@ -2247,7 +2250,7 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
   );
   const quickEquivalentPairs = useMemo(() => {
     const selected = EQUIVALENTS.filter((pair) => quickEquivalentSets.includes(pair.set));
-    return shuffled(selected, quickShuffle.equivalents);
+    return shuffled(selected, quickShuffle.equivalents, pair => pair.left);
   }, [quickEquivalentSets, quickShuffle.equivalents]);
   const filteredQuickEquivalentPairs = quickEquivalentPairs.filter((pair) => {
     const direction = quickEquivalentDirection(pair, quickEquivalentCueMode);
@@ -2306,7 +2309,7 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
 
   const aPlusEntries = useMemo(() => shuffled(
     A_PLUS_EQUIVALENTS.filter((entry) => aPlusLists.includes(entry.list)),
-    quickShuffle["a-plus"],
+    quickShuffle["a-plus"], entry => entry.word,
   ), [aPlusLists, quickShuffle]);
   const filteredAPlusEntries = aPlusEntries.filter((entry) => {
     const direction = aPlusDirection(entry, aPlusCueMode);
@@ -2360,7 +2363,7 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
 
   const gleeWords = useMemo(() => shuffled(
     GLEE_WORDS.filter((word) => gleeLists.includes(word.list)),
-    quickShuffle.glee,
+    quickShuffle.glee, word => word.word,
   ), [gleeLists, quickShuffle.glee]);
   const filteredGleeWords = gleeWords.filter((word) => {
     const ratingAtFilterTime = gleeRatingSnapshot[word.id];
@@ -2402,7 +2405,7 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
 
   const mathWords = useMemo(() => shuffled(
     MATH_WORDS.filter((word) => mathCategories.includes(word.category)),
-    quickShuffle.math,
+    quickShuffle.math, word => word.term,
   ), [mathCategories, quickShuffle.math]);
   const filteredMathWords = mathWords.filter((word) => {
     const ratingAtFilterTime = mathRatingSnapshot[word.id];
@@ -2726,23 +2729,14 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
     return (Date.now() % 1_000_003) + Math.floor(Math.random() * 1_000_003);
   }
 
-  function toggleQuickShuffle(type: QuickType) {
+  function changeQuickOrder(type: QuickType, mode: StudyWordOrder) {
     setQuickShuffle((current) => ({
       ...current,
-      [type]: current[type].enabled
-        ? { enabled: false, seed: 0 }
-        : { enabled: true, seed: newShuffleSeed() },
+      [type]: {enabled: mode === "random", seed: mode === "random" ? newShuffleSeed() : 0, alphabetical: mode === "alphabetical"},
     }));
     resetQuickActive(type);
   }
 
-  function reshuffleQuickType(type: QuickType) {
-    setQuickShuffle((current) => ({
-      ...current,
-      [type]: { enabled: true, seed: newShuffleSeed() },
-    }));
-    resetQuickActive(type);
-  }
 
   function changeQuickWordLists(values: number[]) {
     setQuickWordLists(values);
@@ -3425,7 +3419,7 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
                 <RangePicker label="选择速刷范围" itemLabel="List" options={availableLists.map(([list]) => list)} selected={quickWordLists} onChange={changeQuickWordLists} />
                 <button className="filterReset" onClick={clearQuickRatingFilters}>{quickRatingFilters.length ? `显示全部 · 已选 ${quickRatingFilters.length} 类` : "当前显示全部颜色"}</button>
               </div>
-              <ShuffleControls enabled={quickShuffle.words.enabled} onToggle={() => toggleQuickShuffle("words")} onReshuffle={() => reshuffleQuickType("words")} />
+              <ShuffleControls mode={quickShuffle.words.alphabetical ? "alphabetical" : quickShuffle.words.enabled ? "random" : "original"} onChange={mode => changeQuickOrder("words", mode)} />
 
               <p className="quickCount">当前范围 {quickWords.length} 词 · 正在显示 {filteredQuickWords.length} 词 · 当前：{quickActiveWord?.word ?? "无匹配词"}</p>
 
@@ -3488,7 +3482,7 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
                 </select>
                 <button className="filterReset" onClick={clearQuickEquivalentRatingFilters}>{quickEquivalentRatingFilters.length ? `显示全部 · 已选 ${quickEquivalentRatingFilters.length} 类` : "当前显示全部颜色"}</button>
               </div>
-              <ShuffleControls enabled={quickShuffle.equivalents.enabled} onToggle={() => toggleQuickShuffle("equivalents")} onReshuffle={() => reshuffleQuickType("equivalents")} />
+              <ShuffleControls mode={quickShuffle.equivalents.alphabetical ? "alphabetical" : quickShuffle.equivalents.enabled ? "random" : "original"} onChange={mode => changeQuickOrder("equivalents", mode)} />
 
               <p className="quickCount">当前范围 {quickEquivalentPairs.length} 组 · 正在显示 {filteredQuickEquivalentPairs.length} 组 · 当前提示：{quickEquivalentActivePrompt ?? "无匹配词组"}</p>
 
@@ -3582,7 +3576,7 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
                 </select>
                 <button className="filterReset" onClick={clearAPlusRatingFilters}>{aPlusRatingFilters.length ? `显示全部 · 已选 ${aPlusRatingFilters.length} 类` : "当前显示全部颜色"}</button>
               </div>
-              <ShuffleControls enabled={quickShuffle["a-plus"].enabled} onToggle={() => toggleQuickShuffle("a-plus")} onReshuffle={() => reshuffleQuickType("a-plus")} />
+              <ShuffleControls mode={quickShuffle["a-plus"].alphabetical ? "alphabetical" : quickShuffle["a-plus"].enabled ? "random" : "original"} onChange={mode => changeQuickOrder("a-plus", mode)} />
 
               <p className="quickCount">当前范围 {aPlusEntries.length}条 · 正在显示 {filteredAPlusEntries.length}条 · 当前提示：{aPlusActivePrompt ?? "无匹配词条"}</p>
 
@@ -3655,7 +3649,7 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
                 <RangePicker label="选择 GLEE 范围" itemLabel="List" options={Array.from({ length: 30 }, (_, item) => item + 1)} selected={gleeLists} onChange={changeGleeLists} />
                 <button className="filterReset" onClick={clearGleeRatingFilters}>{gleeRatingFilters.length ? `显示全部 · 已选 ${gleeRatingFilters.length} 类` : "当前显示全部颜色"}</button>
               </div>
-              <ShuffleControls enabled={quickShuffle.glee.enabled} onToggle={() => toggleQuickShuffle("glee")} onReshuffle={() => reshuffleQuickType("glee")} />
+              <ShuffleControls mode={quickShuffle.glee.alphabetical ? "alphabetical" : quickShuffle.glee.enabled ? "random" : "original"} onChange={mode => changeQuickOrder("glee", mode)} />
 
               <p className="quickCount">当前范围 {gleeWords.length}词 · 正在显示 {filteredGleeWords.length}词 · 当前：{gleeActiveWord?.word ?? "无匹配单词"}</p>
 
@@ -3734,7 +3728,7 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
                 <CategoryPicker options={MATH_CATEGORIES} selected={mathCategories} onChange={changeMathCategories} />
                 <button className="filterReset" onClick={clearMathRatingFilters}>{mathRatingFilters.length ? `显示全部 · 已选 ${mathRatingFilters.length} 类` : "当前显示全部颜色"}</button>
               </div>
-              <ShuffleControls enabled={quickShuffle.math.enabled} onToggle={() => toggleQuickShuffle("math")} onReshuffle={() => reshuffleQuickType("math")} />
+              <ShuffleControls mode={quickShuffle.math.alphabetical ? "alphabetical" : quickShuffle.math.enabled ? "random" : "original"} onChange={mode => changeQuickOrder("math", mode)} />
 
               <p className="quickCount">当前范围 {mathWords.length}词 · 正在显示 {filteredMathWords.length}词 · 当前：{mathActiveWord?.term ?? "无匹配词"}</p>
 

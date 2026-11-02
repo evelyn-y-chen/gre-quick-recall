@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import ts from 'typescript';
+import {loadModel} from './helpers/load-model.mjs';
 
 const TODAY='2026-10-15', TOMORROW='2026-10-16';
 const words=[
@@ -43,7 +44,10 @@ function practice({deck='words',data={}}={}){
   if(name.endsWith('/vocabulary.json'))return {default:words};
   if(name.endsWith('/bbEquivalents.json'))return {default:bb};
   if(name.endsWith('/aPlusEquivalents.json')||name.endsWith('/equivalents.json'))return {default:[]};
-  if(name==='../app/SharedWordMemory'||name==='./SelectionChips'||name==='../app/NotebookFrequency')return {default:()=>null};
+  if(name==='../app/SharedWordMemory')return {default:()=>null,useWordMemory:()=>null};
+  if(name==='./SelectionChips'||name==='../app/NotebookFrequency')return {default:()=>null};
+  if(name==='../app/TestQuestionHistory')return {...loadModel('app/TestQuestionHistory.tsx'),default:()=>null};
+  if(name==='../app/quizDistractors')return loadModel('app/quizDistractors.ts');
   if(name==='../app/ratingStorage')return {readSavedRatings:(storage,key)=>JSON.parse(storage.getItem(key)??'null')??undefined};
   if(name==='./learningPlanStore')return {recordLearningPlanWords(){}};
   if(name==='./analytics')return {trackUsage(){}};
@@ -116,7 +120,7 @@ for(const failure of ['wrong','uncertain'])test(`BB single-step ${failure} answe
 });
 
 test('same-day returned word successes cannot upgrade a reset curve, and closing preserves it',()=>{
- const model={};new Function('exports',ts.transpileModule(readFileSync('community/practiceModel.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText)(model);
+ const model=loadModel('community/practiceModel.ts');
  const restored=legacyRun(['w1'],{});restored.options=model.optionsFor(words[0],words,'en-zh',[]);
  const view=practice({data:{[runKey('words')]:JSON.stringify(restored),[reviewKey('words')]:JSON.stringify({w1:mature})}});
  try{

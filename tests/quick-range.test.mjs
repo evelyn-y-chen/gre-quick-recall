@@ -61,7 +61,7 @@ function quickView(name, initialStorage = {}, initialDeck = 'lclj-fill') {
     if (importName === 'react') return react;
     if (importName === 'react/jsx-runtime') return { jsx, jsxs: jsx };
     if (importName === './SharedWordMemory') return { default: () => null, useWordMemory: () => undefined };
-    if (importName === './RatingCloudSync' || importName === './RevealControls') return { default: () => null };
+    if (importName === './RatingCloudSync' || importName === './RevealControls' || importName === './NotebookFrequency') return { default: () => null };
     if (importName.endsWith('.json')) return { default: data(importName.slice(2, -5)) };
     if (modules.has(importName)) return modules.get(importName);
     assert.ok(['./BBQuick', './LcljQuick', './quickRangeModel', './ratingSyncModel', './ratingStorage', './wordMemoryModel', './bbModel', '../community/storage'].includes(importName), `Unexpected import: ${importName}`);

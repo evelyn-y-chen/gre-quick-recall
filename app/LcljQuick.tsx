@@ -1,3 +1,4 @@
+import NotebookFrequencyBadge from "./NotebookFrequency";
 import type {PlanNavigation} from "../community/planNavigation";
 import {studyStorage} from "../community/storage";
 "use client";
@@ -175,7 +176,7 @@ export default function LcljQuick({ deck, ratings, onRate, pronounce,planTarget,
     <div className="quickTable mathQuickTable lcljQuickTable" role="table" aria-label={`${title}速刷表`}>
       <div className="quickRow quickHeader" role="row"><span>英文</span><span>{deck === "lclj-reading" ? "本义 · 文中义 · 对应选项" : "中文释义"}</span><span>分类 / 来源</span><span>掌握程度</span></div>
       {visible.map((entry) => <div className={`quickRow ${entry.id === active?.id ? "keyboardActive" : ""} ${ratings[entry.id] ? `rated-${ratings[entry.id]}` : ""}`} key={entry.id} role="row" aria-current={entry.id === active?.id ? "true" : undefined} ref={(element) => { rows.current[entry.id] = element; }}>
-        <button className="quickWord" onClick={() => { setActiveId(entry.id); spoken.current = entry.id; pronounce(entry.word); }} aria-label={`朗读 ${entry.word}`}><strong>{entry.word}</strong></button>
+        <div className="notebookFrequencyWord"><button className="quickWord" onClick={() => { setActiveId(entry.id); spoken.current = entry.id; pronounce(entry.word); }} aria-label={`朗读 ${entry.word}`}><strong>{entry.word}</strong></button><NotebookFrequencyBadge word={entry.word}/></div>
         <button className={`quickMeaning ${revealed.includes(entry.id) ? "revealed" : ""}`} aria-expanded={revealed.includes(entry.id)} onClick={() => reveal(entry.id)}>
           {revealed.includes(entry.id) ? <span className="lcljMeaning"><span>{deck === "lclj-reading" && <b>本义：</b>}{entry.meaning}</span>{deck === "lclj-reading" && <><span><b>文中义：</b>{entry.context || "原表未提供"}</span><span><b>对应选项：</b>{entry.equivalent || "原表未提供"}</span></>}</span> : <span>点击揭晓{deck === "lclj-reading" ? "释义与对应选项" : "中文释义"}</span>}
         </button>

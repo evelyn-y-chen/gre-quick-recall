@@ -6,6 +6,7 @@ import {appFetch} from "../community/api";
 "use client";
 
 import SharedWordMemory,{useWordMemory} from "./SharedWordMemory";
+import NotebookFrequencyBadge from "./NotebookFrequency";
 import DictionaryLookup from "./DictionaryLookup";
 import DictionaryLinks from "./DictionaryLinks";
 import RevealControls from "./RevealControls";
@@ -284,7 +285,7 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
       <div className="notebookWords">{batch.words.map((w,index) => <article className={`notebookWord${w.rating ? ` rated-${w.rating}` : ""}${review && activeWord?.id === w.id ? " notebookActive" : ""}`} key={w.id} tabIndex={review ? 0 : undefined} aria-current={review && activeWord?.id === w.id ? "true" : undefined} ref={(node) => {rowRefs.current[w.id]=node;}} onClick={() => setActiveId(w.id)} onFocus={() => setActiveId(w.id)}>
         <div className="notebookWordHead">
           <span className="notebookWordNumber">{index+1}</span>
-          {review ? <strong className="notebookCardTitle">{w.word}</strong> : <input className="notebookCardTitle" aria-label={`第 ${index+1} 个单词`} maxLength={300} value={w.word} onChange={(e) => editWord(w.id,"word",e.target.value)} />}
+          <div className="notebookWordLabel">{review ? <strong className="notebookCardTitle">{w.word}</strong> : <input className="notebookCardTitle" aria-label={`第 ${index+1} 个单词`} maxLength={300} value={w.word} onChange={(e) => editWord(w.id,"word",e.target.value)} />}<NotebookFrequencyBadge word={w.word}/></div>
           <button className="notebookPronounce" type="button" onClick={() => pronounce(w.word)} aria-label={`朗读生词 ${w.word}`} title="朗读">▶</button>
           {!review && <button className="notebookRemove" type="button" aria-label={`移除 ${w.word}`} onClick={() => {setRemoved({word:w,index});persist({...batch,words:batch.words.filter((x) => x.id!==w.id)});}}>移除</button>}
         </div>

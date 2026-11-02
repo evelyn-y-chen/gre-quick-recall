@@ -43,7 +43,7 @@ function practice({deck='words',data={}}={}){
   if(name.endsWith('/vocabulary.json'))return {default:words};
   if(name.endsWith('/bbEquivalents.json'))return {default:bb};
   if(name.endsWith('/aPlusEquivalents.json')||name.endsWith('/equivalents.json'))return {default:[]};
-  if(name==='../app/SharedWordMemory'||name==='./SelectionChips')return {default:()=>null};
+  if(name==='../app/SharedWordMemory'||name==='./SelectionChips'||name==='../app/NotebookFrequency')return {default:()=>null};
   if(name==='../app/ratingStorage')return {readSavedRatings:(storage,key)=>JSON.parse(storage.getItem(key)??'null')??undefined};
   if(name==='./learningPlanStore')return {recordLearningPlanWords(){}};
   if(name==='./analytics')return {trackUsage(){}};

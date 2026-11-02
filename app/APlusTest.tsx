@@ -1,3 +1,4 @@
+import NotebookFrequencyBadge from "./NotebookFrequency";
 import SelectionChips from '../community/SelectionChips';
 import {readSavedRatings} from './ratingStorage';
 import {testColors,matchesTestColors,ratingKeys,type TestColor} from '../community/testRatingFilter';
@@ -102,7 +103,7 @@ export default function APlusTest({pronounce,initialLists}:{pronounce:(word:stri
    <div ref={node=>{questionRef.current=node;}} className="aPlusQuestionAnchor">
    {q&&entry&&session.stage!=="complete"?<Question key={q.id} session={session} disabled={blocked} pronounce={pronounce} onMeaning={choice=>update(chooseMeaning(session,choice))} onGrade={(selected,uncertain)=>update(gradeQuestion(session,selected,uncertain))} onNext={()=>update(advanceSession(session))}/>:<div className="aPlusTestDone"><h2>本次测试完成</h2><p>{completed} 个词已完成；{session.order.length-errors.length} 个首次两步全对，{errors.length} 个经过返场巩固。</p><button type="button" onClick={()=>setScreen("setup")}>选择下一轮范围</button></div>}
    </div>
-   {!!errors.length&&<details className="aPlusTestErrors" open={session.stage==="complete"}><summary>漏选与错题记录 · {errors.length} 个词</summary>{errors.map(id=>{const p=session.progress[id],e=byId.get(id)!;return <article key={id}><strong>{e.word}</strong><span>List {e.list} · {p.done?"已完成":`连续全对 ${p.correct}/2`} · 词义错误 {p.meaningErrors} 次</span><p>漏选：{Object.entries(p.missed).map(([w,n])=>`${w}（${n}次）`).join("、")||"无"}</p><p>误选：{Object.entries(p.extra).map(([w,n])=>`${w}（${n}次）`).join("、")||"无"}</p></article>;})}</details>}
+   {!!errors.length&&<details className="aPlusTestErrors" open={session.stage==="complete"}><summary>漏选与错题记录 · {errors.length} 个词</summary>{errors.map(id=>{const p=session.progress[id],e=byId.get(id)!;return <article key={id}><strong>{e.word}</strong><NotebookFrequencyBadge word={e.word}/><span>List {e.list} · {p.done?"已完成":`连续全对 ${p.correct}/2`} · 词义错误 {p.meaningErrors} 次</span><p>漏选：{Object.entries(p.missed).map(([w,n])=>`${w}（${n}次）`).join("、")||"无"}</p><p>误选：{Object.entries(p.extra).map(([w,n])=>`${w}（${n}次）`).join("、")||"无"}</p></article>;})}</details>}
   </>}
  </section>;
  return focused?createPortal(content,document.body):content;
@@ -131,7 +132,7 @@ export function Question({session,disabled,pronounce,onMeaning,onGrade,onNext}:{
  }
  useEffect(()=>{window.addEventListener("keydown",handleEnter);return()=>window.removeEventListener("keydown",handleEnter);});
  return <article className="aPlusQuestion aPlusQuestionCompact" onKeyDown={event=>{event.stopPropagation();handleEnter(event.nativeEvent);}}>
-  <div className="aPlusQuestionTop"><span>List {e.list} · #{e.number} · {p.attempts>(feedback?1:0)?"返场巩固":"首次测试"}</span><span className="aPlusTestModeBadge">{session.config.mode==="single"?"单选":"不定项"}</span></div>
+  <div className="aPlusQuestionTop"><span>List {e.list} · #{e.number} · {p.attempts>(feedback?1:0)?"返场巩固":"首次测试"} <NotebookFrequencyBadge word={e.word}/></span><span className="aPlusTestModeBadge">{session.config.mode==="single"?"单选":"不定项"}</span></div>
   <div className="aPlusQuestionHeading"><h2>{e.word}<button data-native-enter type="button" aria-label={`朗读 ${e.word}`} onClick={()=>pronounce(e.word)}>▶</button></h2><div className="aPlusStepTrack" aria-label="测试步骤"><span className={meaningStage?"current":"finished"}>01 选释义</span><span className={!meaningStage&&!skipped?"current":""}>{skipped?"02 已跳过":"02 选同义词"}</span></div></div>
   <div className={`aPlusQuestionBody${feedback?" hasFeedback":""}`}><div className="aPlusAnswerContent">
   {q.early&&<p className="aPlusTestHint">已无其他待测词，提前复习这一词。</p>}

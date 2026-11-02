@@ -1,3 +1,4 @@
+import NotebookFrequencyBadge from "./NotebookFrequency";
 import type {PlanNavigation} from "../community/planNavigation";
 import {studyStorage} from "../community/storage";
 import {recordLearningPlanRatings} from "../community/learningPlanStore";
@@ -758,14 +759,14 @@ function RootAffixLibrary({ selectedList }: { selectedList: number | "all" }) {
                   const wordKey = rootAffixSummaryWordKey(entry.key, word);
                   const wordOpen = revealedWords.includes(wordKey);
                   return (
-                    <button className={`rootAffixSummaryWord ${wordOpen ? "revealed" : ""}`} key={`${entry.key}:${word}`} onClick={() => {
+                    <div className="notebookFrequencyWord" key={`${entry.key}:${word}`}><button className={`rootAffixSummaryWord ${wordOpen ? "revealed" : ""}`} onClick={() => {
                       toggleValue(wordKey, revealedWords, setRevealedWords);
                       pronounce(word);
                     }} aria-expanded={wordOpen}>
                       <b>{word}</b>
                       <small>{gleeCourseReference(sourceLists[0], word)}</small>
                       <em>{wordOpen ? gleeChineseMeaning(sourceLists[0], word) : "点击查看中文"}</em>
-                    </button>
+                    </button><NotebookFrequencyBadge word={word}/></div>
                   );
                 })}
               </div>
@@ -818,7 +819,7 @@ function RootAffixLibrary({ selectedList }: { selectedList: number | "all" }) {
                                       pronounce(word);
                                     }} aria-expanded={wordOpen}>
                                       <strong>{word}</strong><span>{wordOpen ? "重新遮住" : "点击核对"}</span>
-                                    </button>
+                                    </button><NotebookFrequencyBadge word={word}/>
                                     {wordOpen && <div><p><b>词库中文义</b><span>{gleeChineseMeaning(listItem.list, word)}</span></p><p><b>构词推导</b><span>{entry.coursePath}</span></p></div>}
                                   </div>
                                 );
@@ -1621,6 +1622,7 @@ function GleeMindMapLibrary({editWord,onTargetHandled}:{editWord:string|null;onT
                           <strong>{item.word}</strong>
                           {visible && <span>{chineseMeaning(table.list, item.word)}</span>}
                         </button>
+                        <NotebookFrequencyBadge word={item.word}/>
                         {visible && (
                           <div className="gleeTableWordExtras">
                             {!editing && <SharedWordMemory word={item.word}/> }
@@ -1719,6 +1721,7 @@ function GleeMindMapLibrary({editWord,onTargetHandled}:{editWord:string|null;onT
                                     </button>
                                     {visible && <button className="mindMapWordHide" onClick={() => hideNode(nodeKey)} aria-label={`遮住 ${item.word}`} title="重新遮住">×</button>}
                                   </div>
+                                  {(englishFirst || visible) && <NotebookFrequencyBadge word={item.word}/>}
                                   {visible && (
                                     <div className="mindMapWordExtras" aria-label={`${item.word} 的补充学习内容`}>
                                       {!editing && <SharedWordMemory word={item.word}/> }
@@ -3439,7 +3442,7 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
                   const active = word.id === quickActiveWordId;
                   return (
                     <div className={`quickRow ${active ? "keyboardActive" : ""} ${rating ? `rated-${rating}` : ""}`} role="row" aria-current={active ? "true" : undefined} key={word.id} ref={(element) => { quickRowRefs.current[word.id] = element; }}>
-                      <button className="quickWord" onClick={() => { setQuickActiveId(word.id); pronounce(word.word); }} aria-label={`朗读 ${word.word}`}><strong>{word.word}</strong><small><span style={{whiteSpace:"nowrap"}} title="原词表中的 List 内序号">List {String(word.list ?? "—").padStart(2, "0")}{wordNumbers.has(word.id) ? ` · #${wordNumbers.get(word.id)}` : ""}</span> · {word.pos} {word.phonetic}</small></button>
+                      <div className="notebookFrequencyWord"><button className="quickWord" onClick={() => { setQuickActiveId(word.id); pronounce(word.word); }} aria-label={`朗读 ${word.word}`}><strong>{word.word}</strong><small><span style={{whiteSpace:"nowrap"}} title="原词表中的 List 内序号">List {String(word.list ?? "—").padStart(2, "0")}{wordNumbers.has(word.id) ? ` · #${wordNumbers.get(word.id)}` : ""}</span> · {word.pos} {word.phonetic}</small></button><NotebookFrequencyBadge word={word.word}/></div>
                       <button className={`quickMeaning ${revealedMeaning ? "revealed" : ""}`} onClick={() => { setQuickActiveId(word.id); toggleQuickMeaning(word.id); }} aria-expanded={revealedMeaning}>{revealedMeaning ? word.meaning : <span>点击显示释义</span>}</button>
                       <QuickGleeMemory word={word.word} revealed={revealedMeaning} onEdit={target=>{setGleeEditWord(target);setQuickType("mindmap");}}/>
                       <div className="trafficLights" role="group" aria-label={`${word.word} 掌握程度`}>
@@ -3509,17 +3512,17 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
                   const meaningVisible = direction === "meaning" || revealStage >= 2;
                   return (
                     <div className={`quickRow ${active ? "keyboardActive" : ""} ${rating ? `rated-${rating}` : ""}`} role="row" aria-current={active ? "true" : undefined} key={pair.id} ref={(element) => { quickEquivalentRowRefs.current[pair.id] = element; }}>
-                      <button className={`quickPairWord ${leftVisible ? "revealed" : ""} ${direction === "left" ? "cueCell" : ""}`} onClick={() => { setQuickEquivalentActiveId(pair.id); if (!leftVisible) setQuickEquivalentRevealStage(pair.id, 1); pronounce(pair.left); }} aria-expanded={leftVisible}>
+                      <div className="notebookFrequencyWord"><button className={`quickPairWord ${leftVisible ? "revealed" : ""} ${direction === "left" ? "cueCell" : ""}`} onClick={() => { setQuickEquivalentActiveId(pair.id); if (!leftVisible) setQuickEquivalentRevealStage(pair.id, 1); pronounce(pair.left); }} aria-expanded={leftVisible}>
                         {leftVisible ? <><strong>{pair.left}</strong><small>Set {String(pair.set).padStart(2, "0")}{direction === "left" ? " · 当前提示" : ""}</small></> : <span>点击揭晓等价词 1</span>}
-                      </button>
-                      <button className={`quickPairWord ${rightVisible ? "revealed" : ""} ${direction === "right" ? "cueCell" : ""}`} onClick={() => {
+                      </button>{leftVisible && <NotebookFrequencyBadge word={pair.left}/>}</div>
+                      <div className="notebookFrequencyWord"><button className={`quickPairWord ${rightVisible ? "revealed" : ""} ${direction === "right" ? "cueCell" : ""}`} onClick={() => {
                         setQuickEquivalentActiveId(pair.id);
                         if (!rightVisible) setQuickEquivalentRevealStage(pair.id, direction === "meaning" ? 2 : 1);
                         if (!rightVisible && direction === "meaning" && revealStage === 0) pronounceMany([pair.left, pair.right]);
                         else pronounce(pair.right);
                       }} aria-expanded={rightVisible}>
                         {rightVisible ? <><strong>{pair.right}</strong><small>Set {String(pair.set).padStart(2, "0")}{direction === "right" ? " · 当前提示" : ""}</small></> : <span>点击揭晓等价词 2</span>}
-                      </button>
+                      </button>{rightVisible && <NotebookFrequencyBadge word={pair.right}/>}</div>
                       <div className="quickMeaningCell">
                         <button className={`quickMeaning ${meaningVisible ? "revealed" : ""} ${direction === "meaning" ? "cueCell" : ""}`} onClick={() => { setQuickEquivalentActiveId(pair.id); if (!meaningVisible) setQuickEquivalentRevealStage(pair.id, 2); }} aria-expanded={meaningVisible}>
                           {meaningVisible ? <>{pair.meaning}{direction === "meaning" && <small className="cueLabel">当前提示</small>}</> : <span>点击揭晓共同含义</span>}
@@ -3672,9 +3675,9 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
                   const active = word.id === gleeActiveWord?.id;
                   return (
                     <div className={`quickRow ${active ? "keyboardActive" : ""} ${rating ? `rated-${rating}` : ""}`} role="row" aria-current={active ? "true" : undefined} key={word.id} ref={(element) => { gleeRowRefs.current[word.id] = element; }}>
-                      <button className="quickWord" onClick={() => { setGleeActiveId(word.id); pronounce(word.word); }} aria-label={`朗读 ${word.word}`}>
+                      <div className="notebookFrequencyWord"><button className="quickWord" onClick={() => { setGleeActiveId(word.id); pronounce(word.word); }} aria-label={`朗读 ${word.word}`}>
                         <strong>{word.word}</strong><small>List {String(word.list).padStart(2, "0")} · #{word.number} · PDF第{word.page}页</small>
-                      </button>
+                      </button><NotebookFrequencyBadge word={word.word}/></div>
                       <div className="quickMeaningCell">
                         <button className={`quickMeaning ${meaningVisible ? "revealed" : ""}`} onClick={() => setGleeRevealStage(word.id, meaningVisible ? 0 : 1)} aria-expanded={meaningVisible}>
                           {meaningVisible ? word.meaning : <span>点击揭晓GRE中文释义</span>}
@@ -3747,9 +3750,9 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
                   const active = word.id === mathActiveWord?.id;
                   return (
                     <div className={`quickRow ${active ? "keyboardActive" : ""} ${rating ? `rated-${rating}` : ""}`} role="row" aria-current={active ? "true" : undefined} key={word.id} ref={(element) => { mathRowRefs.current[word.id] = element; }}>
-                      <button className="quickWord" onClick={() => { setMathActiveId(word.id); pronounce(word.term); }} aria-label={`朗读 ${word.term}`}>
+                      <div className="notebookFrequencyWord"><button className="quickWord" onClick={() => { setMathActiveId(word.id); pronounce(word.term); }} aria-label={`朗读 ${word.term}`}>
                         <strong>{word.term}</strong><small>原书第 {word.page} 页</small>
-                      </button>
+                      </button><NotebookFrequencyBadge word={word.term}/></div>
                       <button className={`quickMeaning ${meaningVisible ? "revealed" : ""}`} onClick={() => toggleMathMeaning(word.id)} aria-expanded={meaningVisible}>
                         {meaningVisible ? word.meaning : <span>点击揭晓中文释义</span>}
                       </button>
@@ -3824,7 +3827,7 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
                   )}
                   <span>{current.pos}</span>
                 </div>
-                <h2>{current.word}</h2>
+                <h2>{current.word}</h2><NotebookFrequencyBadge word={current.word}/>
                 <p>{current.phonetic}</p>
               </div>
               <button onClick={speak} aria-label={`朗读 ${current.word}`}>↗ 声音</button>
@@ -3942,9 +3945,9 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
             {equivalentMode === "learn" ? (
               <>
                 <div className="pairDisplay">
-                  <strong>{currentPair.left}</strong>
+                  <div><strong>{currentPair.left}</strong><NotebookFrequencyBadge word={currentPair.left}/></div>
                   <span>↔</span>
-                  <strong>{currentPair.right}</strong>
+                  <div><strong>{currentPair.right}</strong><NotebookFrequencyBadge word={currentPair.right}/></div>
                 </div>
                 <div className="commonMeaning">
                   <span>共同含义</span>
@@ -4005,7 +4008,7 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
                       {pairCorrect && meaningSelected === currentPair.meaning ? "通关：词对和含义都正确" : "本题未通关：两步必须全部正确"}
                     </span>
                     <div className="pairDisplay compact">
-                      <strong>{currentPair.left}</strong><span>↔</span><strong>{currentPair.right}</strong>
+                      <div><strong>{currentPair.left}</strong><NotebookFrequencyBadge word={currentPair.left}/></div><span>↔</span><div><strong>{currentPair.right}</strong><NotebookFrequencyBadge word={currentPair.right}/></div>
                     </div>
                     <b>{currentPair.meaning}</b>
                     <small>PDF 第 {currentPair.page} 页 · 答错后 10 分钟再次出现</small>
@@ -4051,7 +4054,7 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
               const item = store.progress[word.id];
               return (
                 <div className="tableRow" role="row" key={word.id}>
-                  <span><strong>{word.word}</strong><small><span style={{whiteSpace:"nowrap"}} title="原词表中的 List 内序号">List {String(word.list ?? "—").padStart(2, "0")}{wordNumbers.has(word.id) ? ` · #${wordNumbers.get(word.id)}` : ""}</span> · {word.pos} {word.phonetic}</small></span>
+                  <span><strong>{word.word}</strong><NotebookFrequencyBadge word={word.word}/><small><span style={{whiteSpace:"nowrap"}} title="原词表中的 List 内序号">List {String(word.list ?? "—").padStart(2, "0")}{wordNumbers.has(word.id) ? ` · #${wordNumbers.get(word.id)}` : ""}</span> · {word.pos} {word.phonetic}</small></span>
                   <span>{word.meaning}</span>
                   <span><i className={`level level${Math.min(5, item?.level ?? 0)}`}>{item?.level >= 5 ? "稳定" : item?.level >= 2 ? "学习中" : "新词"}</i></span>
                   <span>{formatDue(item?.dueAt ?? 0, item?.dueDay, currentPlanDay)}</span>

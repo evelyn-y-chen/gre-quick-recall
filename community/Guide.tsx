@@ -221,6 +221,7 @@ const groups: GuideGroup[] = [
         en: 'Use the vocabulary notebook',
         cn: [
           '收集单词：创建一次收集，填写文章、题目或课程来源及日期，以便回看语境。',
+          '收集词频：单词旁的小标记「收集 N 次」表示它出现在当前学习空间的多少次生词收集中。相同单词在同次收集中的多个来源只计一次，草稿与已保存版本不重复计数；其他背诵板块也会显示。它是收集次数，不是测试答错次数。',
           '查找与添加：在搜索框查询各词库，按来源筛选结果。同一单词可勾选多份来源的解释，合并到一个词条下；也可自行添加新词。',
           '选择来源：在「词库来源优先顺序」中上下调整排序。词库无结果时，词典区自动沿用已输入的单词；选择词典释义后仍可修改。',
           '查阅词典：添加生词时展开「查词典或补充这一个词」，已有生词展开「补查词典」。点击「韦氏词典」或「海词词典」可在新窗口查当前单词。复制需要的释义，返回后选择相应来源，点「从剪贴板粘贴」或手动粘贴；核对后选择追加或替换，来源一同记录，记忆笔记保持不变。填入后请保存本次收集。',
@@ -229,6 +230,7 @@ const groups: GuideGroup[] = [
         ],
         english: [
           'Collect words: create a collection with the article, question or course source and date to keep its context.',
+          'Collection frequency: the small “收集 N 次” badge counts how many notebook collections in the current workspace contain that word. Multiple sources within one collection count once, and a draft replaces its saved version. The badge also appears in other study views. This is a collection count, not a count of incorrect test answers.',
           'Search and add: search across word banks and filter by source. Select definitions from several sources to combine them under one word, or add a new word manually.',
           'Set source preferences: reorder “词库来源优先顺序”. If the word banks have no match, the dictionary opens with the same query. You can edit a selected dictionary definition.',
           'Look up a word: expand “查词典或补充这一个词” when adding a word, or “补查词典” on an existing entry. Select “韦氏词典” (Merriam-Webster) or “海词词典” (Dict.cn) to open its official entry in a new window. Copy the definition you need, return and select the matching source. Paste with the clipboard button or manually, then append or explicitly replace the definition. Its source is recorded with it; memory notes stay unchanged. Save the collection afterwards.',

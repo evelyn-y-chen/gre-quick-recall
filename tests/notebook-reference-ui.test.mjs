@@ -42,7 +42,7 @@ function notebook({ storage = new Map() } = {}) {
     if (name === '../community/learningPlanStore') return { recordLearningPlanWords() {} };
     if (name === '../community/practiceReviewModel') return { reviewDay: () => '2026-10-29' };
     if (name === './SharedWordMemory') return { default: props => jsx('aside', { 'data-shared-word': props.word, 'data-editing': !!props.editing, children: props.editing ? jsx('textarea', { 'aria-label': `${props.word} 的记忆方法`, value: memory.drafts[props.word]?.text ?? '共享记忆：把论据串起来', onChange: e => memory.edit(props.word, e.target.value) }) : memory.drafts[props.word]?.text ?? '共享记忆：把论据串起来' }), useWordMemory: () => memory };
-    if (['./DictionaryLinks', './DictionaryLookup', './RevealControls'].includes(name)) return { default: () => null };
+    if (['./DictionaryLinks', './DictionaryLookup', './RevealControls', './NotebookFrequency'].includes(name)) return { default: () => null };
     if (name === './notebookCatalog') return { buildNotebookCatalog: () => [] };
     assert.ok(['./VocabularyNotebook', './notebookModel'].includes(name), `Unexpected import ${name}`);
     if (modules.has(name)) return modules.get(name);

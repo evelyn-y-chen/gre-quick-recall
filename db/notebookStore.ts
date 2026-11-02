@@ -1,6 +1,20 @@
 import { getRuntimeDatabase } from "./runtime";
 import type { NotebookBatch, NotebookSummary } from "../app/notebookModel";
 const prefix = "vocab-notebook:";
+const changeListeners = new Set<() => void>();
+export function subscribeNotebookChanges(listener: () => void) {
+  changeListeners.add(listener);
+  return () => { changeListeners.delete(listener); };
+}
+function notifyNotebookChanges() {
+  for (const listener of changeListeners) { try { listener(); } catch {} }
+}
+/** One local read for the frequency index; no separate stored counter. */
+export async function readNotebookFrequencyBatches(): Promise<unknown[]> {
+  const row = await getRuntimeDatabase().prepare("SELECT json_group_array(json(value)) AS items FROM mind_map_state WHERE key >= ? AND key < ? AND json_valid(value)")
+    .bind(prefix,"vocab-notebook;").first<{items: string}>();
+  return JSON.parse(row?.items ?? "[]");
+}
 
 export async function listNotebookBatches(): Promise<NotebookSummary[]> {
   const row = await getRuntimeDatabase().prepare(`SELECT json_group_array(json_object(
@@ -16,11 +30,15 @@ export async function readNotebookBatch(id: string) {
 export async function saveNotebookBatch(batch: NotebookBatch, revision: number) {
   // A conditional write prevents a stale device from replacing newer edits.
   if (revision === 0) {
-    return getRuntimeDatabase().prepare(`INSERT INTO mind_map_state (key, value, revision, updated_at)
+    const saved = await getRuntimeDatabase().prepare(`INSERT INTO mind_map_state (key, value, revision, updated_at)
       VALUES (?, ?, 1, CURRENT_TIMESTAMP) ON CONFLICT(key) DO NOTHING RETURNING revision`)
       .bind(prefix + batch.id, JSON.stringify(batch)).first<{revision: number}>();
+    if (saved) notifyNotebookChanges();
+    return saved;
   }
-  return getRuntimeDatabase().prepare(`UPDATE mind_map_state SET value = ?, revision = revision + 1,
+  const saved = await getRuntimeDatabase().prepare(`UPDATE mind_map_state SET value = ?, revision = revision + 1,
     updated_at = CURRENT_TIMESTAMP WHERE key = ? AND revision = ? RETURNING revision`)
     .bind(JSON.stringify(batch), prefix + batch.id, revision).first<{revision: number}>();
+  if (saved) notifyNotebookChanges();
+  return saved;
 }

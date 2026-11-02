@@ -9,9 +9,10 @@ const bb = Array.from({length:4}, (_,i) => ({id:`b${i+1}`,list:1,volume:'上',nu
 
 // Execute the actual components, key handlers, grading models and receipt model.
 // Substitute only fixture vocabulary, IO/telemetry, the clock and React's hook host.
-function harness(kind, {deck='words', mode='single', data={}, notebook}={}) {
+function harness(kind, {deck='words', mode='single', data={}, notebook, persistence, putGate}={}) {
   const modules = new Map(), storage = new Map(Object.entries(data)), io = [], learning = [], events = new Map(), instances = new Map();
-  let active, dirty = false, tree, seed = null, revision = 4, tick = 0;
+  let active, dirty = false, tree, seed = null, revision = 4, tick = 0, generation = 7, closed = 0, persistImpl = persistence;
+  const persists=[];
   const browser = {addEventListener(name, fn) {const set=events.get(name)??new Set();set.add(fn);events.set(name,set);},removeEventListener(name,fn){events.get(name)?.delete(fn);}};
   const document = {...browser,body:{style:{overflow:''}}};
   const jsx = (type, props, key) => ({type,props:props??{},key});
@@ -22,7 +23,7 @@ function harness(kind, {deck='words', mode='single', data={}, notebook}={}) {
   };
   const memory={records:Object.fromEntries(terms.flatMap(term=>[term.word,...term.equivalents].map(word=>[word,{text:`当时的笔记 ${word}`}]))),drafts:{}};
   async function appFetch(url, options) {
-    if(options?.method==='PUT'){io.push(JSON.parse(options.body));revision++;return {ok:true,json:async()=>({revision})};}
+    if(options?.method==='PUT'){io.push(JSON.parse(options.body));if(putGate)await putGate;revision++;return {ok:true,json:async()=>({revision})};}
     assert.equal(url,'/api/a-plus-test');return {ok:true,json:async()=>({session:seed,revision,history:{}})};
   }
   function load(filename) {
@@ -32,7 +33,8 @@ function harness(kind, {deck='words', mode='single', data={}, notebook}={}) {
     new Function('require','exports','window','document','setInterval','clearInterval','crypto',code)(name=>{
       if(name==='react')return react;if(name==='react/jsx-runtime')return {jsx,jsxs:jsx};if(name==='react-dom')return {createPortal:node=>node};
       if(name.endsWith('/storage'))return {studyStorage:{getItem:key=>storage.get(key)??null,setItem:(key,value)=>storage.set(key,value),removeItem:key=>storage.delete(key)}};
-      if(name.endsWith('/api'))return {appFetch};
+      if(name.endsWith('/api'))return {appFetch,getWorkspaceGeneration:()=>generation};
+      if(name.endsWith('/workspacePersistence'))return {persistLearningWorkspace:async expected=>{persists.push({generation:expected,storage:Object.fromEntries(storage),localPuts:io.length});return persistImpl?persistImpl():{destination:'device',synced:true};}};
       if(name.endsWith('/analytics'))return {trackUsage(){}};
       if(name.endsWith('/learningPlanStore'))return {recordLearningPlanWords:(...args)=>learning.push(args)};
       if(name.endsWith('/practiceCompletions'))return {recordCompletedPractice(){},recordPracticeWord(){},recordPracticeWords(){}};
@@ -64,7 +66,7 @@ function harness(kind, {deck='words', mode='single', data={}, notebook}={}) {
   function render() {
     for(let n=0;n<20;n++){
       dirty=false;for(const host of instances.values())host.seen=false;
-      tree=expand(jsx(Component,kind==='aplus'?{pronounce(){}}:{deck,notebook,onClose(){}}));
+      tree=expand(jsx(Component,kind==='aplus'?{pronounce(){}}:{deck,notebook,onClose(){closed++;}}));
       for(const [key,host] of instances){if(!host.seen){for(const hook of host.hooks)hook?.cleanup?.();instances.delete(key);}else while(host.effects.length)host.effects.shift()();}
       if(!dirty)return;
     }throw Error('Component host did not settle');
@@ -76,7 +78,7 @@ function harness(kind, {deck='words', mode='single', data={}, notebook}={}) {
   async function click(label){const button=findButton(label);assert.ok(!button.props.disabled,`Disabled ${label}`);button.props.onClick({preventDefault(){},stopPropagation(){}});render();await settle();}
   async function key(key, extra={}){let prevented=false;const target={closest:()=>null};const event={key,code:key,repeat:false,isComposing:false,ctrlKey:false,metaKey:false,altKey:false,shiftKey:false,target,preventDefault(){prevented=true;},stopImmediatePropagation(){},...extra};for(const callback of [...events.get('keydown')??[]])callback(event);render();await settle();return prevented;}
   render();
-  return {settle,click,key,nodes,text,io,learning,storage,async select(label,value){const node=nodes().find(node=>node.type==='select'&&node.props['aria-label']===label);assert.ok(node);node.props.onChange({target:{value}});render();await settle();},model:aPlusModel,initial:()=>structuredClone(seed),run:()=>JSON.parse(storage.get('lemnota-practice-'+practiceScope)??'null'),history:()=>JSON.parse(storage.get('lemnota-practice-review-'+practiceScope+'-v1')??'null'),currentAPlus:()=>structuredClone(io.at(-1)?.session??seed),async ready(){await settle();await click(kind==='aplus'?'继续上次测试':'开始新测试');},close(){for(const host of instances.values())for(const hook of host.hooks)hook?.cleanup?.();}};
+  return {settle,click,key,nodes,text,io,learning,storage,persists,closed:()=>closed,setGeneration(value){generation=value;},setPersistence(fn){persistImpl=fn;},async select(label,value){const node=nodes().find(node=>node.type==='select'&&node.props['aria-label']===label);assert.ok(node);node.props.onChange({target:{value}});render();await settle();},model:aPlusModel,initial:()=>structuredClone(seed),run:()=>JSON.parse(storage.get('lemnota-practice-'+practiceScope)??'null'),history:()=>JSON.parse(storage.get('lemnota-practice-review-'+practiceScope+'-v1')??'null'),currentAPlus:()=>structuredClone(io.at(-1)?.session??seed),async ready(){await settle();await click(kind==='aplus'?'继续上次测试':'开始新测试');},close(){for(const host of instances.values())for(const hook of host.hooks)hook?.cleanup?.();}};
 }
 
 for(const mode of ['single','multiple'])test(`A+ ${mode} keyboard A–F selects visible answers, U keeps existing uncertain grading`,async()=>{
@@ -154,5 +156,50 @@ test('paired practice counts one complete word attempt, not each meaning/synonym
   const before=view.run(),correct=before.options.findIndex(option=>option.correct);await view.key(String.fromCharCode(97+correct));await view.key('Enter');
   const halfway=view.run();assert.equal(halfway.phase,'synonym');assert.deepEqual(halfway.attemptCounts,{});assert.deepEqual(halfway.results,{});assert.deepEqual(view.history(),{});
   await view.key('u');const final=view.run(),id=final.queue[0];assert.equal(final.phase,'feedback');assert.equal(final.attemptCounts[id],1);assert.equal(view.history()[id].reviews,1);assert.ok(view.text().includes('本轮第 1 次作答'));
+ }finally{view.close();}
+});
+
+
+for(const kind of ['practice','aplus'])test(`${kind} save/exit waits for verified persistence and keeps cloud-pending or failed saves visible`,async()=>{
+ let release;const delayed=new Promise(resolve=>{release=resolve;});
+ const view=harness(kind,{persistence:()=>delayed});try{
+  await view.ready();if(kind==='practice')await view.key('a');else{await view.key('u');await view.key('Enter');}
+  const before=kind==='practice'?view.run():view.currentAPlus();
+  await view.click(kind==='practice'?'保存并返回':'保存并返回设置');
+  assert.ok(view.text().includes('正在核对本机与账号保存'));assert.equal(view.closed(),0);assert.equal(view.persists.length,1);assert.equal(view.persists[0].generation,7);
+  if(kind==='practice')assert.deepEqual(JSON.parse(view.persists[0].storage['lemnota-practice-words']),before,'Current run must be mirrored before the workspace flush starts');
+  await view.key('u');await view.key('Escape');assert.equal(view.persists.length,1,'Repeated exit requests join the current save');assert.deepEqual(kind==='practice'?view.run():view.currentAPlus(),before,'Keyboard grading cannot race the exit snapshot');
+  release({destination:'account',synced:false,message:'已保存到本机，账号同步尚未完成。'});await view.settle();
+  assert.equal(view.closed(),0);assert.ok(view.text().includes('账号同步尚未完成'));if(kind==='aplus')assert.ok(view.text().includes('保存并返回设置'),'Cloud-pending must keep the test screen open');
+  view.setPersistence(()=>{throw Error('其他标签页已经更新记录');});await view.key('Escape');
+  assert.equal(view.closed(),0);assert.ok(view.text().includes('其他标签页已经更新记录'));assert.ok(view.text().includes('暂未退出'));
+  view.setPersistence(()=>({destination:'device',synced:true}));await view.click(kind==='practice'?'保存并返回':'保存并返回设置');
+  if(kind==='practice')assert.equal(view.closed(),1);else assert.ok(view.text().includes('继续上次测试'),'Successful checked save returns to setup');
+ }finally{view.close();}
+});
+
+for(const kind of ['practice','aplus'])test(`${kind} an old-generation save cannot write or close the next workspace`,async()=>{
+ const view=harness(kind);try{
+  await view.ready();view.setGeneration(8);view.storage.clear();view.storage.set('new-account-only','preserve');
+  await view.click(kind==='practice'?'保存并返回':'保存并返回设置');
+  assert.equal(view.persists.length,0);assert.equal(view.closed(),0);assert.deepEqual([...view.storage],[['new-account-only','preserve']]);assert.ok(view.text().includes('学习空间已切换'));
+ }finally{view.close();}
+});
+
+test('A+ save/exit joins the current local API write before flushing or pausing',async()=>{
+ let finishPut;const putGate=new Promise(resolve=>{finishPut=resolve;});const view=harness('aplus',{putGate});
+ try{
+  await view.ready();await view.key('u');await view.key('Enter');assert.equal(view.io.length,1);
+  await view.click('保存并返回设置');assert.equal(view.persists.length,0,'Busy local PUT must not be mistaken for a completed save');assert.ok(view.text().includes('正在核对本机与账号保存'));
+  finishPut();await view.settle();assert.equal(view.persists.length,1);assert.ok(view.text().includes('继续上次测试'));assert.equal(view.persists[0].localPuts,1,'The exit joins rather than duplicates the graded write');
+ }finally{view.close();}
+});
+
+
+for(const kind of ['practice','aplus'])test(`${kind} late save confirmation cannot close a replaced workspace`,async()=>{
+ let complete;const waiting=new Promise(resolve=>{complete=resolve;});const view=harness(kind,{persistence:()=>waiting});try{
+  await view.ready();await view.click(kind==='practice'?'保存并返回':'保存并返回设置');assert.equal(view.persists.length,1);
+  view.setGeneration(8);view.storage.clear();view.storage.set('new-account-only','preserve');complete({destination:'account',synced:true});await view.settle();
+  assert.equal(view.closed(),0);assert.deepEqual([...view.storage],[['new-account-only','preserve']]);assert.ok(view.text().includes('学习空间已切换'));
  }finally{view.close();}
 });

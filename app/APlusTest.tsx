@@ -4,7 +4,8 @@ import SelectionChips from '../community/SelectionChips';
 import {readSavedRatings} from './ratingStorage';
 import {testColors,matchesTestColors,ratingKeys,type TestColor} from '../community/testRatingFilter';
 import {studyStorage} from "../community/storage";
-import {appFetch} from "../community/api";
+import {appFetch,getWorkspaceGeneration} from "../community/api";
+import {persistLearningWorkspace} from "../community/workspacePersistence";
 "use client";
 import {recordCompletedPractice,recordPracticeWords} from "../community/practiceCompletions";
 import {createPortal} from "react-dom";
@@ -21,12 +22,19 @@ export default function APlusTest({pronounce,initialLists}:{pronounce:(word:stri
  const selectedIds=entries.filter(e=>config.lists.includes(e.list)&&matchesTestColors('a-plus',e.id,savedRatings,colors)).map(e=>e.id);
  const [from,setFrom]=useState(1),[to,setTo]=useState(1);
  const [loading,setLoading]=useState(true),[saving,setSaving]=useState(false),[status,setStatus]=useState("正在读取上次测试…"),[blocked,setBlocked]=useState(false);
+ const [exitSaving,setExitSaving]=useState(false),[exitStatus,setExitStatus]=useState("");
+ const exitBusy=useRef(false),workspaceGeneration=useRef(getWorkspaceGeneration()),uploadTask=useRef<Promise<void>|null>(null),uploadError=useRef("");
  const current=useRef<Session|null>(null),revision=useRef(0),pending=useRef(false),busy=useRef(false),alive=useRef(true),conflict=useRef(false);
  const questionRef=useRef<HTMLElement|null>(null);
  const [lookbackAt,setLookbackAt]=useState<number|null>(null),memory=useWordMemory();
  const lookback=readTestLookback((session as (Session&{lookback?:TestQuestionSnapshot[]})|null)?.lookback);
- function draft(){try{studyStorage.setItem(DRAFT,JSON.stringify({session:current.current,revision:revision.current}));}catch{if(alive.current)setStatus("无法保存本机草稿，请保持页面打开，等待工作区保存。");}}
- async function upload(){
+ function draft(){if(getWorkspaceGeneration()!==workspaceGeneration.current)return;try{studyStorage.setItem(DRAFT,JSON.stringify({session:current.current,revision:revision.current}));}catch{if(alive.current)setStatus("无法保存本机草稿，请保持页面打开，等待工作区保存。");}}
+ function upload():Promise<void>{
+  if(uploadTask.current)return uploadTask.current;
+  const task=uploadNow().finally(()=>{if(uploadTask.current===task)uploadTask.current=null;});uploadTask.current=task;return task;
+ }
+ async function uploadNow(){
+  if(getWorkspaceGeneration()!==workspaceGeneration.current)return;
   if(busy.current||conflict.current||!pending.current||!current.current)return;
   busy.current=true;if(alive.current)setSaving(true);
   try{
@@ -34,12 +42,13 @@ export default function APlusTest({pronounce,initialLists}:{pronounce:(word:stri
     const snapshot:Session=current.current;
     const response=await appFetch("/api/a-plus-test",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({session:snapshot,revision:revision.current})});
     const result=await response.json();
+    if(getWorkspaceGeneration()!==workspaceGeneration.current)throw Error("学习空间已切换，请在当前账号重新保存。");
     if(!response.ok){if(response.status===409){conflict.current=true;if(alive.current)setBlocked(true);}throw Error(result.error??"保存失败，请重试");}
     revision.current=result.revision;if(alive.current&&result.history)setHistory(result.history);
     if(current.current===snapshot){pending.current=false;try{const saved=JSON.parse(studyStorage.getItem(DRAFT)??"null");if(JSON.stringify(saved?.session)===JSON.stringify(snapshot))studyStorage.removeItem(DRAFT);}catch{}}else draft();
    }
-   if(alive.current)setStatus("测试进度、漏选记录与长期复习计划已保存到当前工作区。");
-  }catch(error){if(alive.current)draft();if(alive.current)setStatus(error instanceof Error?error.message:"保存失败，本机草稿仍保留。");}
+   uploadError.current="";if(alive.current)setStatus("测试进度、漏选记录与长期复习计划已保存到当前工作区。");
+  }catch(error){uploadError.current=error instanceof Error?error.message:"保存失败，本机草稿仍保留。";if(alive.current)draft();if(alive.current)setStatus(uploadError.current);}
   finally{busy.current=false;if(alive.current)setSaving(false);}
  }
  useEffect(()=>{
@@ -61,10 +70,31 @@ export default function APlusTest({pronounce,initialLists}:{pronounce:(word:stri
   })();
   return()=>{alive.current=false;};
  },[]);
- function update(next:Session){if(current.current?.id!==next.id)setLookbackAt(null);if(current.current&&current.current.id!==next.id){const old=current.current;recordPracticeWords(Object.entries(old.progress).filter(([,p])=>p.attempts>0).map(([id])=>byId.get(id)?.word).filter((w):w is string=>!!w),"a-plus");if(old.stage==="complete")recordCompletedPractice("a-plus-full:"+old.id,"a-plus");}current.current=next;setSession(next);pending.current=true;draft();void upload();}
+ function update(next:Session){if(exitBusy.current||getWorkspaceGeneration()!==workspaceGeneration.current)return;setExitStatus("");if(current.current?.id!==next.id)setLookbackAt(null);if(current.current&&current.current.id!==next.id){const old=current.current;recordPracticeWords(Object.entries(old.progress).filter(([,p])=>p.attempts>0).map(([id])=>byId.get(id)?.word).filter((w):w is string=>!!w),"a-plus");if(old.stage==="complete")recordCompletedPractice("a-plus-full:"+old.id,"a-plus");}current.current=next;setSession(next);pending.current=true;draft();void upload();}
+ async function saveAndPause(){
+  if(exitBusy.current)return;
+  exitBusy.current=true;setExitSaving(true);setExitStatus('正在核对本机与账号保存…');
+  try{
+   if(getWorkspaceGeneration()!==workspaceGeneration.current)throw Error('学习空间已切换，请在当前账号重新保存。');
+   // Join an existing local API upload rather than treating a busy uploader as saved.
+   await upload();
+   if(!alive.current)return;
+   if(getWorkspaceGeneration()!==workspaceGeneration.current)throw Error('学习空间已切换，请在当前账号重新保存。');
+   if(pending.current||conflict.current)throw Error(uploadError.current||'测试进度尚未写入当前工作区，请先重试保存。');
+   const result=await persistLearningWorkspace(workspaceGeneration.current);
+   if(!alive.current)return;
+   if(getWorkspaceGeneration()!==workspaceGeneration.current)throw Error('学习空间已切换，请在当前账号核对保存。');
+   if(!result.synced){setExitStatus(result.message||'已保存到本机，账号同步尚未完成。请保留本页，稍后重试「保存并返回设置」。');return;}
+   setExitStatus(result.destination==='account'?'测试进度已保存到账号，可在其他设备继续。':'测试进度已保存到这台设备。');
+   setLookbackAt(null);setScreen('setup');
+  }catch(error){if(alive.current)setExitStatus((error instanceof Error?error.message:'保存未完成。')+' 本页进度仍保留，暂未退出；请重试保存或先导出便笺。');}
+  finally{exitBusy.current=false;if(alive.current)setExitSaving(false);}
+ }
  async function useCloud(){
+  if(exitBusy.current||getWorkspaceGeneration()!==workspaceGeneration.current)return;
   setLoading(true);
   try{const r=await appFetch("/api/a-plus-test",{cache:"no-store"});if(!r.ok)throw Error();const d=await r.json();
+   if(getWorkspaceGeneration()!==workspaceGeneration.current)throw Error("学习空间已切换，请在当前账号重新读取。");
    if(current.current)try{studyStorage.setItem(DRAFT+"-backup",JSON.stringify({session:current.current,revision:revision.current}));}catch{throw Error("无法备份本机记录，未切换工作区进度。");}
    revision.current=d.revision;setHistory(d.history??{});current.current=validSession(d.session)?refreshAmbiguousQuestion(d.session):null;setSession(current.current);pending.current=false;conflict.current=false;setBlocked(false);try{studyStorage.removeItem(DRAFT);}catch{}setScreen("setup");setStatus("已读取工作区进度，本机旧草稿另存为备份。");
   }catch(error){setStatus(error instanceof Error&&error.message?error.message:"读取失败，请稍后重试。");}finally{setLoading(false);}
@@ -73,14 +103,15 @@ export default function APlusTest({pronounce,initialLists}:{pronounce:(word:stri
  const due=dueReviewIds(history,today).filter(id=>byId.has(id)&&matchesTestColors('a-plus',id,savedRatings,colors));
  const upcoming=Object.entries(history).filter(([,r])=>r.due>today).sort((a,b)=>a[1].due.localeCompare(b[1].due));
  function startReview(){
-  if(!due.length||pending.current||saving||loading||blocked)return;
+  if(exitBusy.current||getWorkspaceGeneration()!==workspaceGeneration.current||!due.length||pending.current||saving||loading||blocked)return;
   const next=createSession({...config,lists:[...new Set(due.map(id=>byId.get(id)!.list))]},Math.random,due);
   if(config.order==="sequential")next.order=[...due];
   for(const id of next.order)next.progress[id].retryWords=history[id].retryWords;
   next.question=makeQuestion(next.order[0],config.mode,false,Math.random,history[next.order[0]].retryWords);
   update(next);setScreen("test");
  }
- function start(){if(!selectedIds.length)return;update(createSession(config,Math.random,selectedIds));setScreen("test");}
+ function start(){if(exitBusy.current||getWorkspaceGeneration()!==workspaceGeneration.current||!selectedIds.length)return;update(createSession(config,Math.random,selectedIds));setScreen("test");}
+ useEffect(()=>{if(screen!=="test")return;const escape=(event:KeyboardEvent)=>{if(event.key!=="Escape"||event.repeat||event.isComposing||event.ctrlKey||event.metaKey||event.altKey||event.shiftKey||exitBusy.current)return;if((event.target as HTMLElement|null)?.closest("input,textarea,select,[contenteditable='true']"))return;event.preventDefault();event.stopImmediatePropagation();void saveAndPause();};window.addEventListener("keydown",escape,true);return()=>window.removeEventListener("keydown",escape,true);});
  const focused=screen==="test"&&!!session&&(session.stage!=="complete"||lookbackAt!==null);
  useEffect(()=>{if(!focused)return;const old=document.body.style.overflow;document.body.style.overflow="hidden";return()=>{document.body.style.overflow=old;};},[focused]);
  const completed=session?session.order.filter(id=>session.progress[id].done).length:0;
@@ -97,8 +128,8 @@ export default function APlusTest({pronounce,initialLists}:{pronounce:(word:stri
  }
  const content=<section className={`aPlusTest${focused?" aPlusFocusTest":""}`} role={focused?"dialog":undefined} aria-modal={focused?true:undefined} aria-label={focused?"A+ 等价词测试":undefined} onKeyDown={e=>e.stopPropagation()}>
   <div className="libraryHead"><div><p className="eyebrow">A+ GRE TEST</p><h1>A加等价词测试</h1><p>先辨词义，再找同义词。首轮全对直接完成；错词隔 5 题返场，连续全对 2 次才完成。</p></div></div>
-  <div className="aPlusTestSync"><span role="status">{saving?"正在保存测试进度…":status}</span>{pending.current&&!saving&&!blocked&&<button type="button" onClick={upload}>重试保存</button>}</div>
-  {blocked&&<p className="aPlusTestWarning">当前未覆盖工作区进度。可以查看本机记录，或保留本机备份后读取工作区版本。<button type="button" disabled={loading} onClick={useCloud}>备份本机并读取工作区</button></p>}
+  <div className="aPlusTestSync"><span role="status">{exitSaving?"正在核对本机与账号保存…":exitStatus||(saving?"正在保存测试进度…":status)}</span>{pending.current&&!saving&&!blocked&&<button type="button" onClick={upload}>重试保存</button>}</div>
+  {blocked&&<p className="aPlusTestWarning">当前未覆盖工作区进度。可以查看本机记录，或保留本机备份后读取工作区版本。<button type="button" disabled={loading||exitSaving} onClick={useCloud}>备份本机并读取工作区</button></p>}
   {screen==="setup"?<>
    <section className="aPlusReviewPlan"><div><span className="eyebrow">间隔复习 · 北京时间</span><h2>今天复习 <strong>{due.length}</strong> 个词</h2><p>已纳入 {Object.keys(history).length} 词 · 逾期 {due.filter(id=>history[id].due<today).length} 词{upcoming.length?` · 下次 ${upcoming[0][1].due}`:""}</p></div><button type="button" className="solid" disabled={loading||saving||blocked||pending.current||!due.length} onClick={startReview}>{due.length?"开始到期复习":"今天暂无到期词"}</button><p className="aPlusReviewGuide">按 {REVIEW_INTERVALS.join("、")} 天逐步延长，之后每 30 天复习；答错或不确定回到次日，同日重复答对不连续升级。采用下方的顺序和题型设置，复习范围包含所有到期词。</p><p className="aPlusReviewGuide">开始到期复习会替换当前这一轮测试，长期复习计划保留。旧版仍保存着的已测词会从今天加入。</p>{due.length>0&&<details><summary>查看到期词</summary><div className="aPlusDueWords">{due.map(id=><span key={id}>{byId.get(id)!.word}<small>List {byId.get(id)!.list} · {history[id].due}</small></span>)}</div></details>}</section>
    {session&&<div className="aPlusResume"><span>上次测试：{session.order.length} 词 · 已完成 {completed} · {session.config.mode==="single"?"单选":"不定项"}</span><button type="button" className="solid" disabled={loading} onClick={()=>setScreen("test")}>{session.stage==="complete"?"查看测试结果":"继续上次测试"}</button></div>}
@@ -110,12 +141,12 @@ export default function APlusTest({pronounce,initialLists}:{pronounce:(word:stri
     <button type="button" className="solid" disabled={!selectedIds.length} onClick={start}>{session?"开始新测试（保留长期复习计划）":"开始测试"}</button>
    </fieldset>
   </>:session&&<>
-   <div className="aPlusTestProgress"><strong>已完成 {completed} / {session.order.length}</strong><span>已答 {session.turn} 轮 · {errors.length} 个词曾出错</span><button type="button" disabled={!lookback.length} onClick={()=>setLookbackAt(lookback.length-1)}>上一词回看</button><button type="button" onClick={()=>{setLookbackAt(null);setScreen("setup");}}>返回设置 / 暂停</button></div>
+   <div className="aPlusTestProgress"><strong>已完成 {completed} / {session.order.length}</strong><span>已答 {session.turn} 轮 · {errors.length} 个词曾出错</span><button type="button" disabled={exitSaving||!lookback.length} onClick={()=>setLookbackAt(lookback.length-1)}>上一词回看</button><button type="button" disabled={exitSaving} onClick={()=>void saveAndPause()}>{exitSaving?"正在保存…":"保存并返回设置 / 暂停"}</button></div>
    <progress value={completed} max={session.order.length}/>
    <div ref={node=>{questionRef.current=node;}} className="aPlusQuestionAnchor">
    {lookbackAt!==null&&<TestQuestionHistory snapshots={lookback} index={lookbackAt} onIndex={setLookbackAt} onReturn={()=>setLookbackAt(null)}/>}
    <div hidden={lookbackAt!==null}>
-   {q&&entry&&session.stage!=="complete"?<Question key={q.id} session={session} disabled={blocked} active={lookbackAt===null} pronounce={pronounce} onMeaning={choice=>update(chooseMeaning(session,choice))} onGrade={(selected,uncertain)=>update(gradeQuestion(session,selected,uncertain))} onNext={advanceWithReceipt}/>:<div className="aPlusTestDone"><h2>本次测试完成</h2><p>{completed} 个词已完成；{session.order.length-errors.length} 个首次两步全对，{errors.length} 个经过返场巩固。</p><button type="button" onClick={()=>setScreen("setup")}>选择下一轮范围</button></div>}
+   {q&&entry&&session.stage!=="complete"?<Question key={q.id} session={session} disabled={blocked||exitSaving} active={lookbackAt===null&&!exitSaving} pronounce={pronounce} onMeaning={choice=>update(chooseMeaning(session,choice))} onGrade={(selected,uncertain)=>update(gradeQuestion(session,selected,uncertain))} onNext={advanceWithReceipt}/>:<div className="aPlusTestDone"><h2>本次测试完成</h2><p>{completed} 个词已完成；{session.order.length-errors.length} 个首次两步全对，{errors.length} 个经过返场巩固。</p><button type="button" disabled={exitSaving} onClick={()=>void saveAndPause()}>保存并选择下一轮范围</button></div>}
    </div></div>
    {!!errors.length&&<details className="aPlusTestErrors" open={session.stage==="complete"}><summary>漏选与错题记录 · {errors.length} 个词</summary>{errors.map(id=>{const p=session.progress[id],e=byId.get(id)!;return <article key={id}><strong>{e.word}</strong><NotebookFrequencyBadge word={e.word}/><span>List {e.list} · {p.done?"已完成":`连续全对 ${p.correct}/2`} · 词义错误 {p.meaningErrors} 次</span><p>漏选：{Object.entries(p.missed).map(([w,n])=>`${w}（${n}次）`).join("、")||"无"}</p><p>误选：{Object.entries(p.extra).map(([w,n])=>`${w}（${n}次）`).join("、")||"无"}</p></article>;})}</details>}
   </>}

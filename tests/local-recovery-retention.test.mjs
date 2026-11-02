@@ -42,3 +42,19 @@ test('retention remains account-scoped and preserves exact note drafts',async()=
  const rev=await f.saveLocalWorkspace(a,0,'account:a');await f.saveLocalWorkspace(snapshot('account b'),0,'account:b');await f.saveLocalWorkspace(snapshot('replacement'),rev,'account:a',{checkpoint:f.recovery.checkpoint(a,'before replace')});
  assert.deepEqual(f.data.get('account:a').history[0].payload,a);assert.equal(f.data.get('account:b').history,undefined);assert.equal(f.data.get('account:b').payload.rows[0].value,'account b');
 });
+
+
+test('exact payload and cloud metadata no-op saves keep the same local revision',async()=>{
+ const f=fixture(),payload=snapshot('current'),base=snapshot('cloud');let revision=await f.saveLocalWorkspace(payload,0,'account:a',{cloudRevision:9,pending:false});
+ const before=structuredClone(f.data.get('account:a'));
+ assert.equal(await f.saveLocalWorkspace(snapshot('current',true),revision,'account:a',{cloudRevision:9,pending:false}),revision);
+ assert.deepEqual(f.data.get('account:a'),before);
+ revision=await f.saveLocalWorkspace(payload,revision,'account:a',{cloudRevision:9,pending:true,basePayload:base});
+ assert.equal(await f.saveLocalWorkspace(payload,revision,'account:a',{cloudRevision:9,pending:true,basePayload:snapshot('cloud',true)}),revision);
+ assert.equal(await f.saveLocalWorkspace(payload,revision,'account:a',{cloudRevision:10,pending:false}),revision+1);
+});
+test('a stale local revision has a typed retryable conflict while preserving stored data',async()=>{
+ const f=fixture();await f.saveLocalWorkspace(snapshot('one'),0);
+ await assert.rejects(f.saveLocalWorkspace(snapshot('two'),0),error=>error.code==='LOCAL_WORKSPACE_CONFLICT');
+ assert.equal(f.data.get('local').payload.rows[0].value,'one');
+});

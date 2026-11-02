@@ -50,6 +50,8 @@ function practice({deck='words',data={}}={}){
   if(name==='../app/quizDistractors')return loadModel('app/quizDistractors.ts');
   if(name==='../app/ratingStorage')return {readSavedRatings:(storage,key)=>JSON.parse(storage.getItem(key)??'null')??undefined};
   if(name==='./learningPlanStore')return {recordLearningPlanWords(){}};
+  if(name==='./api')return {getWorkspaceGeneration:()=>0};
+  if(name==='./workspacePersistence')return {persistLearningWorkspace:async()=>({destination:'device',synced:true})};
   if(name==='./analytics')return {trackUsage(){}};
   if(name==='./practiceCompletions')return {recordCompletedPractice(){},recordPracticeWord(){},recordPracticeWords(){}};
   if(!['./storage','./practiceModel','./practiceReviewModel','./testRatingFilter','./Practice'].includes(name))throw Error('Unexpected import: '+name);
@@ -82,6 +84,7 @@ function practice({deck='words',data={}}={}){
   range(from,to){const inputs=nodes(tree).filter(node=>node.type==='input'&&node.props.type==='number');assert.equal(inputs.length,2);inputs[0].props.onChange({target:{value:String(from)}});inputs[1].props.onChange({target:{value:String(to)}});render();},
   answer(correct){const run=read(runKey(deck));const index=run.options.findIndex(option=>option.correct===correct);assert.ok(index>=0,'Expected an answer choice');const choices=nodes(tree).filter(node=>node.type==='button'&&Object.hasOwn(node.props,'aria-pressed'));choices[index].props.onClick({type:'click'});render();click('提交答案');},
   remount(nextDeck=deck,workspace){clean();if(workspace)storage.loadStorage(workspace);deck=nextDeck;render();},
+  async settle(){for(let n=0;n<10;n++){await Promise.resolve();render();}},
   close:clean,closed:()=>closed,
  };
 }
@@ -119,7 +122,7 @@ for(const failure of ['wrong','uncertain'])test(`BB single-step ${failure} answe
  }finally{v.close();}
 });
 
-test('same-day returned word successes cannot upgrade a reset curve, and closing preserves it',()=>{
+test('same-day returned word successes cannot upgrade a reset curve, and closing preserves it',async()=>{
  const model=loadModel('community/practiceModel.ts');
  const restored=legacyRun(['w1'],{});restored.options=model.optionsFor(words[0],words,'en-zh',[]);
  const view=practice({data:{[runKey('words')]:JSON.stringify(restored),[reviewKey('words')]:JSON.stringify({w1:mature})}});
@@ -127,7 +130,7 @@ test('same-day returned word successes cannot upgrade a reset curve, and closing
   view.click('继续上次测试');view.answer(false);const reset=view.history();
   assert.equal(reset.w1.due,TOMORROW);view.click('下一题');view.answer(true);assert.equal(view.run().results.w1.done,false);assert.deepEqual(view.history(),reset);
   view.click('下一题');view.answer(true);assert.equal(view.run().results.w1.done,true);assert.deepEqual(view.history(),reset);
-  view.click('保存并返回');assert.equal(view.closed(),1);view.remount();assert.deepEqual(view.history(),reset);
+  view.click('保存并返回');await view.settle();assert.equal(view.closed(),1);view.remount();assert.deepEqual(view.history(),reset);
  }finally{view.close();}
 });
 

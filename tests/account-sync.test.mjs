@@ -11,8 +11,8 @@ const planModule={exports:{}};
 planModule.exports=loadTs('community/workspacePlan.ts');
 const snapshot=(note)=>({version:1,rows:[],storage:{note}});
 const deferred=()=>{let resolve;const promise=new Promise(done=>{resolve=done;});return {promise,resolve};};
-function harness(sharedRemote=new Map()){
- const slots=[],effects=[],cache=new Map(),remote=sharedRemote,writes=[];
+function harness(sharedRemote=new Map(),sharedCache=new Map()){
+ const slots=[],effects=[],cache=sharedCache,remote=sharedRemote,writes=[];
  let cursor=0,pending=[],authListener,change=()=>{},payload=snapshot('blank'),session=null,offline=false,result,localFailure=()=>false,saveGate=null,readGate=null,apiQueue=Promise.resolve(),apiGeneration=0;
  const persistence={exports:{}};new Function('exports','module',compile('community/workspacePersistence.ts'))(persistence.exports,persistence);
  const react={
@@ -24,8 +24,8 @@ function harness(sharedRemote=new Map()){
  const imports={react,
   './cloud':{cloud:{auth},async readCloudWorkspace(s){if(readGate){const held=readGate;readGate=null;held.entered.resolve();await held.release.promise;}if(offline)throw Error('offline');return structuredClone(remote.get(s.user.id)??null);},async saveCloudWorkspace(s,value,expected){if(saveGate){const held=saveGate;saveGate=null;held.entered.resolve();await held.release.promise;}if(offline)throw Error('offline');const latest=remote.get(s.user.id);if((latest?.revision??0)!==expected)throw Object.assign(Error('conflict'),{code:'WORKSPACE_CONFLICT'});const revision=expected+1;remote.set(s.user.id,{revision,payload:structuredClone(value)});writes.push(s.user.id);return revision;}},
   './database':{exportWorkspace:()=>structuredClone(payload),async openWorkspace(next){payload=structuredClone(next??snapshot('blank'));},onWorkspaceChange(fn){change=fn;}},
-  './localWorkspace':{async readLocalWorkspace(key='local'){return structuredClone(cache.get(key));},async saveLocalWorkspace(value,expected,key='local',metadata={}){if(localFailure(key))throw Error('local save failure');if((cache.get(key)?.revision??0)!==expected)throw Error('cache conflict');const {checkpoint,checkpoints,...rest}=metadata;let history=recovery.exports.appendCheckpoint(cache.get(key)?.history);for(const item of checkpoints??[])history=recovery.exports.appendCheckpoint(history,item);history=recovery.exports.appendCheckpoint(history,checkpoint);cache.set(key,{revision:expected+1,payload:structuredClone(value),...rest,...(history.length?{history:structuredClone(history)}:{})});return expected+1;}},
-  './api':{awaitWorkspaceApiIdle:()=>apiQueue,getWorkspaceGeneration:()=>apiGeneration,async switchWorkspace(fn){apiGeneration++;const next=apiQueue.then(fn);apiQueue=next.catch(()=>{});await next;}},'./workspacePlan':planModule.exports,'./ratingMerge':loadTs('community/ratingMerge.ts'),'./workspacePersistence':persistence.exports,'./workspaceRecovery':recovery.exports
+  './localWorkspace':{async readLocalWorkspace(key='local'){return structuredClone(cache.get(key));},async saveLocalWorkspace(value,expected,key='local',metadata={}){if(localFailure(key))throw Error('local save failure');if((cache.get(key)?.revision??0)!==expected)throw Object.assign(Error('cache conflict'),{code:'LOCAL_WORKSPACE_CONFLICT'});const {checkpoint,checkpoints,...rest}=metadata;const previous=cache.get(key);if(previous&&recovery.exports.snapshotContent(previous.payload)===recovery.exports.snapshotContent(value)&&previous.cloudRevision===rest.cloudRevision&&previous.pending===rest.pending&&JSON.stringify(previous.basePayload)===JSON.stringify(rest.basePayload)&&!checkpoint&&!checkpoints?.length)return expected; let history=recovery.exports.appendCheckpoint(cache.get(key)?.history);for(const item of checkpoints??[])history=recovery.exports.appendCheckpoint(history,item);history=recovery.exports.appendCheckpoint(history,checkpoint);cache.set(key,{revision:expected+1,payload:structuredClone(value),...rest,...(history.length?{history:structuredClone(history)}:{})});return expected+1;}},
+  './api':{awaitWorkspaceApiIdle:()=>apiQueue,getWorkspaceGeneration:()=>apiGeneration,async switchWorkspace(fn){apiGeneration++;const next=apiQueue.then(fn);apiQueue=next.catch(()=>{});await next;}},'./workspacePlan':planModule.exports,'./ratingMerge':loadTs('community/ratingMerge.ts'),'./workspacePersistence':persistence.exports,'./workspaceRecovery':recovery.exports,'./practiceProgressMerge':loadTs('community/practiceProgressMerge.ts')
  };
  const browser={addEventListener(){},removeEventListener(){},confirm:()=>true},document={addEventListener(){},removeEventListener(){},visibilityState:'visible'};
  const module={exports:{}};new Function('require','module','exports','window','document',compile('community/useLearningWorkspace.ts'))(name=>imports[name],module,module.exports,browser,document);
@@ -241,7 +241,7 @@ test('edits are protected on device while an earlier cloud upload is stalled',as
  const h=harness();let held;try{await h.settle();h.remote.set('A',{revision:1,payload:ratingSnapshot({},1)});h.login('A');await h.settle();
  h.editSnapshot(ratingSnapshot({one:'familiar'},100));held=h.holdCloud();const saving=h.workspace.flush();await held.entered;
  const ratings=Object.fromEntries(Array.from({length:300},(_,i)=>['bb-'+i,'familiar']));h.editSnapshot(ratingSnapshot(ratings,200));await h.settle();
- assert.equal(Object.keys(JSON.parse(h.cache.get('account:A').payload.storage['gre-quick-ratings-v1'])).length,300);assert.equal(h.cache.get('account:A').pending,true);
+ assert.equal(Object.keys(JSON.parse(h.cache.get('account:A').payload.storage['gre-quick-ratings-v1'])).length,301);assert.equal(JSON.parse(h.cache.get('account:A').payload.storage['gre-quick-ratings-v1']).one,'familiar');assert.equal(h.cache.get('account:A').pending,true);
  const manual=h.workspace.syncNow();h.render();assert.equal(h.workspace.syncing,true);assert.match(h.workspace.status,/正在同步/);
  held.release();await saving;await manual;await h.settle();
  assert.equal(Object.keys(JSON.parse(h.remote.get('A').payload.storage['gre-quick-ratings-v1'])).length,301);assert.equal(h.cache.get('account:A').pending,false);assert.match(h.workspace.status,/账号同步已确认/);
@@ -256,5 +256,76 @@ test('manual sync gives immediate feedback and coalesces repeat clicks even with
 test('manual sync reports connection failure instead of silently succeeding when there are no changes',async()=>{
  const h=harness();try{await h.settle();h.remote.set('A',{revision:2,payload:snapshot('saved records')});h.login('A');await h.settle();h.setOffline(true);
  assert.equal(await h.workspace.syncNow(),false);await h.settle();assert.equal(h.workspace.syncing,false);assert.match(h.workspace.status,/账号同步尚未确认/);assert.equal(h.cache.get('account:A').payload.storage.note,'saved records');assert.deepEqual(h.writes,[]);
+ }finally{h.dispose();}
+});
+
+
+test('opening an identical account in a second tab does not invalidate the first tab writer',async()=>{
+ const remote=new Map([['A',{revision:1,payload:snapshot('360 pending')}]]),cache=new Map(),first=harness(remote,cache),second=harness(remote,cache);
+ try{
+  await first.settle();first.login('A');await first.settle();const revision=cache.get('account:A').revision;
+  await second.settle();second.login('A');await second.settle();assert.equal(cache.get('account:A').revision,revision);
+  first.edit('213 pending');assert.equal(await first.workspace.flush(),true);await first.settle();
+  assert.equal(first.note,'213 pending');assert.equal(cache.get('account:A').payload.storage.note,'213 pending');assert.equal(remote.get('A').payload.storage.note,'213 pending');
+ }finally{first.dispose();second.dispose();}
+});
+test('a stale metadata-only revision is reconciled and current in-memory work reaches cloud',async()=>{
+ const h=harness();try{
+  await h.settle();h.remote.set('A',{revision:1,payload:snapshot('360 pending')});h.login('A');await h.settle();
+  const prior=h.cache.get('account:A');h.cache.set('account:A',{...structuredClone(prior),revision:prior.revision+1});
+  h.edit('213 pending');assert.equal(await h.workspace.flush(),true);await h.settle();
+  assert.equal(h.note,'213 pending');assert.equal(h.remote.get('A').payload.storage.note,'213 pending');assert.equal(h.cache.get('account:A').pending,false);
+ }finally{h.dispose();}
+});
+test('different tabs merge independent changes without replacing either active memory branch',async()=>{
+ const remote=new Map([['A',{revision:1,payload:snapshot('baseline')}]]),cache=new Map(),first=harness(remote,cache),second=harness(remote,cache);
+ try{
+  await first.settle();first.login('A');await first.settle();await second.settle();second.login('A');await second.settle();
+  first.editSnapshot({version:1,rows:[],storage:{note:'baseline',first:'new answer'}});assert.equal(await first.workspace.flush(),true);
+  second.editSnapshot({version:1,rows:[],storage:{note:'baseline',second:'new answer'}});assert.equal(await second.workspace.flush(),true);
+  assert.deepEqual(remote.get('A').payload.storage,{note:'baseline',first:'new answer',second:'new answer'});
+  assert.equal(second.snapshot.storage.first,undefined);assert.equal(first.snapshot.storage.second,undefined);
+  second.editSnapshot({version:1,rows:[],storage:{note:'baseline',second:'newer answer'}});assert.equal(await second.workspace.flush(),true);
+  assert.deepEqual(remote.get('A').payload.storage,{note:'baseline',first:'new answer',second:'newer answer'});
+  first.editSnapshot({version:1,rows:[],storage:{note:'baseline',first:'another answer'}});assert.equal(await first.workspace.flush(),true);
+  assert.deepEqual(remote.get('A').payload.storage,{note:'baseline',first:'another answer',second:'newer answer'});
+ }finally{first.dispose();second.dispose();}
+});
+test('an unmergeable local tab conflict keeps both durable branches and never claims sync succeeded',async()=>{
+ const h=harness();try{
+  await h.settle();h.remote.set('A',{revision:1,payload:snapshot('baseline')});h.login('A');await h.settle();
+  const prior=h.cache.get('account:A');h.cache.set('account:A',{...structuredClone(prior),revision:prior.revision+1,payload:snapshot('other tab note'),pending:true});
+  h.edit('my unsaved note');assert.equal(await h.workspace.flush(),false);await h.settle();
+  assert.equal(h.note,'my unsaved note');assert.equal(h.cache.get('account:A').payload.storage.note,'other tab note');
+  assert.ok(h.cache.get('account:A').history.some(point=>point.payload.storage.note==='my unsaved note'));
+  assert.equal(h.remote.get('A').payload.storage.note,'baseline');assert.doesNotMatch(h.workspace.status,/已保存到账号/);
+ }finally{h.dispose();}
+});
+
+
+test('peer changes arriving during cloud upload remain pending until a second merged upload completes',async()=>{
+ const h=harness();let held;try{
+  await h.settle();h.remote.set('A',{revision:1,payload:snapshot('baseline')});h.login('A');await h.settle();
+  h.editSnapshot({version:1,rows:[],storage:{note:'baseline',first:'current tab'}});
+  held=h.holdCloud();const saving=h.workspace.flush();await held.entered;
+  const prior=h.cache.get('account:A');h.cache.set('account:A',{...structuredClone(prior),revision:prior.revision+1,payload:{version:1,rows:[],storage:{note:'baseline',first:'current tab',second:'peer tab'}},pending:true});
+  held.release();assert.equal(await saving,true);await h.settle();
+  assert.deepEqual(h.remote.get('A').payload.storage,{note:'baseline',first:'current tab',second:'peer tab'});assert.equal(h.cache.get('account:A').pending,false);
+  assert.equal(h.snapshot.storage.second,undefined);assert.ok(h.writes.length>=2);
+ }finally{held?.release();h.dispose();}
+});
+test('a failed local conflict checkpoint never activates peer data or claims account sync',async()=>{
+ const h=harness();try{
+  await h.settle();h.remote.set('A',{revision:1,payload:snapshot('baseline')});h.login('A');await h.settle();
+  const prior=h.cache.get('account:A');h.cache.set('account:A',{...structuredClone(prior),revision:prior.revision+1,payload:snapshot('peer note')});
+  h.failLocal(()=>true);h.edit('live newest note');assert.equal(await h.workspace.flush(),false);await h.settle();
+  assert.equal(h.note,'live newest note');assert.equal(h.cache.get('account:A').payload.storage.note,'peer note');assert.equal(h.remote.get('A').payload.storage.note,'baseline');assert.doesNotMatch(h.workspace.status,/已保存到账号/);
+ }finally{h.dispose();}
+});
+test('explicit replacement reports whether account upload completed',async()=>{
+ const h=harness();try{
+  await h.settle();h.remote.set('A',{revision:1,payload:snapshot('baseline')});h.login('A');await h.settle();
+  assert.equal(await h.workspace.replace(snapshot('restored')),true);h.setOffline(true);
+  assert.equal(await h.workspace.replace(snapshot('offline restored')),false);assert.equal(h.note,'offline restored');assert.equal(h.cache.get('account:A').pending,true);assert.equal(h.remote.get('A').payload.storage.note,'restored');
  }finally{h.dispose();}
 });

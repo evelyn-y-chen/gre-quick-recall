@@ -1,5 +1,6 @@
 import type {Snapshot} from './database';
 import {ratingModules,validRatings,type Rating,type Ratings} from '../app/ratingSyncModel';
+import {mergePracticeStorage} from './practiceProgressMerge';
 export const ratingClockKey='gre-rating-modified-v1';
 const storageKeys:Record<string,string>={bb:'gre-bb-ratings-v1',words:'gre-quick-ratings-v1',equivalents:'gre-equivalent-quick-ratings-v1','a-plus':'gre-a-plus-equivalent-quick-ratings-v1',glee:'gre-glee-1500-quick-ratings-v1',math:'gre-math-vocabulary-quick-ratings-v1',lclj:'gre-lclj-quick-ratings-v1','a-plus-words':'gre-a-plus-word-marks-v1'};
 type Stamp={rating:Rating;at:number};
@@ -54,10 +55,10 @@ function isPlanAnswerKey(key:string){
 function planAnswer(raw:string|undefined):PlanAnswer|undefined{
  const value=parse(raw);return value==='red'||value==='yellow'||value==='green'?value:undefined;
 }
-function mergeMap<T>(base:Record<string,T>,local:Record<string,T>,remote:Record<string,T>,preferLocal:(key:string)=>boolean=()=>false):Record<string,T>{
+function mergeMap<T>(base:Record<string,T>,local:Record<string,T>,remote:Record<string,T>,preferLocal:(key:string)=>boolean=()=>false,resolve?:(key:string,base:T|undefined,local:T|undefined,remote:T|undefined)=>{value:T|undefined}|undefined):Record<string,T>{
  const out:Record<string,T>={};for(const key of new Set([...Object.keys(base),...Object.keys(local),...Object.keys(remote)])){
   if(!safeKey(key))throw Error('便笺中有无效记录键，原有记录未被替换。');
-  let value:T|undefined;if(same(local[key],base[key]))value=remote[key];else if(same(remote[key],base[key])||same(local[key],remote[key]))value=local[key];else if(preferLocal(key))value=local[key];else throw Error('两台设备修改了同一份笔记或设置，已保留本机记录，请导出便笺后核对。');
+  let value:T|undefined;if(same(local[key],base[key]))value=remote[key];else if(same(remote[key],base[key])||same(local[key],remote[key]))value=local[key];else if(preferLocal(key))value=local[key];else {const resolution=resolve?.(key,base[key],local[key],remote[key]);if(resolution)value=resolution.value;else throw Error('两台设备修改了同一份笔记或设置，已保留本机记录，请导出便笺后核对。');}
   if(value!==undefined)out[key]=value;
  }return out;
 }
@@ -74,7 +75,7 @@ export function mergeWorkspaceSnapshots(base:Snapshot|undefined,local:Snapshot,r
  // Malformed keys or values retain the ordinary conflict protection below.
  const planKeys=new Set([...new Set(snapshots.flatMap(s=>Object.keys(s?.storage??{})))].filter(key=>isPlanAnswerKey(key)&&snapshots.every(s=>!s||!Object.hasOwn(s.storage,key)||planAnswer(s.storage[key])!==undefined)));
  const plainStorage=(s:Snapshot|undefined)=>Object.fromEntries(Object.entries(s?.storage??{}).filter(([k])=>!isRatingStorage(k)&&!planKeys.has(k)));
- const storage=mergeMap(plainStorage(base),plainStorage(local),plainStorage(remote),key=>key==='lemnota-username'||key==='community-theme'||/^gre-.*(?:selection|lists|sets|categories|range|last-quick-type|study-list|auto-speak|source-order)/.test(key));
+ const storage=mergeMap(plainStorage(base),plainStorage(local),plainStorage(remote),key=>key==='lemnota-username'||key==='community-theme'||/^gre-.*(?:selection|lists|sets|categories|range|last-quick-type|study-list|auto-speak|source-order)/.test(key),mergePracticeStorage);
  for(const key of [...planKeys].sort()){
   const answers=snapshots.map(s=>planAnswer(s?.storage[key])).filter((value):value is PlanAnswer=>value!==undefined);
   if(answers.length)storage[key]=JSON.stringify(answers.reduce((lowest,value)=>planAnswerRank[value]<planAnswerRank[lowest]?value:lowest));

@@ -27,7 +27,7 @@ function harness(kind, {deck='words', mode='single', data={}, notebook, persiste
     assert.equal(url,'/api/a-plus-test');return {ok:true,json:async()=>({session:seed,revision,history:{}})};
   }
   function load(filename) {
-    const full=path.resolve(filename);if(modules.has(full))return modules.get(full);
+    const full=path.resolve(filename);if(full.endsWith('.json'))return {default:JSON.parse(fs.readFileSync(full,'utf8'))};if(modules.has(full))return modules.get(full);
     const exported={};modules.set(full,exported);
     const code=ts.transpileModule(fs.readFileSync(full,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,jsx:ts.JsxEmit.ReactJSX}}).outputText;
     new Function('require','exports','window','document','setInterval','clearInterval','crypto',code)(name=>{
@@ -45,7 +45,7 @@ function harness(kind, {deck='words', mode='single', data={}, notebook, persiste
       if(name.endsWith('/bbEquivalents.json'))return {default:bb};
       if(name.endsWith('/equivalents.json'))return {default:[]};
       assert.ok(name.startsWith('.'),`Unexpected import ${name}`);
-      const source=path.resolve(path.dirname(full),name);return load(fs.existsSync(source+'.ts')?source+'.ts':source+'.tsx');
+      const source=path.resolve(path.dirname(full),name);return load(fs.existsSync(source)?source:fs.existsSync(source+'.ts')?source+'.ts':source+'.tsx');
     },exported,browser,document,()=>1,()=>{},{randomUUID:()=>`fixture-${++tick}`});return exported;
   }
   const aPlusModel=load('app/aPlusTestModel.ts');

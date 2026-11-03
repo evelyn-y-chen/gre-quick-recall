@@ -10,7 +10,7 @@ const canonical=(value:unknown):string=>JSON.stringify(object(value)?Object.from
 const same=(a:unknown,b:unknown)=>canonical(a)===canonical(b);
 const whole=(n:unknown)=>Number.isSafeInteger(n)&&(n as number)>=0;
 const date=(value:unknown)=>typeof value==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(value)&&Number.isFinite(Date.parse(value+'T00:00:00Z'))&&new Date(value+'T00:00:00Z').toISOString().slice(0,10)===value;
-const scope='(?:words|bb|a-plus|notebook-[A-Za-z0-9_-]+)';
+const scope='(?:zhang-words|zhang-pairs|words|bb|a-plus|notebook-[A-Za-z0-9_-]+)';
 export const isPracticeRunKey=(key:string)=>new RegExp('^lemnota-practice-'+scope+'$').test(key);
 export const isPracticeReviewKey=(key:string)=>new RegExp('^lemnota-practice-review-'+scope+'-v1$').test(key);
 export const isPracticeStorageKey=(key:string)=>isPracticeRunKey(key)||isPracticeReviewKey(key);
@@ -79,7 +79,7 @@ export function mergePracticeStorage(key:string,base:string|undefined,local:stri
 export function practiceProgressSummary(snapshot:Snapshot){
  return Object.entries(snapshot.storage).flatMap(([key,raw])=>{
   const value=parse(raw);
-  return isPracticeRunKey(key)&&run(value)?[{key,label:key.endsWith('words')?'全能词':key.endsWith('bb')?'BB 六选二':key.endsWith('a-plus')?'A+ 等价词':'生词本',remaining:value.queue.length,answers:value.turn,completed:Object.values(value.results).filter(r=>r.done).length}]:[];
+  return isPracticeRunKey(key)&&run(value)?[{key,label:key.endsWith('zhang-words')?'张巍镇考3000词':key.endsWith('zhang-pairs')?'张巍等价词':key.endsWith('words')?'全能词':key.endsWith('bb')?'BB 六选二':key.endsWith('a-plus')?'A+ 等价词':'生词本',remaining:value.queue.length,answers:value.turn,completed:Object.values(value.results).filter(r=>r.done).length}]:[];
  });
 }
 /** Restore only test sessions and their review schedules; notes/ratings/settings stay current. */

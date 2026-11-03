@@ -1,6 +1,7 @@
 import {useEffect,useState} from 'react';
 import {exportWorkspace} from './database';
 import {summarizeProgress,type Catalog} from './personalProgressModel';
+import {zhangDecks,zhangRatingKeys,zhangSynonyms,type ZhangDeck} from '../app/zhangCatalog';
 import vocabulary from '../app/vocabulary.json';
 import equivalents from '../app/equivalents.json';
 import aplus from '../app/aPlusEquivalents.json';
@@ -12,6 +13,7 @@ import reading from '../app/lcljReading.json';
 import mathIndex from '../app/lcljMath.json';
 import {MATH_WORDS} from '../app/mathVocabulary';
 const catalogs:Catalog[]=[
+ ...(['zhang-words','zhang-pairs'] as ZhangDeck[]).map(id=>({id,name:zhangDecks[id].title,module:id,storageKey:zhangRatingKeys[id],entries:zhangDecks[id].entries.map(e=>({id:e.id,words:id==='zhang-pairs'?[e.word,...zhangSynonyms(e)]:[e.word]}))})),
  {id:'words',name:'全能词速刷',module:'words',storageKey:'gre-quick-ratings-v1',entries:vocabulary.map(w=>({id:w.id,words:[w.word]}))},
  {id:'equivalents',name:'等价词速刷',module:'equivalents',storageKey:'gre-equivalent-quick-ratings-v1',entries:equivalents.map(w=>({id:w.id,words:[w.left,w.right]}))},
  {id:'a-plus',name:'A+ 等价词',module:'a-plus',storageKey:'gre-a-plus-equivalent-quick-ratings-v1',entries:aplus.map(w=>({id:w.id,words:[w.word,...aPlusTerms(w)]}))},

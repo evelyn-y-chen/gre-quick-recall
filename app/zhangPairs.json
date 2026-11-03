@@ -1,0 +1,9052 @@
+[
+  {
+    "id": "zhang-pairs-1-1",
+    "word": "mitigate",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 1,
+    "page": 5,
+    "meaning": "缓和",
+    "synonyms": "abate,curtail, temper, ameliorate"
+  },
+  {
+    "id": "zhang-pairs-1-2",
+    "word": "anomaly",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 2,
+    "page": 5,
+    "meaning": "异常",
+    "synonyms": "aberration"
+  },
+  {
+    "id": "zhang-pairs-1-3",
+    "word": "quiescent",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 3,
+    "page": 5,
+    "meaning": "不活跃的，静止的",
+    "synonyms": "abeyant, calm"
+  },
+  {
+    "id": "zhang-pairs-1-4",
+    "word": "unprecedented",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 4,
+    "page": 5,
+    "meaning": "前所未有的",
+    "synonyms": "abnormal"
+  },
+  {
+    "id": "zhang-pairs-1-5",
+    "word": "proliferate",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 5,
+    "page": 5,
+    "meaning": "激增",
+    "synonyms": "abound"
+  },
+  {
+    "id": "zhang-pairs-1-6",
+    "word": "synoptic",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 6,
+    "page": 5,
+    "meaning": "概要的",
+    "synonyms": "abridged"
+  },
+  {
+    "id": "zhang-pairs-1-7",
+    "word": "exonerate",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 7,
+    "page": 5,
+    "meaning": "免罪",
+    "synonyms": "absolve"
+  },
+  {
+    "id": "zhang-pairs-1-8",
+    "word": "general",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 8,
+    "page": 5,
+    "meaning": "笼统的",
+    "synonyms": "abstract"
+  },
+  {
+    "id": "zhang-pairs-1-9",
+    "word": "regular",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 9,
+    "page": 5,
+    "meaning": "常出现的",
+    "synonyms": "abundant"
+  },
+  {
+    "id": "zhang-pairs-1-10",
+    "word": "misuse",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 10,
+    "page": 5,
+    "meaning": "误用",
+    "synonyms": "abuse"
+  },
+  {
+    "id": "zhang-pairs-1-11",
+    "word": "acquiescence",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 11,
+    "page": 5,
+    "meaning": "默许",
+    "synonyms": "accession"
+  },
+  {
+    "id": "zhang-pairs-1-12",
+    "word": "hail",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 12,
+    "page": 5,
+    "meaning": "称赞",
+    "synonyms": "acclaim"
+  },
+  {
+    "id": "zhang-pairs-1-13",
+    "word": "consensus",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 13,
+    "page": 5,
+    "meaning": "一致意见",
+    "synonyms": "accord"
+  },
+  {
+    "id": "zhang-pairs-1-14",
+    "word": "caustic",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 14,
+    "page": 5,
+    "meaning": "尖刻的",
+    "synonyms": "acerbic"
+  },
+  {
+    "id": "zhang-pairs-1-15",
+    "word": "mordant",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 15,
+    "page": 5,
+    "meaning": "尖刻的",
+    "synonyms": "acerbic"
+  },
+  {
+    "id": "zhang-pairs-1-16",
+    "word": "vitriolic",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 16,
+    "page": 5,
+    "meaning": "尖酸刻薄的",
+    "synonyms": "acerbic,opprobrium"
+  },
+  {
+    "id": "zhang-pairs-1-17",
+    "word": "realize",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 17,
+    "page": 5,
+    "meaning": "实现",
+    "synonyms": "achieve"
+  },
+  {
+    "id": "zhang-pairs-1-18",
+    "word": "concede",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 18,
+    "page": 5,
+    "meaning": "承认",
+    "synonyms": "acknowledge"
+  },
+  {
+    "id": "zhang-pairs-1-19",
+    "word": "accession",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 19,
+    "page": 5,
+    "meaning": "遵守",
+    "synonyms": "acquiescence"
+  },
+  {
+    "id": "zhang-pairs-1-20",
+    "word": "flexibility",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 20,
+    "page": 5,
+    "meaning": "灵活性，适应性",
+    "synonyms": "adaptability, suppleness, malleability"
+  },
+  {
+    "id": "zhang-pairs-1-21",
+    "word": "proficient",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 21,
+    "page": 5,
+    "meaning": "精通的",
+    "synonyms": "adept"
+  },
+  {
+    "id": "zhang-pairs-1-22",
+    "word": "disciple",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 22,
+    "page": 5,
+    "meaning": "信徒",
+    "synonyms": "adherent"
+  },
+  {
+    "id": "zhang-pairs-1-23",
+    "word": "nimble",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 23,
+    "page": 5,
+    "meaning": "敏捷的",
+    "synonyms": "adroit dexterous, skillful"
+  },
+  {
+    "id": "zhang-pairs-1-24",
+    "word": "approbation",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 24,
+    "page": 5,
+    "meaning": "赞同",
+    "synonyms": "adulation, commendation ,"
+  },
+  {
+    "id": "zhang-pairs-1-25",
+    "word": "antagonistic",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 25,
+    "page": 5,
+    "meaning": "敌对的",
+    "synonyms": "adversarial, inimical"
+  },
+  {
+    "id": "zhang-pairs-1-26",
+    "word": "easygoing",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 26,
+    "page": 5,
+    "meaning": "悠闲的",
+    "synonyms": "affable"
+  },
+  {
+    "id": "zhang-pairs-1-27",
+    "word": "kindred",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 27,
+    "page": 5,
+    "meaning": "同类的，相似的",
+    "synonyms": "affiliated"
+  },
+  {
+    "id": "zhang-pairs-1-28",
+    "word": "opulent",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 28,
+    "page": 5,
+    "meaning": "富裕的",
+    "synonyms": "affluent"
+  },
+  {
+    "id": "zhang-pairs-1-29",
+    "word": "exacerbate",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 29,
+    "page": 5,
+    "meaning": "使恶化",
+    "synonyms": "aggravate"
+  },
+  {
+    "id": "zhang-pairs-1-30",
+    "word": "unsettle",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 30,
+    "page": 5,
+    "meaning": "使不安",
+    "synonyms": "alarm, disconcert"
+  },
+  {
+    "id": "zhang-pairs-1-31",
+    "word": "beneficence",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 31,
+    "page": 5,
+    "meaning": "慈善，善行",
+    "synonyms": "altruism"
+  },
+  {
+    "id": "zhang-pairs-1-32",
+    "word": "benevolent",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 32,
+    "page": 5,
+    "meaning": "仁慈的",
+    "synonyms": "altruistic, magnanimous"
+  },
+  {
+    "id": "zhang-pairs-1-33",
+    "word": "wondrous",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 33,
+    "page": 5,
+    "meaning": "奇妙的",
+    "synonyms": "amazing"
+  },
+  {
+    "id": "zhang-pairs-1-34",
+    "word": "equivocal",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 34,
+    "page": 5,
+    "meaning": "模棱两可的",
+    "synonyms": "ambiguous"
+  },
+  {
+    "id": "zhang-pairs-1-35",
+    "word": "comparable",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 35,
+    "page": 5,
+    "meaning": "相似的",
+    "synonyms": "analogous"
+  },
+  {
+    "id": "zhang-pairs-1-36",
+    "word": "galvanize",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 36,
+    "page": 6,
+    "meaning": "激励",
+    "synonyms": "animate,rouse"
+  },
+  {
+    "id": "zhang-pairs-1-37",
+    "word": "aberration",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 37,
+    "page": 6,
+    "meaning": "异常",
+    "synonyms": "anomaly"
+  },
+  {
+    "id": "zhang-pairs-1-38",
+    "word": "irregularity",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 38,
+    "page": 6,
+    "meaning": "异常",
+    "synonyms": "anomaly"
+  },
+  {
+    "id": "zhang-pairs-1-39",
+    "word": "obscure",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 39,
+    "page": 6,
+    "meaning": "1.不出名的 2.费解的 3.使...费解",
+    "synonyms": "anonymous, opaque, obfuscate"
+  },
+  {
+    "id": "zhang-pairs-1-40",
+    "word": "adversarial",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 40,
+    "page": 6,
+    "meaning": "对立的",
+    "synonyms": "antagonistic"
+  },
+  {
+    "id": "zhang-pairs-1-41",
+    "word": "inimical",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 41,
+    "page": 6,
+    "meaning": "1.有害的 2.不友好的",
+    "synonyms": "antagonistic,deleterious"
+  },
+  {
+    "id": "zhang-pairs-1-42",
+    "word": "predate",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 42,
+    "page": 6,
+    "meaning": "早于",
+    "synonyms": "antedate, precede"
+  },
+  {
+    "id": "zhang-pairs-1-43",
+    "word": "archaic",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 43,
+    "page": 6,
+    "meaning": "古老的",
+    "synonyms": "antediluvian, outdated"
+  },
+  {
+    "id": "zhang-pairs-1-44",
+    "word": "foresee",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 44,
+    "page": 6,
+    "meaning": "预见",
+    "synonyms": "anticipate"
+  },
+  {
+    "id": "zhang-pairs-1-45",
+    "word": "prefigure",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 45,
+    "page": 6,
+    "meaning": "预示",
+    "synonyms": "anticipate"
+  },
+  {
+    "id": "zhang-pairs-1-46",
+    "word": "indifferent",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 46,
+    "page": 6,
+    "meaning": "冷漠",
+    "synonyms": "apathy"
+  },
+  {
+    "id": "zhang-pairs-1-47",
+    "word": "palatable",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 47,
+    "page": 6,
+    "meaning": "好吃的",
+    "synonyms": "appetizing"
+  },
+  {
+    "id": "zhang-pairs-1-48",
+    "word": "extol",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 48,
+    "page": 6,
+    "meaning": "赞扬",
+    "synonyms": "applaud"
+  },
+  {
+    "id": "zhang-pairs-1-49",
+    "word": "fitting",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 49,
+    "page": 6,
+    "meaning": "适合的",
+    "synonyms": "apposite"
+  },
+  {
+    "id": "zhang-pairs-1-50",
+    "word": "commendation",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 50,
+    "page": 6,
+    "meaning": "称赞",
+    "synonyms": "approbation"
+  },
+  {
+    "id": "zhang-pairs-1-51",
+    "word": "adulation",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 51,
+    "page": 6,
+    "meaning": "谄媚",
+    "synonyms": "approbation, sycophant"
+  },
+  {
+    "id": "zhang-pairs-1-52",
+    "word": "pilfer",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 52,
+    "page": 6,
+    "meaning": "偷窃",
+    "synonyms": "appropriate"
+  },
+  {
+    "id": "zhang-pairs-1-53",
+    "word": "antediluvian",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 53,
+    "page": 6,
+    "meaning": "过时的",
+    "synonyms": "archaic"
+  },
+  {
+    "id": "zhang-pairs-1-54",
+    "word": "laborious",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 54,
+    "page": 6,
+    "meaning": "勤劳的",
+    "synonyms": "arduous"
+  },
+  {
+    "id": "zhang-pairs-1-55",
+    "word": "taxing",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 55,
+    "page": 6,
+    "meaning": "费劲的",
+    "synonyms": "arduous"
+  },
+  {
+    "id": "zhang-pairs-1-56",
+    "word": "hubris",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 56,
+    "page": 6,
+    "meaning": "傲慢自大的",
+    "synonyms": "arrogance"
+  },
+  {
+    "id": "zhang-pairs-1-57",
+    "word": "specious",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 57,
+    "page": 6,
+    "meaning": "虚假的",
+    "synonyms": "artificial, forged, fabricated,spurious"
+  },
+  {
+    "id": "zhang-pairs-1-58",
+    "word": "spurious",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 58,
+    "page": 6,
+    "meaning": "虚假的",
+    "synonyms": "artificial, implausible"
+  },
+  {
+    "id": "zhang-pairs-1-59",
+    "word": "simplicity",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 59,
+    "page": 6,
+    "meaning": "简单，简朴",
+    "synonyms": "artlessness"
+  },
+  {
+    "id": "zhang-pairs-1-60",
+    "word": "slur",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 60,
+    "page": 6,
+    "meaning": "贬低",
+    "synonyms": "aspersion"
+  },
+  {
+    "id": "zhang-pairs-1-61",
+    "word": "maintain",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 61,
+    "page": 6,
+    "meaning": "断言",
+    "synonyms": "assert"
+  },
+  {
+    "id": "zhang-pairs-1-62",
+    "word": "expansion",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 62,
+    "page": 6,
+    "meaning": "扩张，增长",
+    "synonyms": "augmentation, burgeoning"
+  },
+  {
+    "id": "zhang-pairs-1-63",
+    "word": "favorable",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 63,
+    "page": 6,
+    "meaning": "有利的",
+    "synonyms": "auspicious"
+  },
+  {
+    "id": "zhang-pairs-1-64",
+    "word": "propitious",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 64,
+    "page": 6,
+    "meaning": "吉利的",
+    "synonyms": "auspicious"
+  },
+  {
+    "id": "zhang-pairs-1-65",
+    "word": "spartan",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 65,
+    "page": 6,
+    "meaning": "朴素的",
+    "synonyms": "austere"
+  },
+  {
+    "id": "zhang-pairs-1-66",
+    "word": "abstemious",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 66,
+    "page": 6,
+    "meaning": "有节制的",
+    "synonyms": "austere,moderate"
+  },
+  {
+    "id": "zhang-pairs-1-67",
+    "word": "reflexive",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 67,
+    "page": 6,
+    "meaning": "本能的，无意识的",
+    "synonyms": "automatic"
+  },
+  {
+    "id": "zhang-pairs-1-68",
+    "word": "rapacious",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 68,
+    "page": 6,
+    "meaning": "贪婪的",
+    "synonyms": "avaricious"
+  },
+  {
+    "id": "zhang-pairs-1-69",
+    "word": "ungainly",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 69,
+    "page": 6,
+    "meaning": "笨拙的，不优雅的",
+    "synonyms": "awkward"
+  },
+  {
+    "id": "zhang-pairs-1-70",
+    "word": "stale",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 70,
+    "page": 6,
+    "meaning": "陈旧的，厌倦的",
+    "synonyms": "banal"
+  },
+  {
+    "id": "zhang-pairs-1-71",
+    "word": "raillery",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 71,
+    "page": 6,
+    "meaning": "开玩笑",
+    "synonyms": "banter"
+  },
+  {
+    "id": "zhang-pairs-1-72",
+    "word": "untenable",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 72,
+    "page": 6,
+    "meaning": "站不住脚的",
+    "synonyms": "baseless"
+  },
+  {
+    "id": "zhang-pairs-1-73",
+    "word": "indebted",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 73,
+    "page": 6,
+    "meaning": "感激的",
+    "synonyms": "beholden"
+  },
+  {
+    "id": "zhang-pairs-1-74",
+    "word": "mask",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 74,
+    "page": 6,
+    "meaning": "掩饰",
+    "synonyms": "belie"
+  },
+  {
+    "id": "zhang-pairs-1-75",
+    "word": "boon",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 75,
+    "page": 7,
+    "meaning": "好处，恩惠",
+    "synonyms": "benefit,windfall"
+  },
+  {
+    "id": "zhang-pairs-1-76",
+    "word": "altruistic",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 76,
+    "page": 7,
+    "meaning": "无私的",
+    "synonyms": "benevolent"
+  },
+  {
+    "id": "zhang-pairs-1-77",
+    "word": "signify",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 77,
+    "page": 7,
+    "meaning": "表明",
+    "synonyms": "betoken"
+  },
+  {
+    "id": "zhang-pairs-1-78",
+    "word": "orientation",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 78,
+    "page": 7,
+    "meaning": "目标，态度",
+    "synonyms": "bias"
+  },
+  {
+    "id": "zhang-pairs-1-79",
+    "word": "unimpeachable",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 79,
+    "page": 7,
+    "meaning": "毋庸置疑的",
+    "synonyms": "blameless"
+  },
+  {
+    "id": "zhang-pairs-1-80",
+    "word": "insipid",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 80,
+    "page": 7,
+    "meaning": "枯燥乏味的",
+    "synonyms": "bland"
+  },
+  {
+    "id": "zhang-pairs-1-81",
+    "word": "brandish",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 81,
+    "page": 7,
+    "meaning": "炫耀",
+    "synonyms": "boast"
+  },
+  {
+    "id": "zhang-pairs-1-82",
+    "word": "buttress",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 82,
+    "page": 7,
+    "meaning": "支持",
+    "synonyms": "bolster"
+  },
+  {
+    "id": "zhang-pairs-1-83",
+    "word": "appropriate",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 83,
+    "page": 7,
+    "meaning": "挪用",
+    "synonyms": "borrow"
+  },
+  {
+    "id": "zhang-pairs-1-84",
+    "word": "boast",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 84,
+    "page": 7,
+    "meaning": "吹嘘，自夸",
+    "synonyms": "brandish"
+  },
+  {
+    "id": "zhang-pairs-1-85",
+    "word": "economy",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 85,
+    "page": 7,
+    "meaning": "节约",
+    "synonyms": "brevity"
+  },
+  {
+    "id": "zhang-pairs-1-86",
+    "word": "splendor",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 86,
+    "page": 7,
+    "meaning": "华丽，显赫",
+    "synonyms": "brilliance"
+  },
+  {
+    "id": "zhang-pairs-1-87",
+    "word": "tolerate",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 87,
+    "page": 7,
+    "meaning": "容许",
+    "synonyms": "brook"
+  },
+  {
+    "id": "zhang-pairs-1-88",
+    "word": "pastoral",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 88,
+    "page": 7,
+    "meaning": "乡村的",
+    "synonyms": "bucolic"
+  },
+  {
+    "id": "zhang-pairs-1-89",
+    "word": "nascent",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 89,
+    "page": 7,
+    "meaning": "刚出现的",
+    "synonyms": "budding,unformed"
+  },
+  {
+    "id": "zhang-pairs-1-90",
+    "word": "insulatedfrom",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 90,
+    "page": 7,
+    "meaning": "与…隔绝",
+    "synonyms": "bufferedagainst"
+  },
+  {
+    "id": "zhang-pairs-1-91",
+    "word": "onerous",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 91,
+    "page": 7,
+    "meaning": "繁重的",
+    "synonyms": "burdensome"
+  },
+  {
+    "id": "zhang-pairs-1-92",
+    "word": "no-nonsense",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 92,
+    "page": 7,
+    "meaning": "严肃的，高效干练的",
+    "synonyms": "businesslike"
+  },
+  {
+    "id": "zhang-pairs-1-93",
+    "word": "bolster",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 93,
+    "page": 7,
+    "meaning": "支持",
+    "synonyms": "buttress,prop up"
+  },
+  {
+    "id": "zhang-pairs-1-94",
+    "word": "circumvent",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 94,
+    "page": 7,
+    "meaning": "避开",
+    "synonyms": "bypass, sidestep,skirt"
+  },
+  {
+    "id": "zhang-pairs-1-95",
+    "word": "deliberate",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 95,
+    "page": 7,
+    "meaning": "故意的",
+    "synonyms": "calculated"
+  },
+  {
+    "id": "zhang-pairs-1-96",
+    "word": "heartless",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 96,
+    "page": 7,
+    "meaning": "残酷的",
+    "synonyms": "callous"
+  },
+  {
+    "id": "zhang-pairs-1-97",
+    "word": "solidarity",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 97,
+    "page": 7,
+    "meaning": "团结",
+    "synonyms": "camaraderie"
+  },
+  {
+    "id": "zhang-pairs-1-98",
+    "word": "mimic",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 98,
+    "page": 7,
+    "meaning": "1.模仿 2.和…相似",
+    "synonyms": "camouflage, replicate"
+  },
+  {
+    "id": "zhang-pairs-1-99",
+    "word": "formulaic",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 99,
+    "page": 7,
+    "meaning": "老套的，公式化的",
+    "synonyms": "canned"
+  },
+  {
+    "id": "zhang-pairs-1-100",
+    "word": "deft",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 100,
+    "page": 7,
+    "meaning": "灵巧的",
+    "synonyms": "canny"
+  },
+  {
+    "id": "zhang-pairs-1-101",
+    "word": "shrewd",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 101,
+    "page": 7,
+    "meaning": "精明的",
+    "synonyms": "canny, artful"
+  },
+  {
+    "id": "zhang-pairs-1-102",
+    "word": "arbitrary",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 102,
+    "page": 7,
+    "meaning": "随意的，武断的",
+    "synonyms": "capricious"
+  },
+  {
+    "id": "zhang-pairs-1-103",
+    "word": "whimsical",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 103,
+    "page": 7,
+    "meaning": "难以预测的",
+    "synonyms": "capricious"
+  },
+  {
+    "id": "zhang-pairs-1-104",
+    "word": "impulsive",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 104,
+    "page": 7,
+    "meaning": "冲动的",
+    "synonyms": "capricious, hasty"
+  },
+  {
+    "id": "zhang-pairs-1-105",
+    "word": "secure",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 105,
+    "page": 7,
+    "meaning": "获得",
+    "synonyms": "capture, earn"
+  },
+  {
+    "id": "zhang-pairs-1-106",
+    "word": "vigilant",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 106,
+    "page": 7,
+    "meaning": "警惕的",
+    "synonyms": "careful"
+  },
+  {
+    "id": "zhang-pairs-1-107",
+    "word": "chastise",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 107,
+    "page": 7,
+    "meaning": "严厉批评",
+    "synonyms": "castigate"
+  },
+  {
+    "id": "zhang-pairs-1-108",
+    "word": "shriek",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 108,
+    "page": 7,
+    "meaning": "尖叫",
+    "synonyms": "caterwaul"
+  },
+  {
+    "id": "zhang-pairs-1-109",
+    "word": "relinquish",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 109,
+    "page": 7,
+    "meaning": "放弃",
+    "synonyms": "cede"
+  },
+  {
+    "id": "zhang-pairs-1-110",
+    "word": "dispatch",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 110,
+    "page": 7,
+    "meaning": "迅速",
+    "synonyms": "celerity"
+  },
+  {
+    "id": "zhang-pairs-1-111",
+    "word": "disapprobation",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 111,
+    "page": 7,
+    "meaning": "谴责",
+    "synonyms": "censure"
+  },
+  {
+    "id": "zhang-pairs-1-112",
+    "word": "defend",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 112,
+    "page": 7,
+    "meaning": "为…做辩护",
+    "synonyms": "champion"
+  },
+  {
+    "id": "zhang-pairs-1-113",
+    "word": "espouse",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 113,
+    "page": 7,
+    "meaning": "拥护",
+    "synonyms": "champion,advocate,defend"
+  },
+  {
+    "id": "zhang-pairs-1-114",
+    "word": "allure",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 114,
+    "page": 7,
+    "meaning": "引诱",
+    "synonyms": "charm"
+  },
+  {
+    "id": "zhang-pairs-1-115",
+    "word": "castigate",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 115,
+    "page": 8,
+    "meaning": "严厉批评",
+    "synonyms": "chastise"
+  },
+  {
+    "id": "zhang-pairs-1-116",
+    "word": "stem",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 116,
+    "page": 8,
+    "meaning": "阻止",
+    "synonyms": "check"
+  },
+  {
+    "id": "zhang-pairs-1-117",
+    "word": "prudent",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 117,
+    "page": 8,
+    "meaning": "审慎的",
+    "synonyms": "circumspect, provident"
+  },
+  {
+    "id": "zhang-pairs-1-118",
+    "word": "contingent",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 118,
+    "page": 8,
+    "meaning": "取决于",
+    "synonyms": "circumstantial"
+  },
+  {
+    "id": "zhang-pairs-1-119",
+    "word": "sidestep",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 119,
+    "page": 8,
+    "meaning": "回避",
+    "synonyms": "circumvent"
+  },
+  {
+    "id": "zhang-pairs-1-120",
+    "word": "bypass",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 120,
+    "page": 8,
+    "meaning": "避开",
+    "synonyms": "circumvent,skirt"
+  },
+  {
+    "id": "zhang-pairs-1-121",
+    "word": "comity",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 121,
+    "page": 8,
+    "meaning": "友谊",
+    "synonyms": "civility"
+  },
+  {
+    "id": "zhang-pairs-1-122",
+    "word": "covert",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 122,
+    "page": 8,
+    "meaning": "秘密的",
+    "synonyms": "clandestine"
+  },
+  {
+    "id": "zhang-pairs-1-123",
+    "word": "archetypical",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 123,
+    "page": 8,
+    "meaning": "典型的",
+    "synonyms": "classic"
+  },
+  {
+    "id": "zhang-pairs-1-124",
+    "word": "orderly",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 124,
+    "page": 8,
+    "meaning": "有秩序的",
+    "synonyms": "coherent"
+  },
+  {
+    "id": "zhang-pairs-1-125",
+    "word": "immense",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 125,
+    "page": 8,
+    "meaning": "巨大的",
+    "synonyms": "colossal"
+  },
+  {
+    "id": "zhang-pairs-1-126",
+    "word": "meld",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 126,
+    "page": 8,
+    "meaning": "混合",
+    "synonyms": "combine"
+  },
+  {
+    "id": "zhang-pairs-1-127",
+    "word": "civility",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 127,
+    "page": 8,
+    "meaning": "礼貌",
+    "synonyms": "comity"
+  },
+  {
+    "id": "zhang-pairs-1-128",
+    "word": "equivalent",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 128,
+    "page": 8,
+    "meaning": "相同的，等价的",
+    "synonyms": "commensurate"
+  },
+  {
+    "id": "zhang-pairs-1-129",
+    "word": "unremarkable",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 129,
+    "page": 8,
+    "meaning": "普通的",
+    "synonyms": "commonplace"
+  },
+  {
+    "id": "zhang-pairs-1-130",
+    "word": "analogous",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 130,
+    "page": 8,
+    "meaning": "类似的",
+    "synonyms": "comparable"
+  },
+  {
+    "id": "zhang-pairs-1-131",
+    "word": "offset",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 131,
+    "page": 8,
+    "meaning": "补偿，抵消",
+    "synonyms": "compensate"
+  },
+  {
+    "id": "zhang-pairs-1-132",
+    "word": "placidity",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 132,
+    "page": 8,
+    "meaning": "满足，平和",
+    "synonyms": "complacency"
+  },
+  {
+    "id": "zhang-pairs-1-133",
+    "word": "tractable",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 133,
+    "page": 8,
+    "meaning": "驯服的，温顺的",
+    "synonyms": "compliant"
+  },
+  {
+    "id": "zhang-pairs-1-134",
+    "word": "knotty",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 134,
+    "page": 8,
+    "meaning": "复杂的，棘手的",
+    "synonyms": "complicated"
+  },
+  {
+    "id": "zhang-pairs-1-135",
+    "word": "acknowledge",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 135,
+    "page": 8,
+    "meaning": "承认",
+    "synonyms": "concede"
+  },
+  {
+    "id": "zhang-pairs-1-136",
+    "word": "plausible",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 136,
+    "page": 8,
+    "meaning": "1.真实的 2.看似真实（但实际虚假)",
+    "synonyms": "conceivable"
+  },
+  {
+    "id": "zhang-pairs-1-137",
+    "word": "decry",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 137,
+    "page": 8,
+    "meaning": "公开谴责",
+    "synonyms": "condemn"
+  },
+  {
+    "id": "zhang-pairs-1-138",
+    "word": "meet",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 138,
+    "page": 8,
+    "meaning": "合适的",
+    "synonyms": "condign"
+  },
+  {
+    "id": "zhang-pairs-1-139",
+    "word": "circumscribe",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 139,
+    "page": 8,
+    "meaning": "限制",
+    "synonyms": "confine,limit"
+  },
+  {
+    "id": "zhang-pairs-1-140",
+    "word": "hew to",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 140,
+    "page": 8,
+    "meaning": "遵守",
+    "synonyms": "conformto"
+  },
+  {
+    "id": "zhang-pairs-1-141",
+    "word": "squarewith",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 141,
+    "page": 8,
+    "meaning": "与…一致",
+    "synonyms": "conformto"
+  },
+  {
+    "id": "zhang-pairs-1-142",
+    "word": "flummox",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 142,
+    "page": 8,
+    "meaning": "使困惑",
+    "synonyms": "confound"
+  },
+  {
+    "id": "zhang-pairs-1-143",
+    "word": "perplex",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 143,
+    "page": 8,
+    "meaning": "迷惑",
+    "synonyms": "confound, baffle"
+  },
+  {
+    "id": "zhang-pairs-1-144",
+    "word": "muddle",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 144,
+    "page": 8,
+    "meaning": "使..混乱",
+    "synonyms": "confuse"
+  },
+  {
+    "id": "zhang-pairs-1-145",
+    "word": "speculation",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 145,
+    "page": 8,
+    "meaning": "推测",
+    "synonyms": "conjecture"
+  },
+  {
+    "id": "zhang-pairs-1-146",
+    "word": "obtrusive",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 146,
+    "page": 8,
+    "meaning": "惹眼的",
+    "synonyms": "conspicuous"
+  },
+  {
+    "id": "zhang-pairs-1-147",
+    "word": "prominent",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 147,
+    "page": 8,
+    "meaning": "显著的",
+    "synonyms": "conspicuous,salient"
+  },
+  {
+    "id": "zhang-pairs-1-148",
+    "word": "deter",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 148,
+    "page": 8,
+    "meaning": "阻止",
+    "synonyms": "constrain"
+  },
+  {
+    "id": "zhang-pairs-1-149",
+    "word": "ponder",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 149,
+    "page": 8,
+    "meaning": "深思熟虑",
+    "synonyms": "contemplate"
+  },
+  {
+    "id": "zhang-pairs-1-150",
+    "word": "competing",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 150,
+    "page": 8,
+    "meaning": "竞争的",
+    "synonyms": "contending"
+  },
+  {
+    "id": "zhang-pairs-1-151",
+    "word": "discordance",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 151,
+    "page": 8,
+    "meaning": "不一致",
+    "synonyms": "contention"
+  },
+  {
+    "id": "zhang-pairs-1-152",
+    "word": "controversial",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 152,
+    "page": 8,
+    "meaning": "有争议的",
+    "synonyms": "contentious"
+  },
+  {
+    "id": "zhang-pairs-1-153",
+    "word": "circumstantial",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 153,
+    "page": 8,
+    "meaning": "依情况而定的",
+    "synonyms": "contingent"
+  },
+  {
+    "id": "zhang-pairs-1-154",
+    "word": "dwindle",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 154,
+    "page": 9,
+    "meaning": "逐渐减小，逐渐变小",
+    "synonyms": "contract"
+  },
+  {
+    "id": "zhang-pairs-1-155",
+    "word": "dichotomous",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 155,
+    "page": 9,
+    "meaning": "矛盾的",
+    "synonyms": "contradictory"
+  },
+  {
+    "id": "zhang-pairs-1-156",
+    "word": "violate",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 156,
+    "page": 9,
+    "meaning": "违反",
+    "synonyms": "contravene"
+  },
+  {
+    "id": "zhang-pairs-1-157",
+    "word": "contentious",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 157,
+    "page": 9,
+    "meaning": "好争议的",
+    "synonyms": "controversial"
+  },
+  {
+    "id": "zhang-pairs-1-158",
+    "word": "riddle",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 158,
+    "page": 9,
+    "meaning": "谜",
+    "synonyms": "conundrum,enigma,puzzle"
+  },
+  {
+    "id": "zhang-pairs-1-159",
+    "word": "intricate",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 159,
+    "page": 9,
+    "meaning": "错综复杂的",
+    "synonyms": "convoluted"
+  },
+  {
+    "id": "zhang-pairs-1-160",
+    "word": "tortuous",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 160,
+    "page": 9,
+    "meaning": "冗长复杂的",
+    "synonyms": "convoluted"
+  },
+  {
+    "id": "zhang-pairs-1-161",
+    "word": "upheaval",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 161,
+    "page": 9,
+    "meaning": "剧变",
+    "synonyms": "convulsion"
+  },
+  {
+    "id": "zhang-pairs-1-162",
+    "word": "deleterious",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 162,
+    "page": 9,
+    "meaning": "有害的，有毒的",
+    "synonyms": "counterproductive, detrimental, devastating, pernicious"
+  },
+  {
+    "id": "zhang-pairs-1-163",
+    "word": "clandestine",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 163,
+    "page": 9,
+    "meaning": "秘密的",
+    "synonyms": "covert,surreptitious"
+  },
+  {
+    "id": "zhang-pairs-1-164",
+    "word": "enviable",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 164,
+    "page": 9,
+    "meaning": "令人羡慕的",
+    "synonyms": "coveted"
+  },
+  {
+    "id": "zhang-pairs-1-165",
+    "word": "cunning",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 165,
+    "page": 9,
+    "meaning": "狡猾的",
+    "synonyms": "crafty"
+  },
+  {
+    "id": "zhang-pairs-1-166",
+    "word": "beget",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 166,
+    "page": 9,
+    "meaning": "产生",
+    "synonyms": "create"
+  },
+  {
+    "id": "zhang-pairs-1-167",
+    "word": "disgruntle",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 167,
+    "page": 9,
+    "meaning": "使不高兴",
+    "synonyms": "crestfallen"
+  },
+  {
+    "id": "zhang-pairs-1-168",
+    "word": "disintegrate",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 168,
+    "page": 9,
+    "meaning": "瓦解",
+    "synonyms": "crumble"
+  },
+  {
+    "id": "zhang-pairs-1-169",
+    "word": "unwieldy",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 169,
+    "page": 9,
+    "meaning": "笨重的，难操作的",
+    "synonyms": "cumbersome"
+  },
+  {
+    "id": "zhang-pairs-1-170",
+    "word": "perfunctory",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 170,
+    "page": 9,
+    "meaning": "敷衍的",
+    "synonyms": "cursory, casual"
+  },
+  {
+    "id": "zhang-pairs-1-171",
+    "word": "palliate",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 171,
+    "page": 9,
+    "meaning": "减轻",
+    "synonyms": "damp"
+  },
+  {
+    "id": "zhang-pairs-1-172",
+    "word": "perilous",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 172,
+    "page": 9,
+    "meaning": "危险的",
+    "synonyms": "dangerous,precarious"
+  },
+  {
+    "id": "zhang-pairs-1-173",
+    "word": "dim",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 173,
+    "page": 9,
+    "meaning": "使变暗",
+    "synonyms": "darken"
+  },
+  {
+    "id": "zhang-pairs-1-174",
+    "word": "formidable",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 174,
+    "page": 9,
+    "meaning": "可怕的",
+    "synonyms": "daunting"
+  },
+  {
+    "id": "zhang-pairs-1-175",
+    "word": "modicum",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 175,
+    "page": 9,
+    "meaning": "少量",
+    "synonyms": "dearth"
+  },
+  {
+    "id": "zhang-pairs-1-176",
+    "word": "paucity",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 176,
+    "page": 9,
+    "meaning": "不足",
+    "synonyms": "dearth"
+  },
+  {
+    "id": "zhang-pairs-1-177",
+    "word": "deterioration",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 177,
+    "page": 9,
+    "meaning": "恶化",
+    "synonyms": "decay, decline"
+  },
+  {
+    "id": "zhang-pairs-1-178",
+    "word": "prophylactic",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 178,
+    "page": 9,
+    "meaning": "预防的",
+    "synonyms": "inhibitory"
+  },
+  {
+    "id": "zhang-pairs-1-179",
+    "word": "overwhelming",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 179,
+    "page": 9,
+    "meaning": "压倒性的，难抵抗的",
+    "synonyms": "irresistible"
+  },
+  {
+    "id": "zhang-pairs-1-180",
+    "word": "interestedin",
+    "list": 1,
+    "group": "第一天任务",
+    "number": 180,
+    "page": 9,
+    "meaning": "对...有兴趣",
+    "synonyms": "drawn to"
+  },
+  {
+    "id": "zhang-pairs-2-1",
+    "word": "unmistakable",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 1,
+    "page": 10,
+    "meaning": "毋庸置疑的，明显的",
+    "synonyms": "decisive"
+  },
+  {
+    "id": "zhang-pairs-2-2",
+    "word": "senescence",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 2,
+    "page": 10,
+    "meaning": "衰老，老朽",
+    "synonyms": "decrepitude"
+  },
+  {
+    "id": "zhang-pairs-2-3",
+    "word": "condemn",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 3,
+    "page": 10,
+    "meaning": "谴责",
+    "synonyms": "decry"
+  },
+  {
+    "id": "zhang-pairs-2-4",
+    "word": "calumny",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 4,
+    "page": 10,
+    "meaning": "诽谤",
+    "synonyms": "defamation"
+  },
+  {
+    "id": "zhang-pairs-2-5",
+    "word": "blemish",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 5,
+    "page": 10,
+    "meaning": "1.玷污 2.缺点，污点",
+    "synonyms": "defect"
+  },
+  {
+    "id": "zhang-pairs-2-6",
+    "word": "champion",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 6,
+    "page": 10,
+    "meaning": "支持",
+    "synonyms": "defend,espouse, support"
+  },
+  {
+    "id": "zhang-pairs-2-7",
+    "word": "proponent",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 7,
+    "page": 10,
+    "meaning": "支持者",
+    "synonyms": "defender,champion"
+  },
+  {
+    "id": "zhang-pairs-2-8",
+    "word": "scarce",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 8,
+    "page": 10,
+    "meaning": "缺乏的",
+    "synonyms": "deficient"
+  },
+  {
+    "id": "zhang-pairs-2-9",
+    "word": "authoritative",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 9,
+    "page": 10,
+    "meaning": "权威的",
+    "synonyms": "definitive, cogent"
+  },
+  {
+    "id": "zhang-pairs-2-10",
+    "word": "soothe",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 10,
+    "page": 10,
+    "meaning": "使减少",
+    "synonyms": "deflate"
+  },
+  {
+    "id": "zhang-pairs-2-11",
+    "word": "disregard",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 11,
+    "page": 10,
+    "meaning": "贬低",
+    "synonyms": "defy, contempt"
+  },
+  {
+    "id": "zhang-pairs-2-12",
+    "word": "counterproductive",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 12,
+    "page": 10,
+    "meaning": "事与愿违的",
+    "synonyms": "deleterious"
+  },
+  {
+    "id": "zhang-pairs-2-13",
+    "word": "detrimental",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 13,
+    "page": 10,
+    "meaning": "有害的",
+    "synonyms": "deleterious"
+  },
+  {
+    "id": "zhang-pairs-2-14",
+    "word": "relish",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 14,
+    "page": 10,
+    "meaning": "享受",
+    "synonyms": "delightin"
+  },
+  {
+    "id": "zhang-pairs-2-15",
+    "word": "lambaste",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 15,
+    "page": 10,
+    "meaning": "严厉批评",
+    "synonyms": "denounce"
+  },
+  {
+    "id": "zhang-pairs-2-16",
+    "word": "witless",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 16,
+    "page": 10,
+    "meaning": "愚蠢的",
+    "synonyms": "dense"
+  },
+  {
+    "id": "zhang-pairs-2-17",
+    "word": "reprehensible",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 17,
+    "page": 10,
+    "meaning": "应受谴责的",
+    "synonyms": "deplorable"
+  },
+  {
+    "id": "zhang-pairs-2-18",
+    "word": "detract",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 18,
+    "page": 10,
+    "meaning": "贬低",
+    "synonyms": "deprecate"
+  },
+  {
+    "id": "zhang-pairs-2-19",
+    "word": "mockery",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 19,
+    "page": 10,
+    "meaning": "嘲笑",
+    "synonyms": "derision"
+  },
+  {
+    "id": "zhang-pairs-2-20",
+    "word": "ridicule",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 20,
+    "page": 10,
+    "meaning": "嘲弄",
+    "synonyms": "derision"
+  },
+  {
+    "id": "zhang-pairs-2-21",
+    "word": "abandon",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 21,
+    "page": 10,
+    "meaning": "放弃",
+    "synonyms": "desert, relinquish"
+  },
+  {
+    "id": "zhang-pairs-2-22",
+    "word": "annihilate",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 22,
+    "page": 10,
+    "meaning": "消灭，毁灭",
+    "synonyms": "destroy"
+  },
+  {
+    "id": "zhang-pairs-2-23",
+    "word": "discern",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 23,
+    "page": 10,
+    "meaning": "觉察，分辨",
+    "synonyms": "detect, discover"
+  },
+  {
+    "id": "zhang-pairs-2-24",
+    "word": "constrain",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 24,
+    "page": 10,
+    "meaning": "限制",
+    "synonyms": "deter"
+  },
+  {
+    "id": "zhang-pairs-2-25",
+    "word": "decay",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 25,
+    "page": 10,
+    "meaning": "腐朽",
+    "synonyms": "deterioration"
+  },
+  {
+    "id": "zhang-pairs-2-26",
+    "word": "govern",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 26,
+    "page": 10,
+    "meaning": "决定",
+    "synonyms": "determine"
+  },
+  {
+    "id": "zhang-pairs-2-27",
+    "word": "deprecatory",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 27,
+    "page": 10,
+    "meaning": "反对的",
+    "synonyms": "detracting"
+  },
+  {
+    "id": "zhang-pairs-2-28",
+    "word": "guile",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 28,
+    "page": 10,
+    "meaning": "奸诈",
+    "synonyms": "deviousness"
+  },
+  {
+    "id": "zhang-pairs-2-29",
+    "word": "identify",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 29,
+    "page": 10,
+    "meaning": "确定",
+    "synonyms": "diagnose"
+  },
+  {
+    "id": "zhang-pairs-2-30",
+    "word": "rant",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 30,
+    "page": 10,
+    "meaning": "严厉批评",
+    "synonyms": "diatribe"
+  },
+  {
+    "id": "zhang-pairs-2-31",
+    "word": "contradictory",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 31,
+    "page": 10,
+    "meaning": "矛盾的",
+    "synonyms": "dichotomous"
+  },
+  {
+    "id": "zhang-pairs-2-32",
+    "word": "timid",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 32,
+    "page": 10,
+    "meaning": "胆怯的，羞怯的",
+    "synonyms": "diffident"
+  },
+  {
+    "id": "zhang-pairs-2-33",
+    "word": "remiss",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 33,
+    "page": 10,
+    "meaning": "懈怠的",
+    "synonyms": "dilatory"
+  },
+  {
+    "id": "zhang-pairs-2-34",
+    "word": "sluggish",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 34,
+    "page": 10,
+    "meaning": "缓慢的",
+    "synonyms": "dilatory, listless"
+  },
+  {
+    "id": "zhang-pairs-2-35",
+    "word": "industrious",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 35,
+    "page": 11,
+    "meaning": "勤奋的",
+    "synonyms": "diligent"
+  },
+  {
+    "id": "zhang-pairs-2-36",
+    "word": "darken",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 36,
+    "page": 11,
+    "meaning": "使变暗，使忧郁",
+    "synonyms": "dim"
+  },
+  {
+    "id": "zhang-pairs-2-37",
+    "word": "minuscule",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 37,
+    "page": 11,
+    "meaning": "极小的",
+    "synonyms": "diminutive"
+  },
+  {
+    "id": "zhang-pairs-2-38",
+    "word": "calamity",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 38,
+    "page": 11,
+    "meaning": "灾难",
+    "synonyms": "disaster"
+  },
+  {
+    "id": "zhang-pairs-2-39",
+    "word": "detect",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 39,
+    "page": 11,
+    "meaning": "发现",
+    "synonyms": "discern"
+  },
+  {
+    "id": "zhang-pairs-2-40",
+    "word": "perceptible",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 40,
+    "page": 11,
+    "meaning": "可见的，可察觉的",
+    "synonyms": "discernible"
+  },
+  {
+    "id": "zhang-pairs-2-41",
+    "word": "perspicacious",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 41,
+    "page": 11,
+    "meaning": "有洞察力的",
+    "synonyms": "discernible"
+  },
+  {
+    "id": "zhang-pairs-2-42",
+    "word": "inconspicuous",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 42,
+    "page": 11,
+    "meaning": "低调的，不显眼的",
+    "synonyms": "discreet"
+  },
+  {
+    "id": "zhang-pairs-2-43",
+    "word": "incongruity",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 43,
+    "page": 11,
+    "meaning": "矛盾",
+    "synonyms": "discrepancy"
+  },
+  {
+    "id": "zhang-pairs-2-44",
+    "word": "isolated",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 44,
+    "page": 11,
+    "meaning": "分离的",
+    "synonyms": "discrete"
+  },
+  {
+    "id": "zhang-pairs-2-45",
+    "word": "opprobrium",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 45,
+    "page": 11,
+    "meaning": "谴责，耻辱",
+    "synonyms": "disdain, vitriol"
+  },
+  {
+    "id": "zhang-pairs-2-46",
+    "word": "contemptuous",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 46,
+    "page": 11,
+    "meaning": "轻蔑的",
+    "synonyms": "disdainful"
+  },
+  {
+    "id": "zhang-pairs-2-47",
+    "word": "dump",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 47,
+    "page": 11,
+    "meaning": "排出",
+    "synonyms": "disgorge"
+  },
+  {
+    "id": "zhang-pairs-2-48",
+    "word": "crestfallen",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 48,
+    "page": 11,
+    "meaning": "不高兴的",
+    "synonyms": "disgruntled"
+  },
+  {
+    "id": "zhang-pairs-2-49",
+    "word": "crumble",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 49,
+    "page": 11,
+    "meaning": "崩溃，破碎",
+    "synonyms": "disintegrate"
+  },
+  {
+    "id": "zhang-pairs-2-50",
+    "word": "slight",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 50,
+    "page": 11,
+    "meaning": "贬低",
+    "synonyms": "disparage, discount"
+  },
+  {
+    "id": "zhang-pairs-2-51",
+    "word": "heterogeneous",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 51,
+    "page": 11,
+    "meaning": "各种各样的",
+    "synonyms": "disparate, dissimilar"
+  },
+  {
+    "id": "zhang-pairs-2-52",
+    "word": "analytical",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 52,
+    "page": 11,
+    "meaning": "善于分析的，冷静客观的",
+    "synonyms": "dispassionate"
+  },
+  {
+    "id": "zhang-pairs-2-53",
+    "word": "temperate",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 53,
+    "page": 11,
+    "meaning": "温和的，适度的",
+    "synonyms": "dispassionate"
+  },
+  {
+    "id": "zhang-pairs-2-54",
+    "word": "celerity",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 54,
+    "page": 11,
+    "meaning": "速度，迅速",
+    "synonyms": "dispatch"
+  },
+  {
+    "id": "zhang-pairs-2-55",
+    "word": "defy",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 55,
+    "page": 11,
+    "meaning": "蔑视",
+    "synonyms": "disregard,flout"
+  },
+  {
+    "id": "zhang-pairs-2-56",
+    "word": "duplicity",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 56,
+    "page": 11,
+    "meaning": "欺骗",
+    "synonyms": "dissemblance"
+  },
+  {
+    "id": "zhang-pairs-2-57",
+    "word": "attenuate",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 57,
+    "page": 11,
+    "meaning": "减弱，变稀",
+    "synonyms": "dissipate,mute"
+  },
+  {
+    "id": "zhang-pairs-2-58",
+    "word": "untether",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 58,
+    "page": 11,
+    "meaning": "脱离",
+    "synonyms": "divorce"
+  },
+  {
+    "id": "zhang-pairs-2-59",
+    "word": "dogmatic",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 59,
+    "page": 11,
+    "meaning": "武断的，教条主义的",
+    "synonyms": "doctrinaire, rigid"
+  },
+  {
+    "id": "zhang-pairs-2-60",
+    "word": "doctrinaire",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 60,
+    "page": 11,
+    "meaning": "教条主义的",
+    "synonyms": "dogmatic"
+  },
+  {
+    "id": "zhang-pairs-2-61",
+    "word": "skepticism",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 61,
+    "page": 11,
+    "meaning": "怀疑",
+    "synonyms": "doubt"
+  },
+  {
+    "id": "zhang-pairs-2-62",
+    "word": "extinguish",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 62,
+    "page": 11,
+    "meaning": "熄灭，毁灭",
+    "synonyms": "douse"
+  },
+  {
+    "id": "zhang-pairs-2-63",
+    "word": "pacific",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 63,
+    "page": 11,
+    "meaning": "和平主义的",
+    "synonyms": "dovish"
+  },
+  {
+    "id": "zhang-pairs-2-64",
+    "word": "spectacular",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 64,
+    "page": 11,
+    "meaning": "壮观的",
+    "synonyms": "dramatic"
+  },
+  {
+    "id": "zhang-pairs-2-65",
+    "word": "elicit",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 65,
+    "page": 11,
+    "meaning": "引出",
+    "synonyms": "drawout"
+  },
+  {
+    "id": "zhang-pairs-2-66",
+    "word": "tedious",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 66,
+    "page": 11,
+    "meaning": "单调乏味的",
+    "synonyms": "dreary, boring"
+  },
+  {
+    "id": "zhang-pairs-2-67",
+    "word": "humdrum",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 67,
+    "page": 11,
+    "meaning": "单调的，乏味的",
+    "synonyms": "dull"
+  },
+  {
+    "id": "zhang-pairs-2-68",
+    "word": "disgorge",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 68,
+    "page": 11,
+    "meaning": "排出",
+    "synonyms": "dump"
+  },
+  {
+    "id": "zhang-pairs-2-69",
+    "word": "dissemble",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 69,
+    "page": 11,
+    "meaning": "伪装",
+    "synonyms": "duplicity"
+  },
+  {
+    "id": "zhang-pairs-2-70",
+    "word": "contract",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 70,
+    "page": 11,
+    "meaning": "逐渐减少，逐渐变小",
+    "synonyms": "dwindle"
+  },
+  {
+    "id": "zhang-pairs-2-71",
+    "word": "keen",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 71,
+    "page": 11,
+    "meaning": "渴望的",
+    "synonyms": "eager"
+  },
+  {
+    "id": "zhang-pairs-2-72",
+    "word": "affable",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 72,
+    "page": 11,
+    "meaning": "和蔼可亲的",
+    "synonyms": "easygoing, cordial, genteel"
+  },
+  {
+    "id": "zhang-pairs-2-73",
+    "word": "wane",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 73,
+    "page": 11,
+    "meaning": "衰落，减少，衰落期",
+    "synonyms": "ebb, decline"
+  },
+  {
+    "id": "zhang-pairs-2-74",
+    "word": "outdo",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 74,
+    "page": 11,
+    "meaning": "超过",
+    "synonyms": "eclipse"
+  },
+  {
+    "id": "zhang-pairs-2-75",
+    "word": "pecuniary",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 75,
+    "page": 12,
+    "meaning": "金钱的",
+    "synonyms": "economic"
+  },
+  {
+    "id": "zhang-pairs-2-76",
+    "word": "euphoria",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 76,
+    "page": 12,
+    "meaning": "狂喜",
+    "synonyms": "ecstasy"
+  },
+  {
+    "id": "zhang-pairs-2-77",
+    "word": "democratic",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 77,
+    "page": 12,
+    "meaning": "平等主义的",
+    "synonyms": "egalitarian"
+  },
+  {
+    "id": "zhang-pairs-2-78",
+    "word": "flagrant",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 78,
+    "page": 12,
+    "meaning": "明目张胆的",
+    "synonyms": "egregious"
+  },
+  {
+    "id": "zhang-pairs-2-79",
+    "word": "chic",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 79,
+    "page": 12,
+    "meaning": "时髦的",
+    "synonyms": "elegant"
+  },
+  {
+    "id": "zhang-pairs-2-80",
+    "word": "plaintive",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 80,
+    "page": 12,
+    "meaning": "悲伤的",
+    "synonyms": "elegiac"
+  },
+  {
+    "id": "zhang-pairs-2-81",
+    "word": "draw",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 81,
+    "page": 12,
+    "meaning": "吸引",
+    "synonyms": "elicit"
+  },
+  {
+    "id": "zhang-pairs-2-82",
+    "word": "extirpate",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 82,
+    "page": 12,
+    "meaning": "根除",
+    "synonyms": "eliminate"
+  },
+  {
+    "id": "zhang-pairs-2-83",
+    "word": "put torest",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 83,
+    "page": 12,
+    "meaning": "排出",
+    "synonyms": "eliminated"
+  },
+  {
+    "id": "zhang-pairs-2-84",
+    "word": "cryptic",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 84,
+    "page": 12,
+    "meaning": "难解的",
+    "synonyms": "elusive"
+  },
+  {
+    "id": "zhang-pairs-2-85",
+    "word": "slippery",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 85,
+    "page": 12,
+    "meaning": "难以抓住的，棘手的",
+    "synonyms": "elusive"
+  },
+  {
+    "id": "zhang-pairs-2-86",
+    "word": "evasive",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 86,
+    "page": 12,
+    "meaning": "逃避的，闪烁其词的",
+    "synonyms": "elusive, equivocal"
+  },
+  {
+    "id": "zhang-pairs-2-87",
+    "word": "totemic",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 87,
+    "page": 12,
+    "meaning": "象征的",
+    "synonyms": "emblematic"
+  },
+  {
+    "id": "zhang-pairs-2-88",
+    "word": "revision",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 88,
+    "page": 12,
+    "meaning": "修订",
+    "synonyms": "emendation"
+  },
+  {
+    "id": "zhang-pairs-2-89",
+    "word": "effusive",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 89,
+    "page": 12,
+    "meaning": "溢于言表的，感情丰富的",
+    "synonyms": "emotional"
+  },
+  {
+    "id": "zhang-pairs-2-90",
+    "word": "imitate",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 90,
+    "page": 12,
+    "meaning": "模仿",
+    "synonyms": "emulate,mimic"
+  },
+  {
+    "id": "zhang-pairs-2-91",
+    "word": "captivate",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 91,
+    "page": 12,
+    "meaning": "迷住",
+    "synonyms": "enamor"
+  },
+  {
+    "id": "zhang-pairs-2-92",
+    "word": "tribute",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 92,
+    "page": 12,
+    "meaning": "称赞，贡品",
+    "synonyms": "encomium"
+  },
+  {
+    "id": "zhang-pairs-2-93",
+    "word": "polymath",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 93,
+    "page": 12,
+    "meaning": "博学者",
+    "synonyms": "encyclopedic"
+  },
+  {
+    "id": "zhang-pairs-2-94",
+    "word": "exhaustive",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 94,
+    "page": 12,
+    "meaning": "全面的",
+    "synonyms": "encyclopedic, comprehensive"
+  },
+  {
+    "id": "zhang-pairs-2-95",
+    "word": "underwrite",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 95,
+    "page": 12,
+    "meaning": "签署",
+    "synonyms": "endorse"
+  },
+  {
+    "id": "zhang-pairs-2-96",
+    "word": "sanction",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 96,
+    "page": 12,
+    "meaning": "（经济）制裁，批准",
+    "synonyms": "endorse, countenance"
+  },
+  {
+    "id": "zhang-pairs-2-97",
+    "word": "induce",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 97,
+    "page": 12,
+    "meaning": "引起",
+    "synonyms": "engender"
+  },
+  {
+    "id": "zhang-pairs-2-98",
+    "word": "hone",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 98,
+    "page": 12,
+    "meaning": "磨砺，提升",
+    "synonyms": "enhance"
+  },
+  {
+    "id": "zhang-pairs-2-99",
+    "word": "inferablefrom",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 99,
+    "page": 12,
+    "meaning": "能从…推断的",
+    "synonyms": "entailed by"
+  },
+  {
+    "id": "zhang-pairs-2-100",
+    "word": "diverting",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 100,
+    "page": 12,
+    "meaning": "有趣的",
+    "synonyms": "entertaining"
+  },
+  {
+    "id": "zhang-pairs-2-101",
+    "word": "supplicate",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 101,
+    "page": 12,
+    "meaning": "恳求",
+    "synonyms": "entreat, solicit"
+  },
+  {
+    "id": "zhang-pairs-2-102",
+    "word": "covet",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 102,
+    "page": 12,
+    "meaning": "贪求",
+    "synonyms": "envy"
+  },
+  {
+    "id": "zhang-pairs-2-103",
+    "word": "short-lived",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 103,
+    "page": 12,
+    "meaning": "短暂的",
+    "synonyms": "ephemeral"
+  },
+  {
+    "id": "zhang-pairs-2-104",
+    "word": "transitory",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 104,
+    "page": 12,
+    "meaning": "短暂的",
+    "synonyms": "ephemeral,evanescent"
+  },
+  {
+    "id": "zhang-pairs-2-105",
+    "word": "parity",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 105,
+    "page": 12,
+    "meaning": "平等，相等",
+    "synonyms": "equality"
+  },
+  {
+    "id": "zhang-pairs-2-106",
+    "word": "wayward",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 106,
+    "page": 12,
+    "meaning": "任性的",
+    "synonyms": "errant,unpredictable"
+  },
+  {
+    "id": "zhang-pairs-2-107",
+    "word": "onetime",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 107,
+    "page": 12,
+    "meaning": "过去的",
+    "synonyms": "erstwhile"
+  },
+  {
+    "id": "zhang-pairs-2-108",
+    "word": "learned",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 108,
+    "page": 12,
+    "meaning": "博学的",
+    "synonyms": "erudite"
+  },
+  {
+    "id": "zhang-pairs-2-109",
+    "word": "shun",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 109,
+    "page": 12,
+    "meaning": "避免",
+    "synonyms": "eschew"
+  },
+  {
+    "id": "zhang-pairs-2-110",
+    "word": "arcane",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 110,
+    "page": 12,
+    "meaning": "难懂的",
+    "synonyms": "Esoteric,recondite ,abstruse"
+  },
+  {
+    "id": "zhang-pairs-2-111",
+    "word": "recondite",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 111,
+    "page": 12,
+    "meaning": "晦涩难懂的",
+    "synonyms": "esoteric, arcane, abstruse"
+  },
+  {
+    "id": "zhang-pairs-2-112",
+    "word": "abstruse",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 112,
+    "page": 12,
+    "meaning": "难理解的",
+    "synonyms": "esoteric, arcane, recondite"
+  },
+  {
+    "id": "zhang-pairs-2-113",
+    "word": "requisite",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 113,
+    "page": 12,
+    "meaning": "必需的",
+    "synonyms": "essential"
+  },
+  {
+    "id": "zhang-pairs-2-114",
+    "word": "indispensable",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 114,
+    "page": 12,
+    "meaning": "不可或缺的",
+    "synonyms": "essential, crucial"
+  },
+  {
+    "id": "zhang-pairs-2-115",
+    "word": "lionize",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 115,
+    "page": 13,
+    "meaning": "崇拜，把…视为名人",
+    "synonyms": "eulogize"
+  },
+  {
+    "id": "zhang-pairs-2-116",
+    "word": "ecstasy",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 116,
+    "page": 13,
+    "meaning": "狂喜",
+    "synonyms": "euphoria"
+  },
+  {
+    "id": "zhang-pairs-2-117",
+    "word": "momentary",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 117,
+    "page": 13,
+    "meaning": "短暂的",
+    "synonyms": "evanescent"
+  },
+  {
+    "id": "zhang-pairs-2-118",
+    "word": "impartial",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 118,
+    "page": 13,
+    "meaning": "公正的",
+    "synonyms": "evenhanded, disinterested, fair, detachment"
+  },
+  {
+    "id": "zhang-pairs-2-119",
+    "word": "patent",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 119,
+    "page": 13,
+    "meaning": "明显的",
+    "synonyms": "evident, manifest"
+  },
+  {
+    "id": "zhang-pairs-2-120",
+    "word": "aggravate",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 120,
+    "page": 13,
+    "meaning": "加剧",
+    "synonyms": "exacerbate"
+  },
+  {
+    "id": "zhang-pairs-2-121",
+    "word": "demanding",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 121,
+    "page": 13,
+    "meaning": "苛求的",
+    "synonyms": "exacting"
+  },
+  {
+    "id": "zhang-pairs-2-122",
+    "word": "prescriptive",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 122,
+    "page": 13,
+    "meaning": "指定的，规定的",
+    "synonyms": "exacting"
+  },
+  {
+    "id": "zhang-pairs-2-123",
+    "word": "overstate",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 123,
+    "page": 13,
+    "meaning": "夸大",
+    "synonyms": "exaggerate"
+  },
+  {
+    "id": "zhang-pairs-2-124",
+    "word": "hyperbole",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 124,
+    "page": 13,
+    "meaning": "夸大",
+    "synonyms": "exaggeration"
+  },
+  {
+    "id": "zhang-pairs-2-125",
+    "word": "valorize",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 125,
+    "page": 13,
+    "meaning": "称赞",
+    "synonyms": "exalt"
+  },
+  {
+    "id": "zhang-pairs-2-126",
+    "word": "irascible",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 126,
+    "page": 13,
+    "meaning": "易怒的",
+    "synonyms": "exasperation"
+  },
+  {
+    "id": "zhang-pairs-2-127",
+    "word": "preternatural",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 127,
+    "page": 13,
+    "meaning": "异乎寻常的",
+    "synonyms": "exceptional"
+  },
+  {
+    "id": "zhang-pairs-2-128",
+    "word": "intemperate",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 128,
+    "page": 13,
+    "meaning": "过度的",
+    "synonyms": "excessive"
+  },
+  {
+    "id": "zhang-pairs-2-129",
+    "word": "sole",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 129,
+    "page": 13,
+    "meaning": "仅有的",
+    "synonyms": "exclusive"
+  },
+  {
+    "id": "zhang-pairs-2-130",
+    "word": "crab",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 130,
+    "page": 13,
+    "meaning": "抱怨",
+    "synonyms": "excoriate"
+  },
+  {
+    "id": "zhang-pairs-2-131",
+    "word": "indict",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 131,
+    "page": 13,
+    "meaning": "控告",
+    "synonyms": "excoriate"
+  },
+  {
+    "id": "zhang-pairs-2-132",
+    "word": "wield",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 132,
+    "page": 13,
+    "meaning": "行使，施加",
+    "synonyms": "exert"
+  },
+  {
+    "id": "zhang-pairs-2-133",
+    "word": "encyclopedic",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 133,
+    "page": 13,
+    "meaning": "广博的，全面的",
+    "synonyms": "exhaustive, polymathic"
+  },
+  {
+    "id": "zhang-pairs-2-134",
+    "word": "comprehensive",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 134,
+    "page": 13,
+    "meaning": "全面的",
+    "synonyms": "exhaustive, sweeping,generic, inclusive"
+  },
+  {
+    "id": "zhang-pairs-2-135",
+    "word": "pressing",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 135,
+    "page": 13,
+    "meaning": "紧迫的，重要的",
+    "synonyms": "exigent,critical"
+  },
+  {
+    "id": "zhang-pairs-2-136",
+    "word": "tenuous",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 136,
+    "page": 13,
+    "meaning": "纤细的，脆弱的",
+    "synonyms": "exiguous"
+  },
+  {
+    "id": "zhang-pairs-2-137",
+    "word": "absolve",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 137,
+    "page": 13,
+    "meaning": "免罪",
+    "synonyms": "exonerate"
+  },
+  {
+    "id": "zhang-pairs-2-138",
+    "word": "burgeon",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 138,
+    "page": 13,
+    "meaning": "迅速生长",
+    "synonyms": "expand, flourish"
+  },
+  {
+    "id": "zhang-pairs-2-139",
+    "word": "oust",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 139,
+    "page": 13,
+    "meaning": "罢黜，驱逐，取代",
+    "synonyms": "expel, banish"
+  },
+  {
+    "id": "zhang-pairs-2-140",
+    "word": "banish",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 140,
+    "page": 13,
+    "meaning": "驱逐",
+    "synonyms": "expel, oust"
+  },
+  {
+    "id": "zhang-pairs-2-141",
+    "word": "innovative",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 141,
+    "page": 13,
+    "meaning": "创新的",
+    "synonyms": "experimental"
+  },
+  {
+    "id": "zhang-pairs-2-142",
+    "word": "attributedto",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 142,
+    "page": 13,
+    "meaning": "归因于",
+    "synonyms": "explainedby"
+  },
+  {
+    "id": "zhang-pairs-2-143",
+    "word": "augment",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 143,
+    "page": 13,
+    "meaning": "增加",
+    "synonyms": "extend, expand, enhance"
+  },
+  {
+    "id": "zhang-pairs-2-144",
+    "word": "douse",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 144,
+    "page": 13,
+    "meaning": "熄灭",
+    "synonyms": "extinguish"
+  },
+  {
+    "id": "zhang-pairs-2-145",
+    "word": "eliminate",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 145,
+    "page": 13,
+    "meaning": "消除，淘汰",
+    "synonyms": "extirpate,put torest"
+  },
+  {
+    "id": "zhang-pairs-2-146",
+    "word": "profligate",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 146,
+    "page": 13,
+    "meaning": "挥霍的",
+    "synonyms": "extravagant,prodigal"
+  },
+  {
+    "id": "zhang-pairs-2-147",
+    "word": "zealot",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 147,
+    "page": 13,
+    "meaning": "狂热者",
+    "synonyms": "extremist,ideologue"
+  },
+  {
+    "id": "zhang-pairs-2-148",
+    "word": "forge",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 148,
+    "page": 13,
+    "meaning": "锻造，伪造",
+    "synonyms": "fabricate"
+  },
+  {
+    "id": "zhang-pairs-2-149",
+    "word": "expedite",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 149,
+    "page": 13,
+    "meaning": "促使",
+    "synonyms": "facilitate"
+  },
+  {
+    "id": "zhang-pairs-2-150",
+    "word": "schism",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 150,
+    "page": 13,
+    "meaning": "分裂",
+    "synonyms": "factiousness"
+  },
+  {
+    "id": "zhang-pairs-2-151",
+    "word": "objective",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 151,
+    "page": 13,
+    "meaning": "客观的，公正的",
+    "synonyms": "fair"
+  },
+  {
+    "id": "zhang-pairs-2-152",
+    "word": "disinterested",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 152,
+    "page": 13,
+    "meaning": "公正的，没有兴趣的",
+    "synonyms": "fair,impartial"
+  },
+  {
+    "id": "zhang-pairs-2-153",
+    "word": "eminent",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 153,
+    "page": 13,
+    "meaning": "杰出的，异乎寻常的",
+    "synonyms": "famous,particular"
+  },
+  {
+    "id": "zhang-pairs-2-154",
+    "word": "shortcoming",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 154,
+    "page": 14,
+    "meaning": "缺点",
+    "synonyms": "fault"
+  },
+  {
+    "id": "zhang-pairs-2-155",
+    "word": "enamor",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 155,
+    "page": 14,
+    "meaning": "使迷惑",
+    "synonyms": "favor,captivate, hookedon"
+  },
+  {
+    "id": "zhang-pairs-2-156",
+    "word": "auspicious",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 156,
+    "page": 14,
+    "meaning": "有望成功的",
+    "synonyms": "favorable"
+  },
+  {
+    "id": "zhang-pairs-2-157",
+    "word": "debacle",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 157,
+    "page": 14,
+    "meaning": "彻底失败",
+    "synonyms": "fiasco"
+  },
+  {
+    "id": "zhang-pairs-2-158",
+    "word": "volatile",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 158,
+    "page": 14,
+    "meaning": "善变的",
+    "synonyms": "fickle,versatile, flighty, erratic, capricious"
+  },
+  {
+    "id": "zhang-pairs-2-159",
+    "word": "erratic",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 159,
+    "page": 14,
+    "meaning": "难以预测的",
+    "synonyms": "fickle, versatile, volatile, flighty, capricious"
+  },
+  {
+    "id": "zhang-pairs-2-160",
+    "word": "impassioned",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 160,
+    "page": 14,
+    "meaning": "热情的",
+    "synonyms": "fiery"
+  },
+  {
+    "id": "zhang-pairs-2-161",
+    "word": "apposite",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 161,
+    "page": 14,
+    "meaning": "合适的",
+    "synonyms": "fitting,germane"
+  },
+  {
+    "id": "zhang-pairs-2-162",
+    "word": "obsessed",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 162,
+    "page": 14,
+    "meaning": "着迷的",
+    "synonyms": "fixated"
+  },
+  {
+    "id": "zhang-pairs-2-163",
+    "word": "egregious",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 163,
+    "page": 14,
+    "meaning": "臭名昭著的",
+    "synonyms": "flagrant"
+  },
+  {
+    "id": "zhang-pairs-2-164",
+    "word": "wanting",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 164,
+    "page": 14,
+    "meaning": "有缺陷的",
+    "synonyms": "flawed"
+  },
+  {
+    "id": "zhang-pairs-2-165",
+    "word": "supple",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 165,
+    "page": 14,
+    "meaning": "能适应的，灵活的，柔韧的",
+    "synonyms": "flexible"
+  },
+  {
+    "id": "zhang-pairs-2-166",
+    "word": "spurn",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 166,
+    "page": 14,
+    "meaning": "拒绝",
+    "synonyms": "flout"
+  },
+  {
+    "id": "zhang-pairs-2-167",
+    "word": "precursor",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 167,
+    "page": 14,
+    "meaning": "先驱",
+    "synonyms": "forerunner"
+  },
+  {
+    "id": "zhang-pairs-2-168",
+    "word": "avert",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 168,
+    "page": 14,
+    "meaning": "转移，防止",
+    "synonyms": "forestall"
+  },
+  {
+    "id": "zhang-pairs-2-169",
+    "word": "staveoff",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 169,
+    "page": 14,
+    "meaning": "延缓",
+    "synonyms": "forestall"
+  },
+  {
+    "id": "zhang-pairs-2-170",
+    "word": "daunting",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 170,
+    "page": 14,
+    "meaning": "使人畏惧的",
+    "synonyms": "formidable, sensational, forbidding"
+  },
+  {
+    "id": "zhang-pairs-2-171",
+    "word": "canned",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 171,
+    "page": 14,
+    "meaning": "无新意的",
+    "synonyms": "formulaic"
+  },
+  {
+    "id": "zhang-pairs-2-172",
+    "word": "adopt",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 172,
+    "page": 14,
+    "meaning": "收养，采用",
+    "synonyms": "foster"
+  },
+  {
+    "id": "zhang-pairs-2-173",
+    "word": "spur",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 173,
+    "page": 14,
+    "meaning": "激励",
+    "synonyms": "foster"
+  },
+  {
+    "id": "zhang-pairs-2-174",
+    "word": "bedrock",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 174,
+    "page": 14,
+    "meaning": "基础",
+    "synonyms": "foundation"
+  },
+  {
+    "id": "zhang-pairs-2-175",
+    "word": "inception",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 175,
+    "page": 14,
+    "meaning": "开始",
+    "synonyms": "foundation"
+  },
+  {
+    "id": "zhang-pairs-2-176",
+    "word": "restive",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 176,
+    "page": 14,
+    "meaning": "躁动不安的",
+    "synonyms": "fractious"
+  },
+  {
+    "id": "zhang-pairs-2-177",
+    "word": "malfeasance",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 177,
+    "page": 14,
+    "meaning": "渎职",
+    "synonyms": "fraudulence"
+  },
+  {
+    "id": "zhang-pairs-2-178",
+    "word": "genial",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 178,
+    "page": 14,
+    "meaning": "友善的",
+    "synonyms": "friendly"
+  },
+  {
+    "id": "zhang-pairs-2-179",
+    "word": "utilitarian",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 179,
+    "page": 14,
+    "meaning": "实用的",
+    "synonyms": "functional"
+  },
+  {
+    "id": "zhang-pairs-2-180",
+    "word": "interchangeable",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 180,
+    "page": 14,
+    "meaning": "可交换的",
+    "synonyms": "fungible"
+  },
+  {
+    "id": "zhang-pairs-2-181",
+    "word": "dynamic",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 181,
+    "page": 14,
+    "meaning": "动态的，可变的",
+    "synonyms": "mutable"
+  },
+  {
+    "id": "zhang-pairs-2-182",
+    "word": "levelheaded",
+    "list": 2,
+    "group": "第二天任务",
+    "number": 182,
+    "page": 14,
+    "meaning": "头脑冷静的",
+    "synonyms": "sober"
+  },
+  {
+    "id": "zhang-pairs-3-1",
+    "word": "facilitate",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 1,
+    "page": 15,
+    "meaning": "促进，加快",
+    "synonyms": "further"
+  },
+  {
+    "id": "zhang-pairs-3-2",
+    "word": "synthesis",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 2,
+    "page": 15,
+    "meaning": "合成，综合体",
+    "synonyms": "fusion"
+  },
+  {
+    "id": "zhang-pairs-3-3",
+    "word": "pointless",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 3,
+    "page": 15,
+    "meaning": "无意义的",
+    "synonyms": "futile"
+  },
+  {
+    "id": "zhang-pairs-3-4",
+    "word": "animate",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 4,
+    "page": 15,
+    "meaning": "有生命力的，激励，推动",
+    "synonyms": "galvanize, rouse, inspire"
+  },
+  {
+    "id": "zhang-pairs-3-5",
+    "word": "loquacious",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 5,
+    "page": 15,
+    "meaning": "健谈的",
+    "synonyms": "garrulous"
+  },
+  {
+    "id": "zhang-pairs-3-6",
+    "word": "reckon",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 6,
+    "page": 15,
+    "meaning": "认为，估计",
+    "synonyms": "gauge"
+  },
+  {
+    "id": "zhang-pairs-3-7",
+    "word": "abstract",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 7,
+    "page": 15,
+    "meaning": "笼统的，抽象的，深奥的，摘要，提取，分散注意力",
+    "synonyms": "general"
+  },
+  {
+    "id": "zhang-pairs-3-8",
+    "word": "inclusive",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 8,
+    "page": 15,
+    "meaning": "全包括的，包括首尾两项的",
+    "synonyms": "generic, all-encompassing"
+  },
+  {
+    "id": "zhang-pairs-3-9",
+    "word": "seed",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 9,
+    "page": 15,
+    "meaning": "播种，萌芽",
+    "synonyms": "germ"
+  },
+  {
+    "id": "zhang-pairs-3-10",
+    "word": "obtain",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 10,
+    "page": 15,
+    "meaning": "获得",
+    "synonyms": "glean"
+  },
+  {
+    "id": "zhang-pairs-3-11",
+    "word": "cheerless",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 11,
+    "page": 15,
+    "meaning": "阴郁的",
+    "synonyms": "gloomy"
+  },
+  {
+    "id": "zhang-pairs-3-12",
+    "word": "lugubrious",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 12,
+    "page": 15,
+    "meaning": "悲伤的",
+    "synonyms": "gloomy"
+  },
+  {
+    "id": "zhang-pairs-3-13",
+    "word": "abundance",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 13,
+    "page": 15,
+    "meaning": "大量",
+    "synonyms": "glut"
+  },
+  {
+    "id": "zhang-pairs-3-14",
+    "word": "surfeit",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 14,
+    "page": 15,
+    "meaning": "过量",
+    "synonyms": "glut,plethora"
+  },
+  {
+    "id": "zhang-pairs-3-15",
+    "word": "imperceptible",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 15,
+    "page": 15,
+    "meaning": "难以察觉的",
+    "synonyms": "gradual"
+  },
+  {
+    "id": "zhang-pairs-3-16",
+    "word": "sociable",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 16,
+    "page": 15,
+    "meaning": "好交际的",
+    "synonyms": "gregarious"
+  },
+  {
+    "id": "zhang-pairs-3-17",
+    "word": "unwarranted",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 17,
+    "page": 15,
+    "meaning": "无根据的",
+    "synonyms": "groundless"
+  },
+  {
+    "id": "zhang-pairs-3-18",
+    "word": "devious",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 18,
+    "page": 15,
+    "meaning": "狡诈的，弯曲的",
+    "synonyms": "guile, indirect"
+  },
+  {
+    "id": "zhang-pairs-3-19",
+    "word": "acclaim",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 19,
+    "page": 15,
+    "meaning": "称赞",
+    "synonyms": "hail"
+  },
+  {
+    "id": "zhang-pairs-3-20",
+    "word": "impede",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 20,
+    "page": 15,
+    "meaning": "阻碍",
+    "synonyms": "hamper"
+  },
+  {
+    "id": "zhang-pairs-3-21",
+    "word": "impair",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 21,
+    "page": 15,
+    "meaning": "损害",
+    "synonyms": "hamstring,undermine, vitiate, compromise, undercut"
+  },
+  {
+    "id": "zhang-pairs-3-22",
+    "word": "helter-skelter",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 22,
+    "page": 15,
+    "meaning": "杂乱的",
+    "synonyms": "haphazard"
+  },
+  {
+    "id": "zhang-pairs-3-23",
+    "word": "innocuous",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 23,
+    "page": 15,
+    "meaning": "无害的，无意冒犯的",
+    "synonyms": "harmless,benign,inoffensive"
+  },
+  {
+    "id": "zhang-pairs-3-24",
+    "word": "callous",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 24,
+    "page": 15,
+    "meaning": "冷酷无情的",
+    "synonyms": "heartless"
+  },
+  {
+    "id": "zhang-pairs-3-25",
+    "word": "buoy",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 25,
+    "page": 15,
+    "meaning": "使振奋",
+    "synonyms": "help"
+  },
+  {
+    "id": "zhang-pairs-3-26",
+    "word": "diversity",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 26,
+    "page": 15,
+    "meaning": "多样性，差异化",
+    "synonyms": "heterogeneity"
+  },
+  {
+    "id": "zhang-pairs-3-27",
+    "word": "dissimilar",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 27,
+    "page": 15,
+    "meaning": "不同的",
+    "synonyms": "heterogeneous"
+  },
+  {
+    "id": "zhang-pairs-3-28",
+    "word": "disparate",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 28,
+    "page": 15,
+    "meaning": "不同的",
+    "synonyms": "heterogeneous,diverse, dissimilar, variant"
+  },
+  {
+    "id": "zhang-pairs-3-29",
+    "word": "pedantic",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 29,
+    "page": 15,
+    "meaning": "迂腐的",
+    "synonyms": "hidebound"
+  },
+  {
+    "id": "zhang-pairs-3-30",
+    "word": "stratified",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 30,
+    "page": 16,
+    "meaning": "形成阶层的，分层的",
+    "synonyms": "hierarchical"
+  },
+  {
+    "id": "zhang-pairs-3-31",
+    "word": "stymie",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 31,
+    "page": 16,
+    "meaning": "阻碍",
+    "synonyms": "hinder"
+  },
+  {
+    "id": "zhang-pairs-3-32",
+    "word": "inhibit",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 32,
+    "page": 16,
+    "meaning": "抑制，禁止",
+    "synonyms": "hinder,bridle, suppress, constrain"
+  },
+  {
+    "id": "zhang-pairs-3-33",
+    "word": "snag",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 33,
+    "page": 16,
+    "meaning": "障碍",
+    "synonyms": "hitch"
+  },
+  {
+    "id": "zhang-pairs-3-34",
+    "word": "patchwork",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 34,
+    "page": 16,
+    "meaning": "大杂烩",
+    "synonyms": "hodgepodge"
+  },
+  {
+    "id": "zhang-pairs-3-35",
+    "word": "welter",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 35,
+    "page": 16,
+    "meaning": "混乱无序",
+    "synonyms": "hodgepodge"
+  },
+  {
+    "id": "zhang-pairs-3-36",
+    "word": "resemblance",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 36,
+    "page": 16,
+    "meaning": "相似",
+    "synonyms": "homogeneity"
+  },
+  {
+    "id": "zhang-pairs-3-37",
+    "word": "enhance",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 37,
+    "page": 16,
+    "meaning": "提高，改善",
+    "synonyms": "hone"
+  },
+  {
+    "id": "zhang-pairs-3-38",
+    "word": "venerate",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 38,
+    "page": 16,
+    "meaning": "崇敬",
+    "synonyms": "honor,respect"
+  },
+  {
+    "id": "zhang-pairs-3-39",
+    "word": "arrogant",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 39,
+    "page": 16,
+    "meaning": "傲慢的",
+    "synonyms": "hubristic"
+  },
+  {
+    "id": "zhang-pairs-3-40",
+    "word": "exaggerate",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 40,
+    "page": 16,
+    "meaning": "夸大",
+    "synonyms": "hyperbole, overrate"
+  },
+  {
+    "id": "zhang-pairs-3-41",
+    "word": "mendacity",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 41,
+    "page": 16,
+    "meaning": "不诚实",
+    "synonyms": "hypocrisy"
+  },
+  {
+    "id": "zhang-pairs-3-42",
+    "word": "heterodox",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 42,
+    "page": 16,
+    "meaning": "异端的",
+    "synonyms": "iconoclastic"
+  },
+  {
+    "id": "zhang-pairs-3-43",
+    "word": "revolutionary",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 43,
+    "page": 16,
+    "meaning": "反传统的",
+    "synonyms": "iconoclastic"
+  },
+  {
+    "id": "zhang-pairs-3-44",
+    "word": "quixotic",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 44,
+    "page": 16,
+    "meaning": "不切实际的",
+    "synonyms": "idealistic"
+  },
+  {
+    "id": "zhang-pairs-3-45",
+    "word": "distinct",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 45,
+    "page": 16,
+    "meaning": "独特的",
+    "synonyms": "idiosyncratic"
+  },
+  {
+    "id": "zhang-pairs-3-46",
+    "word": "dismiss",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 46,
+    "page": 16,
+    "meaning": "忽视",
+    "synonyms": "ignore, neglect"
+  },
+  {
+    "id": "zhang-pairs-3-47",
+    "word": "chimera",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 47,
+    "page": 16,
+    "meaning": "幻想",
+    "synonyms": "illusion"
+  },
+  {
+    "id": "zhang-pairs-3-48",
+    "word": "quaff",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 48,
+    "page": 16,
+    "meaning": "痛饮",
+    "synonyms": "imbibe"
+  },
+  {
+    "id": "zhang-pairs-3-49",
+    "word": "emulate",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 49,
+    "page": 16,
+    "meaning": "模仿，努力赶超",
+    "synonyms": "imitate"
+  },
+  {
+    "id": "zhang-pairs-3-50",
+    "word": "colossal",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 50,
+    "page": 16,
+    "meaning": "巨大的",
+    "synonyms": "immense"
+  },
+  {
+    "id": "zhang-pairs-3-51",
+    "word": "unbounded",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 51,
+    "page": 16,
+    "meaning": "无限的",
+    "synonyms": "immoderate, expansive"
+  },
+  {
+    "id": "zhang-pairs-3-52",
+    "word": "hamstring",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 52,
+    "page": 16,
+    "meaning": "使无能为力",
+    "synonyms": "impair"
+  },
+  {
+    "id": "zhang-pairs-3-53",
+    "word": "vitiate",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 53,
+    "page": 16,
+    "meaning": "损害",
+    "synonyms": "impair"
+  },
+  {
+    "id": "zhang-pairs-3-54",
+    "word": "compromise",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 54,
+    "page": 16,
+    "meaning": "妥协，危害",
+    "synonyms": "impair, concession"
+  },
+  {
+    "id": "zhang-pairs-3-55",
+    "word": "undermine",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 55,
+    "page": 16,
+    "meaning": "暗中破坏",
+    "synonyms": "impair,subvert,undercut"
+  },
+  {
+    "id": "zhang-pairs-3-56",
+    "word": "evenhanded",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 56,
+    "page": 16,
+    "meaning": "公平的",
+    "synonyms": "impartial"
+  },
+  {
+    "id": "zhang-pairs-3-57",
+    "word": "neutrality",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 57,
+    "page": 16,
+    "meaning": "中立",
+    "synonyms": "impartiality"
+  },
+  {
+    "id": "zhang-pairs-3-58",
+    "word": "fiery",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 58,
+    "page": 16,
+    "meaning": "热烈的，暴躁的",
+    "synonyms": "impassioned"
+  },
+  {
+    "id": "zhang-pairs-3-59",
+    "word": "zealous",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 59,
+    "page": 16,
+    "meaning": "热情的，狂热的",
+    "synonyms": "impassioned,fervent, fiery, passionate"
+  },
+  {
+    "id": "zhang-pairs-3-60",
+    "word": "indigent",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 60,
+    "page": 16,
+    "meaning": "贫穷的",
+    "synonyms": "impecunious"
+  },
+  {
+    "id": "zhang-pairs-3-61",
+    "word": "hamper",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 61,
+    "page": 16,
+    "meaning": "阻碍",
+    "synonyms": "impede"
+  },
+  {
+    "id": "zhang-pairs-3-62",
+    "word": "indiscernible",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 62,
+    "page": 16,
+    "meaning": "难以理解的",
+    "synonyms": "imperceptible"
+  },
+  {
+    "id": "zhang-pairs-3-63",
+    "word": "unyielding",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 63,
+    "page": 16,
+    "meaning": "不屈的",
+    "synonyms": "implacable"
+  },
+  {
+    "id": "zhang-pairs-3-64",
+    "word": "hasty",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 64,
+    "page": 16,
+    "meaning": "匆忙的，草率的",
+    "synonyms": "impulsive, rapid"
+  },
+  {
+    "id": "zhang-pairs-3-65",
+    "word": "erroneous",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 65,
+    "page": 16,
+    "meaning": "错误的",
+    "synonyms": "inaccurate"
+  },
+  {
+    "id": "zhang-pairs-3-66",
+    "word": "ominous",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 66,
+    "page": 16,
+    "meaning": "不祥的",
+    "synonyms": "inauspicious"
+  },
+  {
+    "id": "zhang-pairs-3-67",
+    "word": "innate",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 67,
+    "page": 16,
+    "meaning": "天生的",
+    "synonyms": "inborn"
+  },
+  {
+    "id": "zhang-pairs-3-68",
+    "word": "foundation",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 68,
+    "page": 16,
+    "meaning": "创建，基础，根据",
+    "synonyms": "inception,bedrock"
+  },
+  {
+    "id": "zhang-pairs-3-69",
+    "word": "acute",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 69,
+    "page": 16,
+    "meaning": "敏锐的，严峻的",
+    "synonyms": "incisive, severe"
+  },
+  {
+    "id": "zhang-pairs-3-70",
+    "word": "all-encompassing",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 70,
+    "page": 17,
+    "meaning": "包罗万象的",
+    "synonyms": "inclusive"
+  },
+  {
+    "id": "zhang-pairs-3-71",
+    "word": "generic",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 71,
+    "page": 17,
+    "meaning": "通用的",
+    "synonyms": "inclusive"
+  },
+  {
+    "id": "zhang-pairs-3-72",
+    "word": "inexplicable",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 72,
+    "page": 17,
+    "meaning": "费解的",
+    "synonyms": "incomprehensible"
+  },
+  {
+    "id": "zhang-pairs-3-73",
+    "word": "discrepancy",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 73,
+    "page": 17,
+    "meaning": "矛盾",
+    "synonyms": "incongruity"
+  },
+  {
+    "id": "zhang-pairs-3-74",
+    "word": "immaterial",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 74,
+    "page": 17,
+    "meaning": "不重要的",
+    "synonyms": "inconsequential"
+  },
+  {
+    "id": "zhang-pairs-3-75",
+    "word": "trivial",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 75,
+    "page": 17,
+    "meaning": "不重要的",
+    "synonyms": "inconsequential, immaterial"
+  },
+  {
+    "id": "zhang-pairs-3-76",
+    "word": "mixed",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 76,
+    "page": 17,
+    "meaning": "混合的，矛盾的",
+    "synonyms": "inconsistent"
+  },
+  {
+    "id": "zhang-pairs-3-77",
+    "word": "indubitable",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 77,
+    "page": 17,
+    "meaning": "不容置疑的",
+    "synonyms": "incontrovertible"
+  },
+  {
+    "id": "zhang-pairs-3-78",
+    "word": "beholden",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 78,
+    "page": 17,
+    "meaning": "欠…人情的",
+    "synonyms": "indebted"
+  },
+  {
+    "id": "zhang-pairs-3-79",
+    "word": "unseemly",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 79,
+    "page": 17,
+    "meaning": "不得体的",
+    "synonyms": "indecorous"
+  },
+  {
+    "id": "zhang-pairs-3-80",
+    "word": "excoriate",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 80,
+    "page": 17,
+    "meaning": "严厉指责",
+    "synonyms": "indict, crab"
+  },
+  {
+    "id": "zhang-pairs-3-81",
+    "word": "impecunious",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 81,
+    "page": 17,
+    "meaning": "贫穷的",
+    "synonyms": "indigent"
+  },
+  {
+    "id": "zhang-pairs-3-82",
+    "word": "circuitous",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 82,
+    "page": 17,
+    "meaning": "拐弯抹角的",
+    "synonyms": "indirect"
+  },
+  {
+    "id": "zhang-pairs-3-83",
+    "word": "essential",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 83,
+    "page": 17,
+    "meaning": "完全必要的，基本的",
+    "synonyms": "indispensable, foundational"
+  },
+  {
+    "id": "zhang-pairs-3-84",
+    "word": "diligent",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 84,
+    "page": 17,
+    "meaning": "勤奋的",
+    "synonyms": "industrious"
+  },
+  {
+    "id": "zhang-pairs-3-85",
+    "word": "incomprehensible",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 85,
+    "page": 17,
+    "meaning": "费解的",
+    "synonyms": "inexplicable"
+  },
+  {
+    "id": "zhang-pairs-3-86",
+    "word": "surmise",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 86,
+    "page": 17,
+    "meaning": "推测，猜测",
+    "synonyms": "infer"
+  },
+  {
+    "id": "zhang-pairs-3-87",
+    "word": "entailedby",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 87,
+    "page": 17,
+    "meaning": "使需要，导致",
+    "synonyms": "inferablefrom"
+  },
+  {
+    "id": "zhang-pairs-3-88",
+    "word": "provocative",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 88,
+    "page": 17,
+    "meaning": "引发的，挑衅的",
+    "synonyms": "inflammatory"
+  },
+  {
+    "id": "zhang-pairs-3-89",
+    "word": "intrinsic",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 89,
+    "page": 17,
+    "meaning": "本质的",
+    "synonyms": "inherent"
+  },
+  {
+    "id": "zhang-pairs-3-90",
+    "word": "benign",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 90,
+    "page": 17,
+    "meaning": "和善的",
+    "synonyms": "innocuous, anodyne"
+  },
+  {
+    "id": "zhang-pairs-3-91",
+    "word": "experimental",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 91,
+    "page": 17,
+    "meaning": "实验的，创新的",
+    "synonyms": "innovative"
+  },
+  {
+    "id": "zhang-pairs-3-92",
+    "word": "unfathomable",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 92,
+    "page": 17,
+    "meaning": "不能理解的",
+    "synonyms": "inscrutable"
+  },
+  {
+    "id": "zhang-pairs-3-93",
+    "word": "uninformative",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 93,
+    "page": 17,
+    "meaning": "缺乏信息的",
+    "synonyms": "inscrutable"
+  },
+  {
+    "id": "zhang-pairs-3-94",
+    "word": "negligible",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 94,
+    "page": 17,
+    "meaning": "微不足道的，不重要的",
+    "synonyms": "insignificant,inconsequential, trifling"
+  },
+  {
+    "id": "zhang-pairs-3-95",
+    "word": "bland",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 95,
+    "page": 17,
+    "meaning": "乏味的，无动于衷的",
+    "synonyms": "insipid"
+  },
+  {
+    "id": "zhang-pairs-3-96",
+    "word": "nonchalant",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 96,
+    "page": 17,
+    "meaning": "冷漠的",
+    "synonyms": "insouciant"
+  },
+  {
+    "id": "zhang-pairs-3-97",
+    "word": "abet",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 97,
+    "page": 17,
+    "meaning": "支持，怂恿",
+    "synonyms": "instigate"
+  },
+  {
+    "id": "zhang-pairs-3-98",
+    "word": "meager",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 98,
+    "page": 17,
+    "meaning": "缺乏的，瘦削的",
+    "synonyms": "insufficient,paltry"
+  },
+  {
+    "id": "zhang-pairs-3-99",
+    "word": "provincial",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 99,
+    "page": 17,
+    "meaning": "狭隘的，省的",
+    "synonyms": "insular"
+  },
+  {
+    "id": "zhang-pairs-3-100",
+    "word": "readable",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 100,
+    "page": 17,
+    "meaning": "清晰易懂的，可读性强的",
+    "synonyms": "intelligible"
+  },
+  {
+    "id": "zhang-pairs-3-101",
+    "word": "fungible",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 101,
+    "page": 17,
+    "meaning": "可取代的",
+    "synonyms": "interchangeable"
+  },
+  {
+    "id": "zhang-pairs-3-102",
+    "word": "interrelated",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 102,
+    "page": 17,
+    "meaning": "互相联系的",
+    "synonyms": "interdependent"
+  },
+  {
+    "id": "zhang-pairs-3-103",
+    "word": "compelling",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 103,
+    "page": 17,
+    "meaning": "激发兴趣的，令人信服的，强大的",
+    "synonyms": "interesting"
+  },
+  {
+    "id": "zhang-pairs-3-104",
+    "word": "construe",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 104,
+    "page": 17,
+    "meaning": "诠释，分析",
+    "synonyms": "interpret"
+  },
+  {
+    "id": "zhang-pairs-3-105",
+    "word": "interdependent",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 105,
+    "page": 17,
+    "meaning": "互相依赖的",
+    "synonyms": "interrelated"
+  },
+  {
+    "id": "zhang-pairs-3-106",
+    "word": "scary",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 106,
+    "page": 17,
+    "meaning": "令人害怕的",
+    "synonyms": "intimidating"
+  },
+  {
+    "id": "zhang-pairs-3-107",
+    "word": "stubborn",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 107,
+    "page": 17,
+    "meaning": "固执的，难除去的",
+    "synonyms": "intractable"
+  },
+  {
+    "id": "zhang-pairs-3-108",
+    "word": "obdurate",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 108,
+    "page": 18,
+    "meaning": "固执的",
+    "synonyms": "intransigent, fortitude"
+  },
+  {
+    "id": "zhang-pairs-3-109",
+    "word": "convoluted",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 109,
+    "page": 18,
+    "meaning": "复杂难解的",
+    "synonyms": "intricate,tortuous"
+  },
+  {
+    "id": "zhang-pairs-3-110",
+    "word": "spontaneous",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 110,
+    "page": 18,
+    "meaning": "自发的",
+    "synonyms": "intuitive"
+  },
+  {
+    "id": "zhang-pairs-3-111",
+    "word": "exasperation",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 111,
+    "page": 18,
+    "meaning": "恼怒",
+    "synonyms": "irascibility"
+  },
+  {
+    "id": "zhang-pairs-3-112",
+    "word": "paradoxical",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 112,
+    "page": 18,
+    "meaning": "矛盾的",
+    "synonyms": "ironic"
+  },
+  {
+    "id": "zhang-pairs-3-113",
+    "word": "extraneous",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 113,
+    "page": 18,
+    "meaning": "无关的",
+    "synonyms": "irrelevant"
+  },
+  {
+    "id": "zhang-pairs-3-114",
+    "word": "vacillation",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 114,
+    "page": 18,
+    "meaning": "犹豫不决的",
+    "synonyms": "irresolution"
+  },
+  {
+    "id": "zhang-pairs-3-115",
+    "word": "peripatetic",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 115,
+    "page": 18,
+    "meaning": "巡回的",
+    "synonyms": "itinerant"
+  },
+  {
+    "id": "zhang-pairs-3-116",
+    "word": "impatient",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 116,
+    "page": 18,
+    "meaning": "急切的",
+    "synonyms": "keen"
+  },
+  {
+    "id": "zhang-pairs-3-117",
+    "word": "complicated",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 117,
+    "page": 18,
+    "meaning": "复杂难懂的",
+    "synonyms": "knotty"
+  },
+  {
+    "id": "zhang-pairs-3-118",
+    "word": "terse",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 118,
+    "page": 18,
+    "meaning": "简短的",
+    "synonyms": "laconic, curt, taciturn,succinct"
+  },
+  {
+    "id": "zhang-pairs-3-119",
+    "word": "taciturn",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 119,
+    "page": 18,
+    "meaning": "沉默寡言的",
+    "synonyms": "laconic, terse, curt"
+  },
+  {
+    "id": "zhang-pairs-3-120",
+    "word": "curt",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 120,
+    "page": 18,
+    "meaning": "话少的，唐突无礼的",
+    "synonyms": "laconic, terse, taciturn"
+  },
+  {
+    "id": "zhang-pairs-3-121",
+    "word": "denounce",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 121,
+    "page": 18,
+    "meaning": "谴责",
+    "synonyms": "lambast"
+  },
+  {
+    "id": "zhang-pairs-3-122",
+    "word": "nonspecialist",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 122,
+    "page": 18,
+    "meaning": "非专业人士",
+    "synonyms": "layperson"
+  },
+  {
+    "id": "zhang-pairs-3-123",
+    "word": "erudite",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 123,
+    "page": 18,
+    "meaning": "博学的",
+    "synonyms": "learned"
+  },
+  {
+    "id": "zhang-pairs-3-124",
+    "word": "cede to",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 124,
+    "page": 18,
+    "meaning": "让与",
+    "synonyms": "leftto"
+  },
+  {
+    "id": "zhang-pairs-3-125",
+    "word": "slumberous",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 125,
+    "page": 18,
+    "meaning": "昏睡的",
+    "synonyms": "lethargic"
+  },
+  {
+    "id": "zhang-pairs-3-126",
+    "word": "somnolent",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 126,
+    "page": 18,
+    "meaning": "昏睡的，催眠的",
+    "synonyms": "lethargic"
+  },
+  {
+    "id": "zhang-pairs-3-127",
+    "word": "rejection",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 127,
+    "page": 18,
+    "meaning": "拒绝，排斥",
+    "synonyms": "liberation from"
+  },
+  {
+    "id": "zhang-pairs-3-128",
+    "word": "bound",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 128,
+    "page": 18,
+    "meaning": "界限",
+    "synonyms": "limit"
+  },
+  {
+    "id": "zhang-pairs-3-129",
+    "word": "confine",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 129,
+    "page": 18,
+    "meaning": "限制",
+    "synonyms": "limit,circumscribe"
+  },
+  {
+    "id": "zhang-pairs-3-130",
+    "word": "scant",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 130,
+    "page": 18,
+    "meaning": "缺乏的",
+    "synonyms": "limited"
+  },
+  {
+    "id": "zhang-pairs-3-131",
+    "word": "pellucid",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 131,
+    "page": 18,
+    "meaning": "清晰的",
+    "synonyms": "limpid"
+  },
+  {
+    "id": "zhang-pairs-3-132",
+    "word": "eulogize",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 132,
+    "page": 18,
+    "meaning": "赞美",
+    "synonyms": "lionize"
+  },
+  {
+    "id": "zhang-pairs-3-133",
+    "word": "mutable",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 133,
+    "page": 18,
+    "meaning": "易变的",
+    "synonyms": "liquid"
+  },
+  {
+    "id": "zhang-pairs-3-134",
+    "word": "tilt",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 134,
+    "page": 18,
+    "meaning": "倾斜，偏见",
+    "synonyms": "list"
+  },
+  {
+    "id": "zhang-pairs-3-135",
+    "word": "perennial",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 135,
+    "page": 18,
+    "meaning": "持久的",
+    "synonyms": "long-standing,constant"
+  },
+  {
+    "id": "zhang-pairs-3-136",
+    "word": "garrulous",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 136,
+    "page": 18,
+    "meaning": "喋喋不休的",
+    "synonyms": "loquacious"
+  },
+  {
+    "id": "zhang-pairs-3-137",
+    "word": "remunerative",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 137,
+    "page": 18,
+    "meaning": "盈利的",
+    "synonyms": "lucrative"
+  },
+  {
+    "id": "zhang-pairs-3-138",
+    "word": "risible",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 138,
+    "page": 18,
+    "meaning": "可笑的",
+    "synonyms": "ludicrous"
+  },
+  {
+    "id": "zhang-pairs-3-139",
+    "word": "gloomy",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 139,
+    "page": 18,
+    "meaning": "忧郁的",
+    "synonyms": "lugubrious, cheerless"
+  },
+  {
+    "id": "zhang-pairs-3-140",
+    "word": "respite",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 140,
+    "page": 18,
+    "meaning": "喘息",
+    "synonyms": "lull, relief, break"
+  },
+  {
+    "id": "zhang-pairs-3-141",
+    "word": "rampant",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 141,
+    "page": 18,
+    "meaning": "泛滥的，疯长的",
+    "synonyms": "luxuriant"
+  },
+  {
+    "id": "zhang-pairs-3-142",
+    "word": "fraudulent",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 142,
+    "page": 18,
+    "meaning": "欺骗性的",
+    "synonyms": "malfeasant"
+  },
+  {
+    "id": "zhang-pairs-3-143",
+    "word": "plastic",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 143,
+    "page": 18,
+    "meaning": "可塑的，做作的",
+    "synonyms": "malleable"
+  },
+  {
+    "id": "zhang-pairs-3-144",
+    "word": "noisome",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 144,
+    "page": 18,
+    "meaning": "令人讨厌的，恶臭的",
+    "synonyms": "malodorous"
+  },
+  {
+    "id": "zhang-pairs-3-145",
+    "word": "self-evident",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 145,
+    "page": 18,
+    "meaning": "不证自明的",
+    "synonyms": "manifest"
+  },
+  {
+    "id": "zhang-pairs-3-146",
+    "word": "peripheral",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 146,
+    "page": 18,
+    "meaning": "边缘的，补充的",
+    "synonyms": "marginal, subsidiary"
+  },
+  {
+    "id": "zhang-pairs-3-147",
+    "word": "fringe",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 147,
+    "page": 18,
+    "meaning": "边缘",
+    "synonyms": "marginal, peripheral"
+  },
+  {
+    "id": "zhang-pairs-3-148",
+    "word": "belie",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 148,
+    "page": 19,
+    "meaning": "证明…是错误的，掩饰，与…不符",
+    "synonyms": "mask,contradict"
+  },
+  {
+    "id": "zhang-pairs-3-149",
+    "word": "precocious",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 149,
+    "page": 19,
+    "meaning": "早熟的",
+    "synonyms": "mature"
+  },
+  {
+    "id": "zhang-pairs-3-150",
+    "word": "nonconformist",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 150,
+    "page": 19,
+    "meaning": "不守成规者",
+    "synonyms": "maverick"
+  },
+  {
+    "id": "zhang-pairs-3-151",
+    "word": "insufficient",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 151,
+    "page": 19,
+    "meaning": "不充足的",
+    "synonyms": "meager"
+  },
+  {
+    "id": "zhang-pairs-3-152",
+    "word": "paltry",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 152,
+    "page": 19,
+    "meaning": "很少的，无意义的",
+    "synonyms": "meager, insufficient"
+  },
+  {
+    "id": "zhang-pairs-3-153",
+    "word": "condign",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 153,
+    "page": 19,
+    "meaning": "适当的",
+    "synonyms": "meet"
+  },
+  {
+    "id": "zhang-pairs-3-154",
+    "word": "hypocrisy",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 154,
+    "page": 19,
+    "meaning": "伪善",
+    "synonyms": "mendacity, insincerity"
+  },
+  {
+    "id": "zhang-pairs-3-155",
+    "word": "showy",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 155,
+    "page": 19,
+    "meaning": "虚有其表的，炫耀的",
+    "synonyms": "meretricious"
+  },
+  {
+    "id": "zhang-pairs-3-156",
+    "word": "painstaking",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 156,
+    "page": 19,
+    "meaning": "煞费苦心的",
+    "synonyms": "meticulous"
+  },
+  {
+    "id": "zhang-pairs-3-157",
+    "word": "thorough",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 157,
+    "page": 19,
+    "meaning": "周密的，彻底的",
+    "synonyms": "meticulous"
+  },
+  {
+    "id": "zhang-pairs-3-158",
+    "word": "exactitude",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 158,
+    "page": 19,
+    "meaning": "精确性",
+    "synonyms": "meticulousness"
+  },
+  {
+    "id": "zhang-pairs-3-159",
+    "word": "trifling",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 159,
+    "page": 19,
+    "meaning": "微不足道的",
+    "synonyms": "minimal"
+  },
+  {
+    "id": "zhang-pairs-3-160",
+    "word": "diminutive",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 160,
+    "page": 19,
+    "meaning": "极小的",
+    "synonyms": "minuscule"
+  },
+  {
+    "id": "zhang-pairs-3-161",
+    "word": "trepidation",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 161,
+    "page": 19,
+    "meaning": "不安",
+    "synonyms": "misgiving, apprehension"
+  },
+  {
+    "id": "zhang-pairs-3-162",
+    "word": "abuse",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 162,
+    "page": 19,
+    "meaning": "虐待，误用，恶习",
+    "synonyms": "misuse"
+  },
+  {
+    "id": "zhang-pairs-3-163",
+    "word": "abate",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 163,
+    "page": 19,
+    "meaning": "减弱",
+    "synonyms": "mitigate"
+  },
+  {
+    "id": "zhang-pairs-3-164",
+    "word": "alleviate",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 164,
+    "page": 19,
+    "meaning": "减轻",
+    "synonyms": "mitigate"
+  },
+  {
+    "id": "zhang-pairs-3-165",
+    "word": "curtail",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 165,
+    "page": 19,
+    "meaning": "缩减",
+    "synonyms": "mitigate"
+  },
+  {
+    "id": "zhang-pairs-3-166",
+    "word": "inconsistent",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 166,
+    "page": 19,
+    "meaning": "不一致的，矛盾的",
+    "synonyms": "mixed, erratic"
+  },
+  {
+    "id": "zhang-pairs-3-167",
+    "word": "derision",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 167,
+    "page": 19,
+    "meaning": "嘲笑",
+    "synonyms": "mockery"
+  },
+  {
+    "id": "zhang-pairs-3-168",
+    "word": "rebuke",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 168,
+    "page": 19,
+    "meaning": "指责",
+    "synonyms": "mockery"
+  },
+  {
+    "id": "zhang-pairs-3-169",
+    "word": "exemplary",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 169,
+    "page": 19,
+    "meaning": "楷模的，典型的",
+    "synonyms": "model"
+  },
+  {
+    "id": "zhang-pairs-3-170",
+    "word": "paradigm",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 170,
+    "page": 19,
+    "meaning": "模板，典范",
+    "synonyms": "model"
+  },
+  {
+    "id": "zhang-pairs-3-171",
+    "word": "unostentatious",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 171,
+    "page": 19,
+    "meaning": "不夸耀的",
+    "synonyms": "modest"
+  },
+  {
+    "id": "zhang-pairs-3-172",
+    "word": "unassuming",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 172,
+    "page": 19,
+    "meaning": "谦逊的",
+    "synonyms": "modest,humble"
+  },
+  {
+    "id": "zhang-pairs-3-173",
+    "word": "humility",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 173,
+    "page": 19,
+    "meaning": "谦逊",
+    "synonyms": "modesty"
+  },
+  {
+    "id": "zhang-pairs-3-174",
+    "word": "temper",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 174,
+    "page": 19,
+    "meaning": "缓和",
+    "synonyms": "modulate,mitigate, neutralize"
+  },
+  {
+    "id": "zhang-pairs-3-175",
+    "word": "evanescent",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 175,
+    "page": 19,
+    "meaning": "短暂的",
+    "synonyms": "momentary"
+  },
+  {
+    "id": "zhang-pairs-3-176",
+    "word": "fleeting",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 176,
+    "page": 19,
+    "meaning": "短暂的",
+    "synonyms": "momentary"
+  },
+  {
+    "id": "zhang-pairs-3-177",
+    "word": "acerbic",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 177,
+    "page": 19,
+    "meaning": "尖刻的",
+    "synonyms": "mordant,vitriolic, caustic, cutting, scathing"
+  },
+  {
+    "id": "zhang-pairs-3-178",
+    "word": "confused",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 178,
+    "page": 19,
+    "meaning": "迷惑的",
+    "synonyms": "muddled"
+  },
+  {
+    "id": "zhang-pairs-3-179",
+    "word": "ambiguous",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 179,
+    "page": 19,
+    "meaning": "模棱两可的",
+    "synonyms": "mute"
+  },
+  {
+    "id": "zhang-pairs-3-180",
+    "word": "fraud",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 180,
+    "page": 19,
+    "meaning": "欺诈",
+    "synonyms": "duplicity"
+  },
+  {
+    "id": "zhang-pairs-3-181",
+    "word": "hauteur",
+    "list": 3,
+    "group": "第三天任务",
+    "number": 181,
+    "page": 19,
+    "meaning": "傲慢",
+    "synonyms": "superciliousness"
+  },
+  {
+    "id": "zhang-pairs-4-1",
+    "word": "budding",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 1,
+    "page": 20,
+    "meaning": "萌芽期的",
+    "synonyms": "nascent"
+  },
+  {
+    "id": "zhang-pairs-4-2",
+    "word": "endemic",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 2,
+    "page": 20,
+    "meaning": "地方性的",
+    "synonyms": "native, domestic,indigenous"
+  },
+  {
+    "id": "zhang-pairs-4-3",
+    "word": "vague",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 3,
+    "page": 20,
+    "meaning": "模糊的，不确定的",
+    "synonyms": "nebulous"
+  },
+  {
+    "id": "zhang-pairs-4-4",
+    "word": "forsake",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 4,
+    "page": 20,
+    "meaning": "抛弃",
+    "synonyms": "neglect"
+  },
+  {
+    "id": "zhang-pairs-4-5",
+    "word": "dexterous",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 5,
+    "page": 20,
+    "meaning": "机敏的",
+    "synonyms": "nimble"
+  },
+  {
+    "id": "zhang-pairs-4-6",
+    "word": "adroit",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 6,
+    "page": 20,
+    "meaning": "精明的，灵巧的",
+    "synonyms": "nimble, dexterous,deft, acumen"
+  },
+  {
+    "id": "zhang-pairs-4-7",
+    "word": "businesslike",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 7,
+    "page": 20,
+    "meaning": "高效率的",
+    "synonyms": "no-nonsense"
+  },
+  {
+    "id": "zhang-pairs-4-8",
+    "word": "malodorous",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 8,
+    "page": 20,
+    "meaning": "难闻的",
+    "synonyms": "noisome"
+  },
+  {
+    "id": "zhang-pairs-4-9",
+    "word": "maverick",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 9,
+    "page": 20,
+    "meaning": "特立独行的人",
+    "synonyms": "nonconformist"
+  },
+  {
+    "id": "zhang-pairs-4-10",
+    "word": "unexceptional",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 10,
+    "page": 20,
+    "meaning": "普通的",
+    "synonyms": "nondescript"
+  },
+  {
+    "id": "zhang-pairs-4-11",
+    "word": "layperson",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 11,
+    "page": 20,
+    "meaning": "门外汉",
+    "synonyms": "nonspecialist"
+  },
+  {
+    "id": "zhang-pairs-4-12",
+    "word": "original",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 12,
+    "page": 20,
+    "meaning": "原创的，新颖的",
+    "synonyms": "novel"
+  },
+  {
+    "id": "zhang-pairs-4-13",
+    "word": "unexampled",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 13,
+    "page": 20,
+    "meaning": "前所未有的",
+    "synonyms": "novel"
+  },
+  {
+    "id": "zhang-pairs-4-14",
+    "word": "tyro",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 14,
+    "page": 20,
+    "meaning": "新手",
+    "synonyms": "novice, neophyte"
+  },
+  {
+    "id": "zhang-pairs-4-15",
+    "word": "occult",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 15,
+    "page": 20,
+    "meaning": "神秘的",
+    "synonyms": "numinous"
+  },
+  {
+    "id": "zhang-pairs-4-16",
+    "word": "intransigent",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 16,
+    "page": 20,
+    "meaning": "不妥协的",
+    "synonyms": "obdurate,resolute"
+  },
+  {
+    "id": "zhang-pairs-4-17",
+    "word": "fairness",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 17,
+    "page": 20,
+    "meaning": "公平",
+    "synonyms": "objectivity"
+  },
+  {
+    "id": "zhang-pairs-4-18",
+    "word": "anonymous",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 18,
+    "page": 20,
+    "meaning": "无名的，匿名的，无个性的",
+    "synonyms": "obscure"
+  },
+  {
+    "id": "zhang-pairs-4-19",
+    "word": "opaque",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 19,
+    "page": 20,
+    "meaning": "不透明的，难懂的",
+    "synonyms": "obscure,inaccessible"
+  },
+  {
+    "id": "zhang-pairs-4-20",
+    "word": "obfuscate",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 20,
+    "page": 20,
+    "meaning": "混淆，使迷惑",
+    "synonyms": "obscure,mystify"
+  },
+  {
+    "id": "zhang-pairs-4-21",
+    "word": "sycophantic",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 21,
+    "page": 20,
+    "meaning": "谄媚的",
+    "synonyms": "obsequious, adulating"
+  },
+  {
+    "id": "zhang-pairs-4-22",
+    "word": "fixated",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 22,
+    "page": 20,
+    "meaning": "过分迷恋的",
+    "synonyms": "obsessed"
+  },
+  {
+    "id": "zhang-pairs-4-23",
+    "word": "fusty",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 23,
+    "page": 20,
+    "meaning": "霉臭的，守旧的",
+    "synonyms": "obsolete, outmoded"
+  },
+  {
+    "id": "zhang-pairs-4-24",
+    "word": "glean",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 24,
+    "page": 20,
+    "meaning": "搜集，获取",
+    "synonyms": "obtain"
+  },
+  {
+    "id": "zhang-pairs-4-25",
+    "word": "conspicuous",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 25,
+    "page": 20,
+    "meaning": "显眼的",
+    "synonyms": "obtrusive, prominent,salient, remarkable"
+  },
+  {
+    "id": "zhang-pairs-4-26",
+    "word": "displace",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 26,
+    "page": 20,
+    "meaning": "取代，迫使离开",
+    "synonyms": "obviate"
+  },
+  {
+    "id": "zhang-pairs-4-27",
+    "word": "sporadic",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 27,
+    "page": 20,
+    "meaning": "零星的",
+    "synonyms": "occasional, fitful"
+  },
+  {
+    "id": "zhang-pairs-4-28",
+    "word": "numinous",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 28,
+    "page": 20,
+    "meaning": "神圣的，超自然的，神秘的",
+    "synonyms": "occult"
+  },
+  {
+    "id": "zhang-pairs-4-29",
+    "word": "universal",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 29,
+    "page": 20,
+    "meaning": "广泛的，普遍适用的，无处不在的",
+    "synonyms": "omnipresent,ubiquitous"
+  },
+  {
+    "id": "zhang-pairs-4-30",
+    "word": "ubiquitous",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 30,
+    "page": 20,
+    "meaning": "无处不在的",
+    "synonyms": "omnipresent,universal"
+  },
+  {
+    "id": "zhang-pairs-4-31",
+    "word": "burdensome",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 31,
+    "page": 20,
+    "meaning": "繁重的",
+    "synonyms": "onerous"
+  },
+  {
+    "id": "zhang-pairs-4-32",
+    "word": "erstwhile",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 32,
+    "page": 21,
+    "meaning": "过去的",
+    "synonyms": "onetime"
+  },
+  {
+    "id": "zhang-pairs-4-33",
+    "word": "inaccessible",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 33,
+    "page": 21,
+    "meaning": "难以到达的，难以理解的",
+    "synonyms": "opaque, insurmountable"
+  },
+  {
+    "id": "zhang-pairs-4-34",
+    "word": "timely",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 34,
+    "page": 21,
+    "meaning": "适时的",
+    "synonyms": "opportune"
+  },
+  {
+    "id": "zhang-pairs-4-35",
+    "word": "disdain",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 35,
+    "page": 21,
+    "meaning": "鄙视",
+    "synonyms": "opprobrium, contempt"
+  },
+  {
+    "id": "zhang-pairs-4-36",
+    "word": "sanguine",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 36,
+    "page": 21,
+    "meaning": "乐观的",
+    "synonyms": "optimistic"
+  },
+  {
+    "id": "zhang-pairs-4-37",
+    "word": "stability",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 37,
+    "page": 21,
+    "meaning": "稳定",
+    "synonyms": "order"
+  },
+  {
+    "id": "zhang-pairs-4-38",
+    "word": "coherent",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 38,
+    "page": 21,
+    "meaning": "连贯的，条理清楚的",
+    "synonyms": "orderly"
+  },
+  {
+    "id": "zhang-pairs-4-39",
+    "word": "provenance",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 39,
+    "page": 21,
+    "meaning": "起源",
+    "synonyms": "origin"
+  },
+  {
+    "id": "zhang-pairs-4-40",
+    "word": "unconventional",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 40,
+    "page": 21,
+    "meaning": "非传统的",
+    "synonyms": "original"
+  },
+  {
+    "id": "zhang-pairs-4-41",
+    "word": "novel",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 41,
+    "page": 21,
+    "meaning": "新颖的",
+    "synonyms": "original, unexampled, unprecedented"
+  },
+  {
+    "id": "zhang-pairs-4-42",
+    "word": "generate",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 42,
+    "page": 21,
+    "meaning": "产生",
+    "synonyms": "originate"
+  },
+  {
+    "id": "zhang-pairs-4-43",
+    "word": "waver",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 43,
+    "page": 21,
+    "meaning": "摇摆",
+    "synonyms": "oscillate"
+  },
+  {
+    "id": "zhang-pairs-4-44",
+    "word": "expel",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 44,
+    "page": 21,
+    "meaning": "开除，驱逐",
+    "synonyms": "oust"
+  },
+  {
+    "id": "zhang-pairs-4-45",
+    "word": "eclipse",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 45,
+    "page": 21,
+    "meaning": "衰退，使..不重要，胜过",
+    "synonyms": "outdo"
+  },
+  {
+    "id": "zhang-pairs-4-46",
+    "word": "overshadow",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 46,
+    "page": 21,
+    "meaning": "超越",
+    "synonyms": "outlast,obscure"
+  },
+  {
+    "id": "zhang-pairs-4-47",
+    "word": "obsolete",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 47,
+    "page": 21,
+    "meaning": "废弃的，老式的",
+    "synonyms": "outmoded,fusty"
+  },
+  {
+    "id": "zhang-pairs-4-48",
+    "word": "belabor",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 48,
+    "page": 21,
+    "meaning": "过分强调，抨击",
+    "synonyms": "overemphasize"
+  },
+  {
+    "id": "zhang-pairs-4-49",
+    "word": "dovish",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 49,
+    "page": 21,
+    "meaning": "和平主义的",
+    "synonyms": "pacific"
+  },
+  {
+    "id": "zhang-pairs-4-50",
+    "word": "damp",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 50,
+    "page": 21,
+    "meaning": "使减弱",
+    "synonyms": "palliate"
+  },
+  {
+    "id": "zhang-pairs-4-51",
+    "word": "cure-all",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 51,
+    "page": 21,
+    "meaning": "万灵药",
+    "synonyms": "panacea"
+  },
+  {
+    "id": "zhang-pairs-4-52",
+    "word": "remedy",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 52,
+    "page": 21,
+    "meaning": "治疗药物，改进措施，纠正，弥补",
+    "synonyms": "panacea"
+  },
+  {
+    "id": "zhang-pairs-4-53",
+    "word": "ironic",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 53,
+    "page": 21,
+    "meaning": "讽刺的",
+    "synonyms": "paradoxical"
+  },
+  {
+    "id": "zhang-pairs-4-54",
+    "word": "counterpart",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 54,
+    "page": 21,
+    "meaning": "对应的人或物",
+    "synonyms": "parallel, correlative"
+  },
+  {
+    "id": "zhang-pairs-4-55",
+    "word": "stingy",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 55,
+    "page": 21,
+    "meaning": "吝啬的，微小的",
+    "synonyms": "parsimonious"
+  },
+  {
+    "id": "zhang-pairs-4-56",
+    "word": "minutiae",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 56,
+    "page": 21,
+    "meaning": "细节",
+    "synonyms": "particular"
+  },
+  {
+    "id": "zhang-pairs-4-57",
+    "word": "inert",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 57,
+    "page": 21,
+    "meaning": "迟钝的，呆滞的",
+    "synonyms": "passive, dormant"
+  },
+  {
+    "id": "zhang-pairs-4-58",
+    "word": "apathy",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 58,
+    "page": 21,
+    "meaning": "冷漠",
+    "synonyms": "passivity"
+  },
+  {
+    "id": "zhang-pairs-4-59",
+    "word": "bucolic",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 59,
+    "page": 21,
+    "meaning": "乡村的",
+    "synonyms": "pastoral"
+  },
+  {
+    "id": "zhang-pairs-4-60",
+    "word": "hodgepodge",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 60,
+    "page": 21,
+    "meaning": "大杂烩",
+    "synonyms": "patchwork, welter, pastiche"
+  },
+  {
+    "id": "zhang-pairs-4-61",
+    "word": "vacuous",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 61,
+    "page": 21,
+    "meaning": "空洞的",
+    "synonyms": "paucity"
+  },
+  {
+    "id": "zhang-pairs-4-62",
+    "word": "dearth",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 62,
+    "page": 21,
+    "meaning": "缺乏",
+    "synonyms": "paucity, modicum"
+  },
+  {
+    "id": "zhang-pairs-4-63",
+    "word": "economic",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 63,
+    "page": 21,
+    "meaning": "有利可图的",
+    "synonyms": "pecuniary"
+  },
+  {
+    "id": "zhang-pairs-4-64",
+    "word": "limpid",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 64,
+    "page": 21,
+    "meaning": "清晰的",
+    "synonyms": "pellucid"
+  },
+  {
+    "id": "zhang-pairs-4-65",
+    "word": "indigence",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 65,
+    "page": 21,
+    "meaning": "贫穷",
+    "synonyms": "penury"
+  },
+  {
+    "id": "zhang-pairs-4-66",
+    "word": "faultless",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 66,
+    "page": 21,
+    "meaning": "无可挑剔的",
+    "synonyms": "perfect"
+  },
+  {
+    "id": "zhang-pairs-4-67",
+    "word": "cursory",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 67,
+    "page": 21,
+    "meaning": "草率的",
+    "synonyms": "perfunctory, casual,fleeting"
+  },
+  {
+    "id": "zhang-pairs-4-68",
+    "word": "precarious",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 68,
+    "page": 21,
+    "meaning": "危险的，不稳固的",
+    "synonyms": "perilous"
+  },
+  {
+    "id": "zhang-pairs-4-69",
+    "word": "itinerant",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 69,
+    "page": 21,
+    "meaning": "流动的，巡回的",
+    "synonyms": "peripatetic"
+  },
+  {
+    "id": "zhang-pairs-4-70",
+    "word": "marginal",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 70,
+    "page": 22,
+    "meaning": "不重要的，边缘的",
+    "synonyms": "peripheral"
+  },
+  {
+    "id": "zhang-pairs-4-71",
+    "word": "porous",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 71,
+    "page": 22,
+    "meaning": "多孔的，能渗透的",
+    "synonyms": "permeable"
+  },
+  {
+    "id": "zhang-pairs-4-72",
+    "word": "confound",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 72,
+    "page": 22,
+    "meaning": "1. 使迷惑 2. 挫败",
+    "synonyms": "perplex, flummox, resist"
+  },
+  {
+    "id": "zhang-pairs-4-73",
+    "word": "enigmatic",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 73,
+    "page": 22,
+    "meaning": "神秘难懂的",
+    "synonyms": "perplexing"
+  },
+  {
+    "id": "zhang-pairs-4-74",
+    "word": "durability",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 74,
+    "page": 22,
+    "meaning": "持久",
+    "synonyms": "persistence"
+  },
+  {
+    "id": "zhang-pairs-4-75",
+    "word": "commonplace",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 75,
+    "page": 22,
+    "meaning": "常见，陈词滥调",
+    "synonyms": "pervasive"
+  },
+  {
+    "id": "zhang-pairs-4-76",
+    "word": "conciliatory",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 76,
+    "page": 22,
+    "meaning": "愿意和解的",
+    "synonyms": "placatory"
+  },
+  {
+    "id": "zhang-pairs-4-77",
+    "word": "elegiac",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 77,
+    "page": 22,
+    "meaning": "哀悼的",
+    "synonyms": "plaintive"
+  },
+  {
+    "id": "zhang-pairs-4-78",
+    "word": "malleable",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 78,
+    "page": 22,
+    "meaning": "可塑的，易变的",
+    "synonyms": "plastic"
+  },
+  {
+    "id": "zhang-pairs-4-79",
+    "word": "conceivable",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 79,
+    "page": 22,
+    "meaning": "可想象的",
+    "synonyms": "plausible"
+  },
+  {
+    "id": "zhang-pairs-4-80",
+    "word": "gratify",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 80,
+    "page": 22,
+    "meaning": "使满足，使高兴",
+    "synonyms": "please"
+  },
+  {
+    "id": "zhang-pairs-4-81",
+    "word": "futile",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 81,
+    "page": 22,
+    "meaning": "无用的",
+    "synonyms": "pointless"
+  },
+  {
+    "id": "zhang-pairs-4-82",
+    "word": "contemplate",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 82,
+    "page": 22,
+    "meaning": "深入思考",
+    "synonyms": "ponder"
+  },
+  {
+    "id": "zhang-pairs-4-83",
+    "word": "permeable",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 83,
+    "page": 22,
+    "meaning": "可渗透的",
+    "synonyms": "porous"
+  },
+  {
+    "id": "zhang-pairs-4-84",
+    "word": "presage",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 84,
+    "page": 22,
+    "meaning": "预示",
+    "synonyms": "portend"
+  },
+  {
+    "id": "zhang-pairs-4-85",
+    "word": "didactic",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 85,
+    "page": 22,
+    "meaning": "说教的",
+    "synonyms": "preachy"
+  },
+  {
+    "id": "zhang-pairs-4-86",
+    "word": "sanctimonious",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 86,
+    "page": 22,
+    "meaning": "假装（比别人）圣洁的",
+    "synonyms": "preachy, didactic"
+  },
+  {
+    "id": "zhang-pairs-4-87",
+    "word": "impetuous",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 87,
+    "page": 22,
+    "meaning": "鲁莽的",
+    "synonyms": "precipitate"
+  },
+  {
+    "id": "zhang-pairs-4-88",
+    "word": "ruleout",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 88,
+    "page": 22,
+    "meaning": "排除",
+    "synonyms": "preclude"
+  },
+  {
+    "id": "zhang-pairs-4-89",
+    "word": "prejudice",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 89,
+    "page": 22,
+    "meaning": "偏见，先入之见",
+    "synonyms": "preconception"
+  },
+  {
+    "id": "zhang-pairs-4-90",
+    "word": "forerunner",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 90,
+    "page": 22,
+    "meaning": "先驱，预兆",
+    "synonyms": "precursor"
+  },
+  {
+    "id": "zhang-pairs-4-91",
+    "word": "precede",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 91,
+    "page": 22,
+    "meaning": "比…先发生",
+    "synonyms": "predate,antedate"
+  },
+  {
+    "id": "zhang-pairs-4-92",
+    "word": "portend",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 92,
+    "page": 22,
+    "meaning": "预言",
+    "synonyms": "predict,presage"
+  },
+  {
+    "id": "zhang-pairs-4-93",
+    "word": "proclivity",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 93,
+    "page": 22,
+    "meaning": "倾向，嗜好",
+    "synonyms": "predilection,affinity"
+  },
+  {
+    "id": "zhang-pairs-4-94",
+    "word": "anticipate",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 94,
+    "page": 22,
+    "meaning": "预期，先于某人做某事",
+    "synonyms": "prefigure,foresee"
+  },
+  {
+    "id": "zhang-pairs-4-95",
+    "word": "preconception",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 95,
+    "page": 22,
+    "meaning": "先入之见",
+    "synonyms": "prejudice"
+  },
+  {
+    "id": "zhang-pairs-4-96",
+    "word": "prophetic",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 96,
+    "page": 22,
+    "meaning": "有预见的",
+    "synonyms": "prescient"
+  },
+  {
+    "id": "zhang-pairs-4-97",
+    "word": "exacting",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 97,
+    "page": 22,
+    "meaning": "严格的",
+    "synonyms": "prescriptive, rigorous,demanding"
+  },
+  {
+    "id": "zhang-pairs-4-98",
+    "word": "safeguard",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 98,
+    "page": 22,
+    "meaning": "保卫",
+    "synonyms": "preserve"
+  },
+  {
+    "id": "zhang-pairs-4-99",
+    "word": "exigent",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 99,
+    "page": 22,
+    "meaning": "迫切的",
+    "synonyms": "pressing"
+  },
+  {
+    "id": "zhang-pairs-4-100",
+    "word": "exceptional",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 100,
+    "page": 22,
+    "meaning": "不同寻常的，杰出的",
+    "synonyms": "preternatural, rare"
+  },
+  {
+    "id": "zhang-pairs-4-101",
+    "word": "preclude",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 101,
+    "page": 22,
+    "meaning": "排除，防止",
+    "synonyms": "prevent,rule out"
+  },
+  {
+    "id": "zhang-pairs-4-102",
+    "word": "rudimentary",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 102,
+    "page": 22,
+    "meaning": "基本的，未完全发布的",
+    "synonyms": "primitive, sketchy, embryonic, sketchy, elemental"
+  },
+  {
+    "id": "zhang-pairs-4-103",
+    "word": "unblemished",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 103,
+    "page": 22,
+    "meaning": "暂新的，清白的",
+    "synonyms": "pristine"
+  },
+  {
+    "id": "zhang-pairs-4-104",
+    "word": "profess",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 104,
+    "page": 22,
+    "meaning": "公开宣称，信奉",
+    "synonyms": "proclaim"
+  },
+  {
+    "id": "zhang-pairs-4-105",
+    "word": "predilection",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 105,
+    "page": 22,
+    "meaning": "偏爱",
+    "synonyms": "proclivity, preference"
+  },
+  {
+    "id": "zhang-pairs-4-106",
+    "word": "voracious",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 106,
+    "page": 22,
+    "meaning": "贪吃的，贪得无厌的",
+    "synonyms": "prodigious, insatiable"
+  },
+  {
+    "id": "zhang-pairs-4-107",
+    "word": "proclaim",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 107,
+    "page": 22,
+    "meaning": "宣布，表明",
+    "synonyms": "profess"
+  },
+  {
+    "id": "zhang-pairs-4-108",
+    "word": "trenchant",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 108,
+    "page": 23,
+    "meaning": "有力的，有效的",
+    "synonyms": "profound, incisive"
+  },
+  {
+    "id": "zhang-pairs-4-109",
+    "word": "wealth",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 109,
+    "page": 23,
+    "meaning": "财富，大量",
+    "synonyms": "profusion"
+  },
+  {
+    "id": "zhang-pairs-4-110",
+    "word": "abound",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 110,
+    "page": 23,
+    "meaning": "充满",
+    "synonyms": "proliferate"
+  },
+  {
+    "id": "zhang-pairs-4-111",
+    "word": "verbose",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 111,
+    "page": 23,
+    "meaning": "啰嗦的",
+    "synonyms": "prolix, long-winded"
+  },
+  {
+    "id": "zhang-pairs-4-112",
+    "word": "prescient",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 112,
+    "page": 23,
+    "meaning": "有预知能力的",
+    "synonyms": "prophetic"
+  },
+  {
+    "id": "zhang-pairs-4-113",
+    "word": "commensurate",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 113,
+    "page": 23,
+    "meaning": "相称的",
+    "synonyms": "proportionate"
+  },
+  {
+    "id": "zhang-pairs-4-114",
+    "word": "versatile",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 114,
+    "page": 23,
+    "meaning": "多才多艺的，多功能的",
+    "synonyms": "protean,fickle, volatile, flighty, erratic, capricious"
+  },
+  {
+    "id": "zhang-pairs-4-115",
+    "word": "parochial",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 115,
+    "page": 23,
+    "meaning": "狭隘的",
+    "synonyms": "provincial"
+  },
+  {
+    "id": "zhang-pairs-4-116",
+    "word": "insular",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 116,
+    "page": 23,
+    "meaning": "狭隘的",
+    "synonyms": "provincial, private"
+  },
+  {
+    "id": "zhang-pairs-4-117",
+    "word": "inflammatory",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 117,
+    "page": 23,
+    "meaning": "煽动性的",
+    "synonyms": "provocative"
+  },
+  {
+    "id": "zhang-pairs-4-118",
+    "word": "circumspect",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 118,
+    "page": 23,
+    "meaning": "谨慎的",
+    "synonyms": "prudent,chary, cautious"
+  },
+  {
+    "id": "zhang-pairs-4-119",
+    "word": "belligerent",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 119,
+    "page": 23,
+    "meaning": "好战的",
+    "synonyms": "pugnacious"
+  },
+  {
+    "id": "zhang-pairs-4-120",
+    "word": "truculent",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 120,
+    "page": 23,
+    "meaning": "好斗的",
+    "synonyms": "pugnacious, bellicose, combative, aggressive"
+  },
+  {
+    "id": "zhang-pairs-4-121",
+    "word": "design",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 121,
+    "page": 23,
+    "meaning": "故意，设计",
+    "synonyms": "purposefulness"
+  },
+  {
+    "id": "zhang-pairs-4-122",
+    "word": "elude",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 122,
+    "page": 23,
+    "meaning": "避开，不能被…理解",
+    "synonyms": "puzzle"
+  },
+  {
+    "id": "zhang-pairs-4-123",
+    "word": "imbibe",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 123,
+    "page": 23,
+    "meaning": "饮酒，吸收，接受",
+    "synonyms": "quaff"
+  },
+  {
+    "id": "zhang-pairs-4-124",
+    "word": "abeyance",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 124,
+    "page": 23,
+    "meaning": "中止",
+    "synonyms": "quiescence"
+  },
+  {
+    "id": "zhang-pairs-4-125",
+    "word": "idealistic",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 125,
+    "page": 23,
+    "meaning": "空想的",
+    "synonyms": "quixotic"
+  },
+  {
+    "id": "zhang-pairs-4-126",
+    "word": "banter",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 126,
+    "page": 23,
+    "meaning": "打趣",
+    "synonyms": "raillery"
+  },
+  {
+    "id": "zhang-pairs-4-127",
+    "word": "luxuriant",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 127,
+    "page": 23,
+    "meaning": "茂盛的，丰富的",
+    "synonyms": "rampant"
+  },
+  {
+    "id": "zhang-pairs-4-128",
+    "word": "haphazard",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 128,
+    "page": 23,
+    "meaning": "随意的",
+    "synonyms": "random, helter-skelter"
+  },
+  {
+    "id": "zhang-pairs-4-129",
+    "word": "diatribe",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 129,
+    "page": 23,
+    "meaning": "抨击",
+    "synonyms": "rant"
+  },
+  {
+    "id": "zhang-pairs-4-130",
+    "word": "avaricious",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 130,
+    "page": 23,
+    "meaning": "贪婪的",
+    "synonyms": "rapacious"
+  },
+  {
+    "id": "zhang-pairs-4-131",
+    "word": "reconciliation",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 131,
+    "page": 23,
+    "meaning": "和解",
+    "synonyms": "rapprochement"
+  },
+  {
+    "id": "zhang-pairs-4-132",
+    "word": "intelligible",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 132,
+    "page": 23,
+    "meaning": "可理解的",
+    "synonyms": "readable"
+  },
+  {
+    "id": "zhang-pairs-4-133",
+    "word": "verisimilitude",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 133,
+    "page": 23,
+    "meaning": "逼真",
+    "synonyms": "realism"
+  },
+  {
+    "id": "zhang-pairs-4-134",
+    "word": "pragmatic",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 134,
+    "page": 23,
+    "meaning": "务实的",
+    "synonyms": "realistic"
+  },
+  {
+    "id": "zhang-pairs-4-135",
+    "word": "repudiate",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 135,
+    "page": 23,
+    "meaning": "拒绝承认，与…断绝关系",
+    "synonyms": "recant"
+  },
+  {
+    "id": "zhang-pairs-4-136",
+    "word": "undogmatic",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 136,
+    "page": 23,
+    "meaning": "能容纳的，不教条的",
+    "synonyms": "receptive"
+  },
+  {
+    "id": "zhang-pairs-4-137",
+    "word": "gauge",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 137,
+    "page": 23,
+    "meaning": "估计，判断，衡量仪器",
+    "synonyms": "reckon"
+  },
+  {
+    "id": "zhang-pairs-4-138",
+    "word": "shrink",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 138,
+    "page": 23,
+    "meaning": "退缩，回避，缩小，减少",
+    "synonyms": "recoil"
+  },
+  {
+    "id": "zhang-pairs-4-139",
+    "word": "rapprochement",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 139,
+    "page": 23,
+    "meaning": "和解",
+    "synonyms": "reconciliation"
+  },
+  {
+    "id": "zhang-pairs-4-140",
+    "word": "esoteric",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 140,
+    "page": 23,
+    "meaning": "深奥难懂的",
+    "synonyms": "recondite,arcane, abstruse"
+  },
+  {
+    "id": "zhang-pairs-4-141",
+    "word": "rehash",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 141,
+    "page": 23,
+    "meaning": "老调重弹，炒冷饭",
+    "synonyms": "recycle"
+  },
+  {
+    "id": "zhang-pairs-4-142",
+    "word": "liberation",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 142,
+    "page": 23,
+    "meaning": "解放，解脱",
+    "synonyms": "rejection"
+  },
+  {
+    "id": "zhang-pairs-4-143",
+    "word": "kinfolk",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 143,
+    "page": 23,
+    "meaning": "亲戚",
+    "synonyms": "relative"
+  },
+  {
+    "id": "zhang-pairs-4-144",
+    "word": "germane",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 144,
+    "page": 24,
+    "meaning": "密切相关的",
+    "synonyms": "relevant, apposite"
+  },
+  {
+    "id": "zhang-pairs-4-145",
+    "word": "vestige",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 145,
+    "page": 24,
+    "meaning": "残留部分",
+    "synonyms": "relic"
+  },
+  {
+    "id": "zhang-pairs-4-146",
+    "word": "delight",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 146,
+    "page": 24,
+    "meaning": "高兴，使高兴",
+    "synonyms": "relish"
+  },
+  {
+    "id": "zhang-pairs-4-147",
+    "word": "loath",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 147,
+    "page": 24,
+    "meaning": "不情愿的",
+    "synonyms": "reluctant,unwilling, disinclined"
+  },
+  {
+    "id": "zhang-pairs-4-148",
+    "word": "panacea",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 148,
+    "page": 24,
+    "meaning": "万能药",
+    "synonyms": "remedy, cure-all"
+  },
+  {
+    "id": "zhang-pairs-4-149",
+    "word": "stripaway",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 149,
+    "page": 24,
+    "meaning": "除去",
+    "synonyms": "remove"
+  },
+  {
+    "id": "zhang-pairs-4-150",
+    "word": "anathema",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 150,
+    "page": 24,
+    "meaning": "厌恶",
+    "synonyms": "repellent"
+  },
+  {
+    "id": "zhang-pairs-4-151",
+    "word": "censure",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 151,
+    "page": 24,
+    "meaning": "谴责",
+    "synonyms": "reprehend"
+  },
+  {
+    "id": "zhang-pairs-4-152",
+    "word": "deplorable",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 152,
+    "page": 24,
+    "meaning": "可悲的，应受谴责的",
+    "synonyms": "reprehensible"
+  },
+  {
+    "id": "zhang-pairs-4-153",
+    "word": "recant",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 153,
+    "page": 24,
+    "meaning": "宣布放弃",
+    "synonyms": "repudiate"
+  },
+  {
+    "id": "zhang-pairs-4-154",
+    "word": "homogeneity",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 154,
+    "page": 24,
+    "meaning": "同质",
+    "synonyms": "resemblance, uniform"
+  },
+  {
+    "id": "zhang-pairs-4-155",
+    "word": "tenacity",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 155,
+    "page": 24,
+    "meaning": "顽强",
+    "synonyms": "resolve, endurance"
+  },
+  {
+    "id": "zhang-pairs-4-156",
+    "word": "ringtrue",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 156,
+    "page": 24,
+    "meaning": "听来真实",
+    "synonyms": "resonate"
+  },
+  {
+    "id": "zhang-pairs-4-157",
+    "word": "hallow",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 157,
+    "page": 24,
+    "meaning": "极其崇敬",
+    "synonyms": "respect"
+  },
+  {
+    "id": "zhang-pairs-4-158",
+    "word": "deferential",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 158,
+    "page": 24,
+    "meaning": "恭敬的",
+    "synonyms": "respectful"
+  },
+  {
+    "id": "zhang-pairs-4-159",
+    "word": "lull",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 159,
+    "page": 24,
+    "meaning": "使平静，蒙蔽，间歇",
+    "synonyms": "respite"
+  },
+  {
+    "id": "zhang-pairs-4-160",
+    "word": "relief",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 160,
+    "page": 24,
+    "meaning": "解脱",
+    "synonyms": "respite"
+  },
+  {
+    "id": "zhang-pairs-4-161",
+    "word": "skittish",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 161,
+    "page": 24,
+    "meaning": "易受惊的",
+    "synonyms": "restive, fractious"
+  },
+  {
+    "id": "zhang-pairs-4-162",
+    "word": "fractious",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 162,
+    "page": 24,
+    "meaning": "易怒的，难对付的",
+    "synonyms": "restive, skittish"
+  },
+  {
+    "id": "zhang-pairs-4-163",
+    "word": "tonic",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 163,
+    "page": 24,
+    "meaning": "恢复健康的",
+    "synonyms": "restorative"
+  },
+  {
+    "id": "zhang-pairs-4-164",
+    "word": "rehabilitate",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 164,
+    "page": 24,
+    "meaning": "恢复",
+    "synonyms": "restore"
+  },
+  {
+    "id": "zhang-pairs-4-165",
+    "word": "recrudescent",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 165,
+    "page": 24,
+    "meaning": "复发的",
+    "synonyms": "resurgent"
+  },
+  {
+    "id": "zhang-pairs-4-166",
+    "word": "manifest",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 166,
+    "page": 24,
+    "meaning": "明显的，清楚显示",
+    "synonyms": "reveal, self-evident, obvious"
+  },
+  {
+    "id": "zhang-pairs-4-167",
+    "word": "emendation",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 167,
+    "page": 24,
+    "meaning": "修订",
+    "synonyms": "revision"
+  },
+  {
+    "id": "zhang-pairs-4-168",
+    "word": "renaissance",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 168,
+    "page": 24,
+    "meaning": "复兴",
+    "synonyms": "revival"
+  },
+  {
+    "id": "zhang-pairs-4-169",
+    "word": "eloquent",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 169,
+    "page": 24,
+    "meaning": "雄辩的",
+    "synonyms": "rhetoric"
+  },
+  {
+    "id": "zhang-pairs-4-170",
+    "word": "conundrum",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 170,
+    "page": 24,
+    "meaning": "复杂难解的问题",
+    "synonyms": "riddle, puzzle, enigma"
+  },
+  {
+    "id": "zhang-pairs-4-171",
+    "word": "pervasive",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 171,
+    "page": 24,
+    "meaning": "普遍的，弥漫的",
+    "synonyms": "rife"
+  },
+  {
+    "id": "zhang-pairs-4-172",
+    "word": "resonate",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 172,
+    "page": 24,
+    "meaning": "对某人有重要性，共振，一致",
+    "synonyms": "ringtrue"
+  },
+  {
+    "id": "zhang-pairs-4-173",
+    "word": "ludicrous",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 173,
+    "page": 24,
+    "meaning": "荒唐可笑的",
+    "synonyms": "risible"
+  },
+  {
+    "id": "zhang-pairs-4-174",
+    "word": "elemental",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 174,
+    "page": 24,
+    "meaning": "基本的",
+    "synonyms": "rudimentary"
+  },
+  {
+    "id": "zhang-pairs-4-175",
+    "word": "embryonic",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 175,
+    "page": 24,
+    "meaning": "萌芽期的",
+    "synonyms": "rudimentary"
+  },
+  {
+    "id": "zhang-pairs-4-176",
+    "word": "apogee",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 176,
+    "page": 24,
+    "meaning": "顶点",
+    "synonyms": "pinnacle"
+  },
+  {
+    "id": "zhang-pairs-4-177",
+    "word": "deploy",
+    "list": 4,
+    "group": "第四天任务",
+    "number": 177,
+    "page": 24,
+    "meaning": "安排，部署",
+    "synonyms": "marshal"
+  },
+  {
+    "id": "zhang-pairs-5-1",
+    "word": "primitive",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 1,
+    "page": 25,
+    "meaning": "原始的，初级的，简陋的",
+    "synonyms": "rudimentary, ancient"
+  },
+  {
+    "id": "zhang-pairs-5-2",
+    "word": "sketchy",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 2,
+    "page": 25,
+    "meaning": "粗略的，不完全的",
+    "synonyms": "rudimentary, superficial, undeveloped"
+  },
+  {
+    "id": "zhang-pairs-5-3",
+    "word": "visible",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 3,
+    "page": 25,
+    "meaning": "看得见的，明显的",
+    "synonyms": "salient"
+  },
+  {
+    "id": "zhang-pairs-5-4",
+    "word": "preachy",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 4,
+    "page": 25,
+    "meaning": "爱说教的",
+    "synonyms": "sanctimonious, didactic"
+  },
+  {
+    "id": "zhang-pairs-5-5",
+    "word": "endorse",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 5,
+    "page": 25,
+    "meaning": "支持",
+    "synonyms": "sanction,commend, support, authorize"
+  },
+  {
+    "id": "zhang-pairs-5-6",
+    "word": "factious",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 6,
+    "page": 25,
+    "meaning": "宗派的，派系的",
+    "synonyms": "schism"
+  },
+  {
+    "id": "zhang-pairs-5-7",
+    "word": "admonish",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 7,
+    "page": 25,
+    "meaning": "反对，批评，告诫",
+    "synonyms": "scold"
+  },
+  {
+    "id": "zhang-pairs-5-8",
+    "word": "capture",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 8,
+    "page": 25,
+    "meaning": "俘获",
+    "synonyms": "secure"
+  },
+  {
+    "id": "zhang-pairs-5-9",
+    "word": "narcissism",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 9,
+    "page": 25,
+    "meaning": "自恋",
+    "synonyms": "self-flattery"
+  },
+  {
+    "id": "zhang-pairs-5-10",
+    "word": "decrepitude",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 10,
+    "page": 25,
+    "meaning": "衰老，老朽",
+    "synonyms": "senescence"
+  },
+  {
+    "id": "zhang-pairs-5-11",
+    "word": "unrelated",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 11,
+    "page": 25,
+    "meaning": "无关的",
+    "synonyms": "separate"
+  },
+  {
+    "id": "zhang-pairs-5-12",
+    "word": "successive",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 12,
+    "page": 25,
+    "meaning": "连续的",
+    "synonyms": "sequential"
+  },
+  {
+    "id": "zhang-pairs-5-13",
+    "word": "unerring",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 13,
+    "page": 25,
+    "meaning": "万无一失的",
+    "synonyms": "settled"
+  },
+  {
+    "id": "zhang-pairs-5-14",
+    "word": "stifle",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 14,
+    "page": 25,
+    "meaning": "阻止",
+    "synonyms": "shackle"
+  },
+  {
+    "id": "zhang-pairs-5-15",
+    "word": "superficial",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 15,
+    "page": 25,
+    "meaning": "肤浅的，表面的",
+    "synonyms": "shallow"
+  },
+  {
+    "id": "zhang-pairs-5-16",
+    "word": "truncate",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 16,
+    "page": 25,
+    "meaning": "截短",
+    "synonyms": "shorten,foreshorten"
+  },
+  {
+    "id": "zhang-pairs-5-17",
+    "word": "artful",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 17,
+    "page": 25,
+    "meaning": "巧妙的",
+    "synonyms": "shrewd"
+  },
+  {
+    "id": "zhang-pairs-5-18",
+    "word": "canny",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 18,
+    "page": 25,
+    "meaning": "精明的",
+    "synonyms": "shrewd, deft"
+  },
+  {
+    "id": "zhang-pairs-5-19",
+    "word": "acumen",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 19,
+    "page": 25,
+    "meaning": "敏锐",
+    "synonyms": "shrewdness"
+  },
+  {
+    "id": "zhang-pairs-5-20",
+    "word": "caterwaul",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 20,
+    "page": 25,
+    "meaning": "发出让人不爽的噪音",
+    "synonyms": "shriek"
+  },
+  {
+    "id": "zhang-pairs-5-21",
+    "word": "recoil",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 21,
+    "page": 25,
+    "meaning": "畏缩，后退",
+    "synonyms": "shrink"
+  },
+  {
+    "id": "zhang-pairs-5-22",
+    "word": "deflect",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 22,
+    "page": 25,
+    "meaning": "使转向",
+    "synonyms": "shrugoff"
+  },
+  {
+    "id": "zhang-pairs-5-23",
+    "word": "betoken",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 23,
+    "page": 25,
+    "meaning": "表示",
+    "synonyms": "signify"
+  },
+  {
+    "id": "zhang-pairs-5-24",
+    "word": "artless",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 24,
+    "page": 25,
+    "meaning": "纯真的，朴素的",
+    "synonyms": "simplistic"
+  },
+  {
+    "id": "zhang-pairs-5-25",
+    "word": "disparage",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 25,
+    "page": 25,
+    "meaning": "贬低",
+    "synonyms": "slight"
+  },
+  {
+    "id": "zhang-pairs-5-26",
+    "word": "snub",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 26,
+    "page": 25,
+    "meaning": "冷落",
+    "synonyms": "slight"
+  },
+  {
+    "id": "zhang-pairs-5-27",
+    "word": "elusive",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 27,
+    "page": 25,
+    "meaning": "难抓住的，难理解的",
+    "synonyms": "slippery, evasive, cryptic"
+  },
+  {
+    "id": "zhang-pairs-5-28",
+    "word": "dilatory",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 28,
+    "page": 25,
+    "meaning": "拖延的",
+    "synonyms": "sluggish,remiss, laggard"
+  },
+  {
+    "id": "zhang-pairs-5-29",
+    "word": "aspersion",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 29,
+    "page": 25,
+    "meaning": "诽谤",
+    "synonyms": "slur"
+  },
+  {
+    "id": "zhang-pairs-5-30",
+    "word": "hitch",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 30,
+    "page": 25,
+    "meaning": "故障",
+    "synonyms": "snag"
+  },
+  {
+    "id": "zhang-pairs-5-31",
+    "word": "staid",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 31,
+    "page": 25,
+    "meaning": "古板的，严肃的",
+    "synonyms": "sober"
+  },
+  {
+    "id": "zhang-pairs-5-32",
+    "word": "gregarious",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 32,
+    "page": 25,
+    "meaning": "爱交际的，群居的",
+    "synonyms": "sociable"
+  },
+  {
+    "id": "zhang-pairs-5-33",
+    "word": "somber",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 33,
+    "page": 25,
+    "meaning": "严肃的，昏暗的",
+    "synonyms": "solemn"
+  },
+  {
+    "id": "zhang-pairs-5-34",
+    "word": "camaraderie",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 34,
+    "page": 26,
+    "meaning": "情谊，友情",
+    "synonyms": "solidarity"
+  },
+  {
+    "id": "zhang-pairs-5-35",
+    "word": "solemn",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 35,
+    "page": 26,
+    "meaning": "严肃的",
+    "synonyms": "somber"
+  },
+  {
+    "id": "zhang-pairs-5-36",
+    "word": "lethargic",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 36,
+    "page": 26,
+    "meaning": "无精打采的",
+    "synonyms": "somnolent, slumberous"
+  },
+  {
+    "id": "zhang-pairs-5-37",
+    "word": "deflate",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 37,
+    "page": 26,
+    "meaning": "使减少",
+    "synonyms": "soothe"
+  },
+  {
+    "id": "zhang-pairs-5-38",
+    "word": "sleazy",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 38,
+    "page": 26,
+    "meaning": "肮脏的，不诚实的，邪恶的",
+    "synonyms": "sordid"
+  },
+  {
+    "id": "zhang-pairs-5-39",
+    "word": "unassailable",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 39,
+    "page": 26,
+    "meaning": "毋庸置疑的",
+    "synonyms": "sound，airtight"
+  },
+  {
+    "id": "zhang-pairs-5-40",
+    "word": "dramatic",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 40,
+    "page": 26,
+    "meaning": "剧烈的，引人注目的",
+    "synonyms": "spectacular"
+  },
+  {
+    "id": "zhang-pairs-5-41",
+    "word": "conjecture",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 41,
+    "page": 26,
+    "meaning": "推测",
+    "synonyms": "speculation"
+  },
+  {
+    "id": "zhang-pairs-5-42",
+    "word": "vigorous",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 42,
+    "page": 26,
+    "meaning": "精力充沛的",
+    "synonyms": "spirited"
+  },
+  {
+    "id": "zhang-pairs-5-43",
+    "word": "intuitive",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 43,
+    "page": 26,
+    "meaning": "凭直觉的",
+    "synonyms": "spontaneous, instinctive"
+  },
+  {
+    "id": "zhang-pairs-5-44",
+    "word": "diffuse",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 44,
+    "page": 26,
+    "meaning": "分散的，传播，话多的",
+    "synonyms": "spread,disperse, wordy"
+  },
+  {
+    "id": "zhang-pairs-5-45",
+    "word": "foster",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 45,
+    "page": 26,
+    "meaning": "养育，促进",
+    "synonyms": "spur, adopt"
+  },
+  {
+    "id": "zhang-pairs-5-46",
+    "word": "artificial",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 46,
+    "page": 26,
+    "meaning": "虚假的，人造的",
+    "synonyms": "spurious"
+  },
+  {
+    "id": "zhang-pairs-5-47",
+    "word": "counterfeit",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 47,
+    "page": 26,
+    "meaning": "虚假的",
+    "synonyms": "spurious"
+  },
+  {
+    "id": "zhang-pairs-5-48",
+    "word": "flout",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 48,
+    "page": 26,
+    "meaning": "公然蔑视",
+    "synonyms": "spurn,defy, disregard"
+  },
+  {
+    "id": "zhang-pairs-5-49",
+    "word": "conform to",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 49,
+    "page": 26,
+    "meaning": "遵从，与…一致",
+    "synonyms": "squarewith"
+  },
+  {
+    "id": "zhang-pairs-5-50",
+    "word": "sobering",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 50,
+    "page": 26,
+    "meaning": "严肃的",
+    "synonyms": "staid"
+  },
+  {
+    "id": "zhang-pairs-5-51",
+    "word": "banal",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 51,
+    "page": 26,
+    "meaning": "陈腐的，平凡的",
+    "synonyms": "stale"
+  },
+  {
+    "id": "zhang-pairs-5-52",
+    "word": "invariable",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 52,
+    "page": 26,
+    "meaning": "不变的，静止的",
+    "synonyms": "static"
+  },
+  {
+    "id": "zhang-pairs-5-53",
+    "word": "forestall",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 53,
+    "page": 26,
+    "meaning": "预先阻止，提前行动",
+    "synonyms": "staveoff,avert, prevent"
+  },
+  {
+    "id": "zhang-pairs-5-54",
+    "word": "check",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 54,
+    "page": 26,
+    "meaning": "阻止",
+    "synonyms": "stem"
+  },
+  {
+    "id": "zhang-pairs-5-55",
+    "word": "shackle",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 55,
+    "page": 26,
+    "meaning": "束缚",
+    "synonyms": "stifle"
+  },
+  {
+    "id": "zhang-pairs-5-56",
+    "word": "parsimonious",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 56,
+    "page": 26,
+    "meaning": "吝啬的",
+    "synonyms": "stingy, illiberal"
+  },
+  {
+    "id": "zhang-pairs-5-57",
+    "word": "hierarchical",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 57,
+    "page": 26,
+    "meaning": "等级制度的",
+    "synonyms": "stratified"
+  },
+  {
+    "id": "zhang-pairs-5-58",
+    "word": "audacious",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 58,
+    "page": 26,
+    "meaning": "大胆的",
+    "synonyms": "striking"
+  },
+  {
+    "id": "zhang-pairs-5-59",
+    "word": "robust",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 59,
+    "page": 26,
+    "meaning": "健壮的，强有力的",
+    "synonyms": "strong, reliable"
+  },
+  {
+    "id": "zhang-pairs-5-60",
+    "word": "neutralize",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 60,
+    "page": 26,
+    "meaning": "阻止",
+    "synonyms": "stymie"
+  },
+  {
+    "id": "zhang-pairs-5-61",
+    "word": "hinder",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 61,
+    "page": 26,
+    "meaning": "妨碍",
+    "synonyms": "stymie, inhibit,block"
+  },
+  {
+    "id": "zhang-pairs-5-62",
+    "word": "obedience",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 62,
+    "page": 26,
+    "meaning": "服从",
+    "synonyms": "submission"
+  },
+  {
+    "id": "zhang-pairs-5-63",
+    "word": "nuance",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 63,
+    "page": 26,
+    "meaning": "细微差别",
+    "synonyms": "subtlety"
+  },
+  {
+    "id": "zhang-pairs-5-64",
+    "word": "undercut",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 64,
+    "page": 26,
+    "meaning": "削弱",
+    "synonyms": "subvert,impair,undermine"
+  },
+  {
+    "id": "zhang-pairs-5-65",
+    "word": "triumph",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 65,
+    "page": 26,
+    "meaning": "伟大胜利",
+    "synonyms": "success"
+  },
+  {
+    "id": "zhang-pairs-5-66",
+    "word": "sequential",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 66,
+    "page": 26,
+    "meaning": "连续的，顺序的",
+    "synonyms": "successive"
+  },
+  {
+    "id": "zhang-pairs-5-67",
+    "word": "yield",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 67,
+    "page": 26,
+    "meaning": "产生，屈服",
+    "synonyms": "succumb,engender,output"
+  },
+  {
+    "id": "zhang-pairs-5-68",
+    "word": "surly",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 68,
+    "page": 26,
+    "meaning": "阴郁的",
+    "synonyms": "sullen"
+  },
+  {
+    "id": "zhang-pairs-5-69",
+    "word": "supplant",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 69,
+    "page": 26,
+    "meaning": "取代",
+    "synonyms": "supersede"
+  },
+  {
+    "id": "zhang-pairs-5-70",
+    "word": "ancillary",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 70,
+    "page": 26,
+    "meaning": "补充的",
+    "synonyms": "supplementary"
+  },
+  {
+    "id": "zhang-pairs-5-71",
+    "word": "plethora",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 71,
+    "page": 26,
+    "meaning": "过量",
+    "synonyms": "surfeit,glut"
+  },
+  {
+    "id": "zhang-pairs-5-72",
+    "word": "glut",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 72,
+    "page": 26,
+    "meaning": "过量",
+    "synonyms": "surfeit, plethora"
+  },
+  {
+    "id": "zhang-pairs-5-73",
+    "word": "sullen",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 73,
+    "page": 26,
+    "meaning": "郁郁寡欢的",
+    "synonyms": "surly, grumpy"
+  },
+  {
+    "id": "zhang-pairs-5-74",
+    "word": "dubious",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 74,
+    "page": 27,
+    "meaning": "不确定的，可疑的",
+    "synonyms": "suspect,questionable"
+  },
+  {
+    "id": "zhang-pairs-5-75",
+    "word": "defraud",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 75,
+    "page": 27,
+    "meaning": "欺骗",
+    "synonyms": "swindle"
+  },
+  {
+    "id": "zhang-pairs-5-76",
+    "word": "obsequious",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 76,
+    "page": 27,
+    "meaning": "谄媚的",
+    "synonyms": "sycophantic"
+  },
+  {
+    "id": "zhang-pairs-5-77",
+    "word": "figurative",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 77,
+    "page": 27,
+    "meaning": "比喻的，象征的",
+    "synonyms": "symbolic"
+  },
+  {
+    "id": "zhang-pairs-5-78",
+    "word": "tantamount",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 78,
+    "page": 27,
+    "meaning": "等同于",
+    "synonyms": "synonymous"
+  },
+  {
+    "id": "zhang-pairs-5-79",
+    "word": "fusion",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 79,
+    "page": 27,
+    "meaning": "融合",
+    "synonyms": "synthesis"
+  },
+  {
+    "id": "zhang-pairs-5-80",
+    "word": "laconic",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 80,
+    "page": 27,
+    "meaning": "简洁的",
+    "synonyms": "taciturn, terse, curt"
+  },
+  {
+    "id": "zhang-pairs-5-81",
+    "word": "impolitic",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 81,
+    "page": 27,
+    "meaning": "不明智的",
+    "synonyms": "tactless"
+  },
+  {
+    "id": "zhang-pairs-5-82",
+    "word": "synonymous",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 82,
+    "page": 27,
+    "meaning": "同义的",
+    "synonyms": "tantamount"
+  },
+  {
+    "id": "zhang-pairs-5-83",
+    "word": "dreary",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 83,
+    "page": 27,
+    "meaning": "枯燥乏味的",
+    "synonyms": "tedious"
+  },
+  {
+    "id": "zhang-pairs-5-84",
+    "word": "modulate",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 84,
+    "page": 27,
+    "meaning": "调节",
+    "synonyms": "temper"
+  },
+  {
+    "id": "zhang-pairs-5-85",
+    "word": "dispassionate",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 85,
+    "page": 27,
+    "meaning": "公正客观的，冷静客观的",
+    "synonyms": "temperate,analytical"
+  },
+  {
+    "id": "zhang-pairs-5-86",
+    "word": "resolve",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 86,
+    "page": 27,
+    "meaning": "解决，决定，决心",
+    "synonyms": "tenacity, determination"
+  },
+  {
+    "id": "zhang-pairs-5-87",
+    "word": "slanted",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 87,
+    "page": 27,
+    "meaning": "有倾向的",
+    "synonyms": "tendentious"
+  },
+  {
+    "id": "zhang-pairs-5-88",
+    "word": "exiguous",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 88,
+    "page": 27,
+    "meaning": "稀少的",
+    "synonyms": "tenuous"
+  },
+  {
+    "id": "zhang-pairs-5-89",
+    "word": "halfhearted",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 89,
+    "page": 27,
+    "meaning": "不热情的",
+    "synonyms": "tepid,lukewarm"
+  },
+  {
+    "id": "zhang-pairs-5-90",
+    "word": "meticulous",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 90,
+    "page": 27,
+    "meaning": "周密的，一丝不苟的",
+    "synonyms": "thorough,exact, painstaking"
+  },
+  {
+    "id": "zhang-pairs-5-91",
+    "word": "frugal",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 91,
+    "page": 27,
+    "meaning": "简朴的",
+    "synonyms": "thrifty"
+  },
+  {
+    "id": "zhang-pairs-5-92",
+    "word": "list",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 92,
+    "page": 27,
+    "meaning": "倾斜",
+    "synonyms": "tilt"
+  },
+  {
+    "id": "zhang-pairs-5-93",
+    "word": "opportune",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 93,
+    "page": 27,
+    "meaning": "适时的",
+    "synonyms": "timely"
+  },
+  {
+    "id": "zhang-pairs-5-94",
+    "word": "brook",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 94,
+    "page": 27,
+    "meaning": "容忍",
+    "synonyms": "tolerate"
+  },
+  {
+    "id": "zhang-pairs-5-95",
+    "word": "restorative",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 95,
+    "page": 27,
+    "meaning": "恢复健康的",
+    "synonyms": "tonic"
+  },
+  {
+    "id": "zhang-pairs-5-96",
+    "word": "emblematic",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 96,
+    "page": 27,
+    "meaning": "象征的",
+    "synonyms": "totemic"
+  },
+  {
+    "id": "zhang-pairs-5-97",
+    "word": "ephemeral",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 97,
+    "page": 27,
+    "meaning": "短暂的",
+    "synonyms": "transitory, short-lived"
+  },
+  {
+    "id": "zhang-pairs-5-98",
+    "word": "understandable",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 98,
+    "page": 27,
+    "meaning": "容易理解的",
+    "synonyms": "transparent"
+  },
+  {
+    "id": "zhang-pairs-5-99",
+    "word": "profound",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 99,
+    "page": 27,
+    "meaning": "渊博的，深奥的，深刻的",
+    "synonyms": "trenchant"
+  },
+  {
+    "id": "zhang-pairs-5-100",
+    "word": "misgiving",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 100,
+    "page": 27,
+    "meaning": "疑虑，担忧",
+    "synonyms": "trepidation, qualm"
+  },
+  {
+    "id": "zhang-pairs-5-101",
+    "word": "encomium",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 101,
+    "page": 27,
+    "meaning": "赞美",
+    "synonyms": "tribute"
+  },
+  {
+    "id": "zhang-pairs-5-102",
+    "word": "inconsequential",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 102,
+    "page": 27,
+    "meaning": "不重要的",
+    "synonyms": "trivial, immaterial, pointless"
+  },
+  {
+    "id": "zhang-pairs-5-103",
+    "word": "pugnacious",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 103,
+    "page": 27,
+    "meaning": "好斗的",
+    "synonyms": "truculent, belligerent"
+  },
+  {
+    "id": "zhang-pairs-5-104",
+    "word": "credulous",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 104,
+    "page": 27,
+    "meaning": "轻信的",
+    "synonyms": "trusting"
+  },
+  {
+    "id": "zhang-pairs-5-105",
+    "word": "novice",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 105,
+    "page": 27,
+    "meaning": "新手",
+    "synonyms": "tyro"
+  },
+  {
+    "id": "zhang-pairs-5-106",
+    "word": "omnipresent",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 106,
+    "page": 27,
+    "meaning": "无处不在的",
+    "synonyms": "ubiquitous, universal"
+  },
+  {
+    "id": "zhang-pairs-5-107",
+    "word": "unqualified",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 107,
+    "page": 27,
+    "meaning": "完全的，不受限制的，无资格的",
+    "synonyms": "unalloyed"
+  },
+  {
+    "id": "zhang-pairs-5-108",
+    "word": "sound",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 108,
+    "page": 27,
+    "meaning": "健康的，正确的，可靠的",
+    "synonyms": "unassailable, valid"
+  },
+  {
+    "id": "zhang-pairs-5-109",
+    "word": "modest",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 109,
+    "page": 27,
+    "meaning": "谦虚的，朴实无华的，适度的，有限的",
+    "synonyms": "unassuming,unostentatious"
+  },
+  {
+    "id": "zhang-pairs-5-110",
+    "word": "inevitable",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 110,
+    "page": 27,
+    "meaning": "必然的",
+    "synonyms": "unavoidable, preordained, ineluctable"
+  },
+  {
+    "id": "zhang-pairs-5-111",
+    "word": "pristine",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 111,
+    "page": 27,
+    "meaning": "原始的，暂新的",
+    "synonyms": "unblemished"
+  },
+  {
+    "id": "zhang-pairs-5-112",
+    "word": "unremitting",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 112,
+    "page": 28,
+    "meaning": "不停的",
+    "synonyms": "unceasing"
+  },
+  {
+    "id": "zhang-pairs-5-113",
+    "word": "quirky",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 113,
+    "page": 28,
+    "meaning": "奇怪的",
+    "synonyms": "unconventional"
+  },
+  {
+    "id": "zhang-pairs-5-114",
+    "word": "unorthodox",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 114,
+    "page": 28,
+    "meaning": "非正统的",
+    "synonyms": "unconventional"
+  },
+  {
+    "id": "zhang-pairs-5-115",
+    "word": "irrefutable",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 115,
+    "page": 28,
+    "meaning": "无法反驳的",
+    "synonyms": "undeniable"
+  },
+  {
+    "id": "zhang-pairs-5-116",
+    "word": "asymmetrical",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 116,
+    "page": 28,
+    "meaning": "不对称的",
+    "synonyms": "uneven"
+  },
+  {
+    "id": "zhang-pairs-5-117",
+    "word": "nondescript",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 117,
+    "page": 28,
+    "meaning": "无个性的",
+    "synonyms": "unexceptional"
+  },
+  {
+    "id": "zhang-pairs-5-118",
+    "word": "counterintuitive",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 118,
+    "page": 28,
+    "meaning": "违反直觉的",
+    "synonyms": "unexpected"
+  },
+  {
+    "id": "zhang-pairs-5-119",
+    "word": "ignorance",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 119,
+    "page": 28,
+    "meaning": "无知",
+    "synonyms": "unfamiliarity"
+  },
+  {
+    "id": "zhang-pairs-5-120",
+    "word": "outmoded",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 120,
+    "page": 28,
+    "meaning": "过时的",
+    "synonyms": "unfashionable, obsolete, fusty"
+  },
+  {
+    "id": "zhang-pairs-5-121",
+    "word": "unflagging",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 121,
+    "page": 28,
+    "meaning": "不知疲倦的",
+    "synonyms": "unfatigued"
+  },
+  {
+    "id": "zhang-pairs-5-122",
+    "word": "adverse",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 122,
+    "page": 28,
+    "meaning": "不利的，逆的",
+    "synonyms": "unfavorable"
+  },
+  {
+    "id": "zhang-pairs-5-123",
+    "word": "baseless",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 123,
+    "page": 28,
+    "meaning": "无根据的",
+    "synonyms": "unfounded,untenable"
+  },
+  {
+    "id": "zhang-pairs-5-124",
+    "word": "awkward",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 124,
+    "page": 28,
+    "meaning": "笨拙的，不适合的，尴尬的，棘手的",
+    "synonyms": "ungainly"
+  },
+  {
+    "id": "zhang-pairs-5-125",
+    "word": "blameless",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 125,
+    "page": 28,
+    "meaning": "无可指责的",
+    "synonyms": "unimpeachable"
+  },
+  {
+    "id": "zhang-pairs-5-126",
+    "word": "skeptical",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 126,
+    "page": 28,
+    "meaning": "怀疑的",
+    "synonyms": "unimpressed"
+  },
+  {
+    "id": "zhang-pairs-5-127",
+    "word": "inscrutable",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 127,
+    "page": 28,
+    "meaning": "难以理解的",
+    "synonyms": "uninformative, impenetrable, abstruse"
+  },
+  {
+    "id": "zhang-pairs-5-128",
+    "word": "singular",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 128,
+    "page": 28,
+    "meaning": "单一的，非凡的，异常的",
+    "synonyms": "unique"
+  },
+  {
+    "id": "zhang-pairs-5-129",
+    "word": "unfounded",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 129,
+    "page": 28,
+    "meaning": "无根据的",
+    "synonyms": "unjustified,baseless, groundless, unwarranted"
+  },
+  {
+    "id": "zhang-pairs-5-130",
+    "word": "estrange",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 130,
+    "page": 28,
+    "meaning": "使疏远",
+    "synonyms": "unlinked,disaffect, alienate"
+  },
+  {
+    "id": "zhang-pairs-5-131",
+    "word": "decisive",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 131,
+    "page": 28,
+    "meaning": "果断的，毋庸置疑的",
+    "synonyms": "unmistakable"
+  },
+  {
+    "id": "zhang-pairs-5-132",
+    "word": "composed",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 132,
+    "page": 28,
+    "meaning": "镇定的",
+    "synonyms": "unperturbed,collected, coolheaded"
+  },
+  {
+    "id": "zhang-pairs-5-133",
+    "word": "capricious",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 133,
+    "page": 28,
+    "meaning": "变化无常的",
+    "synonyms": "unpredictable,impulsive, cavalier, versatile, volatile"
+  },
+  {
+    "id": "zhang-pairs-5-134",
+    "word": "unremunerative",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 134,
+    "page": 28,
+    "meaning": "不挣钱的",
+    "synonyms": "unprofitable"
+  },
+  {
+    "id": "zhang-pairs-5-135",
+    "word": "unalloyed",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 135,
+    "page": 28,
+    "meaning": "纯粹的",
+    "synonyms": "unqualified"
+  },
+  {
+    "id": "zhang-pairs-5-136",
+    "word": "undeniable",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 136,
+    "page": 28,
+    "meaning": "不可否认的",
+    "synonyms": "unquestionable, irrefutable"
+  },
+  {
+    "id": "zhang-pairs-5-137",
+    "word": "unprepossessing",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 137,
+    "page": 28,
+    "meaning": "不吸引人的",
+    "synonyms": "unremarkable"
+  },
+  {
+    "id": "zhang-pairs-5-138",
+    "word": "unceasing",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 138,
+    "page": 28,
+    "meaning": "不停的",
+    "synonyms": "unremitting"
+  },
+  {
+    "id": "zhang-pairs-5-139",
+    "word": "untrammeled",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 139,
+    "page": 28,
+    "meaning": "没有限制的",
+    "synonyms": "unrestrained"
+  },
+  {
+    "id": "zhang-pairs-5-140",
+    "word": "simpleminded",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 140,
+    "page": 28,
+    "meaning": "心思简单的，淳朴的",
+    "synonyms": "unsophisticated"
+  },
+  {
+    "id": "zhang-pairs-5-141",
+    "word": "fluid",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 141,
+    "page": 28,
+    "meaning": "不稳定的",
+    "synonyms": "unstable"
+  },
+  {
+    "id": "zhang-pairs-5-142",
+    "word": "divorced",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 142,
+    "page": 28,
+    "meaning": "分离的",
+    "synonyms": "untethered,abstracted"
+  },
+  {
+    "id": "zhang-pairs-5-143",
+    "word": "groundless",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 143,
+    "page": 28,
+    "meaning": "无根据的",
+    "synonyms": "unwarranted"
+  },
+  {
+    "id": "zhang-pairs-5-144",
+    "word": "cumbersome",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 144,
+    "page": 28,
+    "meaning": "笨重的，复杂难做的",
+    "synonyms": "unwieldy"
+  },
+  {
+    "id": "zhang-pairs-5-145",
+    "word": "reluctant",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 145,
+    "page": 28,
+    "meaning": "不情愿的",
+    "synonyms": "unwilling, loath"
+  },
+  {
+    "id": "zhang-pairs-5-146",
+    "word": "implacable",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 146,
+    "page": 28,
+    "meaning": "无法安抚的",
+    "synonyms": "unyielding,inexorable"
+  },
+  {
+    "id": "zhang-pairs-5-147",
+    "word": "convulsion",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 147,
+    "page": 28,
+    "meaning": "动乱",
+    "synonyms": "upheaval"
+  },
+  {
+    "id": "zhang-pairs-5-148",
+    "word": "irresolution",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 148,
+    "page": 28,
+    "meaning": "犹豫不决",
+    "synonyms": "vacillation"
+  },
+  {
+    "id": "zhang-pairs-5-149",
+    "word": "nebulous",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 149,
+    "page": 29,
+    "meaning": "模糊的",
+    "synonyms": "vague"
+  },
+  {
+    "id": "zhang-pairs-5-150",
+    "word": "exalt",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 150,
+    "page": 29,
+    "meaning": "赞扬",
+    "synonyms": "valorize"
+  },
+  {
+    "id": "zhang-pairs-5-151",
+    "word": "jejune",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 151,
+    "page": 29,
+    "meaning": "乏味的，幼稚的",
+    "synonyms": "vapid"
+  },
+  {
+    "id": "zhang-pairs-5-152",
+    "word": "fluctuate",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 152,
+    "page": 29,
+    "meaning": "波动，摇摆不定",
+    "synonyms": "vary, vacillate"
+  },
+  {
+    "id": "zhang-pairs-5-153",
+    "word": "honor",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 153,
+    "page": 29,
+    "meaning": "荣誉，尊敬",
+    "synonyms": "venerate"
+  },
+  {
+    "id": "zhang-pairs-5-154",
+    "word": "reverence",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 154,
+    "page": 29,
+    "meaning": "尊敬",
+    "synonyms": "veneration"
+  },
+  {
+    "id": "zhang-pairs-5-155",
+    "word": "prolix",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 155,
+    "page": 29,
+    "meaning": "冗长的",
+    "synonyms": "verbose, long-winded"
+  },
+  {
+    "id": "zhang-pairs-5-156",
+    "word": "long-winded",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 156,
+    "page": 29,
+    "meaning": "冗长的",
+    "synonyms": "verbose,prolix"
+  },
+  {
+    "id": "zhang-pairs-5-157",
+    "word": "protean",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 157,
+    "page": 29,
+    "meaning": "变化多端的，多才多艺的",
+    "synonyms": "versatile"
+  },
+  {
+    "id": "zhang-pairs-5-158",
+    "word": "fickle",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 158,
+    "page": 29,
+    "meaning": "善变的",
+    "synonyms": "versatile, volatile, flighty, erratic, capricious"
+  },
+  {
+    "id": "zhang-pairs-5-159",
+    "word": "relic",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 159,
+    "page": 29,
+    "meaning": "遗迹",
+    "synonyms": "vestige"
+  },
+  {
+    "id": "zhang-pairs-5-160",
+    "word": "chagrin",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 160,
+    "page": 29,
+    "meaning": "失望",
+    "synonyms": "vexation"
+  },
+  {
+    "id": "zhang-pairs-5-161",
+    "word": "exculpate",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 161,
+    "page": 29,
+    "meaning": "开脱罪行",
+    "synonyms": "vindicate"
+  },
+  {
+    "id": "zhang-pairs-5-162",
+    "word": "contravene",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 162,
+    "page": 29,
+    "meaning": "触犯",
+    "synonyms": "violate"
+  },
+  {
+    "id": "zhang-pairs-5-163",
+    "word": "salient",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 163,
+    "page": 29,
+    "meaning": "显著的，重要的",
+    "synonyms": "visible, prominent,obtrusive, conspicuous"
+  },
+  {
+    "id": "zhang-pairs-5-164",
+    "word": "mercurial",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 164,
+    "page": 29,
+    "meaning": "变化无常的",
+    "synonyms": "volatile, inconstant"
+  },
+  {
+    "id": "zhang-pairs-5-165",
+    "word": "prodigious",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 165,
+    "page": 29,
+    "meaning": "巨大的",
+    "synonyms": "voracious"
+  },
+  {
+    "id": "zhang-pairs-5-166",
+    "word": "insatiable",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 166,
+    "page": 29,
+    "meaning": "不满足的",
+    "synonyms": "voracious, quenchless"
+  },
+  {
+    "id": "zhang-pairs-5-167",
+    "word": "decline",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 167,
+    "page": 29,
+    "meaning": "衰落，拒绝",
+    "synonyms": "wane"
+  },
+  {
+    "id": "zhang-pairs-5-168",
+    "word": "ebb",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 168,
+    "page": 29,
+    "meaning": "衰退",
+    "synonyms": "wane, decline"
+  },
+  {
+    "id": "zhang-pairs-5-169",
+    "word": "errant",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 169,
+    "page": 29,
+    "meaning": "不定的，行为错误的",
+    "synonyms": "wayward"
+  },
+  {
+    "id": "zhang-pairs-5-170",
+    "word": "destabilize",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 170,
+    "page": 29,
+    "meaning": "削弱",
+    "synonyms": "weaken"
+  },
+  {
+    "id": "zhang-pairs-5-171",
+    "word": "profusion",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 171,
+    "page": 29,
+    "meaning": "大量",
+    "synonyms": "wealth"
+  },
+  {
+    "id": "zhang-pairs-5-172",
+    "word": "prevalent",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 172,
+    "page": 29,
+    "meaning": "流行的，普遍的",
+    "synonyms": "widespread, extensive"
+  },
+  {
+    "id": "zhang-pairs-5-173",
+    "word": "engaging",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 173,
+    "page": 29,
+    "meaning": "迷人的",
+    "synonyms": "winning"
+  },
+  {
+    "id": "zhang-pairs-5-174",
+    "word": "quotidian",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 174,
+    "page": 29,
+    "meaning": "普通的，常见的，日常的",
+    "synonyms": "workday"
+  },
+  {
+    "id": "zhang-pairs-5-175",
+    "word": "succumb",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 175,
+    "page": 29,
+    "meaning": "屈服，死亡",
+    "synonyms": "yield"
+  },
+  {
+    "id": "zhang-pairs-5-176",
+    "word": "engender",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 176,
+    "page": 29,
+    "meaning": "导致",
+    "synonyms": "yield, induce"
+  },
+  {
+    "id": "zhang-pairs-5-177",
+    "word": "extremist",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 177,
+    "page": 29,
+    "meaning": "极端分子",
+    "synonyms": "zealot"
+  },
+  {
+    "id": "zhang-pairs-5-178",
+    "word": "ideologue",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 178,
+    "page": 29,
+    "meaning": "狂热支持某种理念的人",
+    "synonyms": "zealot"
+  },
+  {
+    "id": "zhang-pairs-5-179",
+    "word": "indolence",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 179,
+    "page": 29,
+    "meaning": "懒惰",
+    "synonyms": "sloth"
+  },
+  {
+    "id": "zhang-pairs-5-180",
+    "word": "refractory",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 180,
+    "page": 29,
+    "meaning": "难以约束的",
+    "synonyms": "recalcitrant"
+  },
+  {
+    "id": "zhang-pairs-5-181",
+    "word": "enthrall",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 181,
+    "page": 29,
+    "meaning": "吸引",
+    "synonyms": "captivate"
+  },
+  {
+    "id": "zhang-pairs-5-182",
+    "word": "supplemental",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 182,
+    "page": 29,
+    "meaning": "补充的",
+    "synonyms": "complementary"
+  },
+  {
+    "id": "zhang-pairs-5-183",
+    "word": "ignoble",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 183,
+    "page": 29,
+    "meaning": "可耻的，应收谴责的的",
+    "synonyms": "reprehensible"
+  },
+  {
+    "id": "zhang-pairs-5-184",
+    "word": "inapposite",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 184,
+    "page": 29,
+    "meaning": "不合适的，误导的",
+    "synonyms": "misguided"
+  },
+  {
+    "id": "zhang-pairs-5-185",
+    "word": "peculiar",
+    "list": 5,
+    "group": "第五天任务",
+    "number": 185,
+    "page": 29,
+    "meaning": "奇怪的",
+    "synonyms": "idiosyncratic"
+  }
+]

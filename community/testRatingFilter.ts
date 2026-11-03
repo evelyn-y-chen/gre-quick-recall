@@ -7,4 +7,4 @@ export function termRating(deck:string,id:string,ratings:Record<string,Rating>):
  return marks.includes('unknown')?'unknown':marks.includes('fuzzy')?'fuzzy':marks.includes('familiar')?'familiar':'unrated';
 }
 export function matchesTestColors(deck:string,id:string,ratings:Record<string,Rating>,colors:TestColor[]){return colors.includes(termRating(deck,id,ratings));}
-export const ratingKeys:Record<string,string>={words:'gre-quick-ratings-v1',bb:'gre-bb-ratings-v1','a-plus':'gre-a-plus-equivalent-quick-ratings-v1'};
+export const ratingKeys:Record<string,string>={'zhang-words':'gre-zhang-words-ratings-v1','zhang-pairs':'gre-zhang-pairs-ratings-v1',words:'gre-quick-ratings-v1',bb:'gre-bb-ratings-v1','a-plus':'gre-a-plus-equivalent-quick-ratings-v1'};

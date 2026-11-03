@@ -2,7 +2,7 @@ import type {Snapshot} from './database';
 import {ratingModules,validRatings,type Rating,type Ratings} from '../app/ratingSyncModel';
 import {mergePracticeStorage} from './practiceProgressMerge';
 export const ratingClockKey='gre-rating-modified-v1';
-const storageKeys:Record<string,string>={bb:'gre-bb-ratings-v1',words:'gre-quick-ratings-v1',equivalents:'gre-equivalent-quick-ratings-v1','a-plus':'gre-a-plus-equivalent-quick-ratings-v1',glee:'gre-glee-1500-quick-ratings-v1',math:'gre-math-vocabulary-quick-ratings-v1',lclj:'gre-lclj-quick-ratings-v1','a-plus-words':'gre-a-plus-word-marks-v1'};
+const storageKeys:Record<string,string>={'zhang-words':'gre-zhang-words-ratings-v1','zhang-pairs':'gre-zhang-pairs-ratings-v1',bb:'gre-bb-ratings-v1',words:'gre-quick-ratings-v1',equivalents:'gre-equivalent-quick-ratings-v1','a-plus':'gre-a-plus-equivalent-quick-ratings-v1',glee:'gre-glee-1500-quick-ratings-v1',math:'gre-math-vocabulary-quick-ratings-v1',lclj:'gre-lclj-quick-ratings-v1','a-plus-words':'gre-a-plus-word-marks-v1'};
 type Stamp={rating:Rating;at:number};
 type Clocks=Record<string,Record<string,Stamp>>;
 type Storage={getItem:(key:string)=>string|null;setItem:(key:string,value:string)=>void};

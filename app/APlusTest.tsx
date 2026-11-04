@@ -144,8 +144,8 @@ export default function APlusTest({pronounce,initialLists}:{pronounce:(word:stri
    </fieldset>
   </>:session&&<>
    <div className="aPlusTestProgress"><strong>已完成 {completed} / {session.order.length}</strong><span>已答 {session.turn} 轮 · {errors.length} 个词曾出错</span><button type="button" disabled={exitSaving||!lookback.length} onClick={()=>setLookbackAt(lookback.length-1)}>上一词回看</button><button type="button" disabled={exitSaving} onClick={()=>void saveAndPause()}>{exitSaving?"正在保存…":"保存并返回设置 / 暂停"}</button></div>
-   <div className="testSaveStatus"><small role="status">{autoSave.status}</small><button onClick={autoSave.retry}>重试同步</button></div>
-   <TestAudio word={lookbackAt===null&&session.stage!=="complete"?entry?.word??"":""} questionKey={q?.id??""}/>
+   <div className="testToolbar"><div className="testSaveStatus"><small role="status">{autoSave.status}</small><button onClick={autoSave.retry}>重试同步</button></div>
+   <TestAudio word={lookbackAt===null&&session.stage!=="complete"?entry?.word??"":""} questionKey={q?.id??""}/></div>
    <progress value={completed} max={session.order.length}/>
    <div ref={node=>{questionRef.current=node;}} className="aPlusQuestionAnchor">
    {lookbackAt!==null&&<TestQuestionHistory snapshots={lookback} index={lookbackAt} onIndex={setLookbackAt} onReturn={()=>setLookbackAt(null)}/>}

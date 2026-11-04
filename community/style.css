@@ -345,3 +345,9 @@ main .selectionChips button[aria-pressed=true],.practiceOverlay .selectionChips 
 .testAudio,.testSaveStatus{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:8px 0;font-size:13px}
 .testAudio label{display:flex;align-items:center;gap:6px}.testAudio input{width:auto}
 .testAudio button,.testSaveStatus button{padding:8px 12px;font-size:13px}
+
+.testToolbar{display:flex;align-items:center;justify-content:space-between;gap:8px 20px;flex-wrap:wrap;margin:6px 0}
+.testToolbar:empty{display:none}
+.testToolbar .testAudio,.testToolbar .testSaveStatus{margin:0;gap:8px}
+.testToolbar .testAudio{margin-left:auto}
+.testToolbar button{white-space:nowrap}

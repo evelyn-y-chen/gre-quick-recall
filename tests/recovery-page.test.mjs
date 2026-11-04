@@ -31,3 +31,17 @@ test('checkpoint copies remain separate and downloads retain exact personal cont
  const older=snapshot(300,'keep exact note'),current=snapshot(39);const entries=[['local',{revision:2,payload:current,history:[{id:'before',createdAt:'2026-10-17T09:00:00Z',reason:'before import',payload:older}]}]];
  const before=structuredClone(entries),p=page(entries);await p.scan();p.export();assert.deepEqual(entries,before);const bundle=JSON.parse(await p.downloads[0].text());assert.equal(bundle.copies.length,2);assert.deepEqual(bundle.copies[1].payload,older);
 });
+
+test('recovery copies show per-module test progress, graded current word and A+ drafts without writes',async()=>{
+ const payload=snapshot(3),run={sessionId:'round-one',turn:4,phase:'feedback',queue:['last','pending'],results:{old:{done:true},last:{done:true}}};
+ payload.storage['lemnota-practice-words']=JSON.stringify(run);
+ payload.storage['lemnota-practice-review-words-v1']=JSON.stringify({old:{},last:{}});
+ payload.storage['lemnota-practice-bb']=JSON.stringify({...run,turn:7,phase:'meaning',results:{},sessionId:'bb-round'});
+ payload.storage['gre-a-plus-test-draft-v1']=JSON.stringify({session:{id:'draft-round',order:['a','b'],progress:{a:{attempts:3,done:true},b:{attempts:1,done:false}}}});
+ const before=structuredClone(payload),p=page([['account:A',{revision:2,payload}]]);await p.scan();
+ assert.match(p.allText(),/已答 5 次 · 已过关 2 词 · 待过关 1 词/);
+ assert.match(p.allText(),/已纳入到期复习 2 词/);
+ assert.match(p.allText(),/BB 六选二/);assert.match(p.allText(),/A\+ 本机测试草稿/);
+ assert.match(p.allText(),/已答 4 次 · 已过关 1 词 · 待过关 1 词/);
+ assert.deepEqual(payload,before);assert.ok(p.transactions.every(t=>t.mode==='readonly'));
+});

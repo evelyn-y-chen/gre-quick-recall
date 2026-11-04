@@ -55,3 +55,12 @@ test('ties preserve prior shuffle, input objects/arrays remain unchanged, and sa
  assert.equal(result[0],second);
  assert.notEqual(result,input);
 });
+
+test('broad study senses reject near meanings rather than asking for fine distinctions',()=>{
+ for(const [a,b] of [['减少','削弱的'],['非常谨慎的','审慎的'],['陈旧的','平凡的'],['赞扬','颂扬'],['简洁的','言简意赅的'],['慷慨的','大方的']])assert.equal(isAmbiguousQuizDistractor(term('first',a),term('second',b)),true,a+'/'+b);
+ for(const [a,b] of [['明显','不明显'],['谨慎','鲁莽'],['有害','无害'],['增加','减少']])assert.equal(isAmbiguousQuizDistractor(term('first',a),term('second',b)),false,a+'/'+b);
+});
+test('additional POS families are excluded without excluding unrelated lookalikes',()=>{
+ for(const [a,b] of [['generous','generosity'],['decide','decision'],['accurate','accuracy'],['vary','variation'],['signify','signification'],['create','creative']])assert.equal(areQuizMorphologicalVariants(a,b),true,a+'/'+b);
+ assert.equal(areQuizMorphologicalVariants('ingenious','ingenuous'),false);
+});

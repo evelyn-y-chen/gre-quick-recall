@@ -38,7 +38,7 @@ const safeGroups=new Map<string,Entry[]>();
 export function distractorGroups(entryId:string):Entry[]{
  const cached=safeGroups.get(entryId);if(cached)return cached;
  const e=byId.get(entryId)!,related=connected(e),blocked=new Set([...related].flatMap(terms));
- const safe=entries.filter(x=>!related.has(x)&&!terms(x).some(w=>blocked.has(w))&&![...related].some(g=>nearbySense(g.meaning,x.meaning)||terms(g).some(a=>terms(x).some(b=>areQuizWordsConfusable(a,b)))));
+ const safe=entries.filter(x=>!related.has(x)&&!terms(x).some(w=>blocked.has(w))&&![...related].some(g=>isAmbiguousQuizDistractor(g,x)||terms(g).some(a=>terms(x).some(b=>areQuizWordsConfusable(a,b)||areQuizMorphologicalVariants(a,b)))));
  const unsafeWords=new Set(entries.filter(x=>!safe.includes(x)).flatMap(terms));
  const result=safe.filter(x=>equivalents(x).some(w=>!unsafeWords.has(w)));
  safeGroups.set(entryId,result);return result;
@@ -61,7 +61,7 @@ export function makeQuestion(entryId:string,mode:TestMode,early=false,random:()=
  }
  for(const word of poolSafe){if(negatives.length>=6-count)break;if(!negatives.includes(word))negatives.push(word);}
  const options=shuffle([...chosen.map(word=>({word,meaning:gloss(word),correct:true})),...negatives.map(word=>({word,meaning:gloss(word),correct:false}))],random);
- const meanings=shuffle([e.meaning,...shuffle([...new Set(safe.map(x=>x.meaning))],random).slice(0,3)],random);
+ const meanings=shuffle([e.meaning,...rankQuizDistractors(e,shuffle(safe,random)).map(x=>x.meaning).filter((m,i,all)=>all.indexOf(m)===i).slice(0,3)],random);
  if(options.length!==6||meanings.length!==4)throw Error("无法生成足够的题目选项");
  return {id:crypto.randomUUID(),entryId,meanings,options,early};
 }
@@ -125,6 +125,7 @@ export function refreshAmbiguousQuestion(session:Session):Session{
  if(!session.question||!["meaning","synonyms"].includes(session.stage))return session;
  const safe=new Set(distractorGroups(session.question.entryId));
  const entry=byId.get(session.question.entryId)!;
- if(!session.question.options.some(option=>!option.correct&&((groups.get(option.word)??[]).some(group=>!safe.has(group))||isAmbiguousQuizDistractor(entry,option)||[entry.word,...equivalents(entry)].some(word=>areQuizMorphologicalVariants(word,option.word)))))return session;
+ const unsafeMeaning=session.question.meanings.some(meaning=>meaning!==entry.meaning&&isAmbiguousQuizDistractor(entry,{word:"",meaning}));
+ if(!unsafeMeaning&&!session.question.options.some(option=>!option.correct&&((groups.get(option.word)??[]).some(group=>!safe.has(group))||isAmbiguousQuizDistractor(entry,option)||[entry.word,...equivalents(entry)].some(word=>areQuizMorphologicalVariants(word,option.word)))))return session;
  return {...session,question:makeQuestion(session.question.entryId,session.config.mode,session.question.early,Math.random,session.progress[session.question.entryId].retryWords),stage:"meaning",meaningChoice:null,selected:[],synonymUncertain:false};
 }

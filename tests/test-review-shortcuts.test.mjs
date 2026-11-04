@@ -88,11 +88,11 @@ for(const mode of ['single','multiple'])test(`A+ ${mode} keyboard A–F selects 
   assert.ok(view.nodes().some(node=>node.type==='button'&&node.props['aria-pressed']===true&&view.text(node).includes(terms[0].meaning)));
   await view.key('Enter');assert.equal(view.currentAPlus().stage,'synonyms');
   await view.key('a');await view.key('f');
-  let chosen=view.nodes().filter(node=>node.type==='input'&&node.props.checked).map(node=>node.props['aria-keyshortcuts']);
+  let chosen=view.nodes().filter(node=>node.type==='input'&&node.props['aria-keyshortcuts']&&node.props.checked).map(node=>node.props['aria-keyshortcuts']);
   assert.deepEqual(chosen,mode==='single'?['F']:['A','F']);
-  if(mode==='multiple'){await view.key('a');chosen=view.nodes().filter(node=>node.type==='input'&&node.props.checked).map(node=>node.props['aria-keyshortcuts']);assert.deepEqual(chosen,['F'],'Pressing a selected multi-choice letter toggles it off');}
+  if(mode==='multiple'){await view.key('a');chosen=view.nodes().filter(node=>node.type==='input'&&node.props['aria-keyshortcuts']&&node.props.checked).map(node=>node.props['aria-keyshortcuts']);assert.deepEqual(chosen,['F'],'Pressing a selected multi-choice letter toggles it off');}
   await view.key('u');assert.equal(view.currentAPlus().stage,'synonyms','U selects uncertain before explicit confirmation');
-  assert.equal(view.nodes().filter(node=>node.type==='input'&&node.props.checked).length,0);
+  assert.equal(view.nodes().filter(node=>node.type==='input'&&node.props['aria-keyshortcuts']&&node.props.checked).length,0);
   await view.key('Enter');const graded=view.currentAPlus();assert.equal(graded.stage,'feedback');assert.equal(graded.synonymUncertain,true);assert.deepEqual(graded.selected,[]);assert.equal(graded.progress.a1.attempts,1);assert.equal(graded.progress.a1.hadError,true);assert.ok(view.text().includes('本轮第 1 次作答'));assert.ok(view.text().includes('还需连续答对 2 次'));
  }finally{view.close();}
 });

@@ -41,6 +41,7 @@ function practice({deck='words',data={}}={}){
  function load(name){
   if(name==='../app/zhangCatalog')return loadModel('app/zhangCatalog.ts');
   if(name==='react')return react;
+  if(name==='./testExperience')return {useTestAutosave:()=>({status:'',retry(){}}),TestAudio:()=>null};
   if(name==='react/jsx-runtime')return {jsx,jsxs:jsx};
   if(name.endsWith('/vocabulary.json'))return {default:words};
   if(name.endsWith('/bbEquivalents.json'))return {default:bb};

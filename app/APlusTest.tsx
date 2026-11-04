@@ -1,3 +1,4 @@
+import {useTestAutosave,TestAudio} from '../community/testExperience';
 import TestQuestionHistory,{readTestLookback,appendTestLookback,captureTestNotes,type TestQuestionSnapshot} from "./TestQuestionHistory";
 import NotebookFrequencyBadge from "./NotebookFrequency";
 import SelectionChips from '../community/SelectionChips';
@@ -100,6 +101,7 @@ export default function APlusTest({pronounce,initialLists}:{pronounce:(word:stri
   }catch(error){setStatus(error instanceof Error&&error.message?error.message:"读取失败，请稍后重试。");}finally{setLoading(false);}
  }
  useEffect(()=>{const timer=setInterval(()=>setToday(reviewDay()),60000);const focus=()=>setToday(reviewDay());window.addEventListener("focus",focus);return()=>{clearInterval(timer);window.removeEventListener("focus",focus);};},[]);
+ const autoSave=useTestAutosave(session,!!session&&!loading&&!saving&&!pending.current&&!blocked&&screen==='test',workspaceGeneration.current);
  const due=dueReviewIds(history,today).filter(id=>byId.has(id)&&matchesTestColors('a-plus',id,savedRatings,colors));
  const upcoming=Object.entries(history).filter(([,r])=>r.due>today).sort((a,b)=>a[1].due.localeCompare(b[1].due));
  function startReview(){
@@ -142,6 +144,8 @@ export default function APlusTest({pronounce,initialLists}:{pronounce:(word:stri
    </fieldset>
   </>:session&&<>
    <div className="aPlusTestProgress"><strong>已完成 {completed} / {session.order.length}</strong><span>已答 {session.turn} 轮 · {errors.length} 个词曾出错</span><button type="button" disabled={exitSaving||!lookback.length} onClick={()=>setLookbackAt(lookback.length-1)}>上一词回看</button><button type="button" disabled={exitSaving} onClick={()=>void saveAndPause()}>{exitSaving?"正在保存…":"保存并返回设置 / 暂停"}</button></div>
+   <div className="testSaveStatus"><small role="status">{autoSave.status}</small><button onClick={autoSave.retry}>重试同步</button></div>
+   <TestAudio word={lookbackAt===null&&session.stage!=="complete"?entry?.word??"":""} questionKey={q?.id??""}/>
    <progress value={completed} max={session.order.length}/>
    <div ref={node=>{questionRef.current=node;}} className="aPlusQuestionAnchor">
    {lookbackAt!==null&&<TestQuestionHistory snapshots={lookback} index={lookbackAt} onIndex={setLookbackAt} onReturn={()=>setLookbackAt(null)}/>}

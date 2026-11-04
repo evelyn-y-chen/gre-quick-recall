@@ -61,3 +61,13 @@ test('notebook practice scopes remain isolated and summary never includes note t
  const one='lemnota-practice-notebook-scope_one',two='lemnota-practice-notebook-scope_two',current=snap({[one]:run(),note:'secret'}),incoming=snap({[two]:run({sessionId:'other'})});
  const out=m.mergeImportedPractice(current,incoming);assert.ok(out.storage[one]);assert.ok(out.storage[two]);assert.equal(m.practiceProgressSummary(out).length,2);assert.equal(JSON.stringify(m.practiceProgressSummary(out)).includes('secret'),false);
 });
+
+test('iPad and desktop edits in different tests and notes converge in either merge direction',()=>{
+ const bbKey='lemnota-practice-bb',base=snap({[key]:run(),[bbKey]:run({sessionId:'bb'})});
+ const local=structuredClone(base),remote=structuredClone(base);
+ local.storage[key]=JSON.stringify(run({turn:1,queue:['b','c'],results:{a:result(true,0,1)}}));
+ remote.storage[bbKey]=JSON.stringify(run({sessionId:'bb',turn:1,queue:['b','c'],results:{a:result(true,0,1)}}));
+ local.rows.push({key:'word-memory:alpha',value:'iPad note',revision:1,updated_at:'2026-11-04T10:00:00Z'});
+ remote.rows.push({key:'word-memory:beta',value:'desktop note',revision:1,updated_at:'2026-11-04T10:00:01Z'});
+ for(const [a,b] of [[local,remote],[remote,local]]){const merged=mergeWorkspaceSnapshots(base,a,b);assert.equal(read(merged,key).turn,1);assert.equal(read(merged,bbKey).turn,1);assert.equal(merged.rows.length,2);}
+});

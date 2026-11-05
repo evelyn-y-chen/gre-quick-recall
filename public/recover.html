@@ -31,6 +31,8 @@
   const result=[],names={'words':'全能词','bb':'BB 六选二','a-plus':'A+ 等价词','zhang-jijing':'张巍镇考机经词7.0','zhang-words':'张巍镇考3000词','zhang-pairs':'张巍等价词'};
   const number=n=>Number.isSafeInteger(n)&&n>=0?n:0;
   for(const [key,raw] of Object.entries(payload.storage||{})){
+   const recall=key.match(/^lemnota-recall-(zhang-jijing|zhang-words|zhang-pairs|words|bb|a-plus|notebook-[A-Za-z0-9_-]+)-v1$/);
+   if(recall){const run=parse(raw,null);if(run&&run.version===1&&Array.isArray(run.order)&&Array.isArray(run.queue)&&run.results){const current=run.queue[0],prior=run.results[current],ok=run.selection==='familiar'||run.config?.mode==='lenient'&&run.selection==='fuzzy',streak=run.selection?(ok?number(prior?.streak)+1:0):0;const completed=Object.entries(run.results).filter(([id,r])=>r?.done&&id!==current).length+(run.selection&&streak>=2?1:0),deferred=run.order.filter(id=>!run.queue.includes(id)&&!run.results[id]?.done).length;result.push({label:(names[recall[1]]||'生词本')+' · 翻卡自测',answers:number(run.turn)+(run.selection?1:0),completed,remaining:run.order.length-completed,deferred,session:run.sessionId||''});}continue;}
    const match=key.match(/^lemnota-practice-(zhang-jijing|zhang-words|zhang-pairs|words|bb|a-plus|notebook-[A-Za-z0-9_-]+)$/);
    if(!match)continue;const run=parse(raw,null);if(!run||!Array.isArray(run.queue)||!run.results)continue;
    const review=parse(payload.storage['lemnota-practice-review-'+match[1]+'-v1'],{});
@@ -46,6 +48,7 @@
   const runs=testProgress(payload);
   if(!runs.length)section.append(text('p','此副本没有可识别的测试进度。'));
   for(const run of runs){const box=document.createElement('div');box.className='testCopy';box.append(text('strong',run.label),text('p','已答 '+run.answers+' 次 · 已过关 '+run.completed+' 词 · 待过关 '+run.remaining+' 词'));
+   if(run.deferred)box.append(text('small','其中暂缓重测的模糊词 '+run.deferred+' 词（尚未过关）'));
    if(run.review!==undefined)box.append(text('small','已纳入到期复习 '+run.review+' 词'));
    if(run.updated&&Number.isFinite(Date.parse(run.updated)))box.append(text('p','该测试最后操作：'+new Date(run.updated).toLocaleString()));
    if(run.session){const details=document.createElement('details');details.append(text('summary','查看本轮标识'),text('small',run.session));box.append(details);}

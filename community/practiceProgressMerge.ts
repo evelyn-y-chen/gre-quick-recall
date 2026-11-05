@@ -1,4 +1,5 @@
 import type {Snapshot} from './database';
+import {isRecallRun,mergeRecallRuns,recallSummary} from './recallModel';
 
 type Result={streak:number;errors:number;done:boolean};
 type Run={sessionId?:string;queue:string[];direction:string;pair:boolean;review?:boolean;results:Record<string,Result>;phase:string;turn:number;[key:string]:unknown};
@@ -13,7 +14,8 @@ const date=(value:unknown)=>typeof value==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(
 const scope='(?:zhang-jijing|zhang-words|zhang-pairs|words|bb|a-plus|notebook-[A-Za-z0-9_-]+)';
 export const isPracticeRunKey=(key:string)=>new RegExp('^lemnota-practice-'+scope+'$').test(key);
 export const isPracticeReviewKey=(key:string)=>new RegExp('^lemnota-practice-review-'+scope+'-v1$').test(key);
-export const isPracticeStorageKey=(key:string)=>isPracticeRunKey(key)||isPracticeReviewKey(key);
+export const isRecallStorageKey=(key:string)=>new RegExp('^lemnota-recall-'+scope+'-v1$').test(key);
+export const isPracticeStorageKey=(key:string)=>isPracticeRunKey(key)||isPracticeReviewKey(key)||isRecallStorageKey(key);
 function run(value:unknown):value is Run {
  return object(value)&&Array.isArray(value.queue)&&value.queue.every(id=>typeof id==='string'&&safe(id))&&new Set(value.queue).size===value.queue.length&&whole(value.turn)&&['meaning','synonym','feedback'].includes(String(value.phase))&&['en-zh','zh-en'].includes(String(value.direction))&&typeof value.pair==='boolean'&&Array.isArray(value.options)&&object(value.results)&&Object.entries(value.results).every(([id,r])=>safe(id)&&object(r)&&whole(r.streak)&&whole(r.errors)&&typeof r.done==='boolean')&&(value.sessionId===undefined||typeof value.sessionId==='string'&&!!value.sessionId);
 }
@@ -68,6 +70,10 @@ function mergeHistory(base:Record<string,Review>,local:Record<string,Review>,rem
 export function mergePracticeStorage(key:string,base:string|undefined,local:string|undefined,remote:string|undefined):{value:string|undefined}|undefined {
  if(!isPracticeStorageKey(key))return undefined;
  const b=parse(base),l=parse(local),r=parse(remote);
+ if(isRecallStorageKey(key)){
+  if(!isRecallRun(l)||!isRecallRun(r))throw conflict();
+  return {value:JSON.stringify(mergeRecallRuns(l,r))};
+ }
  if(isPracticeRunKey(key)){
   if(!run(l)||!run(r))throw conflict();
   return {value:JSON.stringify(mergeRun(l,r))};
@@ -79,6 +85,11 @@ export function mergePracticeStorage(key:string,base:string|undefined,local:stri
 export function practiceProgressSummary(snapshot:Snapshot){
  return Object.entries(snapshot.storage).flatMap(([key,raw])=>{
   const value=parse(raw);
+  if(isRecallStorageKey(key)&&isRecallRun(value)){
+   const summary=recallSummary(value),scope=key.slice('lemnota-recall-'.length,-3);
+   const label=scope==='words'?'全能词':scope==='bb'?'BB 六选二':scope==='a-plus'?'A+ 等价词':scope==='zhang-jijing'?'张巍镇考机经词7.0':scope==='zhang-words'?'张巍镇考3000词':scope==='zhang-pairs'?'张巍等价词':'生词本';
+   return [{key,label:label+' · 翻卡自测',remaining:summary.remaining,answers:summary.answers,completed:summary.completed}];
+  }
   return isPracticeRunKey(key)&&run(value)?[{key,label:key.endsWith('zhang-jijing')?'张巍镇考机经词7.0':key.endsWith('zhang-words')?'张巍镇考3000词':key.endsWith('zhang-pairs')?'张巍等价词':key.endsWith('words')?'全能词':key.endsWith('bb')?'BB 六选二':key.endsWith('a-plus')?'A+ 等价词':'生词本',remaining:value.queue.length,answers:value.turn,completed:Object.values(value.results).filter(r=>r.done).length}]:[];
  });
 }
@@ -88,7 +99,7 @@ export function mergeImportedPractice(current:Snapshot,incoming:Snapshot):Snapsh
  for(const [key,raw] of Object.entries(incoming.storage)){
   if(!isPracticeStorageKey(key))continue;
   const incomingValue=parse(raw);
-  if(isPracticeRunKey(key)?!run(incomingValue):!history(incomingValue))throw Error('便笺里的测试记录格式不完整，当前进度未改变。');
+  if(isRecallStorageKey(key)?!isRecallRun(incomingValue):isPracticeRunKey(key)?!run(incomingValue):!history(incomingValue))throw Error('便笺里的测试记录格式不完整，当前进度未改变。');
   found=true;
   if(storage[key]===undefined||same(parse(storage[key]),incomingValue)){storage[key]=raw;continue;}
   const merged=mergePracticeStorage(key,undefined,raw,storage[key]);

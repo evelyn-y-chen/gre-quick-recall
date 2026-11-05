@@ -18,6 +18,7 @@ function harness(kind, {deck='words', mode='single', data={}, notebook, persiste
   const jsx = (type, props, key) => ({type,props:props??{},key});
   const react = {
     useState(initial){const host=active,index=host.cursor++;if(!(index in host.hooks))host.hooks[index]=typeof initial==='function'?initial():initial;return [host.hooks[index],next=>{const value=typeof next==='function'?next(host.hooks[index]):next;if(!Object.is(value,host.hooks[index])){host.hooks[index]=value;dirty=true;}}];},
+    useMemo(fn,deps){const host=active,index=host.cursor++,old=host.hooks[index];if(!old||deps.some((v,i)=>!Object.is(v,old.deps[i])))host.hooks[index]={deps,value:fn()};return host.hooks[index].value;},
     useRef(initial){const host=active,index=host.cursor++;return host.hooks[index]??(host.hooks[index]={current:initial});},
     useEffect(effect,deps){const host=active,index=host.cursor++,old=host.hooks[index];if(!old||!deps||deps.length!==old.deps?.length||deps.some((value,n)=>!Object.is(value,old.deps[n]))){host.hooks[index]={deps,cleanup:old?.cleanup};host.effects.push(()=>{host.hooks[index].cleanup?.();host.hooks[index].cleanup=effect();});}},
   };
@@ -51,7 +52,8 @@ function harness(kind, {deck='words', mode='single', data={}, notebook, persiste
   const aPlusModel=load('app/aPlusTestModel.ts');
   if(kind==='aplus')seed=aPlusModel.createSession({lists:[1],order:'sequential',mode},()=>.4,['a1','a2']);
   const practiceScope=deck==='notebook'?'notebook-'+notebook.id:deck;
-  const Component=load(kind==='aplus'?'app/APlusTest.tsx':'community/Practice.tsx').default;
+  if(kind==='recall')seed=load('community/recallModel.ts').createRecallRun(['a1','a2'],{mode:'strict',retry:'all'});
+  const Component=kind==='recall'?load('community/RecallTest.tsx').RecallTest:load(kind==='aplus'?'app/APlusTest.tsx':'community/Practice.tsx').default;
   function expand(node, address='root', hidden=false) {
     if(node==null||typeof node!=='object')return node;
     if(Array.isArray(node))return node.map((child,i)=>expand(child,`${address}.${child?.key??i}`,hidden));
@@ -66,7 +68,7 @@ function harness(kind, {deck='words', mode='single', data={}, notebook, persiste
   function render() {
     for(let n=0;n<20;n++){
       dirty=false;for(const host of instances.values())host.seen=false;
-      tree=expand(jsx(Component,kind==='aplus'?{pronounce(){}}:{deck,notebook,onClose(){closed++;}}));
+      tree=expand(jsx(Component,kind==='recall'?{initial:seed,pool:terms,scope:deck,title:'测试词表',onClose(){closed++;}}:kind==='aplus'?{pronounce(){}}:{deck,notebook,onClose(){closed++;}}));
       for(const [key,host] of instances){if(!host.seen){for(const hook of host.hooks)hook?.cleanup?.();instances.delete(key);}else while(host.effects.length)host.effects.shift()();}
       if(!dirty)return;
     }throw Error('Component host did not settle');
@@ -78,7 +80,7 @@ function harness(kind, {deck='words', mode='single', data={}, notebook, persiste
   async function click(label){const button=findButton(label);assert.ok(!button.props.disabled,`Disabled ${label}`);button.props.onClick({preventDefault(){},stopPropagation(){}});render();await settle();}
   async function key(key, extra={}){let prevented=false;const target={closest:()=>null};const event={key,code:key,repeat:false,isComposing:false,ctrlKey:false,metaKey:false,altKey:false,shiftKey:false,target,preventDefault(){prevented=true;},stopImmediatePropagation(){},...extra};for(const callback of [...events.get('keydown')??[]])callback(event);render();await settle();return prevented;}
   render();
-  return {settle,click,key,nodes,text,io,learning,storage,persists,closed:()=>closed,setGeneration(value){generation=value;},setPersistence(fn){persistImpl=fn;},async select(label,value){const node=nodes().find(node=>node.type==='select'&&node.props['aria-label']===label);assert.ok(node);node.props.onChange({target:{value}});render();await settle();},model:aPlusModel,initial:()=>structuredClone(seed),run:()=>JSON.parse(storage.get('lemnota-practice-'+practiceScope)??'null'),history:()=>JSON.parse(storage.get('lemnota-practice-review-'+practiceScope+'-v1')??'null'),currentAPlus:()=>structuredClone(io.at(-1)?.session??seed),async ready(){await settle();await click(kind==='aplus'?'继续上次测试':'开始新测试');},close(){for(const host of instances.values())for(const hook of host.hooks)hook?.cleanup?.();}};
+  return {settle,click,key,nodes,text,io,learning,storage,persists,closed:()=>closed,setGeneration(value){generation=value;},setPersistence(fn){persistImpl=fn;},async select(label,value){const node=nodes().find(node=>node.type==='select'&&node.props['aria-label']===label);assert.ok(node);node.props.onChange({target:{value}});render();await settle();},model:aPlusModel,initial:()=>structuredClone(seed),run:()=>JSON.parse(storage.get('lemnota-practice-'+practiceScope)??'null'),history:()=>JSON.parse(storage.get('lemnota-practice-review-'+practiceScope+'-v1')??'null'),recallRun:()=>JSON.parse(storage.get('lemnota-recall-'+practiceScope+'-v1')??'null'),currentAPlus:()=>structuredClone(io.at(-1)?.session??seed),async ready(){await settle();await click(kind==='aplus'?'继续上次测试':'开始新测试');},close(){for(const host of instances.values())for(const hook of host.hooks)hook?.cleanup?.();}};
 }
 
 for(const mode of ['single','multiple'])test(`A+ ${mode} keyboard A–F selects visible answers, U keeps existing uncertain grading`,async()=>{
@@ -202,4 +204,28 @@ for(const kind of ['practice','aplus'])test(`${kind} late save confirmation cann
   view.setGeneration(8);view.storage.clear();view.storage.set('new-account-only','preserve');complete({destination:'account',synced:true});await view.settle();
   assert.equal(view.closed(),0);assert.deepEqual([...view.storage],[['new-account-only','preserve']]);assert.ok(view.text().includes('学习空间已切换'));
  }finally{view.close();}
+});
+
+
+test('recall clicks reveal, allow corrections, persist immediately and never write traffic lights or review dates',async()=>{
+ const originalRating='{"a1":"familiar"}',view=harness('recall',{data:{'gre-quick-ratings-v1':originalRating}});
+ try{
+  assert.ok(!view.text().includes('甲一含义'));await view.key('3');assert.match(view.text(),/甲一含义/);assert.match(view.text(),/本词第 1 次判断/);assert.equal(view.recallRun().selection,'familiar');
+  await view.key('1');assert.equal(view.recallRun().selection,'unknown');assert.equal(view.recallRun().turn,0);assert.match(view.text(),/连续达标 0\/2/);
+  await view.key('Enter');assert.equal(view.recallRun().turn,1);assert.equal(view.recallRun().results.a1.attempts,1);assert.equal(view.recallRun().results.a1.rating,'unknown');
+  assert.equal(view.storage.get('gre-quick-ratings-v1'),originalRating);assert.equal(view.storage.has('lemnota-practice-review-words-v1'),false);assert.deepEqual(view.learning,[]);
+  await view.click('上一词回看');assert.match(view.text(),/你的选择：不认识/);assert.match(view.text(),/当时的笔记 alpha/);
+  const saved=JSON.stringify(view.recallRun());await view.key('3');assert.equal(JSON.stringify(view.recallRun()),saved);
+  await view.click('返回当前题');await view.key('2');await view.click('保存并返回');assert.equal(view.closed(),1);assert.equal(view.persists.at(-1).storage['lemnota-recall-words-v1'],view.storage.get('lemnota-recall-words-v1'));
+ }finally{view.close();}
+});
+
+test('recall pending, failed or old-workspace saves keep the dialog open and never discard the current card',async()=>{
+ let resolve;const gate=new Promise(r=>resolve=r),view=harness('recall',{persistence:()=>gate});
+ try{
+  await view.key('2');const selection=view.recallRun().selection;const closing=view.click('保存并返回');assert.equal(view.closed(),0);
+  view.setGeneration(8);resolve({destination:'account',synced:true});await closing;await view.settle();assert.equal(view.closed(),0);assert.equal(view.recallRun().selection,selection);assert.match(view.text(),/学习空间已切换/);
+ }finally{view.close();}
+ const pending=harness('recall',{persistence:async()=>({destination:'device',synced:false,message:'账号待同步'})});
+ try{await pending.key('1');await pending.click('保存并返回');assert.equal(pending.closed(),0);assert.match(pending.text(),/账号待同步/);}finally{pending.close();}
 });

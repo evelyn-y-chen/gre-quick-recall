@@ -77,3 +77,18 @@ test('the flashcard reveals source columns separately, including BB comparisons 
  const fields=recallFields(term),labels=fields.map(f=>f.label);for(const name of ['中文释义','音标','英文解释','英文例句','例句译文','等价词','同组词与释义','词义对照','原文记法','记忆方法','收集笔记','来源'])assert.ok(labels.includes(name),name);
  assert.equal(fields.find(f=>f.label==='英文解释').value,'offensive to smell');
 });
+
+
+test('scheduled flashcards preserve their review flag and cannot merge with an ordinary practice branch',()=>{
+ const run={...create(),review:true},next=choose(run,'familiar');assert.equal(m.readRecallRun(JSON.stringify(next)).review,true);assert.equal(m.readRecallRun(JSON.stringify({...next,review:'yes'})),null);assert.throws(()=>m.mergeRecallRuns(run,{...next,review:false}),/分支/);
+});
+
+test('confirmed flashcard reviews share the original schedule, deduplicate retries and preserve A+ retry words',()=>{
+ const review=loadModel('community/practiceReviewModel.ts'),aplus=loadModel('app/aPlusReviewModel.ts');
+ const history={a:{level:2,due:'2026-11-05',lastDay:'2026-11-01',reviews:7}},event={id:'round:1',entryId:'a',correct:true,completed:false};
+ assert.equal(review.recordRecallReview(history,event,'2026-11-05'),history);
+ const passed=review.recordRecallReview(history,{...event,completed:true},'2026-11-05');assert.equal(passed.a.level,3);assert.equal(passed.a.due,'2026-11-12');
+ const reread=review.readPracticeReviewHistory(JSON.stringify(passed),undefined,new Set(['a']),'2026-11-05');assert.equal(reread.a.recallEvent,event.id);assert.deepEqual(review.recordRecallReview(reread,{...event,completed:true},'2026-11-06'),reread);
+ const failed=review.recordRecallReview(history,{...event,correct:false},'2026-11-05');assert.equal(failed.a.level,0);assert.equal(failed.a.due,'2026-11-06');assert.equal(review.recordRecallReview(failed,{...event,id:'round:2',completed:true},'2026-11-05'),failed);
+ const a=aplus.recordAPlusRecallReview({a:{...history.a,retryWords:['kept']}},{...event,completed:true},'2026-11-05');assert.equal(a.a.level,3);assert.deepEqual(a.a.retryWords,['kept']);
+});

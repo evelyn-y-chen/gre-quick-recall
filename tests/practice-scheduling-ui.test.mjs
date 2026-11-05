@@ -116,7 +116,7 @@ test('starting a new test uses the selected Lists even when there are due words 
 
 test('BB starts with distinct safe choices, avoids padding an undersized pool and retains early review history',()=>{
  const v=practice({deck:'bb',data:{[reviewKey('bb')]:JSON.stringify({'b1:0':mature,'b1:1':mature})}});try{
-  assert.equal(v.find('button','开始到期复习'),undefined);v.click('开始新测试');assert.equal(v.run().phase,'synonym');assert.equal(v.run().options.length,4,'Four fixture synonym groups provide only three distinct safe wrong meanings');const compare=loadModel('app/quizDistractors.ts').isAmbiguousQuizDistractor;for(let i=0;i<v.run().options.length;i++)for(let j=0;j<i;j++)assert.equal(compare(v.run().options[i],v.run().options[j]),false);const id=v.run().queue[0];v.answer(true);assert.equal(v.run().phase,'feedback');assert.equal(v.run().results[id].done,true);assert.deepEqual(v.history()[id],mature);
+  assert.equal(v.find('button','今天暂无到期词').props.disabled,true);v.click('开始新测试');assert.equal(v.run().phase,'synonym');assert.equal(v.run().options.length,4,'Four fixture synonym groups provide only three distinct safe wrong meanings');const compare=loadModel('app/quizDistractors.ts').isAmbiguousQuizDistractor;for(let i=0;i<v.run().options.length;i++)for(let j=0;j<i;j++)assert.equal(compare(v.run().options[i],v.run().options[j]),false);const id=v.run().queue[0];v.answer(true);assert.equal(v.run().phase,'feedback');assert.equal(v.run().results[id].done,true);assert.deepEqual(v.history()[id],mature);
  }finally{v.close();}
 });
 for(const failure of ['wrong','uncertain'])test(`BB single-step ${failure} answer shows feedback and resets review`,()=>{

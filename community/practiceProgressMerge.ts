@@ -88,7 +88,7 @@ export function practiceProgressSummary(snapshot:Snapshot){
   if(isRecallStorageKey(key)&&isRecallRun(value)){
    const summary=recallSummary(value),scope=key.slice('lemnota-recall-'.length,-3);
    const label=scope==='words'?'全能词':scope==='bb'?'BB 六选二':scope==='a-plus'?'A+ 等价词':scope==='zhang-jijing'?'张巍镇考机经词7.0':scope==='zhang-words'?'张巍镇考3000词':scope==='zhang-pairs'?'张巍等价词':'生词本';
-   return [{key,label:label+' · 翻卡自测',remaining:summary.remaining,answers:summary.answers,completed:summary.completed}];
+   return [{key,label:label+' · 翻卡自测'+(value.review?'（到期复习）':''),remaining:summary.remaining,answers:summary.answers,completed:summary.completed}];
   }
   return isPracticeRunKey(key)&&run(value)?[{key,label:key.endsWith('zhang-jijing')?'张巍镇考机经词7.0':key.endsWith('zhang-words')?'张巍镇考3000词':key.endsWith('zhang-pairs')?'张巍等价词':key.endsWith('words')?'全能词':key.endsWith('bb')?'BB 六选二':key.endsWith('a-plus')?'A+ 等价词':'生词本',remaining:value.queue.length,answers:value.turn,completed:Object.values(value.results).filter(r=>r.done).length}]:[];
  });

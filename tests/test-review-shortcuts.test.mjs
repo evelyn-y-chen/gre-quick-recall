@@ -9,7 +9,7 @@ const bb = Array.from({length:4}, (_,i) => ({id:`b${i+1}`,list:1,volume:'上',nu
 
 // Execute the actual components, key handlers, grading models and receipt model.
 // Substitute only fixture vocabulary, IO/telemetry, the clock and React's hook host.
-function harness(kind, {deck='words', mode='single', data={}, notebook, persistence, putGate}={}) {
+function harness(kind, {deck='words', mode='single', data={}, notebook, persistence, putGate, chips=false}={}) {
   const modules = new Map(), storage = new Map(Object.entries(data)), io = [], learning = [], events = new Map(), instances = new Map();
   let active, dirty = false, tree, seed = null, revision = 4, tick = 0, generation = 7, closed = 0, persistImpl = persistence;
   const persists=[];
@@ -40,7 +40,8 @@ function harness(kind, {deck='words', mode='single', data={}, notebook, persiste
       if(name.endsWith('/learningPlanStore'))return {recordLearningPlanWords:(...args)=>learning.push(args)};
       if(name.endsWith('/practiceCompletions'))return {recordCompletedPractice(){},recordPracticeWord(){},recordPracticeWords(){}};
       if(name.endsWith('/SharedWordMemory'))return {default:props=>jsx('aside',{'aria-label':'memory',children:`记忆笔记 ${props.word}`}),useWordMemory:()=>memory};
-      if(name.endsWith('/SelectionChips')||name.endsWith('/NotebookFrequency'))return {default:()=>null};
+      if(name.endsWith('/SelectionChips'))return {default:props=>chips?jsx('div',{'aria-label':props.label,children:props.options.map(option=>jsx('button',{onClick:()=>props.onChange(props.exclusive?[option.id]:props.selected.includes(option.id)?props.selected.filter(id=>id!==option.id):[...props.selected,option.id]),children:option.label}))}):null};
+      if(name.endsWith('/NotebookFrequency'))return {default:()=>null};
       if(name.endsWith('/vocabulary.json'))return {default:terms};
       if(name.endsWith('/aPlusEquivalents.json'))return {default:terms};
       if(name.endsWith('/bbEquivalents.json'))return {default:bb};
@@ -228,4 +229,15 @@ test('recall pending, failed or old-workspace saves keep the dialog open and nev
  }finally{view.close();}
  const pending=harness('recall',{persistence:async()=>({destination:'device',synced:false,message:'账号待同步'})});
  try{await pending.key('1');await pending.click('保存并返回');assert.equal(pending.closed(),0);assert.match(pending.text(),/账号待同步/);}finally{pending.close();}
+});
+
+
+test('due review offers both formats and flashcards reuse the same overdue words across Lists',async()=>{
+ const old={a1:{level:0,due:'2020-01-01',lastDay:'2020-01-01',reviews:2}};
+ const view=harness('practice',{chips:true,data:{'lemnota-practice-review-words-v1':JSON.stringify(old)}});
+ try{
+  await view.click('翻卡自测');await view.click('开始到期复习');assert.equal(view.recallRun().review,true);assert.deepEqual(view.recallRun().order,['a1']);
+  await view.key('3');assert.deepEqual(view.history(),old,'revealing and changing do not alter the schedule');await view.key('2');assert.deepEqual(view.history(),old);await view.key('3');await view.key('Enter');assert.deepEqual(view.history(),old,'one familiar visit does not pass');
+  await view.key('3');await view.key('Enter');assert.equal(view.recallRun().queue.length,0);assert.equal(view.history().a1.level,1);assert.equal(view.history().a1.reviews,3);assert.equal(view.run(),null,'the multiple-choice session is untouched');assert.equal(view.learning.length,0);
+ }finally{view.close();}
 });

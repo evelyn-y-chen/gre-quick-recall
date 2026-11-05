@@ -1,3 +1,4 @@
+import type {RecallReviewEvent} from '../community/practiceReviewModel';
 import {RecallTestSetup} from '../community/RecallTest';
 import {useTestAutosave,TestAudio} from '../community/testExperience';
 import TestQuestionHistory,{readTestLookback,appendTestLookback,captureTestNotes,type TestQuestionSnapshot} from "./TestQuestionHistory";
@@ -18,6 +19,7 @@ import {dueReviewIds,reviewDay,REVIEW_INTERVALS,type ReviewHistory} from "./aPlu
 const DRAFT="gre-a-plus-test-draft-v1";
 export default function APlusTest({pronounce,initialLists}:{pronounce:(word:string)=>void;initialLists?:number[]}) {
  const [testFormat,setTestFormat]=useState('choice'),[recallActive,setRecallActive]=useState(false);
+ const recallReviewStart=useRef<(()=>void)|null>(null);
  const recallPool=entries.map(entry=>({...entry,synonyms:equivalents(entry)}));
  const [session,setSession]=useState<Session|null>(null),[screen,setScreen]=useState<"setup"|"test">("setup");
  const [config,setConfig]=useState<Config>({lists:initialLists??[1],order:"random",mode:"single"});
@@ -107,6 +109,15 @@ export default function APlusTest({pronounce,initialLists}:{pronounce:(word:stri
  const autoSave=useTestAutosave(session,!!session&&!loading&&!saving&&!pending.current&&!blocked&&screen==='test',workspaceGeneration.current);
  const due=dueReviewIds(history,today).filter(id=>byId.has(id)&&matchesTestColors('a-plus',id,savedRatings,colors));
  const upcoming=Object.entries(history).filter(([,r])=>r.due>today).sort((a,b)=>a[1].due.localeCompare(b[1].due));
+ async function recordRecall(event:RecallReviewEvent){
+  if(getWorkspaceGeneration()!==workspaceGeneration.current)throw Error('学习空间已切换，当前卡片保留。');
+  await upload();
+  if(pending.current||conflict.current)throw Error('原测试进度尚未保存，请保留本页并重试。');
+  const response=await appFetch('/api/a-plus-test',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event,revision:revision.current})}),data=await response.json();
+  if(getWorkspaceGeneration()!==workspaceGeneration.current)throw Error('学习空间已切换，当前卡片保留。');
+  if(!response.ok)throw Error(data.error??'复习进度保存失败');
+  revision.current=data.revision;setHistory(data.history);setToday(reviewDay());
+ }
  function startReview(){
   if(exitBusy.current||getWorkspaceGeneration()!==workspaceGeneration.current||!due.length||pending.current||saving||loading||blocked)return;
   const next=createSession({...config,lists:[...new Set(due.map(id=>byId.get(id)!.list))]},Math.random,due);
@@ -136,13 +147,13 @@ export default function APlusTest({pronounce,initialLists}:{pronounce:(word:stri
   <div className="aPlusTestSync"><span role="status">{exitSaving?"正在核对本机与账号保存…":exitStatus||(saving?"正在保存测试进度…":status)}</span>{pending.current&&!saving&&!blocked&&<button type="button" onClick={upload}>重试保存</button>}</div>
   {blocked&&<p className="aPlusTestWarning">当前未覆盖工作区进度。可以查看本机记录，或保留本机备份后读取工作区版本。<button type="button" disabled={loading||exitSaving} onClick={useCloud}>备份本机并读取工作区</button></p>}
   {screen==="setup"?<>
-   <SelectionChips exclusive label="测试形式" options={[{id:'choice',label:'选择题'},{id:'recall',label:'翻卡自测'}]} selected={[testFormat]} onChange={ids=>{const next=ids.find(id=>id!==testFormat);if(next)setTestFormat(next);}}/>{testFormat==='choice'&&<section className="aPlusReviewPlan"><div><span className="eyebrow">间隔复习 · 北京时间</span><h2>今天复习 <strong>{due.length}</strong> 个词</h2><p>已纳入 {Object.keys(history).length} 词 · 逾期 {due.filter(id=>history[id].due<today).length} 词{upcoming.length?` · 下次 ${upcoming[0][1].due}`:""}</p></div><button type="button" className="solid" disabled={loading||saving||blocked||pending.current||!due.length} onClick={startReview}>{due.length?"开始到期复习":"今天暂无到期词"}</button><p className="aPlusReviewGuide">按 {REVIEW_INTERVALS.join("、")} 天逐步延长，之后每 30 天复习；答错或不确定回到次日，同日重复答对不连续升级。采用下方的顺序和题型设置，复习范围包含所有到期词。</p><p className="aPlusReviewGuide">开始到期复习会替换当前这一轮测试，长期复习计划保留。旧版仍保存着的已测词会从今天加入。</p>{due.length>0&&<details><summary>查看到期词</summary><div className="aPlusDueWords">{due.map(id=><span key={id}>{byId.get(id)!.word}<small>List {byId.get(id)!.list} · {history[id].due}</small></span>)}</div></details>}</section>}
+   <SelectionChips exclusive label="测试形式" options={[{id:'choice',label:'选择题'},{id:'recall',label:'翻卡自测'}]} selected={[testFormat]} onChange={ids=>{const next=ids.find(id=>id!==testFormat);if(next)setTestFormat(next);}}/><section className="aPlusReviewPlan"><div><span className="eyebrow">间隔复习 · 北京时间</span><h2>今天复习 <strong>{due.length}</strong> 个词</h2><p>已纳入 {Object.keys(history).length} 词 · 逾期 {due.filter(id=>history[id].due<today).length} 词{upcoming.length?` · 下次 ${upcoming[0][1].due}`:""}</p></div><button type="button" className="solid" disabled={loading||saving||blocked||pending.current||!due.length} onClick={()=>testFormat==='recall'?recallReviewStart.current?.():startReview()}>{due.length?"开始到期复习":"今天暂无到期词"}</button><p className="aPlusReviewGuide">按 {REVIEW_INTERVALS.join("、")} 天逐步延长，之后每 30 天复习；答错或不确定回到次日，同日重复答对不连续升级。采用所选的选择题／翻卡自测及出题顺序，沿用红黄绿筛选；复习范围包含所有到期词，不受新测试 List 范围限制。</p><p className="aPlusReviewGuide">选择题与翻卡共用原来的复习日期；翻卡在点下一词确认后更新复习进度，不更改词表红黄绿。旧版仍保存着的已测词会从今天加入。</p>{due.length>0&&<details><summary>查看到期词</summary><div className="aPlusDueWords">{due.map(id=><span key={id}>{byId.get(id)!.word}<small>List {byId.get(id)!.list} · {history[id].due}</small></span>)}</div></details>}</section>
    {testFormat==='choice'&&session&&<div className="aPlusResume"><span>上次测试：{session.order.length} 词 · 已完成 {completed} · {session.config.mode==="single"?"单选":"不定项"}</span><button type="button" className="solid" disabled={loading} onClick={()=>setScreen("test")}>{session.stage==="complete"?"查看测试结果":"继续上次测试"}</button></div>}
    <fieldset className="aPlusTestSetup" disabled={loading||blocked||saving}>
     <h2>选择范围</h2><div className="aPlusTestRange"><label>从 List<select value={from} onChange={e=>setFrom(Number(e.target.value))}>{Array.from({length:80},(_,i)=><option key={i+1}>{i+1}</option>)}</select></label><label>到 List<select value={to} onChange={e=>setTo(Number(e.target.value))}>{Array.from({length:80},(_,i)=><option key={i+1}>{i+1}</option>)}</select></label><button type="button" onClick={()=>setConfig({...config,lists:Array.from({length:Math.abs(to-from)+1},(_,i)=>Math.min(from,to)+i)})}>选中这个范围</button><button type="button" onClick={()=>setConfig({...config,lists:Array.from({length:80},(_,i)=>i+1)})}>全选</button><button type="button" onClick={()=>setConfig({...config,lists:[]})}>清空</button></div>
     <SelectionChips label="A+ 测试 List" options={Array.from({length:80},(_,i)=>({id:String(i+1),label:`List ${i+1}`}))} selected={config.lists.map(String)} onChange={ids=>setConfig({...config,lists:ids.map(Number)})}/><div className="testColorFilter"><p>联动红绿灯：可同时选择多个颜色；全不选时不安排测试。不同方向的标记不同时，按较不熟悉的颜色筛选。</p><SelectionChips label="测试红绿灯范围" options={[...testColors]} selected={colors} onChange={ids=>setColors(ids as TestColor[])}/></div>
     <div className="aPlusTestSettings"><label>出题顺序<select value={config.order} onChange={e=>setConfig({...config,order:e.target.value as Config["order"]})}><option value="sequential">顺序</option><option value="random">乱序</option></select></label>{testFormat==='choice'&&<label>同义词题型<select value={config.mode} onChange={e=>setConfig({...config,mode:e.target.value as Config["mode"]})}><option value="single">单选 · 6 个词中仅 1 个正确</option><option value="multiple">不定项 · 6 个词中选出所有同义词</option></select></label>}</div>
-    {testFormat==='recall'?<RecallTestSetup scope="a-plus" title="A+ 等价词" pool={recallPool} selected={recallPool.filter(term=>selectedIds.includes(term.id))} random={config.order==='random'} onActiveChange={setRecallActive}/>:<><p>已选 {selectedIds.length} 个核心词。中途任何一步出错，连续正确次数清零。剩余题目不足间隔时提前返场。</p>
+    {testFormat==='recall'?<RecallTestSetup scope="a-plus" title="A+ 等价词" pool={recallPool} selected={recallPool.filter(term=>selectedIds.includes(term.id))} random={config.order==='random'} onActiveChange={setRecallActive} reviewTerms={due.map(id=>recallPool.find(term=>term.id===id)!)} reviewStartRef={recallReviewStart} onReview={recordRecall}/>:<><p>已选 {selectedIds.length} 个核心词。中途任何一步出错，连续正确次数清零。剩余题目不足间隔时提前返场。</p>
     <button type="button" className="solid" disabled={!selectedIds.length} onClick={start}>{session?"开始新测试（保留长期复习计划）":"开始测试"}</button></>}
    </fieldset>
   </>:session&&<>

@@ -1,5 +1,5 @@
 import {validSession,entries,type Session} from "../../aPlusTestModel";
-import {updateReviewHistory} from "../../aPlusReviewModel";
+import {updateReviewHistory,recordAPlusRecallReview} from "../../aPlusReviewModel";
 import {getRuntimeDatabase} from "../../../db/runtime";
 import {ensureMindMapSchema} from "../../../db/mindMapStore";
 const key="a-plus-test-session:v1";
@@ -22,4 +22,24 @@ export async function PUT(request:Request){
   if(!result)return Response.json({error:"其他设备已更新测试进度，本机草稿已保留，请先刷新核对。"},{status:409});
   return Response.json({...result,history});
  }catch{return Response.json({error:"保存失败，本机草稿仍保留"},{status:500});}
+}
+
+/** Update the existing review schedule without replacing the multiple-choice session. */
+export async function POST(request:Request){
+ let p;try{p=await request.json();}catch{return Response.json({error:'格式不正确'},{status:400});}
+ const event=p?.event;
+ if(!event||typeof event.id!=='string'||!event.id.length||event.id.length>180||!entries.some(e=>e.id===event.entryId)||typeof event.correct!=='boolean'||typeof event.completed!=='boolean'||!Number.isInteger(p.revision)||p.revision<0)return Response.json({error:'复习记录不完整'},{status:400});
+ try{
+  await ensureMindMapSchema();const row=await loadCorrectedRow();
+  if(!row)return Response.json({error:'原到期复习记录不存在，当前翻卡已保留。'},{status:409});
+  const previous=JSON.parse(row.value),old=previous.reviewHistory??{};
+  if(!validSession(previous)||!old[event.entryId])return Response.json({error:'没有找到该词原来的复习记录，当前翻卡已保留。'},{status:409});
+  if(old[event.entryId]?.recallEvent===event.id)return Response.json({revision:row.revision,history:old});
+  if(row.revision!==p.revision)return Response.json({error:'复习记录已更新，请保留本页后重新读取，未覆盖其他进度。'},{status:409});
+  const history=recordAPlusRecallReview(old,event);
+  if(history===old)return Response.json({revision:row.revision,history});
+  const value=JSON.stringify({...previous,reviewHistory:history});
+  const result=await getRuntimeDatabase().prepare('UPDATE mind_map_state SET value=?,revision=revision+1,updated_at=CURRENT_TIMESTAMP WHERE key=? AND revision=? RETURNING revision').bind(value,key,row.revision).first<{revision:number}>();
+  return result?Response.json({...result,history}):Response.json({error:'复习记录已更新，当前翻卡已保留。'},{status:409});
+ }catch{return Response.json({error:'复习进度保存失败，当前翻卡已保留，请重试。'},{status:500});}
 }

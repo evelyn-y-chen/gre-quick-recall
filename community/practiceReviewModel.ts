@@ -1,7 +1,8 @@
 import type {Result} from './practiceModel';
 
 export const REVIEW_INTERVALS = [1, 2, 4, 7, 15, 30] as const;
-export type ReviewRecord = {level: number; due: string; lastDay: string; reviews: number};
+export type ReviewRecord = {level: number; due: string; lastDay: string; reviews: number;recallEvent?:string};
+export type RecallReviewEvent={id:string;entryId:string;correct:boolean;completed:boolean};
 export type ReviewHistory = Record<string, ReviewRecord>;
 
 /** Review dates follow the learner's existing Beijing-day convention on every device. */
@@ -54,7 +55,7 @@ export function readPracticeReviewHistory(
   for (const [id, value] of Object.entries(parsed)) {
    if (knownIds.has(id) && validRecord(value)) {
     // Copy only validated fields, keeping imports detached from their source objects.
-    history[id] = {level: value.level, due: value.due, lastDay: value.lastDay, reviews: value.reviews};
+    history[id] = {level: value.level, due: value.due, lastDay: value.lastDay, reviews: value.reviews,...(typeof value.recallEvent==='string'?{recallEvent:value.recallEvent}:{})};
    }
   }
  }
@@ -96,4 +97,11 @@ export function duePracticeIds(history: ReviewHistory, today = reviewDay()): str
  return Object.keys(history)
   .filter(id => validRecord(history[id]) && history[id].due <= today)
   .sort((a, b) => history[a].due.localeCompare(history[b].due) || a.localeCompare(b));
+}
+
+/** A confirmed card visit is idempotent if saving the same visit is retried. */
+export function recordRecallReview(history:ReviewHistory,event:RecallReviewEvent,today=reviewDay()):ReviewHistory {
+ if(history[event.entryId]?.recallEvent===event.id)return history;
+ const next=recordPracticeReview(history,event.entryId,event.correct,event.completed,today);
+ return next===history?history:{...next,[event.entryId]:{...next[event.entryId],recallEvent:event.id}};
 }

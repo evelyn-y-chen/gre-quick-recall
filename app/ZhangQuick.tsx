@@ -124,7 +124,7 @@ export default function ZhangQuick({deck,pronounce,planTarget,onPlanTargetHandle
     function keydown(event: KeyboardEvent) {
       if (document.querySelector?.(".learningPlanOverlay, .onboardingOverlay, .workspaceMenuOverlay, .practiceOverlay")) return;
       const target = event.target as HTMLElement | null;
-      if (!active || event.metaKey || event.ctrlKey || event.altKey || target?.closest("input, textarea, select, [contenteditable='true'], summary")) return;
+      if (!active || event.isComposing || event.metaKey || event.ctrlKey || event.altKey || target?.closest("input, textarea, select, [contenteditable='true'], summary")) return;
       const isArrow = event.key.startsWith("Arrow");
       if (event.repeat && !isArrow) return;
       if (isArrow && ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
@@ -162,7 +162,7 @@ export default function ZhangQuick({deck,pronounce,planTarget,onPlanTargetHandle
     <p className="filterHint">颜色可多选；标记后本轮名单不变，再点唯一已选颜色可刷新。</p>
     <div className="quickFilters mathQuickFilters">
       <input className="search" aria-label={`搜索${title}`} placeholder="搜索英文、释义或题号…" value={query} onChange={(event) => { setQuery(event.target.value); setActiveId(null); }} />
-      <details className="rangePicker categoryPicker"><summary><span>{deck==='zhang-pairs'?'选择天数':'选择 List / 补充组'}</span><strong>{selection.length === groups.length ? `全部 · ${groups.length} 组` : selection.length <= 2 ? selection.join(" / ") || "尚未选择" : `已选 ${selection.length} 组`}</strong></summary>
+      <details className="rangePicker categoryPicker"><summary><span>{deck==='zhang-pairs'||deck==='zhang-jijing'?'选择天数':'选择 List / 补充组'}</span><strong>{selection.length === groups.length ? `全部 · ${groups.length} 组` : selection.length <= 2 ? selection.join(" / ") || "尚未选择" : `已选 ${selection.length} 组`}</strong></summary>
         <div className="rangePickerPanel categoryPickerPanel"><button className="all" onClick={() => changeSelection(selection.length === groups.length ? [] : groups)}>{selection.length === groups.length ? "全不选" : "全选"}</button>
           {groups.map((group) => <button key={group} aria-pressed={selection.includes(group)} className={selection.includes(group) ? "active" : ""} onClick={() => changeSelection(selection.includes(group) ? selection.filter((value) => value !== group) : groups.filter((value) => value === group || selection.includes(value)))}>{group}</button>)}
         </div>
@@ -174,12 +174,12 @@ export default function ZhangQuick({deck,pronounce,planTarget,onPlanTargetHandle
     <div className="shortcutBar"><span><kbd>↑</kbd><kbd>↓</kbd> 上 / 下一词</span><span><kbd>Space</kbd> 发音</span><span><kbd>Enter</kbd> 揭晓 / 遮挡</span><span><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> 红 / 黄 / 绿</span></div>
     <div className="shuffleControls"><button aria-pressed={hideRelated} onClick={()=>setHideRelated(!hideRelated)}>{hideRelated?'显示等价词':'隐藏等价词'}</button><button aria-pressed={hideNotes} onClick={()=>setHideNotes(!hideNotes)}>{hideNotes?'显示共享笔记':'隐藏共享笔记'}</button></div>
     <div className={`zhangTable ${deck==='zhang-pairs'?'zhangPairs':''}`} role="table" aria-label={title}>
-     <div className="zhangRow zhangHeader" role="row"><span>单词{deck==='zhang-words'?' / 音标':''}</span><span>中文释义{deck==='zhang-words'?' / 英文解释':''}</span><span>等价词</span>{deck==='zhang-words'&&<span>例句</span>}<span>掌握程度</span></div>
-     {visible.map(entry=><div className={`zhangRow ${entry.id===active?.id?'keyboardActive':''}`} role="row" key={entry.id} ref={el=>{rows.current[entry.id]=el;}}>
+     <div className="zhangRow zhangHeader" role="row"><span>单词{deck!=='zhang-pairs'?' / 音标':''}</span><span>中文释义{deck!=='zhang-pairs'?' / 英文解释':''}</span><span>等价词</span>{deck!=='zhang-pairs'&&<span>例句</span>}<span>掌握程度</span></div>
+     {visible.map(entry=><div className={`zhangRow ${entry.id===active?.id?'keyboardActive':''}`} role="row" aria-current={entry.id===active?.id?"true":undefined} key={entry.id} ref={el=>{rows.current[entry.id]=el;}}>
       <div><button className="quickWord" onClick={()=>{setActiveId(entry.id);pronounce(entry.word);}}><strong>{entry.word}</strong></button><NotebookFrequencyBadge word={entry.word}/>{entry.phonetic&&<small>{entry.phonetic}</small>}<small>{entry.group} · 第 {entry.number} 个</small><small>PDF 第 {entry.page} 页</small></div>
       <div><button className={`quickMeaning ${revealed.includes(entry.id)?"revealed":""}`} aria-expanded={revealed.includes(entry.id)} onClick={()=>reveal(entry.id)}>{revealed.includes(entry.id)?entry.meaning:'点击揭晓中文释义'}</button>{revealed.includes(entry.id)&&entry.english&&<p lang="en">{entry.english}</p>}</div>
       <div>{hideRelated?<span className="muted">已隐藏</span>:entry.synonyms||'—'}</div>
-      {deck==='zhang-words'&&<div>{revealed.includes(entry.id)?<><p lang="en">{entry.exampleEnglish||'—'}</p><p>{entry.exampleChinese}</p></>:<span className="muted">揭晓释义后显示例句</span>}</div>}
+      {deck!=='zhang-pairs'&&<div>{revealed.includes(entry.id)?<><p lang="en">{entry.exampleEnglish||'—'}</p><p>{entry.exampleChinese}</p></>:<span className="muted">揭晓释义后显示例句</span>}</div>}
       <div className="trafficLights" role="group" aria-label={`${entry.word} 掌握程度`}>{ratingsList.slice(0,3).map(({value,label,color})=><button key={value} className={`${ratings[entry.id]===value?'active ':''}${color}`} aria-pressed={ratings[entry.id]===value} onClick={()=>rate(entry.id,value as Rating)}><i/><span>{label}</span></button>)}</div>
       {!hideNotes&&revealed.includes(entry.id)&&<div className="zhangShared"><SharedWordMemory word={entry.word}/></div>}
      </div>)}

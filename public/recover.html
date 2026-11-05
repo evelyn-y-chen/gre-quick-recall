@@ -21,17 +21,17 @@
 <script>
 (()=>{'use strict';
  const status=document.getElementById('status'),list=document.getElementById('copies'),scan=document.getElementById('scan'),exportAll=document.getElementById('export');
- const modules={bb:['BB 六选二','gre-bb-ratings-v1'],words:['全能词','gre-quick-ratings-v1'],equivalents:['等价词','gre-equivalent-quick-ratings-v1'],'a-plus':['A+ 词组','gre-a-plus-equivalent-quick-ratings-v1'],'a-plus-words':['A+ 单词标记','gre-a-plus-word-marks-v1'],glee:['GLEE','gre-glee-1500-quick-ratings-v1'],math:['数学词汇','gre-math-vocabulary-quick-ratings-v1'],lclj:['阅读／填空','gre-lclj-quick-ratings-v1']};
+ const modules={'zhang-jijing':['张巍机经词7.0','gre-zhang-jijing-ratings-v1'],'zhang-words':['张巍镇考3000词','gre-zhang-words-ratings-v1'],'zhang-pairs':['张巍等价词','gre-zhang-pairs-ratings-v1'],bb:['BB 六选二','gre-bb-ratings-v1'],words:['全能词','gre-quick-ratings-v1'],equivalents:['等价词','gre-equivalent-quick-ratings-v1'],'a-plus':['A+ 词组','gre-a-plus-equivalent-quick-ratings-v1'],'a-plus-words':['A+ 单词标记','gre-a-plus-word-marks-v1'],glee:['GLEE','gre-glee-1500-quick-ratings-v1'],math:['数学词汇','gre-math-vocabulary-quick-ratings-v1'],lclj:['阅读／填空','gre-lclj-quick-ratings-v1']};
  let captured=[],scannedAt='';
  const parse=(s,fallback)=>{try{return JSON.parse(s);}catch{return fallback;}};
  const valid=p=>p&&p.version===1&&Array.isArray(p.rows)&&p.storage&&typeof p.storage==='object';
  const text=(tag,value)=>{const e=document.createElement(tag);e.textContent=value;return e;};
  function counts(p){const out={};for(const [module,[name,key]] of Object.entries(modules)){const map=new Map();for(const r of p.rows||[])if(typeof r.key==='string'&&r.key.startsWith('quick-rating:'+module+':'))map.set(r.key.slice(('quick-rating:'+module+':').length),parse(r.value,null));for(const storageKey of [key,'gre-rating-cloud-pending:'+module])for(const [id,value] of Object.entries(parse(p.storage[storageKey],{})||{}))map.set(id,value);const values=[...map.values()].filter(x=>['unknown','fuzzy','familiar'].includes(x));out[name]=values.length;}return out;}
  function testProgress(payload){
-  const result=[],names={'words':'全能词','bb':'BB 六选二','a-plus':'A+ 等价词','zhang-words':'张巍镇考3000词','zhang-pairs':'张巍等价词'};
+  const result=[],names={'words':'全能词','bb':'BB 六选二','a-plus':'A+ 等价词','zhang-jijing':'张巍镇考机经词7.0','zhang-words':'张巍镇考3000词','zhang-pairs':'张巍等价词'};
   const number=n=>Number.isSafeInteger(n)&&n>=0?n:0;
   for(const [key,raw] of Object.entries(payload.storage||{})){
-   const match=key.match(/^lemnota-practice-(zhang-words|zhang-pairs|words|bb|a-plus|notebook-[A-Za-z0-9_-]+)$/);
+   const match=key.match(/^lemnota-practice-(zhang-jijing|zhang-words|zhang-pairs|words|bb|a-plus|notebook-[A-Za-z0-9_-]+)$/);
    if(!match)continue;const run=parse(raw,null);if(!run||!Array.isArray(run.queue)||!run.results)continue;
    const review=parse(payload.storage['lemnota-practice-review-'+match[1]+'-v1'],{});
    result.push({label:names[match[1]]||'生词本 · '+match[1].slice(9),answers:number(run.turn)+(run.phase==='feedback'?1:0),completed:Object.values(run.results).filter(r=>r&&r.done).length,remaining:run.queue.filter(id=>!run.results[id]?.done).length,review:Object.keys(review||{}).length,updated:run.updatedAt||'',session:run.sessionId||''});

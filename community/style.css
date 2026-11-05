@@ -329,7 +329,7 @@ main .selectionChips button[aria-pressed=true],.practiceOverlay .selectionChips 
 .zhangRow .trafficLights {display:flex;flex-wrap:wrap;align-content:start;}
 .zhangHeader {font-weight:700;background:var(--community-soft);}
 .zhangShared {grid-column:1/-1;}
-.zhangRow.keyboardActive {box-shadow:inset 3px 0 var(--community-primary);}
+.zhangRow.keyboardActive {position:relative;z-index:1;outline:2px solid var(--community-accent);outline-offset:-2px;background:var(--community-soft);box-shadow:inset 4px 0 var(--community-accent);scroll-margin-block:100px;}
 @media(max-width:1000px){.zhangRow,.zhangPairs .zhangRow{grid-template-columns:minmax(0,1fr) minmax(0,1fr);}.zhangHeader{display:none;}.zhangRow>div:nth-child(3)::before{content:'等价词';display:block;opacity:.6;font-size:12px;margin-bottom:8px;}}
 @media(max-width:560px){.zhangRow,.zhangPairs .zhangRow{grid-template-columns:minmax(0,1fr);gap:14px;padding:18px;}.zhangQuick .libraryHead{display:block;}.zhangQuick h1{font-size:32px;}.zhangQuick .practiceEntry{flex-wrap:wrap;}}
 

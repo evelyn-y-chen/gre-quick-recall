@@ -45,9 +45,9 @@ test('fill, reading and math-index selections independently round-trip against t
 // tests. The browser timers stay pending until requested, making restore/write
 // races observable without touching any real browser or user storage.
 function quickView(name, initialStorage = {}, initialDeck = 'lclj-fill', initialRatings = {}) {
-  const modules = new Map(), timers = new Map(), rateCalls = [];
+  const modules = new Map(), timers = new Map(), rateCalls = [], listeners=new Map(), scrolled=[],spoken=[];
   let timerId = 0, hooks = [], effects = [], cursor = 0, dirty = false, tree, deck = initialDeck;
-  const browser = { setTimeout(fn) { const id = ++timerId; timers.set(id, fn); return id; }, clearTimeout(id) { timers.delete(id); }, addEventListener() {}, removeEventListener() {} };
+  const browser = { setTimeout(fn) { const id = ++timerId; timers.set(id, fn); return id; }, clearTimeout(id) { timers.delete(id); }, addEventListener(name,fn) {listeners.set(name,fn);}, removeEventListener(name,fn) {if(listeners.get(name)===fn)listeners.delete(name);} };
   const react = {
     useState(initial) { const i = cursor++; if (!(i in hooks)) hooks[i] = typeof initial === 'function' ? initial() : initial; return [hooks[i], value => { const next = typeof value === 'function' ? value(hooks[i]) : value; if (!Object.is(hooks[i], next)) { hooks[i] = next; dirty = true; } }]; },
     useRef(initial) { const i = cursor++; return hooks[i] ?? (hooks[i] = { current: initial }); },
@@ -61,19 +61,20 @@ function quickView(name, initialStorage = {}, initialDeck = 'lclj-fill', initial
     if (importName === 'react') return react;
     if (importName === 'react/jsx-runtime') return { jsx, jsxs: jsx };
     if (importName === './SharedWordMemory') return { default: () => null, useWordMemory: () => undefined };
+    if (importName === '../community/Practice') return {default:()=>null};
     if (importName === './RatingCloudSync' || importName === './RevealControls' || importName === './NotebookFrequency') return { default: () => null };
     if (importName.endsWith('.json')) return { default: data(importName.slice(2, -5)) };
     if (modules.has(importName)) return modules.get(importName);
-    assert.ok(['./BBQuick', './LcljQuick', './quickRangeModel', './ratingSyncModel', './ratingStorage', './wordMemoryModel', './bbModel', './studyWordOrder', '../community/storage'].includes(importName), `Unexpected import: ${importName}`);
-    const file = importName === '../community/storage' ? '../community/storage.ts' : `../app/${importName.slice(2)}${['./BBQuick', './LcljQuick'].includes(importName) ? '.tsx' : '.ts'}`;
+    assert.ok(['./BBQuick', './LcljQuick', './ZhangQuick', './zhangCatalog', './quickRangeModel', './ratingSyncModel', './ratingStorage', './wordMemoryModel', './bbModel', './studyWordOrder', '../community/storage'].includes(importName), `Unexpected import: ${importName}`);
+    const file = importName === '../community/storage' ? '../community/storage.ts' : `../app/${importName.slice(2)}${['./BBQuick', './LcljQuick', './ZhangQuick'].includes(importName) ? '.tsx' : '.ts'}`;
     const exported = {}; modules.set(importName, exported);
     const output = ts.transpileModule(fs.readFileSync(new URL(file, import.meta.url), 'utf8'), { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX } }).outputText;
-    new Function('require', 'exports', 'window', output)(load, exported, browser);
+    new Function('require', 'exports', 'window', 'document', output)(load, exported, browser, {querySelector(){return null;}});
     return exported;
   }
   const storage = load('../community/storage'); storage.loadStorage(initialStorage);
   const Component = load(`./${name}`).default;
-  function render() { for (let n = 0; n < 10; n++) { dirty = false; cursor = 0; tree = Component({ deck, ratings: initialRatings, onRate: (...args) => rateCalls.push(args), pronounce() {} }); while (effects.length) effects.shift()(); if (!dirty) return; } throw Error('Hook host did not settle'); }
+  function render() { for (let n = 0; n < 10; n++) { dirty = false; cursor = 0; tree = Component({ deck, ratings: initialRatings, onRate: (...args) => rateCalls.push(args), pronounce(word) {spoken.push(word);} }); for(const n of nodes(tree))if(n.props?.ref)n.props.ref({scrollIntoView(options){scrolled.push({word:text(n),options});}}); while (effects.length) effects.shift()(); if (!dirty) return; } throw Error('Hook host did not settle'); }
   function nodes(node) { if (!node || typeof node !== 'object') return []; return Array.isArray(node) ? node.flatMap(nodes) : typeof node.type==='function'?nodes(node.type(node.props)):[node, ...nodes(node.props?.children)]; }
   function text(node) { if (node == null || typeof node === 'boolean') return ''; if (Array.isArray(node)) return node.map(text).join(''); return typeof node === 'object' ? text(node.props?.children) : String(node); }
   function clean() { for (const hook of hooks) hook?.cleanup?.(); hooks = []; effects = []; }
@@ -81,7 +82,9 @@ function quickView(name, initialStorage = {}, initialDeck = 'lclj-fill', initial
   const colorGroup = () => nodes(tree).find(node => node.props?.['aria-label'] === 'BB 复习颜色（可多选）');
   render();
   return {
-    nodes: () => nodes(tree), text, rateCalls,
+    nodes: () => nodes(tree), text, rateCalls, scrolled, spoken,
+    key(key,target={closest(){return null;}}){let prevented=false;listeners.get("keydown")?.({key,code:key===' '?'Space':key,target,preventDefault(){prevented=true;}});render();return prevented;},
+    active:()=>nodes(tree).find(n=>n.props?.["aria-current"]==="true"),
     snapshot: () => storage.exportStorage(),
     selected: () => nodes(tree).filter(node => node.type === 'button' && node.props['aria-pressed'] === true).map(node=>text(node).replace(/^✓ /,'')),
     volume: () => nodes(tree).find(node => node.type === 'select')?.props.value,
@@ -272,3 +275,14 @@ for (const [deck, file, selectedGroups] of [
     } finally { view.close(); }
   });
 }
+
+for(const deck of ['zhang-words','zhang-pairs','zhang-jijing'])test(`${deck} arrows move the active word and scroll to it; editing fields keep their own keys`,()=>{
+ const view=quickView('ZhangQuick',{},deck),file=deck==='zhang-words'?'zhangWords':deck==='zhang-pairs'?'zhangPairs':'zhangJijing',entries=data(file);
+ view.flush();assert.match(view.text(view.active()),new RegExp(entries[0].word));
+ assert.equal(view.key('ArrowDown'),true);assert.match(view.text(view.active()),new RegExp(entries[1].word));assert.ok(view.scrolled.length);assert.equal(view.scrolled.at(-1).options.block,'center');
+ assert.equal(view.key('ArrowUp'),true);assert.match(view.text(view.active()),new RegExp(entries[0].word));
+ const scrollCount=view.scrolled.length;view.key('ArrowUp');assert.equal(view.scrolled.length,scrollCount,'Boundary key does not scroll to another row');
+ assert.equal(view.key('ArrowDown',{closest(){return {};}}),false);assert.match(view.text(view.active()),new RegExp(entries[0].word));
+ view.key('Enter');assert.ok(view.text(view.active()).includes(entries[0].meaning));view.key('2');
+ assert.equal(JSON.parse(view.snapshot()[`gre-${deck}-ratings-v1`])[entries[0].id],'fuzzy');
+});

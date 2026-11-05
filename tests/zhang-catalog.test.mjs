@@ -32,3 +32,19 @@ test('both new tests generate a unique correct answer and isolated restorable re
  const merged=mergeImportedPractice(current,{version:1,rows:[],storage:{[key]:'{}'}});assert.equal(merged.storage.unrelated,'keep');assert.equal(merged.storage[key],'{}');
  }
 });
+
+test('jijing 7.0 retains all source DAY groups, complete fields, stable IDs and phrase boundaries',()=>{
+ const entries=zhangDecks['zhang-jijing'].entries;
+ assert.equal(entries.length,1450);assert.equal(new Set(entries.map(e=>e.id)).size,1450);
+ assert.deepEqual(Array.from({length:7},(_,i)=>entries.filter(e=>e.list===i+1).length),[210,210,210,210,210,210,190]);
+ assert.equal(entries[0].word,'noisome');assert.equal(entries[0].meaning,'令人讨厌的，恶臭的');assert.equal(entries[0].synonyms,'malodorous');
+ assert.equal(entries.at(-1).word,'at odds with');assert.ok(entries.find(e=>e.word==='keep abreast of'));
+ assert.equal(entries.filter(e=>e.sourceExample).length,1408);
+ for(const e of entries){assert.ok(e.meaning&&e.english&&e.page>=3&&e.page<=189);assert.ok(!/[\u4e00-\u9fff]/.test(e.english));assert.ok(!/[\u4e00-\u9fff]/.test(e.word));assert.ok(!/MicrosoftYaHei|cid:/.test(JSON.stringify(e)));}
+ const catalog=getLearningPlanCatalog();assert.deepEqual(buildPlannedLists(catalog.words,['zhang-jijing']).map(u=>u.label),Array.from({length:7},(_,i)=>'DAY '+(i+1)));
+ assert.ok(catalog.words.find(w=>w.id==='noisome').occurrences.some(o=>o.deckId==='zhang-jijing'));
+ const terms=entries.map(e=>({...e,synonyms:zhangSynonyms(e)})),links=terms.map(e=>[e.word,...e.synonyms]);
+ for(const term of terms.filter((_,i)=>i%75===0)){const choices=optionsFor(term,terms,'en-zh',links);assert.ok(choices.length>=2);assert.equal(choices.filter(c=>c.correct).length,1);}
+ for(const key of ['lemnota-practice-zhang-jijing','lemnota-practice-review-zhang-jijing-v1'])assert.ok(isPracticeStorageKey(key));
+ assert.equal(zhangRatingKeys['zhang-jijing'],'gre-zhang-jijing-ratings-v1');
+});

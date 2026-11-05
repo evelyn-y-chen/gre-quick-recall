@@ -22,7 +22,7 @@ export type PlanDeck={id:string;name:string;count:number};
 type PlanSnapshot={rows:{key:string;value:string}[];storage:Record<string,string>};
 type PlanCatalog={decks:PlanDeck[];words:PlannedWord[]};
 const definitions=[
- ['zhang-words','张巍镇考3000词'],['zhang-pairs','张巍等价词'],
+ ['zhang-jijing','张巍镇考机经词7.0'],['zhang-words','张巍镇考3000词'],['zhang-pairs','张巍等价词'],
  ['words','全能词速刷'],['equivalents','等价词速刷'],['a-plus','A+ 等价词'],['bb','BB 六选二'],
  ['glee','GLEE 必备1500词'],['math','数学词汇'],['lclj-fill','填空高频3000词'],
  ['lclj-reading','阅读核心300词'],['lclj-math','数学词汇索引'],['notebook','生词本'],
@@ -45,7 +45,7 @@ export function getLearningPlanCatalog(snapshot?:PlanSnapshot):PlanCatalog{
   else words.set(id,{id,word:word.trim(),occurrences:[occurrence]});
   perDeck.get(deckId)!.add(id);
  }
- for(const deck of ['zhang-words','zhang-pairs'] as ZhangDeck[])zhangDecks[deck].entries.forEach(e=>{add(deck,e.id,e.word,e.meaning,{list:e.list,category:e.group,role:'core'});if(deck==='zhang-pairs')zhangSynonyms(e).forEach((word,i)=>add(deck,e.id,word,e.meaning,{list:e.list,category:e.group,role:'equivalent',slot:i+1}));});
+ for(const deck of ['zhang-jijing','zhang-words','zhang-pairs'] as ZhangDeck[])zhangDecks[deck].entries.forEach(e=>{add(deck,e.id,e.word,e.meaning,{list:e.list,category:e.group,role:'core'});if(deck==='zhang-pairs')zhangSynonyms(e).forEach((word,i)=>add(deck,e.id,word,e.meaning,{list:e.list,category:e.group,role:'equivalent',slot:i+1}));});
  vocabulary.forEach(entry=>add('words',entry.id,entry.word,entry.meaning,{list:entry.list}));
  equivalents.forEach(entry=>{
   add('equivalents',entry.id,entry.left,entry.meaning,{list:entry.set,slot:0,role:'equivalent'});

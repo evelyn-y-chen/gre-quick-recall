@@ -1925,6 +1925,7 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
     glee: { enabled: false, seed: 0 },
     mindmap: { enabled: false, seed: 0 },
     math: { enabled: false, seed: 0 },
+    "zhang-jijing": {enabled:false,seed:0},
     "zhang-words": {enabled:false,seed:0},
     "zhang-pairs": {enabled:false,seed:0},
     "lclj-fill": { enabled: false, seed: 0 },
@@ -2041,7 +2042,7 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
         if (savedGleeLists) setGleeLists(savedGleeLists);
         if (savedMathCategories) setMathCategories(savedMathCategories);
         const savedQuickType = studyStorage.getItem("gre-last-quick-type-v1");
-        if (["notebook", "words", "equivalents", "a-plus", "bb", "glee", "mindmap", "math", "lclj-fill", "lclj-reading", "lclj-math", "zhang-words", "zhang-pairs"].includes(savedQuickType ?? "")) setQuickType(savedQuickType as QuickType);
+        if (["notebook", "words", "equivalents", "a-plus", "bb", "glee", "mindmap", "math", "lclj-fill", "lclj-reading", "lclj-math", "zhang-words", "zhang-pairs", "zhang-jijing"].includes(savedQuickType ?? "")) setQuickType(savedQuickType as QuickType);
         const savedManualDay = Number(studyStorage.getItem(PLAN_DAY_KEY));
         const savedPlanStart = Number(studyStorage.getItem(PLAN_START_KEY));
         const migratedDay = savedPlanStart ? planDay(savedPlanStart) : 1;
@@ -3380,7 +3381,7 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
             <button className={quickType === "glee" ? "active" : ""} onClick={() => setQuickType("glee")} role="tab" aria-selected={quickType === "glee"}>GLEE必备1500词</button>
             <button className={quickType === "mindmap" ? "active" : ""} onClick={() => setQuickType("mindmap")} role="tab" aria-selected={quickType === "mindmap"}>GLEE词汇导图</button>
             <button className={quickType === "math" ? "active" : ""} onClick={() => setQuickType("math")} role="tab" aria-selected={quickType === "math"}>数学词汇</button>
-            {([['lclj-fill', '填空高频3000词'], ['lclj-reading', '阅读核心300词'], ['lclj-math', '数学词汇索引'], ['zhang-words','张巍镇考3000词'], ['zhang-pairs','张巍等价词']] as const).map(([type, label]) => (
+            {([['lclj-fill', '填空高频3000词'], ['lclj-reading', '阅读核心300词'], ['lclj-math', '数学词汇索引'], ['zhang-words','张巍镇考3000词'], ['zhang-pairs','张巍等价词'], ['zhang-jijing','张巍镇考机经词7.0']] as const).map(([type, label]) => (
               <button key={type} className={quickType === type ? "active" : ""} onClick={() => setQuickType(type)} role="tab" aria-selected={quickType === type}>{label}</button>
             ))}
           </div>
@@ -3393,7 +3394,7 @@ export default function Home({planTarget,onPlanTargetHandled}:{planTarget?:PlanN
             ratings={quickType === "words" ? quickRatings : quickType === "equivalents" ? quickEquivalentRatings : quickType === "a-plus" ? aPlusRatings : quickType === "glee" ? gleeRatings : quickType === "math" ? mathRatings : lcljRatings}
             onLoad={quickType === "words" ? setQuickRatings : quickType === "equivalents" ? setQuickEquivalentRatings : quickType === "a-plus" ? setAPlusRatings : quickType === "glee" ? setGleeRatings : quickType === "math" ? setMathRatings : setLcljRatings}
           />}
-          {quickType === "zhang-words" || quickType === "zhang-pairs" ? <ZhangQuick key={quickType} deck={quickType} pronounce={pronounce} planTarget={requestedPlanRange} onPlanTargetHandled={()=>setRequestedPlanRange(null)}/> : quickType === "bb" ? <BBQuick pronounce={pronounce} planTarget={requestedPlanRange} onPlanTargetHandled={()=>setRequestedPlanRange(null)}/> : quickType === "notebook" ? (
+          {quickType === "zhang-words" || quickType === "zhang-pairs" || quickType === "zhang-jijing" ? <ZhangQuick key={quickType} deck={quickType} pronounce={pronounce} planTarget={requestedPlanRange} onPlanTargetHandled={()=>setRequestedPlanRange(null)}/> : quickType === "bb" ? <BBQuick pronounce={pronounce} planTarget={requestedPlanRange} onPlanTargetHandled={()=>setRequestedPlanRange(null)}/> : quickType === "notebook" ? (
             <VocabularyNotebook words={words} pronounce={pronounce} planTarget={requestedPlanRange} onPlanTargetHandled={()=>setRequestedPlanRange(null)}/>
           ) : quickType === "lclj-fill" || quickType === "lclj-reading" || quickType === "lclj-math" ? (
             <LcljQuick key={quickType} deck={quickType} planTarget={requestedPlanRange} onPlanTargetHandled={()=>setRequestedPlanRange(null)} ratings={lcljRatings} onRate={(id, rating) => {recordLearningPlanRatings("lclj",{[id]:rating});setLcljRatings((current) => ({ ...current, [id]: rating }));}} pronounce={pronounce} />

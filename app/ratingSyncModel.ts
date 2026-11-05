@@ -1,6 +1,6 @@
 export type Rating = "unknown" | "fuzzy" | "familiar";
 export type Ratings = Record<string,Rating>;
-export const ratingModules = ["zhang-words","zhang-pairs","bb","words","equivalents","a-plus","glee","math","lclj","a-plus-words"] as const;
+export const ratingModules = ["zhang-jijing","zhang-words","zhang-pairs","bb","words","equivalents","a-plus","glee","math","lclj","a-plus-words"] as const;
 export function validRatings(value:unknown):value is Ratings {
  return !!value && typeof value === "object" && !Array.isArray(value) && Object.keys(value).length <= 30000 && Object.entries(value).every(([k,v])=>k.length>0 && k.length<=200 && !["__proto__","constructor","prototype"].includes(k) && ["unknown","fuzzy","familiar"].includes(v as string));
 }

@@ -211,7 +211,7 @@ for(const kind of ['practice','aplus'])test(`${kind} late save confirmation cann
 test('recall clicks reveal, allow corrections, persist immediately and never write traffic lights or review dates',async()=>{
  const originalRating='{"a1":"familiar"}',view=harness('recall',{data:{'gre-quick-ratings-v1':originalRating}});
  try{
-  assert.ok(!view.text().includes('甲一含义'));await view.key('3');assert.match(view.text(),/甲一含义/);assert.match(view.text(),/本词第 1 次判断/);assert.equal(view.recallRun().selection,'familiar');
+  assert.ok(!view.text().includes('甲一含义'));await view.key('3');assert.match(view.text(),/甲一含义/);assert.match(view.text(),/本词第 1 次判断/);assert.equal(view.recallRun().selection,'familiar');assert.match(view.text(),/首遍熟悉，直接过关/);
   await view.key('1');assert.equal(view.recallRun().selection,'unknown');assert.equal(view.recallRun().turn,0);assert.match(view.text(),/连续达标 0\/2/);
   await view.key('Enter');assert.equal(view.recallRun().turn,1);assert.equal(view.recallRun().results.a1.attempts,1);assert.equal(view.recallRun().results.a1.rating,'unknown');
   assert.equal(view.storage.get('gre-quick-ratings-v1'),originalRating);assert.equal(view.storage.has('lemnota-practice-review-words-v1'),false);assert.deepEqual(view.learning,[]);
@@ -237,7 +237,6 @@ test('due review offers both formats and flashcards reuse the same overdue words
  const view=harness('practice',{chips:true,data:{'lemnota-practice-review-words-v1':JSON.stringify(old)}});
  try{
   await view.click('翻卡自测');await view.click('开始到期复习');assert.equal(view.recallRun().review,true);assert.deepEqual(view.recallRun().order,['a1']);
-  await view.key('3');assert.deepEqual(view.history(),old,'revealing and changing do not alter the schedule');await view.key('2');assert.deepEqual(view.history(),old);await view.key('3');await view.key('Enter');assert.deepEqual(view.history(),old,'one familiar visit does not pass');
-  await view.key('3');await view.key('Enter');assert.equal(view.recallRun().queue.length,0);assert.equal(view.history().a1.level,1);assert.equal(view.history().a1.reviews,3);assert.equal(view.run(),null,'the multiple-choice session is untouched');assert.equal(view.learning.length,0);
+  await view.key('3');assert.deepEqual(view.history(),old,'revealing and changing do not alter the schedule');await view.key('2');assert.deepEqual(view.history(),old);await view.key('3');await view.key('Enter');assert.equal(view.recallRun().queue.length,0);assert.equal(view.history().a1.level,1);assert.equal(view.history().a1.reviews,3);assert.equal(view.run(),null,'the multiple-choice session is untouched');assert.equal(view.learning.length,0);
  }finally{view.close();}
 });

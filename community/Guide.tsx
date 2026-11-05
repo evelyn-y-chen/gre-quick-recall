@@ -195,12 +195,12 @@ const groups: GuideGroup[] = [
         en: 'Recall with flashcards',
         cn: [
           '进入「开始测试」，在测试形式选择「翻卡自测」，沿用本模块的 List、收集和红黄绿范围。先看英文回忆中文，点击不认识／模糊／熟悉（快捷键 1／2／3）后，查看释义、原词条各列和共享笔记；揭晓后仍可改选。按 Enter 进入下一词。',
-          '严格模式连续两次熟悉过关；宽松模式连续两次模糊或熟悉过关。不认识隔 3 个词返场，模糊隔 5 个词，熟悉尚未过关也隔 5 个词；其他待测词不足时提前返场。只重测不认识时，模糊词暂缓并单独列出，可在本轮结束后继续巩固，不会当作已过关。',
+          '首次判断就选熟悉，直接过关、不再返场。选过不认识或模糊的词进入返场：严格模式需连续两次熟悉，宽松模式需连续两次模糊或熟悉。不认识隔 3 个词返场，模糊隔 5 个词，熟悉尚未过关也隔 5 个词；其他待测词不足时提前返场。只重测不认识时，模糊词暂缓并单独列出，可在本轮结束后继续巩固，不会当作已过关。',
           '翻卡判断不更改词表红黄绿。普通翻卡不改长期复习日期；到期复习可选择选择题或翻卡，两种形式共用原来的复习进度。到期翻卡点下一词后确认结果；未达标的判断安排次日复习，过关后按原间隔推进，同日不重复升级。每次选择、改选和下一词都会自动保存；可继续上次翻卡，便笺导出、测试进度恢复和本机恢复检查也包含它。',
         ],
         english: [
           'Choose Flashcards in the test settings. Reuse the module’s selected Lists, collections and rating filters. Recall the Chinese meaning, then choose Unknown, Unsure or Familiar (1, 2, 3). Every choice reveals the complete source entry and shared notes. You may revise your choice; Enter advances.',
-          'Strict mode requires two consecutive Familiar ratings; lenient mode accepts two consecutive Unsure or Familiar ratings. Unknown returns after three intervening words; Unsure and not-yet-passed Familiar return after five. Short queues return earlier. Unknown-only retries defer Unsure words without counting them as passed; resume those words from the result screen.',
+          'A first-visit Familiar rating passes immediately without returning. Words initially rated Unknown or Unsure enter retries: strict mode requires two consecutive Familiar ratings; lenient mode accepts two consecutive Unsure or Familiar ratings. Unknown returns after three intervening words; Unsure and not-yet-passed Familiar return after five. Short queues return earlier. Unknown-only retries defer Unsure words without counting them as passed; resume those words from the result screen.',
           'Flashcard ratings belong only to this round. They do not change the module’s traffic lights. Regular flashcards do not change review dates. Due review supports both multiple choice and flashcards using the same schedule; advancing confirms the result. Failed visits return tomorrow, and passing advances the existing interval at most once per day. Choices, corrections and advances save automatically and are included in account sync, slips and recovery checks.',
         ],
       },

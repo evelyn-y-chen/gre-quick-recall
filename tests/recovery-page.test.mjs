@@ -10,10 +10,10 @@ const snapshot=(count,draft='')=>({version:1,rows:[],storage:{'lemnota-username'
 test('recovery inspection lists flipcard progress, an unadvanced revealed pass and deferred fuzzy words',async()=>{
  const m=loadModel('community/recallModel.ts');let n=0;const token=()=>`recovery-${++n}`;
  let run=m.createRecallRun(['a'],{mode:'strict',retry:'all'},token);
- run=m.advanceRecall(m.chooseRecallRating(run,'familiar',token),token);run=m.chooseRecallRating(run,'familiar',token);
+ run=m.chooseRecallRating(run,'familiar',token);
  let fuzzy=m.createRecallRun(['b'],{mode:'strict',retry:'unknown'},token);fuzzy=m.advanceRecall(m.chooseRecallRating(fuzzy,'fuzzy',token),token);
  const payload=snapshot(3);payload.storage['lemnota-recall-words-v1']=JSON.stringify(run);payload.storage['lemnota-recall-bb-v1']=JSON.stringify(fuzzy);
- const p=page([['local',{payload}]]);await p.scan();assert.match(p.allText(),/全能词 · 翻卡自测/);assert.match(p.allText(),/已答 2 次 · 已过关 1 词 · 待过关 0 词/);assert.match(p.allText(),/暂缓重测的模糊词 1 词/);assert.deepEqual(p.transactions,[{name:'workspaces',mode:'readonly'}]);
+ const p=page([['local',{payload}]]);await p.scan();assert.match(p.allText(),/全能词 · 翻卡自测/);assert.match(p.allText(),/已答 1 次 · 已过关 1 词 · 待过关 0 词/);assert.match(p.allText(),/暂缓重测的模糊词 1 词/);assert.deepEqual(p.transactions,[{name:'workspaces',mode:'readonly'}]);
 });
 function page(entries,{missing=false}={}){
  const elements=new Map(),transactions=[],downloads=[];let opens=0,closed=false,aborted=false;

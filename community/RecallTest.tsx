@@ -32,9 +32,9 @@ export function RecallTestSetup({scope,title,pool,selected,random,onActiveChange
  return <div className="recallSetup">
   {saved&&summary&&<div className="practiceResume"><span>上次{saved.review?'到期翻卡':'翻卡'}：已答 {summary.answers} 次 · 已过关 {summary.completed} / {saved.order.length}{summary.deferred?` · 暂缓 ${summary.deferred} 个模糊词`:''}</span><button type="button" onClick={()=>open(saved)}>{saved.queue.length?'继续上次翻卡':'查看上次翻卡结果'}</button></div>}
   <div className="recallRules"><p>先看英文回忆中文，选择后揭晓完整词条和笔记；揭晓后可以改选。判断只属于本轮，不改词表红黄绿。</p>
-   <SelectionChips exclusive label="翻卡过关条件" options={[{id:'strict',label:'严格 · 连续两次熟悉'},{id:'lenient',label:'宽松 · 连续两次模糊或熟悉'}]} selected={[config.mode]} onChange={ids=>{const mode=ids.find(id=>id!==config.mode);if(mode)setConfig({...config,mode:mode as RecallConfig['mode']});}}/>
+   <SelectionChips exclusive label="翻卡过关条件" options={[{id:'strict',label:'严格 · 返场后连续两次熟悉'},{id:'lenient',label:'宽松 · 返场后连续两次模糊或熟悉'}]} selected={[config.mode]} onChange={ids=>{const mode=ids.find(id=>id!==config.mode);if(mode)setConfig({...config,mode:mode as RecallConfig['mode']});}}/>
    <SelectionChips exclusive label="翻卡返场范围" options={[{id:'all',label:'重测不认识和模糊'},{id:'unknown',label:'只重测不认识'}]} selected={[config.retry]} onChange={ids=>{const retry=ids.find(id=>id!==config.retry);if(retry)setConfig({...config,retry:retry as RecallConfig['retry']});}}/>
-   <p className="recallHint">不认识隔 3 个词返回，模糊隔 5 个词；熟悉未达过关次数时也隔 5 个词巩固。剩余词不足时提前返回。{config.retry==='unknown'?'模糊词暂不返场，单独保留，可稍后补测；不会计为已过关。':''}</p>
+   <p className="recallHint">第一次就选熟悉，直接过关、不再返场。不认识隔 3 个词返回，模糊隔 5 个词；熟悉未达过关次数时也隔 5 个词巩固。剩余词不足时提前返回。{config.retry==='unknown'?'模糊词暂不返场，单独保留，可稍后补测；不会计为已过关。':''}</p>
   </div>
   <p>本次范围 {selected.length} 个词条</p><button type="button" className="primary solid" disabled={!selected.length} onClick={()=>open(createRecallRun((random?shuffle(selected):selected).map(t=>t.id),config))}>开始翻卡自测</button>
   {active&&createPortal(<RecallTest initial={active} pool={pool} scope={scope} title={title} onClose={close} onReview={onReview}/>,document.body)}
@@ -47,7 +47,7 @@ export function RecallTest({initial,pool,scope,title,onClose,onReview}:{initial:
  const lookback=readTestLookback(run.lookback),memory=useWordMemory();
  const byId=useMemo(()=>new Map(pool.map(t=>[t.id,t])),[pool]),current=byId.get(run.queue[0]),preview=recallResult(run),summary=recallSummary(run),deferred=recallDeferred(run);
  const fields=current?recallFields(current):[],key=recallKey(scope);
- const attempt=preview?`本词第 ${preview.attempts} 次判断 · ${preview.done?'已过关':`连续达标 ${preview.streak}/2，还需 ${2-preview.streak} 次`}`:'';
+ const attempt=preview?`本词第 ${preview.attempts} 次判断 · ${preview.done?(preview.attempts===1?'首遍熟悉，直接过关':'已过关'):`连续达标 ${preview.streak}/2，还需 ${2-preview.streak} 次`}`:'';
  function update(next:RecallRun){
   if(busy.current||getWorkspaceGeneration()!==generation.current)return;
   // Persist the exact click before React effects or page dismissal can run.
@@ -75,7 +75,7 @@ export function RecallTest({initial,pool,scope,title,onClose,onReview}:{initial:
   if(busy.current||getWorkspaceGeneration()!==generation.current||historyAt!==null||!live.current.selection)return;
   const before=live.current,term=byId.get(before.queue[0]);if(!term)return;
   const result=recallResult(before)!,nextRun=advanceRecall(before);
-  const receipt:TestQuestionSnapshot={id:before.sessionId+':'+before.turn,word:term.word,meaning:term.meaning,status:`第 ${result.attempts} 次判断 · 连续达标 ${result.streak}/2`,steps:[{label:'翻卡自测',chosen:[labelFor(before.selection!)],correct:[term.meaning],options:[]}],notes:[...recallFields(term).filter(f=>f.label!=='中文释义').map(f=>({word:f.label,text:f.value.slice(0,3000)})),...captureTestNotes([term.word],memory)]};
+  const receipt:TestQuestionSnapshot={id:before.sessionId+':'+before.turn,word:term.word,meaning:term.meaning,status:`第 ${result.attempts} 次判断 · ${result.done?(result.attempts===1?'首遍熟悉，直接过关':'已过关'):`连续达标 ${result.streak}/2`}`,steps:[{label:'翻卡自测',chosen:[labelFor(before.selection!)],correct:[term.meaning],options:[]}],notes:[...recallFields(term).filter(f=>f.label!=='中文释义').map(f=>({word:f.label,text:f.value.slice(0,3000)})),...captureTestNotes([term.word],memory)]};
   try{
    if(before.review){
     if(!onReview)throw Error('到期复习未连接，请保留本页后重新打开本模块。');
@@ -104,7 +104,7 @@ export function RecallTest({initial,pool,scope,title,onClose,onReview}:{initial:
   <div className="testToolbar"><div className="testSaveStatus"><small role="status" title={autoSave.status}><span className="recallSaveFull">{autoSave.status}</span><span className="recallSaveCompact">{compactStatus}</span></small>{needsRetry&&<button type="button" onClick={autoSave.retry}>重试同步</button>}</div>{historyAt===null&&current&&<TestAudio word={current.word} questionKey={run.sessionId+':'+run.turn}/>}</div>
   {message&&<p role="status" className="recallHint">{message}</p>}
   {historyAt!==null?<TestQuestionHistory snapshots={lookback} index={historyAt} onIndex={setHistoryAt} onReturn={()=>setHistoryAt(null)}/>:current?<>
-   <div className="practiceQuestionHeader"><p>{run.review?'到期复习 · ':''}已答 {summary.answers} 次 · 已过关 {summary.completed} / {run.order.length} · {run.config.mode==='strict'?'连续两次熟悉':'连续两次模糊或熟悉'}{summary.deferred?` · 暂缓 ${summary.deferred} 词`:''}</p><h3 className="practicePrompt">{current.word}</h3><NotebookFrequencyBadge word={current.word}/><p>{recallLocation(current)}</p></div>
+   <div className="practiceQuestionHeader"><p>{run.review?'到期复习 · ':''}已答 {summary.answers} 次 · 已过关 {summary.completed} / {run.order.length} · 首遍熟悉直接过关 · {run.config.mode==='strict'?'返场后连续两次熟悉':'返场后连续两次模糊或熟悉'}{summary.deferred?` · 暂缓 ${summary.deferred} 词`:''}</p><h3 className="practicePrompt">{current.word}</h3><NotebookFrequencyBadge word={current.word}/><p>{recallLocation(current)}</p></div>
    <div className={`recallBody${run.selection?' isRevealed':''}`}>
     {run.selection?<><section className="recallSource" aria-label="完整词条"><dl>{fields.map(f=><div key={f.label}><dt>{f.label}</dt><dd lang={['英文解释','英文例句'].includes(f.label)?'en':undefined}>{f.value}</dd></div>)}</dl></section><aside className="recallMemory" aria-label="共享记忆笔记"><SharedWordMemory word={current.word}/></aside></>:<div className="recallConcealed"><span aria-hidden="true">Aa</span><p>在心里回忆它的中文意思</p><small>选择下方任意判断，查看释义和完整笔记。</small>{run.due[current.id]>run.turn&&<small>剩余词不足间隔，提前巩固这一词。</small>}</div>}
    </div>

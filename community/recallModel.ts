@@ -18,7 +18,9 @@ export function isRecallRun(v:unknown):v is RecallRun {
  if(v.review!==undefined&&typeof v.review!=='boolean')return false;
  const ids=new Set(v.order);
  if(v.queue.some((id:string)=>!ids.has(id))||!Object.entries(v.due).every(([id,d])=>v.queue.includes(id)&&int(d)))return false;
- if(!Object.entries(v.results).every(([id,r])=>ids.has(id)&&obj(r)&&int(r.attempts)&&r.attempts>0&&int(r.streak)&&r.streak<=2&&r.streak<=r.attempts&&typeof r.done==='boolean'&&r.done===(r.streak===2)&&rating(r.rating)&&(!r.done||!v.queue.includes(id))))return false;
+ // Older rounds may still contain a one-visit familiar word waiting to return.
+ // Keep those records readable; new first-visit familiar results pass immediately.
+ if(!Object.entries(v.results).every(([id,r])=>ids.has(id)&&obj(r)&&int(r.attempts)&&r.attempts>0&&int(r.streak)&&r.streak<=2&&r.streak<=r.attempts&&typeof r.done==='boolean'&&(r.streak!==2||r.done)&&(!r.done||r.streak===2||r.attempts===1&&r.streak===1&&r.rating==='familiar')&&rating(r.rating)&&(!r.done||!v.queue.includes(id))))return false;
  if(Object.values(v.results).reduce((n:number,r:any)=>n+r.attempts,0)!==v.turn)return false;
  return v.order.every((id:string)=>v.queue.includes(id)||v.results[id]?.done||v.config.retry==='unknown'&&v.results[id]?.rating==='fuzzy');
 }
@@ -41,7 +43,7 @@ export function recallResult(run:RecallRun):RecallResult|null {
  if(!run.queue.length||!run.selection)return null;
  const before=run.results[run.queue[0]],ok=run.selection==='familiar'||run.config.mode==='lenient'&&run.selection==='fuzzy';
  const streak=ok?(before?.streak??0)+1:0;
- return {attempts:(before?.attempts??0)+1,streak,done:streak>=2,rating:run.selection};
+ return {attempts:(before?.attempts??0)+1,streak,done:!before&&run.selection==='familiar'||streak>=2,rating:run.selection};
 }
 export const recallGap=(rating:RecallRating)=>rating==='unknown'?3:5;
 export function recallDeferred(run:RecallRun){return run.order.filter(id=>!run.queue.includes(id)&&!run.results[id]?.done);}

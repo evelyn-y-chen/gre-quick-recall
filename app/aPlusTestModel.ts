@@ -1,6 +1,6 @@
 import data from "./aPlusEquivalents.json";
 import synonymPairs from "./equivalents.json";
-import {areQuizWordsConfusable,areQuizMorphologicalVariants,isAmbiguousQuizDistractor,rankQuizDistractors} from "./quizDistractors";
+import {areQuizWordsConfusable,areQuizMorphologicalVariants,isAmbiguousQuizDistractor,rankQuizDistractors,selectQuizDistractors} from "./quizDistractors";
 export type Entry = typeof data[number];
 export type TestMode = "single" | "multiple";
 export type Config = {lists:number[];order:"sequential"|"random";mode:TestMode};
@@ -55,13 +55,15 @@ export function makeQuestion(entryId:string,mode:TestMode,early=false,random:()=
  const randomCount=mode==="single"?1:1+Math.floor(random()*Math.min(5,positives.length));
  const count=Math.min(6-requiredNegatives.length,Math.max(requiredPositives.length,randomCount));
  const chosen=[...requiredPositives,...shuffle(positives.filter(w=>!requiredPositives.includes(w)),random).slice(0,count-requiredPositives.length)],negatives=[...requiredNegatives];
- if(6-count-negatives.length>=2&&random()<.7){
-  const group=shuffle(safe,random).find(g=>equivalents(g).filter(w=>allowed(w)&&!negatives.includes(w)).length>=2);
-  if(group)negatives.push(...shuffle(equivalents(group).filter(w=>allowed(w)&&!negatives.includes(w)),random).slice(0,2));
+ // Retried wrong words still need to pass the current semantic safety checks.
+ const selectedNegatives:string[]=[];
+ for(const word of [...negatives,...poolSafe]){
+  if(selectedNegatives.length>=6-count)break;
+  if(selectedNegatives.includes(word)||selectedNegatives.some(other=>isAmbiguousQuizDistractor({word:other,meaning:gloss(other)},{word,meaning:gloss(word)})||areQuizMorphologicalVariants(other,word)))continue;
+  selectedNegatives.push(word);
  }
- for(const word of poolSafe){if(negatives.length>=6-count)break;if(!negatives.includes(word))negatives.push(word);}
- const options=shuffle([...chosen.map(word=>({word,meaning:gloss(word),correct:true})),...negatives.map(word=>({word,meaning:gloss(word),correct:false}))],random);
- const meanings=shuffle([e.meaning,...rankQuizDistractors(e,shuffle(safe,random)).map(x=>x.meaning).filter((m,i,all)=>all.indexOf(m)===i).slice(0,3)],random);
+ const options=shuffle([...chosen.map(word=>({word,meaning:gloss(word),correct:true})),...selectedNegatives.map(word=>({word,meaning:gloss(word),correct:false}))],random);
+ const meanings=shuffle([e.meaning,...selectQuizDistractors(e,shuffle(safe,random),3).map(x=>x.meaning)],random);
  if(options.length!==6||meanings.length!==4)throw Error("无法生成足够的题目选项");
  return {id:crypto.randomUUID(),entryId,meanings,options,early};
 }
@@ -126,6 +128,8 @@ export function refreshAmbiguousQuestion(session:Session):Session{
  const safe=new Set(distractorGroups(session.question.entryId));
  const entry=byId.get(session.question.entryId)!;
  const unsafeMeaning=session.question.meanings.some(meaning=>meaning!==entry.meaning&&isAmbiguousQuizDistractor(entry,{word:"",meaning}));
- if(!unsafeMeaning&&!session.question.options.some(option=>!option.correct&&((groups.get(option.word)??[]).some(group=>!safe.has(group))||isAmbiguousQuizDistractor(entry,option)||[entry.word,...equivalents(entry)].some(word=>areQuizMorphologicalVariants(word,option.word)))))return session;
+ const unsafePair=session.question.options.some((option,index)=>!option.correct&&session.question!.options.slice(0,index).some(other=>!other.correct&&(isAmbiguousQuizDistractor(other,option)||areQuizMorphologicalVariants(other.word,option.word))))
+  ||session.question.meanings.some((meaning,index)=>session.question!.meanings.slice(0,index).some(other=>isAmbiguousQuizDistractor({word:'meaning-'+index,meaning},{word:'previous-meaning',meaning:other})));
+ if(!unsafeMeaning&&!unsafePair&&!session.question.options.some(option=>!option.correct&&((groups.get(option.word)??[]).some(group=>!safe.has(group))||isAmbiguousQuizDistractor(entry,option)||[entry.word,...equivalents(entry)].some(word=>areQuizMorphologicalVariants(word,option.word)))))return session;
  return {...session,question:makeQuestion(session.question.entryId,session.config.mode,session.question.early,Math.random,session.progress[session.question.entryId].retryWords),stage:"meaning",meaningChoice:null,selected:[],synonymUncertain:false};
 }

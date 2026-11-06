@@ -11,7 +11,7 @@ const canonical=(value:unknown):string=>JSON.stringify(object(value)?Object.from
 const same=(a:unknown,b:unknown)=>canonical(a)===canonical(b);
 const whole=(n:unknown)=>Number.isSafeInteger(n)&&(n as number)>=0;
 const date=(value:unknown)=>typeof value==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(value)&&Number.isFinite(Date.parse(value+'T00:00:00Z'))&&new Date(value+'T00:00:00Z').toISOString().slice(0,10)===value;
-const scope='(?:zhang-jijing|zhang-words|zhang-pairs|words|bb|a-plus|notebook-[A-Za-z0-9_-]+)';
+const scope='(?:qingshan-precise|qingshan-rare|zhang-jijing|zhang-words|zhang-pairs|words|bb|a-plus|notebook-[A-Za-z0-9_-]+)';
 export const isPracticeRunKey=(key:string)=>new RegExp('^lemnota-practice-'+scope+'$').test(key);
 export const isPracticeReviewKey=(key:string)=>new RegExp('^lemnota-practice-review-'+scope+'-v1$').test(key);
 export const isRecallStorageKey=(key:string)=>new RegExp('^lemnota-recall-'+scope+'-v1$').test(key);
@@ -87,10 +87,10 @@ export function practiceProgressSummary(snapshot:Snapshot){
   const value=parse(raw);
   if(isRecallStorageKey(key)&&isRecallRun(value)){
    const summary=recallSummary(value),scope=key.slice('lemnota-recall-'.length,-3);
-   const label=scope==='words'?'全能词':scope==='bb'?'BB 六选二':scope==='a-plus'?'A+ 等价词':scope==='zhang-jijing'?'张巍镇考机经词7.0':scope==='zhang-words'?'张巍镇考3000词':scope==='zhang-pairs'?'张巍等价词':'生词本';
+   const label=scope==='qingshan-precise'?'青山精准释义':scope==='qingshan-rare'?'青山熟词僻义':scope==='words'?'全能词':scope==='bb'?'BB 六选二':scope==='a-plus'?'A+ 等价词':scope==='zhang-jijing'?'张巍镇考机经词7.0':scope==='zhang-words'?'张巍镇考3000词':scope==='zhang-pairs'?'张巍等价词':'生词本';
    return [{key,label:label+' · 翻卡自测'+(value.review?'（到期复习）':''),remaining:summary.remaining,answers:summary.answers,completed:summary.completed}];
   }
-  return isPracticeRunKey(key)&&run(value)?[{key,label:key.endsWith('zhang-jijing')?'张巍镇考机经词7.0':key.endsWith('zhang-words')?'张巍镇考3000词':key.endsWith('zhang-pairs')?'张巍等价词':key.endsWith('words')?'全能词':key.endsWith('bb')?'BB 六选二':key.endsWith('a-plus')?'A+ 等价词':'生词本',remaining:value.queue.length,answers:value.turn,completed:Object.values(value.results).filter(r=>r.done).length}]:[];
+  return isPracticeRunKey(key)&&run(value)?[{key,label:key.endsWith('qingshan-precise')?'青山精准释义':key.endsWith('qingshan-rare')?'青山熟词僻义':key.endsWith('zhang-jijing')?'张巍镇考机经词7.0':key.endsWith('zhang-words')?'张巍镇考3000词':key.endsWith('zhang-pairs')?'张巍等价词':key.endsWith('words')?'全能词':key.endsWith('bb')?'BB 六选二':key.endsWith('a-plus')?'A+ 等价词':'生词本',remaining:value.queue.length,answers:value.turn,completed:Object.values(value.results).filter(r=>r.done).length}]:[];
  });
 }
 /** Restore only test sessions and their review schedules; notes/ratings/settings stay current. */

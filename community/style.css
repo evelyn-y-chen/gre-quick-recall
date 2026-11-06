@@ -348,6 +348,22 @@ main .selectionChips button[aria-pressed=true],.practiceOverlay .selectionChips 
 
 .testToolbar{display:flex;align-items:center;justify-content:space-between;gap:8px 20px;flex-wrap:wrap;margin:6px 0}
 .testToolbar:empty{display:none}
+
+/* Preserve the source's two meaning columns, with a separate editable note. */
+.qingshanQuick .qingshanRow{grid-template-columns:minmax(150px,1fr) minmax(130px,1.1fr) minmax(210px,1.65fr) minmax(190px,1.6fr) minmax(90px,.7fr);gap:16px;align-items:start;}
+.qingshanQuick .qingshanHeader{font-weight:600;background:var(--community-soft);}
+.qingshanQuick .qingshanCellLabel{display:none;}
+.qingshanQuick .quickWord{display:block;max-width:100%;width:100%;white-space:normal;text-align:left;}
+.qingshanQuick .quickWord strong{display:block;font-size:20px;line-height:1.4;white-space:normal;overflow-wrap:anywhere;}
+.qingshanQuick .sharedWordMemory{margin:0;padding:14px;}
+.qingshanQuick .sharedWordMemory textarea{width:100%;box-sizing:border-box;}
+@media(max-width:1100px){
+ .qingshanQuick .qingshanRow{grid-template-columns:minmax(0,1fr) minmax(0,1fr);}
+ .qingshanQuick .qingshanHeader{display:none;}
+ .qingshanQuick .qingshanCellLabel{display:block;margin:0 0 8px;}
+ .qingshanQuick .qingshanRow>div:nth-child(3)::before{content:none;}
+}
+@media(max-width:600px){.qingshanQuick .qingshanRow{grid-template-columns:minmax(0,1fr);gap:16px;}.qingshanQuick .quickWord{max-width:100%;}.qingshanQuick .sharedWordMemory{padding:12px;}}
 .testToolbar .testAudio,.testToolbar .testSaveStatus{margin:0;gap:8px}
 .testToolbar .testAudio{margin-left:auto}
 .testToolbar button{white-space:nowrap}

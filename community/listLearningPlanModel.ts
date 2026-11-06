@@ -14,7 +14,7 @@ const group=(o:PlannedOccurrence)=>o.groupId??(o.list!==undefined?`${o.volume?o.
 export function buildPlannedLists(words:PlannedWord[],deckIds:string[]):PlannedList[]{
  const grouped=new Map<string,PlannedList>(),order=new Map<string,Map<string,number>>();
  for(const word of selectPlanWords(words,deckIds))for(const o of word.occurrences){
-  const id=o.deckId+':'+group(o),label=o.deckId.startsWith('zhang-')&&o.category?o.category:o.list!==undefined?`${o.volume?({upper:'上',middle:'中',lower:'下'}[o.volume]??o.volume)+'册 · ':''}List ${String(o.list).padStart(2,'0')}`:o.category||'全部';
+  const id=o.deckId+':'+group(o),label=(o.deckId.startsWith('zhang-')||o.deckId.startsWith('qingshan-'))&&o.category?o.category:o.list!==undefined?`${o.volume?({upper:'上',middle:'中',lower:'下'}[o.volume]??o.volume)+'册 · ':''}List ${String(o.list).padStart(2,'0')}`:o.category||'全部';
   let unit=grouped.get(id);if(!unit){unit={id,deckId:o.deckId,deckName:o.deckName,label,words:[]};grouped.set(id,unit);order.set(id,new Map());}
   if(!order.get(id)!.has(word.id)){unit.words.push(word);order.get(id)!.set(word.id,o.order??unit.words.length);}
  }

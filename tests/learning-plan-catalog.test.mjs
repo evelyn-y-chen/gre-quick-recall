@@ -36,7 +36,7 @@ const saved=value=>({key:'vocab-notebook:'+value.id,value:JSON.stringify(value)}
 const occurrences=(data,word,deck)=>data.words.find(w=>w.id===word)?.occurrences.filter(o=>o.deckId===deck)??[];
 
 test('all source decks expose distinct word counts and exact multi-deck duplicates retain their sources',()=>{
- assert.deepEqual(catalog.decks.map(d=>d.id),['zhang-jijing','zhang-words','zhang-pairs','words','equivalents','a-plus','bb','glee','math','lclj-fill','lclj-reading','lclj-math','notebook']);
+ assert.deepEqual(catalog.decks.map(d=>d.id),['qingshan-precise','qingshan-rare','zhang-jijing','zhang-words','zhang-pairs','words','equivalents','a-plus','bb','glee','math','lclj-fill','lclj-reading','lclj-math','notebook']);
  assert.ok(catalog.decks.filter(d=>d.id!=='notebook').every(d=>d.count>0));
  assert.equal(catalog.decks.find(d=>d.id==='notebook').count,0);
  const words=select(catalog.words,['words']),ap=select(catalog.words,['a-plus']);

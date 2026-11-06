@@ -1,9 +1,9 @@
 import type {Term} from './practiceModel';
-export type RecallTerm=Term&{phonetic?:string;pos?:string;english?:string;exampleEnglish?:string;exampleChinese?:string;sourceMeaning?:string;sourceExample?:string;memory?:string;comparison?:string;related?:string;originalMemory?:string;group?:string;number?:number;page?:number;endPage?:number;volume?:string;origin?:string;note?:string};
+export type RecallTerm=Term&{commonMeaning?:string;specialMeaning?:string;commonMeaningLabel?:string;specialMeaningLabel?:string;phonetic?:string;pos?:string;english?:string;exampleEnglish?:string;exampleChinese?:string;sourceMeaning?:string;sourceExample?:string;memory?:string;comparison?:string;related?:string;originalMemory?:string;group?:string;number?:number;page?:number;endPage?:number;volume?:string;origin?:string;note?:string};
 /** Keep source columns readable and separate instead of flattening a row into a gloss. */
 export function recallFields(term:RecallTerm){
  const fields=[
-  ['中文释义',term.meaning],['音标',term.phonetic],['词性',term.pos],['英文解释',term.english],
+  [term.specialMeaningLabel??'中文释义',term.meaning],[term.commonMeaningLabel??'常见释义',term.commonMeaning],['音标',term.phonetic],['词性',term.pos],['英文解释',term.english],
   ['等价词',term.synonyms?.join(' · ')],['同组词与释义',term.related],['记忆方法',term.memory],['词义对照',term.comparison],
   ['英文例句',term.exampleEnglish],['例句译文',term.exampleChinese],['收集笔记',term.note],
   ['原文释义',term.sourceMeaning],['原文例句',term.sourceExample],['原文记法',term.originalMemory],

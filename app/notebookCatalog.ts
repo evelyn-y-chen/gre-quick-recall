@@ -1,3 +1,4 @@
+import {qingshanDecks} from './qingshanCatalog';
 import {zhangDecks,zhangSynonyms} from "./zhangCatalog";
 import bbData from "./bbEquivalents.json";
 import equivalentData from "./equivalents.json";
@@ -28,5 +29,6 @@ export function buildNotebookCatalog(words: Array<{ id: string; word: string; me
   readingData.forEach((w,i) => add(w.id,w.word,`本义：${w.meaning}\n文中义：${w.context}\n对应选项：${w.equivalent}`,"阅读核心300词",`List ${Math.floor(i/50)+1} · ${w.category} · ${w.passage}`));
   mathData.forEach((w) => add(w.id,w.word,w.meaning,"数学词汇索引",`${w.category} · 第 ${w.page} 页`));
   Object.values(zhangDecks).forEach(d=>d.entries.forEach(e=>{add(e.id,e.word,e.meaning,d.title,`${e.group} · 第 ${e.number} 个 · PDF 第 ${e.page} 页`,[e.english,e.synonyms?`等价词：${e.synonyms}`:'',e.exampleEnglish,e.exampleChinese].filter(Boolean).join('\n'));if(d===zhangDecks['zhang-pairs'])zhangSynonyms(e).forEach((word,i)=>add(e.id+'-'+i,word,e.meaning,d.title,e.group,`原表同组释义：${e.word} / ${e.synonyms}`));}));
+  Object.values(qingshanDecks).forEach(d=>d.entries.forEach(e=>add(e.id,e.word,e.meaning,d.title,`${e.group} · 第 ${e.number} 行 · PDF 第 ${e.page} 页`,`${d.commonLabel}：${e.commonMeaning||'—'}\n${d.specialLabel}：${e.specialMeaning||'—'}`)));
   return out;
 }

@@ -39,6 +39,7 @@ function practice({deck='words',data={}}={}){
  };
  const jsx=(type,props)=>({type,props:props??{}});
  function load(name){
+  if(name==='../app/qingshanCatalog')return loadModel('app/qingshanCatalog.ts');
   if(name==='../app/zhangCatalog')return loadModel('app/zhangCatalog.ts');
   if(name==='react')return react;
   if(name==='./RecallTest')return {RecallTestSetup:()=>null};

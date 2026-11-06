@@ -1,7 +1,7 @@
 import type {PlannedWord} from './learningPlanCatalog';
 import type {LearningPlanRating} from './learningPlanModel';
 type Snapshot={rows:{key:string;value:string}[];storage:Record<string,string>};
-const keys:Record<string,string>={'zhang-jijing':'gre-zhang-jijing-ratings-v1','zhang-words':'gre-zhang-words-ratings-v1','zhang-pairs':'gre-zhang-pairs-ratings-v1',words:'gre-quick-ratings-v1',equivalents:'gre-equivalent-quick-ratings-v1','a-plus':'gre-a-plus-equivalent-quick-ratings-v1',bb:'gre-bb-ratings-v1',glee:'gre-glee-1500-quick-ratings-v1',math:'gre-math-vocabulary-quick-ratings-v1',lclj:'gre-lclj-quick-ratings-v1'};
+const keys:Record<string,string>={'qingshan-precise':'gre-qingshan-precise-ratings-v1','qingshan-rare':'gre-qingshan-rare-ratings-v1','zhang-jijing':'gre-zhang-jijing-ratings-v1','zhang-words':'gre-zhang-words-ratings-v1','zhang-pairs':'gre-zhang-pairs-ratings-v1',words:'gre-quick-ratings-v1',equivalents:'gre-equivalent-quick-ratings-v1','a-plus':'gre-a-plus-equivalent-quick-ratings-v1',bb:'gre-bb-ratings-v1',glee:'gre-glee-1500-quick-ratings-v1',math:'gre-math-vocabulary-quick-ratings-v1',lclj:'gre-lclj-quick-ratings-v1'};
 const ranks={red:0,yellow:1,green:2};
 const parse=(raw:string|undefined)=>{try{return JSON.parse(raw??'null');}catch{return null;}};
 /** Read existing source ratings without changing them or inventing old dates. */

@@ -1,3 +1,4 @@
+import {qingshanDecks} from './qingshanCatalog';
 import vocabulary from './vocabulary.json';
 import equivalents from './equivalents.json';
 import aplus from './aPlusEquivalents.json';
@@ -15,6 +16,7 @@ export const quizSpelling=(word:string)=>word.normalize('NFKC').trim().toLowerCa
 const meanings=new Map<string,Set<string>>();
 function add(word:string,meaning:string){const key=quizSpelling(word);if(!key||!meaning.trim())return;let values=meanings.get(key);if(!values){values=new Set();meanings.set(key,values);}values.add(meaning);}
 for(const source of [vocabulary,aplus,glee,words,pairs,jijing,fill,reading,mathIndex])for(const row of source)add(row.word,row.meaning);
+for(const deck of Object.values(qingshanDecks))for(const row of deck.entries){add(row.word,row.meaning);add(row.word,row.commonMeaning);}
 for(const pair of equivalents){add(pair.left,pair.meaning);add(pair.right,pair.meaning);}
 for(const group of bb)for(const word of group.words)add(word.word,word.meaning);
 for(const word of MATH_WORDS)add(word.term,word.meaning);

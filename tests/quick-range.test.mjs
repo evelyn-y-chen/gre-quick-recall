@@ -65,8 +65,8 @@ function quickView(name, initialStorage = {}, initialDeck = 'lclj-fill', initial
     if (importName === './RatingCloudSync' || importName === './RevealControls' || importName === './NotebookFrequency') return { default: () => null };
     if (importName.endsWith('.json')) return { default: data(importName.slice(2, -5)) };
     if (modules.has(importName)) return modules.get(importName);
-    assert.ok(['./BBQuick', './LcljQuick', './ZhangQuick', './zhangCatalog', './quickRangeModel', './ratingSyncModel', './ratingStorage', './wordMemoryModel', './bbModel', './studyWordOrder', '../community/storage'].includes(importName), `Unexpected import: ${importName}`);
-    const file = importName === '../community/storage' ? '../community/storage.ts' : `../app/${importName.slice(2)}${['./BBQuick', './LcljQuick', './ZhangQuick'].includes(importName) ? '.tsx' : '.ts'}`;
+    assert.ok(['./BBQuick', './LcljQuick', './ZhangQuick', './QingshanQuick', './qingshanCatalog', './zhangCatalog', './quickRangeModel', './ratingSyncModel', './ratingStorage', './wordMemoryModel', './bbModel', './studyWordOrder', '../community/storage'].includes(importName), `Unexpected import: ${importName}`);
+    const file = importName === '../community/storage' ? '../community/storage.ts' : `../app/${importName.slice(2)}${['./BBQuick', './LcljQuick', './ZhangQuick', './QingshanQuick'].includes(importName) ? '.tsx' : '.ts'}`;
     const exported = {}; modules.set(importName, exported);
     const output = ts.transpileModule(fs.readFileSync(new URL(file, import.meta.url), 'utf8'), { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX } }).outputText;
     new Function('require', 'exports', 'window', 'document', output)(load, exported, browser, {querySelector(){return null;}});
@@ -285,4 +285,20 @@ for(const deck of ['zhang-words','zhang-pairs','zhang-jijing'])test(`${deck} arr
  assert.equal(view.key('ArrowDown',{closest(){return {};}}),false);assert.match(view.text(view.active()),new RegExp(entries[0].word));
  view.key('Enter');assert.ok(view.text(view.active()).includes(entries[0].meaning));view.key('2');
  assert.equal(JSON.parse(view.snapshot()[`gre-${deck}-ratings-v1`])[entries[0].id],'fuzzy');
+});
+
+for(const [deck,file,common,special] of [['qingshan-precise','qingshanPrecise','词典释义','精准释义'],['qingshan-rare','qingshanRare','常见释义','重要僻义']])test(`${deck} preserves source columns and page selection, supports keyboard navigation and note visibility`,()=>{
+ const view=quickView('QingshanQuick',{},deck),entries=data(file),key=`gre-${deck}-selection-v1`;
+ try{
+  view.flush();assert.match(view.text(view.active()),new RegExp(entries[0].word));
+  assert.ok(view.nodes().some(n=>n.props?.role==='columnheader'&&view.text(n)===common));assert.ok(view.nodes().some(n=>n.props?.role==='columnheader'&&view.text(n)===special));
+  view.key('Enter');assert.ok(view.text(view.active()).includes(entries[0].commonMeaning));assert.ok(view.text(view.active()).includes(entries[0].specialMeaning));
+  assert.equal(view.key('ArrowDown'),true);assert.match(view.text(view.active()),new RegExp(entries[1].word));assert.equal(view.scrolled.at(-1).options.block,'center');
+  assert.equal(view.key('ArrowDown',{closest(){return {};}}),false);assert.match(view.text(view.active()),new RegExp(entries[1].word));
+  view.key('2');assert.equal(JSON.parse(view.snapshot()[`gre-${deck}-ratings-v1`])[entries[1].id],'fuzzy');
+  view.click('隐藏共享笔记');assert.match(view.text(view.active()),/笔记已隐藏/);view.click('显示共享笔记');
+  view.click('原表第 2 页');assert.deepEqual(JSON.parse(view.snapshot()[key]),['原表第 1 页','原表第 2 页']);
+  view.click('原表第 1 页');assert.deepEqual(JSON.parse(view.snapshot()[key]),['原表第 2 页']);view.remount();view.flush();assert.deepEqual(JSON.parse(view.snapshot()[key]),['原表第 2 页']);
+  const last=entries.filter(e=>e.list===2).at(-1);view.search(last.specialMeaning);assert.ok(view.active());assert.ok(view.text(view.active()).includes(last.word)||view.nodes().some(n=>n.props?.role==='row'&&view.text(n).includes(last.word)));
+ }finally{view.close();}
 });

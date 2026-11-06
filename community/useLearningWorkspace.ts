@@ -16,6 +16,7 @@ type Expected={active:Active;key:string;generation:number};
 export default function useLearningWorkspace(onRestore:()=>void){
  const [ready,setReady]=useState(false),[status,setStatus]=useState('正在读取学习记录…'),[generation,setGeneration]=useState(0),[session,setSession]=useState<Session|null>(null),[authReady,setAuthReady]=useState(!cloud),[emptyCloud,setEmptyCloud]=useState(false),[conflict,setConflict]=useState<Snapshot|null>(null);
  const [syncing,setSyncing]=useState(false);const manualSync=useRef<Promise<boolean>|null>(null),localQueue=useRef(Promise.resolve());
+ const flushing=useRef<{active:Active;generation:number;promise:Promise<boolean>}|null>(null);
  const [undoPoint,setUndoPoint]=useState<{key:string;point:RecoveryCheckpoint}|null>(null);
  const active=useRef<Active|null>(null),dirty=useRef(false),version=useRef(0),localSavedVersion=useRef(0),localSavedKey=useRef<string|null>(null),lastFailure=useRef(''),alive=useRef(true),timer=useRef<ReturnType<typeof setTimeout>|undefined>(undefined),queue=useRef(Promise.resolve()),restore=useRef(onRestore),unregister=useRef<(()=>void)|null>(null);restore.current=onRestore;
  function serial<T>(task:()=>Promise<T>){const result=queue.current.then(task);queue.current=result.then(()=>{},()=>{});return result;}
@@ -70,11 +71,11 @@ export default function useLearningWorkspace(onRestore:()=>void){
  function connectPersistence(){
   pausePersistence();const a=active.current;if(!a||!alive.current)return;
   const expected={active:a,key:a.key,generation:getWorkspaceGeneration()};
-  unregister.current=registerWorkspacePersistence({key:a.key,generation:expected.generation,persist:()=>serial(async():Promise<WorkspacePersistenceResult>=>{
-   assertExpected(expected);const synced=await flushStable(expected);assertExpected(expected);
+  unregister.current=registerWorkspacePersistence({key:a.key,generation:expected.generation,persist:async():Promise<WorkspacePersistenceResult>=>{
+   assertExpected(expected);const synced=await flush(expected);assertExpected(expected);
    if(!locallySaved())throw Error(lastFailure.current||'本机保存尚未完成，请保持本页并重试，或先导出便笺。');
    return {destination:a.session?'account':'device',synced,...(!synced?{message:a.session?'已保存到本机，账号同步尚未完成。'+lastFailure.current:lastFailure.current}: {})};
-  })});
+  }});
  }
  async function flushNow(expected?:Expected){
   // A rating PUT may still be queued even though the UI has already changed.
@@ -107,7 +108,18 @@ export default function useLearningWorkspace(onRestore:()=>void){
   // memory. A failed cloud upload is safe to leave pending only after local save.
   while(true){const before=version.current,synced=await flushNow(expected);assertExpected(expected);if(synced&&dirty.current)continue;if(locallySaved())return synced&&!dirty.current;if(version.current===before)return false;}
  }
- function flush(){clearTimeout(timer.current);return serial(()=>flushStable());}
+ function flush(expected?:Expected){
+  clearTimeout(timer.current);assertExpected(expected);const a=active.current;if(!a)return Promise.resolve(true);
+  const epoch=getWorkspaceGeneration(),pending=flushing.current;
+  // Autosave, the workspace timer and save-and-exit must share one upload. In
+  // particular, a failed/slow connection must not leave a retry per quiz answer
+  // queued behind it. flushStable includes edits arriving during this upload.
+  if(pending?.active===a&&pending.generation===epoch)return pending.promise;
+  const captured={active:a,key:a.key,generation:epoch};
+  const promise=serial(()=>active.current===a&&getWorkspaceGeneration()===epoch?flushStable(captured):Promise.resolve(false))
+   .finally(()=>{if(flushing.current?.promise===promise)flushing.current=null;});
+  flushing.current={active:a,generation:epoch,promise};return promise;
+ }
  function changed(){dirty.current=true;version.current++;protectSoon();message(active.current?.session?'正在保存到本机与账号…':'正在保存到当前浏览器…');clearTimeout(timer.current);timer.current=setTimeout(()=>void flush(),800);}
  function syncNow(){
   if(manualSync.current)return manualSync.current;

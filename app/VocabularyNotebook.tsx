@@ -18,7 +18,7 @@ import {createNotebookAutosaver,type NotebookSaveState} from "./notebookAutosave
 import RevealControls from "./RevealControls";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { buildNotebookCatalog, type CatalogWord } from "./notebookCatalog";
-import { NOTEBOOK_DRAFT_KEY, hasNotebookSource, mergeNotebookCandidates, validNotebookBatch, type NotebookBatch, type NotebookDraft, type NotebookSummary, type NotebookWord, type NotebookRating } from "./notebookModel";
+import { NOTEBOOK_DRAFT_KEY, hasNotebookSource, mergeNotebookCandidates, notebookBriefMeaning, validNotebookBatch, type NotebookBatch, type NotebookDraft, type NotebookSummary, type NotebookWord, type NotebookRating } from "./notebookModel";
 import type { GleeMindMap } from "./gleeMindMaps";
 import type { GleeTableList } from "./gleeTableLists";
 
@@ -42,8 +42,8 @@ const DISPLAY_KEY = "gre-notebook-display-v1";
 function displayPreferences() {
   try {
     const saved = JSON.parse(studyStorage.getItem(DISPLAY_KEY) ?? "{}");
-    return {showReference: saved?.showReference !== false, showMemory: saved?.showMemory !== false};
-  } catch { return {showReference:true,showMemory:true}; }
+    return {showBriefMeaning: saved?.showBriefMeaning !== false, showReference: saved?.showReference !== false, showMemory: saved?.showMemory !== false};
+  } catch { return {showBriefMeaning:true,showReference:true,showMemory:true}; }
 }
 const today = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; };
 
@@ -147,7 +147,7 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
   }
   const selectedWords = catalog.filter((w) => selected.includes(w.id));
   const showNotes = display.showReference || display.showMemory;
-  function changeDisplay(field: "showReference" | "showMemory", checked: boolean) {
+  function changeDisplay(field: "showBriefMeaning" | "showReference" | "showMemory", checked: boolean) {
     const next = {...display,[field]:checked};
     setDisplay(next);
     try { studyStorage.setItem(DISPLAY_KEY,JSON.stringify(next)); setDisplayStatus(""); }
@@ -232,7 +232,7 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
     setStatus(`已合并所选释义，本次共 ${merged.length} 个词，修改会自动保存。`);
     return true;
   }
-  function editWord(id: string, field: "word"|"meaning"|"note"|"origin", value: string) {
+  function editWord(id: string, field: "word"|"meaning"|"briefMeaning"|"note"|"origin", value: string) {
     if (batch) persist({...batch,words:batch.words.map((w) => w.id === id ? {...w,[field]:value} : w)});
   }
   async function startNotebookTest() {
@@ -343,9 +343,10 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
       <div className="notebookMode"><button type="button" aria-pressed={!review} onClick={() => setReview(false)}>收集与编辑</button><button type="button" aria-pressed={review} onClick={() => {setReview(true);setRevealed([]);}}>遮挡复习</button><span>本次 {batch.words.length} 个生词</span></div>
       <div className="notebookDisplay" role="group" aria-label="生词本显示设置">
         <span>显示内容</span>
+        <label><input type="checkbox" checked={display.showBriefMeaning} onChange={(e) => changeDisplay("showBriefMeaning",e.target.checked)} />显示简短释义</label>
         <label><input type="checkbox" checked={display.showReference} onChange={(e) => changeDisplay("showReference",e.target.checked)} />显示对照释义</label>
         <label><input type="checkbox" checked={display.showMemory} onChange={(e) => changeDisplay("showMemory",e.target.checked)} />显示记忆笔记</label>
-        <small>只调整显示，内容会保留。</small>
+        <small>简短释义可直接编辑；隐藏只调整显示，内容会保留。</small>
       </div>
       {displayStatus && <p className="notebookHint" role="status">{displayStatus}</p>}
       {!!batch.words.length && <div className="shuffleControls" role="group" aria-label="生词本显示顺序"><button type="button" aria-pressed={!wordOrder&&!alphabetical} onClick={()=>changeWordOrder("original")}>原顺序</button><button type="button" aria-pressed={!!wordOrder&&!alphabetical} onClick={()=>changeWordOrder("shuffle")}>一键打乱</button><button type="button" aria-pressed={alphabetical} onClick={()=>changeWordOrder("alphabetical")}>A–Z 字母排序</button></div>}
@@ -376,7 +377,7 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
       {!review && <p className="notebookHint">参考释义可展开查看；在「我写的释义」凭记忆填写，点核对后自行判断。每次回忆单独保留，不改变红黄绿或收集词频。</p>}
       {review && !!batch.words.length && <div className="shortcutBar notebookShortcuts" aria-label="生词本复习快捷键"><span><kbd>↑</kbd><kbd>←</kbd> 上一词</span><span><kbd>↓</kbd><kbd>→</kbd> 下一词</span><span><kbd>Space</kbd> 发音</span><span><kbd>Enter</kbd> 显示 / 隐藏释义与笔记</span><span><kbd>1</kbd> 不认识</span><span><kbd>2</kbd> 模糊</span><span><kbd>3</kbd> 熟悉</span><span>标注时同时揭晓释义</span></div>}
       {review && !!batch.words.length && <div className="notebookRowHeader" aria-hidden="true"><span>单词</span><div><span>释义</span>{showNotes && <span>{display.showReference && display.showMemory ? "对照与记忆笔记" : display.showReference ? "对照释义" : "记忆笔记"}</span>}<span>词库来源</span></div><span>掌握程度</span></div>}
-      {!review&&!!batch.words.length&&<div className="notebookDocumentHeader" aria-hidden="true"><span>英文 · 词频</span><span>参考释义 · 查词</span><span>我写的释义</span><span>掌握程度</span></div>}
+      {!review&&!!batch.words.length&&<div className="notebookDocumentHeader" aria-hidden="true"><span>英文 · 词频</span><span>简短释义 · 查词</span><span>我写的释义</span><span>掌握程度</span></div>}
       <div className="notebookWords">{displayWords.map((w,index) => <article className={`notebookWord${w.rating ? ` rated-${w.rating}` : ""}${review && activeWord?.id === w.id ? " notebookActive" : ""}`} key={w.id} tabIndex={review ? 0 : undefined} aria-current={review && activeWord?.id === w.id ? "true" : undefined} ref={(node) => {rowRefs.current[w.id]=node;}} onClick={() => setActiveId(w.id)} onFocus={() => setActiveId(w.id)}>
         <div className="notebookWordHead">
           <span className="notebookWordNumber">{index+1}</span>
@@ -385,11 +386,13 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
           {!review && <button className="notebookRemove" type="button" aria-label={`移除 ${w.word}`} onClick={() => {setRemoved({word:w,index:batch.words.findIndex(word=>word.id===w.id)});persist({...batch,words:batch.words.filter((x) => x.id!==w.id)});}}>移除</button>}
         </div>
         {review ? <div className="notebookCardReview">
+          {display.showBriefMeaning && revealed.includes(w.id) && <p className="notebookBriefPreview"><small>简短释义</small><span>{notebookBriefMeaning(w)||"未填写"}</span></p>}
           <button className="notebookReveal" type="button" aria-expanded={revealed.includes(w.id)} onClick={() => setRevealed((s) => s.includes(w.id) ? s.filter((id) => id!==w.id) : [...s,w.id])}>{revealed.includes(w.id) ? (w.meaning || "未填写释义").split("\n").map((line,i)=><span key={i} className={/^【.*】$/.test(line.trim())?"notebookMeaningSource":"notebookMeaningLine"}>{line||"\u00a0"}</span>) : "点击揭晓释义与笔记"}</button>
           {revealed.includes(w.id) && showNotes && <div className="notebookCardNote">{display.showReference && w.note && <section className="notebookCollectionNote"><strong>对照释义与收集笔记</strong><p>{w.note}</p></section>}{display.showMemory && <SharedWordMemory word={w.word}/>}</div>}
           <div className="notebookCardSource"><span>词库来源</span><p>{w.origin || "未填写"}</p></div>
           <details className="notebookCardDictionary"><summary>补查词典</summary><DictionaryLinks word={w.word}/></details>
         </div> : <div className="notebookEditGrid">
+          {display.showBriefMeaning && <label className="notebookBriefMeaning">简短释义<textarea aria-label={`${w.word} 简短释义`} rows={2} maxLength={500} value={notebookBriefMeaning(w)} placeholder="用几个字记住大意（选填）" onChange={e=>editWord(w.id,"briefMeaning",e.target.value)}/></label>}
           <details className="notebookReferenceMeaning"><summary>{w.meaning.trim()?"查看／编辑参考释义":"填写参考释义（选填）"}</summary><label>释义<textarea rows={2} maxLength={4000} value={w.meaning} placeholder="参考释义可以留空" onChange={(e) => editWord(w.id,"meaning",e.target.value)} /></label></details>
           <DictionaryLinks word={w.word}/>
           <details className="notebookRowExtras"><summary>笔记与来源</summary>

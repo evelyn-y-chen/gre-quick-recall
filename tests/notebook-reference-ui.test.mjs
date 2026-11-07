@@ -211,7 +211,7 @@ test('notebook remembers display choices across reopening without embedding them
   try {
     await first.ready();
     await first.toggle('显示对照释义', false);
-    assert.deepEqual(JSON.parse(storage.get('gre-notebook-display-v1')), { showReference: false, showMemory: true });
+    assert.deepEqual(JSON.parse(storage.get('gre-notebook-display-v1')), { showBriefMeaning: true, showReference: false, showMemory: true });
     assert.equal(first.rawDraft(), first.savedDraft);
   } finally { first.close(); }
   const reopened = notebook({ storage });
@@ -459,4 +459,29 @@ test('a pending account upload is shown as pending, and retry confirms account s
   const writes=view.calls.filter(call=>call.method==='PUT').length;result.synced=true;await view.click('重试保存');
   assert.equal(view.calls.filter(call=>call.method==='PUT').length,writes);assert.ok(view.nodes().some(n=>n.props?.role==='status'&&view.text(n).includes('已自动保存到账号')));
  }finally{view.close();}
+});
+
+test('brief meanings can be edited, hidden and reopened with autosave while complete annotations stay unchanged',async()=>{
+ const storage=new Map(),view=notebook({storage});
+ try{
+  await view.ready();
+  assert.equal(view.checked('显示简短释义'),true);
+  const cue=()=>view.nodes().find(n=>n.type==='textarea'&&n.props['aria-label']==='cogent 简短释义');
+  assert.equal(cue().props.value,'有说服力');
+  view.edit('简短释义','论据有力');await view.flushTimers();
+  assert.deepEqual(view.saved().batch.words[0],{...original.words[0],briefMeaning:'论据有力'});
+  const before=view.rawDraft();await view.toggle('显示简短释义',false);
+  assert.equal(cue(),undefined);assert.equal(view.rawDraft(),before);
+  assert.ok(view.nodes().some(n=>n.type==='textarea'&&n.props.value===original.words[0].meaning));
+  await view.toggle('显示简短释义',true);assert.equal(cue().props.value,'论据有力');
+  await view.click('遮挡复习');assert.ok(!view.nodes().some(n=>n.props?.className==='notebookBriefPreview'));
+  await view.click('点击揭晓释义与笔记');assert.ok(view.nodes().some(n=>n.props?.className==='notebookBriefPreview'&&view.text(n).includes('论据有力')));
+  await view.toggle('显示简短释义',false);assert.ok(!view.nodes().some(n=>n.props?.className==='notebookBriefPreview'));
+ }finally{view.close();}
+ const reopened=notebook({storage});try{
+  await reopened.ready();assert.equal(reopened.checked('显示简短释义'),false);
+  await reopened.toggle('显示简短释义',true);
+  assert.equal(reopened.nodes().find(n=>n.type==='textarea'&&n.props['aria-label']==='cogent 简短释义').props.value,'论据有力');
+  assert.equal(reopened.saved().batch.words[0].meaning,original.words[0].meaning);
+ }finally{reopened.close();}
 });

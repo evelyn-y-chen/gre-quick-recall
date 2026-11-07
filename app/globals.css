@@ -1447,6 +1447,11 @@ nav button.active { color: white; background: var(--ink); box-shadow: 0 5px 14px
 .notebookDocumentMode .notebookWordHead .notebookRemove { grid-column: 2 / -1; justify-self: end; min-height: 26px; }
 .notebookDocumentMode .notebookWord .notebookEditGrid { display: flex; flex-direction: column; gap: 10px; min-width: 0; grid-column: auto; }
 .notebookReferenceMeaning, .notebookRowExtras { width: 100%; min-width: 0; font-size: 13px; }
+.vocabNotebook .notebookBriefMeaning { font-size:13px; }
+.notebookBriefMeaning textarea { min-height:64px; line-height:1.6; }
+.notebookBriefPreview { grid-column:1 / -1; margin:0; padding:8px 10px; border-left:2px solid var(--line); font-size:14px; line-height:1.6; overflow-wrap:anywhere; }
+.notebookBriefPreview small { color:var(--muted); margin-right:10px; font-size:11px; }
+.notebookBriefPreview span { white-space:pre-wrap; }
 .notebookReferenceMeaning > summary, .notebookRowExtras > summary, .notebookRecallHistory > summary { cursor: pointer; line-height: 1.6; color: var(--muted); }
 .notebookReferenceMeaning > label, .notebookRowExtras > label, .notebookRowExtras > .notebookCardNote { margin-top: 10px; }
 .notebookDocumentMode .dictionaryExternal { margin: 0; }

@@ -1434,3 +1434,64 @@ nav button.active { color: white; background: var(--ink); box-shadow: 0 5px 14px
 @media(prefers-reduced-motion:reduce) {
  .revealControls button { transition:none; }
 }
+
+/* The collection editor reads as a document; disclosure keeps each row quiet. */
+.notebookCatalogAdd { margin: 16px 0; border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+.notebookCatalogAdd > summary { cursor: pointer; font-size: 14px; font-weight: 600; }
+.notebookCatalogAdd .notebookPanel { margin-top: 12px; border: 0; padding: 0; background: transparent; }
+.notebookDocumentHeader, .notebookDocumentMode .notebookWord { display: grid; grid-template-columns: minmax(150px,.85fr) minmax(160px,1.1fr) minmax(220px,1.45fr) 150px; gap: 18px; align-items: start; }
+.notebookDocumentHeader { padding: 12px 14px; background: var(--community-surface,var(--card)); border: 1px solid var(--line); border-bottom: 0; border-radius: 10px 10px 0 0; font-size: 12px; color: var(--muted); }
+.notebookDocumentMode .notebookWord { padding: 16px 14px; border-left-width: 1px; }
+.notebookDocumentMode .notebookWord:first-child { border-radius: 0; }
+.notebookDocumentMode .notebookWordHead { grid-template-columns: auto minmax(0,1fr) auto; align-items: start; gap: 5px; }
+.notebookDocumentMode .notebookWordHead .notebookRemove { grid-column: 2 / -1; justify-self: end; min-height: 26px; }
+.notebookDocumentMode .notebookWord .notebookEditGrid { display: flex; flex-direction: column; gap: 10px; min-width: 0; grid-column: auto; }
+.notebookReferenceMeaning, .notebookRowExtras { width: 100%; min-width: 0; font-size: 13px; }
+.notebookReferenceMeaning > summary, .notebookRowExtras > summary, .notebookRecallHistory > summary { cursor: pointer; line-height: 1.6; color: var(--muted); }
+.notebookReferenceMeaning > label, .notebookRowExtras > label, .notebookRowExtras > .notebookCardNote { margin-top: 10px; }
+.notebookDocumentMode .dictionaryExternal { margin: 0; }
+.notebookDocumentMode .dictionaryExternalLinks { gap: 6px; }
+.notebookDocumentMode .dictionaryExternalLinks a { min-height: 32px; padding: 3px 7px; border-radius: 6px; font-size: 12px; gap: 3px; }
+.notebookDocumentMode .dictionaryExternalHint { display: none; }
+.notebookDocumentMode .notebookRating .trafficLights { display: grid; grid-template-columns: 1fr; gap: 5px; margin-top: 4px; }
+.notebookDocumentMode .notebookRating .trafficLights button { justify-content: flex-start; min-height: 32px; padding: 5px 8px; }
+.notebookWrittenRecall { min-width: 0; }
+.vocabNotebook .notebookWrittenRecall label { color: var(--ink); font-size: 13px; }
+.notebookRecallActions, .notebookRecallResults { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; }
+.vocabNotebook .notebookRecallActions button, .vocabNotebook .notebookRecallResults button { padding: 5px 9px; min-height: 32px; font-size: 12px; }
+.notebookRecallResults button[aria-pressed="true"] { background: var(--community-accent,#283f61); border-color: var(--community-accent,#283f61); color: var(--community-on,#fff); }
+.notebookRecallComparison { margin-top: 10px; padding: 10px; background: var(--community-surface,var(--card)); border: 1px solid var(--line); border-radius: 8px; }
+.notebookRecallComparison > strong { font-size: 12px; color: var(--muted); }
+.notebookRecallComparison p, .notebookRecallHistory p { white-space: pre-wrap; overflow-wrap: anywhere; margin: 5px 0 0; font-size: 14px; line-height: 1.6; }
+.notebookWrittenRecall small { display: block; margin-top: 7px; color: var(--muted); font-size: 11px; line-height: 1.6; }
+.notebookRecallHistory { margin-top: 10px; font-size: 12px; }
+.notebookRecallHistory ol { margin: 8px 0 0; padding-left: 20px; }
+.notebookRecallHistory li { margin: 8px 0; }
+.notebookRecallHistory li > span { color: var(--muted); }
+.notebookEntryRow { display: grid; grid-template-columns: minmax(150px,.85fr) minmax(160px,1.1fr) minmax(220px,1.45fr) 150px; gap: 18px; align-items: center; padding: 16px 14px; border: 1px dashed var(--line); border-radius: 10px; margin-top: 12px; }
+.notebookEntryRow > *, .notebookDocumentHeader > *, .notebookDocumentMode .notebookWord > * { min-width: 0; }
+.notebookEntryLookup > span { color: var(--muted); font-size: 12px; }
+.notebookEntryRow > button { align-self: end; min-height: 44px; }
+@media(max-width:1150px) {
+ .notebookDocumentHeader { display:none; }
+ .notebookDocumentMode .notebookWord { grid-template-columns: minmax(130px,.8fr) minmax(0,1.2fr) minmax(0,1.4fr); gap:14px; }
+ .notebookDocumentMode .notebookRating { grid-column:2 / -1; grid-row:auto; }
+ .notebookDocumentMode .notebookRating .trafficLights { display:flex; flex-wrap:wrap; }
+ .notebookEntryRow { grid-template-columns: minmax(0,1fr) minmax(0,1.5fr); gap:14px; }
+ .notebookEntryRow > button { justify-self:end; }
+}
+@media(max-width:800px) {
+ .notebookDocumentMode .notebookWord { grid-template-columns:minmax(0,1fr) minmax(0,1fr); }
+ .notebookDocumentMode .notebookWordHead { grid-column:1 / -1; }
+ .notebookDocumentMode .notebookWordHead .notebookRemove { grid-column:auto; }
+ .notebookDocumentMode .notebookWordHead { grid-template-columns:auto minmax(0,1fr) auto auto; }
+ .notebookDocumentMode .notebookRating { grid-column:1 / -1; }
+ .notebookDocumentMode .notebookRating > span { font-size:12px; }
+}
+@media(max-width:520px) {
+ .notebookDocumentMode .notebookWord, .notebookEntryRow { grid-template-columns:minmax(0,1fr); }
+ .notebookDocumentMode .notebookWord { padding:14px; gap:12px; }
+ .notebookDocumentMode .dictionaryExternalLinks a, .vocabNotebook .notebookRecallActions button, .vocabNotebook .notebookRecallResults button { min-height:40px; }
+ .notebookEntryRow > button { width:100%; }
+}
+.notebookEntryHint { grid-column: 1 / -1; color: var(--muted); font-size: 12px; line-height: 1.6; }

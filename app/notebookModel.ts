@@ -1,6 +1,9 @@
 export type NotebookRating = "unknown" | "fuzzy" | "familiar";
-export type NotebookWord = { id: string; word: string; meaning: string; note: string; origin: string; rating?: NotebookRating };
-export type NotebookBatch = { id: string; source: string; date: string; words: NotebookWord[] };
+export type NotebookRecallResult = "correct" | "partial" | "incorrect";
+export type NotebookRecallAttempt = { id: string; answer: string; checked: boolean; result?: NotebookRecallResult };
+export const NOTEBOOK_RECALL_LIMIT = 20;
+export type NotebookWord = { id: string; word: string; meaning: string; note: string; origin: string; rating?: NotebookRating; recalls?: NotebookRecallAttempt[] };
+export type NotebookBatch = { id: string; source: string; date: string; words: NotebookWord[]; entryDraft?: {word:string;meaning:string} };
 export type NotebookDraft = { batch: NotebookBatch; revision: number };
 export type NotebookSummary = { id: string; source: string; date: string; count: number; revision: number; draft?:boolean };
 export const NOTEBOOK_DRAFT_KEY = "gre-vocabulary-notebook-drafts-v1";
@@ -12,16 +15,21 @@ export function validNotebookBatch(value: unknown, complete = true): value is No
   return text(batch.id, 80) && /^[a-zA-Z0-9-]+$/.test(batch.id)
     && text(batch.source, 300) && (!complete || !!batch.source.trim())
     && text(batch.date, 10) && (!complete || /^\d{4}-\d{2}-\d{2}$/.test(batch.date))
+    && (batch.entryDraft === undefined || (!!batch.entryDraft && text(batch.entryDraft.word,300) && text(batch.entryDraft.meaning,4000)))
     && Array.isArray(batch.words) && batch.words.length <= 1000
     && batch.words.every((w) => w && text(w.id, 80) && !!w.id && text(w.word, 300) && (!complete || !!w.word.trim())
       && text(w.meaning, 4000) && text(w.note, 4000) && text(w.origin, 1000)
+      && (w.recalls === undefined || (Array.isArray(w.recalls) && w.recalls.length <= NOTEBOOK_RECALL_LIMIT
+        && w.recalls.every((r) => r && text(r.id,80) && !!r.id && text(r.answer,1000) && typeof r.checked === "boolean"
+          && (r.result === undefined || (r.checked && ["correct","partial","incorrect"].includes(r.result))))
+        && new Set(w.recalls.map((r) => r.id)).size === w.recalls.length))
       && (w.rating === undefined || ["unknown", "fuzzy", "familiar"].includes(w.rating)))
     && new Set(batch.words.map((w) => w.id)).size === batch.words.length;
 }
 
 export type NotebookCandidate = Pick<NotebookWord,"word"|"meaning"|"note"|"origin">;
 export const notebookWordKey = (word:string) => word.trim().replace(/\s+/g," ").toLowerCase();
-const sourceBlock = (w:NotebookCandidate) => `【${w.origin.trim() || "未填写来源"}】\n${w.meaning.trim() || "暂无释义"}`;
+const sourceBlock = (w:NotebookCandidate) => w.meaning.trim() ? `【${w.origin.trim() || "未填写来源"}】\n${w.meaning.trim()}` : "";
 export function hasNotebookSource(words:NotebookWord[], candidate:NotebookCandidate) {
  return words.some((w) => notebookWordKey(w.word) === notebookWordKey(candidate.word) &&
   ((w.meaning.trim() === candidate.meaning.trim() && w.origin.trim() === candidate.origin.trim()) ||
@@ -36,7 +44,7 @@ export function mergeNotebookCandidates(words:NotebookWord[], candidates:Noteboo
   if(hasNotebookSource(next,candidate)) continue;
   const old=next[index];
   const previous=old.meaning.startsWith("【") ? old.meaning : sourceBlock(old);
-  next[index]={...old,meaning:previous+"\n\n"+sourceBlock(candidate),
+  next[index]={...old,meaning:[previous,sourceBlock(candidate)].filter(Boolean).join("\n\n"),
    origin:[...new Set([...old.origin.split("\n"),...candidate.origin.split("\n")].filter(Boolean))].join("\n"),
    note:[...new Set([old.note,candidate.note].filter(Boolean))].join("\n\n")};
  }

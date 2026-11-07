@@ -50,10 +50,10 @@ function notebook({ storage = new Map(), fixture = original, savedCollections = 
     if (name === './SharedWordMemory') return { default: props => jsx('aside', { 'data-shared-word': props.word, 'data-editing': !!props.editing, children: props.editing ? jsx('textarea', { 'aria-label': `${props.word} 的记忆方法`, value: memory.drafts[props.word]?.text ?? '共享记忆：把论据串起来', onChange: e => memory.edit(props.word, e.target.value) }) : memory.drafts[props.word]?.text ?? '共享记忆：把论据串起来' }), useWordMemory: () => memory };
     if (['./DictionaryLinks', './DictionaryLookup', './RevealControls', './NotebookFrequency'].includes(name)) return { default: () => null };
     if (name === './notebookCatalog') return { buildNotebookCatalog: () => [] };
-    assert.ok(['./VocabularyNotebook', './notebookModel', './studyWordOrder', './notebookPracticeModel', './notebookFrequencyModel'].includes(name), `Unexpected import ${name}`);
+    assert.ok(['./VocabularyNotebook', './NotebookWrittenRecall', './notebookModel', './studyWordOrder', './notebookPracticeModel', './notebookFrequencyModel'].includes(name), `Unexpected import ${name}`);
     if (modules.has(name)) return modules.get(name);
     const exported = {}; modules.set(name, exported);
-    const source = fs.readFileSync(new URL(`../app/${name.slice(2)}${name === './VocabularyNotebook' ? '.tsx' : '.ts'}`, import.meta.url), 'utf8');
+    const source = fs.readFileSync(new URL(`../app/${name.slice(2)}${['./VocabularyNotebook','./NotebookWrittenRecall'].includes(name) ? '.tsx' : '.ts'}`, import.meta.url), 'utf8');
     const compiled = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, jsx: ts.JsxEmit.ReactJSX } }).outputText;
     new Function('require', 'exports', 'window', 'document', 'requestAnimationFrame', 'cancelAnimationFrame', compiled)(load, exported, browser, { querySelector: () => null }, () => 1, () => {});
     return exported;
@@ -82,6 +82,9 @@ function notebook({ storage = new Map(), fixture = original, savedCollections = 
     practice: () => nodes().find(n => n.props?.['data-notebook-practice'])?.props['data-notebook-practice'],
     edit(label, value) { const wrapper = nodes().find(n => n.type === 'label' && text(n).startsWith(label) && nodes(n).some(child => child.type === 'textarea')); assert.ok(wrapper, `Missing textarea label ${label}`); nodes(wrapper).find(n => n.type === 'textarea').props.onChange({ target: { value } }); render(); },
     editMemory(value) { const input = nodes().find(n => n.type === 'textarea' && n.props['aria-label'] === `${fixture.words[0].word} 的记忆方法`); assert.ok(input); input.props.onChange({ target: { value } }); render(); },
+    editAnswer(number,value) { const input=nodes().find(n=>n.type==='textarea'&&n.props['aria-label']===`${fixture.words[0].word} 第 ${number} 次回忆释义`); assert.ok(input);input.props.onChange({target:{value}});render(); },
+    editEntry(value) { const input=nodes().find(n=>n.type==='input'&&n.props['aria-label']==='新一行英文单词');assert.ok(input);input.props.onChange({target:{value}});render(); },
+    submitEntry() { const form=nodes().find(n=>n.type==='form'&&n.props.className==='notebookEntryRow');assert.ok(form);form.props.onSubmit({preventDefault(){}});render(); },
     memoryDraft: () => structuredClone(memory.drafts),
     close() { for (const hook of hooks) hook?.cleanup?.(); },
   };
@@ -358,4 +361,59 @@ test('one failed collection read prevents a partial notebook test and leaves eve
     assert.deepEqual(view.memoryDraft(), {});
     assert.equal(view.calls.filter(call => call.method === 'PUT').length, 0);
   } finally { view.close(); }
+});
+
+test('written recall retains separate attempts, manual judgements and the original meanings across save and reopen',async()=>{
+ const storage=new Map(),view=notebook({storage});
+ try{
+  await view.ready();
+  assert.ok(!view.nodes().some(n=>n.props?.className==='notebookRecallComparison'));
+  view.editAnswer(1,'我想是有说服力的');
+  await view.click('核对释义');
+  assert.ok(view.nodes().some(n=>n.props?.className==='notebookRecallComparison'&&view.text(n).includes(original.words[0].meaning)));
+  await view.click('正确');
+  const first=view.draft()[original.id].batch.words[0];
+  assert.equal(first.recalls[0].answer,'我想是有说服力的');assert.equal(first.recalls[0].result,'correct');
+  assert.equal(first.meaning,original.words[0].meaning);assert.equal(first.note,original.words[0].note);assert.equal(first.rating,'fuzzy');
+  await view.click('再写一次');view.editAnswer(2,'有条理的？');await view.click('核对释义');await view.click('错误');
+  assert.ok(view.text(view.nodes().find(n=>n.props?.className==='notebookRecallHistory')).includes('我想是有说服力的'));
+  const before=structuredClone(view.draft()[original.id].batch);
+  await view.click('保存到当前工作区 · 有修改');
+  const write=view.calls.filter(call=>call.method==='PUT').at(-1);assert.deepEqual(JSON.parse(write.body).batch,before);
+  const reopened=notebook({storage:new Map(),fixture:before});
+  try{await reopened.ready();assert.equal(reopened.nodes().find(n=>n.type==='textarea'&&n.props['aria-label']==='cogent 第 2 次回忆释义').props.value,'有条理的？');assert.ok(reopened.nodes().some(n=>n.type==='button'&&reopened.text(n)==='错误'&&n.props['aria-pressed']));}
+  finally{reopened.close();}
+ }finally{view.close();}
+});
+
+test('rewriting an answer resets its previous judgement; hide and sort controls retain the draft without counting a new collection',async()=>{
+ const view=notebook();
+ try{
+  await view.ready();view.editAnswer(1,'手写释义');await view.click('核对释义');await view.click('模糊');
+  view.editAnswer(1,'改写后的释义');
+  const word=view.draft()[original.id].batch.words[0];
+  assert.equal(word.recalls[0].checked,false);assert.equal(word.recalls[0].result,undefined);
+  assert.ok(!view.nodes().some(n=>n.props?.className==='notebookRecallComparison'));
+  const raw=view.rawDraft();await view.click('A–Z 字母排序');await view.click('遮挡复习');await view.click('收集与编辑');
+  assert.equal(view.rawDraft(),raw);assert.equal(Object.keys(view.draft()).length,1);
+  assert.equal(view.draft()[original.id].batch.words.length,1);
+  assert.deepEqual(view.memoryDraft(),{});
+ }finally{view.close();}
+});
+
+test('the final entry row survives reopening before it is added, then counts exactly once with an optional blank definition',async()=>{
+ const storage=new Map(),view=notebook({storage});
+ try{
+  await view.ready();view.editEntry('lucid');
+  assert.deepEqual(view.draft()[original.id].batch.entryDraft,{word:'lucid',meaning:''});
+  assert.equal(view.draft()[original.id].batch.words.length,1);
+ }finally{view.close();}
+ const reopened=notebook({storage});
+ try{
+  await reopened.ready();assert.equal(reopened.nodes().find(n=>n.type==='input'&&n.props['aria-label']==='新一行英文单词').props.value,'lucid');
+  reopened.submitEntry();
+  const batch=reopened.draft()[original.id].batch;
+  assert.equal(batch.words.length,2);assert.equal(batch.words[1].word,'lucid');assert.equal(batch.words[1].meaning,'');assert.equal(batch.entryDraft,undefined);
+  assert.deepEqual(batch.words[0],original.words[0]);
+ }finally{reopened.close();}
 });

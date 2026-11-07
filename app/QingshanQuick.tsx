@@ -7,7 +7,7 @@ import RevealControls from "./RevealControls";
 import SharedWordMemory from "./SharedWordMemory";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import {qingshanDecks,qingshanRatingKeys,type QingshanDeck,type QingshanEntry} from './qingshanCatalog';
+import {qingshanDecks,qingshanRatingKeys,groupQingshanRows,qingshanDisplayRating,qingshanRowLabel,type QingshanDeck,type QingshanDisplayEntry} from './qingshanCatalog';
 import RatingCloudSync from './RatingCloudSync';
 import {readSavedRatings,writeSavedRatings} from './ratingStorage';
 import {recordLearningPlanRatings} from '../community/learningPlanStore';
@@ -15,7 +15,7 @@ import Practice from '../community/Practice';
 import {restoreGroupRange} from './quickRangeModel';
 type Rating='unknown'|'fuzzy'|'familiar';
 type Filter=Rating|'unrated';
-type Entry=QingshanEntry;
+type Entry=QingshanDisplayEntry;
 const groupOf=(entry:Entry)=>entry.group;
 const ratingsList: Array<{ value: Filter; label: string; color: string }> = [
   { value: "unknown", label: "不认识", color: "red" },
@@ -25,10 +25,11 @@ const ratingsList: Array<{ value: Filter; label: string; color: string }> = [
 ];
 
 export default function QingshanQuick({deck,pronounce,planTarget,onPlanTargetHandled}:{deck:QingshanDeck;pronounce:(word:string)=>void;planTarget?:PlanNavigation|null;onPlanTargetHandled?:()=>void}) {
- const {title,entries,intro,commonLabel,specialLabel}=qingshanDecks[deck];
+ const {title,entries:sourceEntries,intro,commonLabel,specialLabel}=qingshanDecks[deck];
+ const entries=useMemo(()=>groupQingshanRows(sourceEntries),[sourceEntries]);
  const [ratings,setRatings]=useState<Record<string,Rating>>(()=>readSavedRatings(studyStorage,qingshanRatingKeys[deck])??{});
  const [testing,setTesting]=useState(false),[hideNotes,setHideNotes]=useState(false),[hideRelated,setHideRelated]=useState(false);
- const onRate=(id:string,rating:Rating)=>{recordLearningPlanRatings(deck,{[id]:rating});setRatings(current=>({...current,[id]:rating}));};
+ const onRate=(id:string,rating:Rating)=>{const entry=entries.find(row=>row.id===id);if(!entry)return;const updates=Object.fromEntries(entry.sourceRows.map(row=>[row.id,rating]));recordLearningPlanRatings(deck,updates);setRatings(current=>({...current,...updates}));};
  useEffect(()=>writeSavedRatings(studyStorage,qingshanRatingKeys[deck],ratings),[ratings,deck]);
   const groups = useMemo(() => [...new Set(entries.map(groupOf))], [entries]);
   const storageKey = `gre-${deck}-selection-v1`;
@@ -74,12 +75,12 @@ export default function QingshanQuick({deck,pronounce,planTarget,onPlanTargetHan
   const scoped = ordered.filter((entry) => selection.includes(groupOf(entry)));
   const keyword = query.trim().toLocaleLowerCase();
   const visible = scoped.filter((entry) =>
-    (!filters.length || filters.includes(snapshot[entry.id] ?? "unrated"))
+    (!filters.length || filters.includes(qingshanDisplayRating(entry,snapshot) ?? "unrated"))
     && (!keyword || [entry.word, entry.commonMeaning, entry.specialMeaning].filter(Boolean).join(" ").toLocaleLowerCase().includes(keyword)),
   );
   const active = visible.find((entry) => entry.id === activeId) ?? visible[0];
   const counts = scoped.reduce((total, entry) => {
-    total[ratings[entry.id] ?? "unrated"] += 1;
+    total[qingshanDisplayRating(entry,ratings) ?? "unrated"] += 1;
     return total;
   }, { unknown: 0, fuzzy: 0, familiar: 0, unrated: 0 });
 
@@ -176,11 +177,11 @@ export default function QingshanQuick({deck,pronounce,planTarget,onPlanTargetHan
     <div className="zhangTable qingshanTable" role="table" aria-label={title}>
      <div className="zhangRow qingshanRow qingshanHeader" role="row"><span role="columnheader">词汇</span><span role="columnheader">{commonLabel}</span><span role="columnheader">{specialLabel}</span><span role="columnheader">共享笔记</span><span role="columnheader">掌握程度</span></div>
      {visible.map(entry=><div className={`zhangRow qingshanRow ${entry.id===active?.id?'keyboardActive':''}`} role="row" aria-current={entry.id===active?.id?"true":undefined} key={entry.id} ref={el=>{rows.current[entry.id]=el;}}>
-      <div role="cell"><button className="quickWord" onClick={()=>{setActiveId(entry.id);pronounce(entry.word);}}><strong>{entry.word}</strong></button><NotebookFrequencyBadge word={entry.word}/><small>{entry.group} · 第 {entry.number} 行</small><small>PDF 第 {entry.page} 页</small></div>
+      <div role="cell"><button className="quickWord" onClick={()=>{setActiveId(entry.id);pronounce(entry.word);}}><strong>{entry.word}</strong></button><NotebookFrequencyBadge word={entry.word}/><small>{entry.group} · {qingshanRowLabel(entry)}</small><small>PDF 第 {entry.page} 页</small></div>
       <div role="cell"><small className="qingshanCellLabel">{commonLabel}</small>{hideRelated?<span className="muted">已隐藏</span>:<button className={`quickMeaning ${revealed.includes(entry.id)?"revealed":""}`} aria-expanded={revealed.includes(entry.id)} onClick={()=>reveal(entry.id)}>{revealed.includes(entry.id)?entry.commonMeaning||'—':`点击揭晓${commonLabel}`}</button>}</div>
       <div role="cell"><small className="qingshanCellLabel">{specialLabel}</small><button className={`quickMeaning ${revealed.includes(entry.id)?"revealed":""}`} aria-expanded={revealed.includes(entry.id)} onClick={()=>reveal(entry.id)}>{revealed.includes(entry.id)?entry.specialMeaning||'—':`点击揭晓${specialLabel}`}</button></div>
       <div role="cell">{hideNotes?<span className="muted">笔记已隐藏</span>:<SharedWordMemory word={entry.word}/>}</div>
-      <div role="cell" className="trafficLights" aria-label={`${entry.word} 掌握程度`}>{ratingsList.slice(0,3).map(({value,label,color})=><button key={value} className={`${ratings[entry.id]===value?'active ':''}${color}`} aria-pressed={ratings[entry.id]===value} onClick={()=>rate(entry.id,value as Rating)}><i/><span>{label}</span></button>)}</div>
+      <div role="cell" className="trafficLights" aria-label={`${entry.word} 掌握程度`}>{ratingsList.slice(0,3).map(({value,label,color})=><button key={value} className={`${qingshanDisplayRating(entry,ratings)===value?'active ':''}${color}`} aria-pressed={qingshanDisplayRating(entry,ratings)===value} onClick={()=>rate(entry.id,value as Rating)}><i/><span>{label}</span></button>)}</div>
      </div>)}
     </div>
     {!visible.length&&<p>当前范围没有词条，请调整页码或颜色筛选。</p>}

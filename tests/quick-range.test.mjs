@@ -302,3 +302,22 @@ for(const [deck,file,common,special] of [['qingshan-precise','qingshanPrecise','
   const last=entries.filter(e=>e.list===2).at(-1);view.search(last.specialMeaning);assert.ok(view.active());assert.ok(view.text(view.active()).includes(last.word)||view.nodes().some(n=>n.props?.role==='row'&&view.text(n).includes(last.word)));
  }finally{view.close();}
 });
+
+test('Qingshan shows one word for adjacent repeated source rows, searches every sense and retains legacy ratings until an explicit self-test',()=>{
+ const deck='qingshan-rare',entries=data('qingshanRare'),rows=entries.filter(e=>e.word==='sound'),key=`gre-${deck}-ratings-v1`;
+ const ratings={[rows[0].id]:'familiar',[rows[1].id]:'fuzzy',[entries.at(-1).id]:'unknown'};
+ const view=quickView('QingshanQuick',{[key]:JSON.stringify(ratings)},deck);
+ const displayed=()=>view.nodes().filter(n=>n.props?.role==='row'&&view.text(n).includes('sound'));
+ try{
+  view.flush();view.search('sound');assert.equal(displayed().length,1);
+  assert.deepEqual(JSON.parse(view.snapshot()[key]),ratings);
+  assert.ok(view.nodes().some(n=>n.props?.className==='quickCount'&&view.text(n).includes('词库 132 条')));
+  const row=displayed()[0];assert.ok(view.nodes().some(n=>n.props?.['aria-label']==='sound 掌握程度'));
+  assert.ok(view.text(row).includes('第 2–3 行'));
+  assert.ok(view.nodes().some(n=>n.type==='button'&&n.props['aria-pressed']&&view.text(n)==='模糊'));
+  view.key('Enter');assert.ok(view.text(displayed()[0]).includes(rows[0].specialMeaning));assert.ok(view.text(displayed()[0]).includes(rows[1].specialMeaning));
+  view.search('完好的，健康的');assert.equal(displayed().length,1,'A sense from the second source row is searchable');
+  view.key('3');const saved=JSON.parse(view.snapshot()[key]);assert.equal(saved[rows[0].id],'familiar');assert.equal(saved[rows[1].id],'familiar');assert.equal(saved[entries.at(-1).id],'unknown');
+  view.remount();view.flush();view.key('ArrowDown');assert.match(view.text(view.active()),/sound/);view.key('ArrowDown');assert.ok(view.text(view.active()).startsWith(entries[3].word),'Keyboard navigation skips the merged second source row');
+ }finally{view.close();}
+});

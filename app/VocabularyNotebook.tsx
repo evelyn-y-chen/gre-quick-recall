@@ -2,7 +2,8 @@ import type {PlanNavigation} from "../community/planNavigation";
 import {studyStorage} from "../community/storage";
 import {recordLearningPlanWords} from "../community/learningPlanStore";
 import {reviewDay} from "../community/practiceReviewModel";
-import {appFetch} from "../community/api";
+import {appFetch,getWorkspaceGeneration} from "../community/api";
+import {persistLearningWorkspace} from "../community/workspacePersistence";
 "use client";
 
 import SharedWordMemory,{useWordMemory} from "./SharedWordMemory";
@@ -13,6 +14,7 @@ import Practice,{type NotebookPractice} from "../community/Practice";
 import DictionaryLookup from "./DictionaryLookup";
 import DictionaryLinks from "./DictionaryLinks";
 import NotebookWrittenRecall from "./NotebookWrittenRecall";
+import {createNotebookAutosaver,type NotebookSaveState} from "./notebookAutosave";
 import RevealControls from "./RevealControls";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { buildNotebookCatalog, type CatalogWord } from "./notebookCatalog";
@@ -61,6 +63,46 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
   const [dirty,setDirty] = useState(false);
   const [status,setStatus] = useState("正在读取生词本…");
   const [conflict,setConflict] = useState(false);
+  const [saveStates,setSaveStates]=useState<Record<string,NotebookSaveState>>({});
+  const mounted=useRef(true),workspaceGeneration=useRef(getWorkspaceGeneration());
+  const currentBatch=useRef({batch,revision});currentBatch.current={batch,revision};
+  const memoryRef=useRef(sharedMemory);memoryRef.current=sharedMemory;
+  const autosaver=useRef<ReturnType<typeof createNotebookAutosaver>|null>(null);
+  if(!autosaver.current)autosaver.current=createNotebookAutosaver({
+    storage:studyStorage,generation:workspaceGeneration.current,getGeneration:getWorkspaceGeneration,
+    schedule:fn=>window.setTimeout(fn,600),cancel:id=>window.clearTimeout(id),
+    put:async(next,rev)=>{
+      const response=await appFetch("/api/notebook",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({batch:next,revision:rev})});
+      const result=await response.json();
+      if(!response.ok)throw Object.assign(Error(result.error||"生词本自动保存失败，请重试。"),{conflict:response.status===409});
+      return result;
+    },
+    persist:()=>persistLearningWorkspace(workspaceGeneration.current),
+    saveMemory:async()=>{const memory=memoryRef.current;return !memory||!Object.keys(memory.drafts).length||await memory.save();},
+    onState:(id,state)=>{
+      if(!mounted.current)return;
+      setSaveStates(states=>({...states,[id]:state}));
+      if(currentBatch.current.batch?.id===id)setConflict(state.phase==='conflict');
+    },
+    onLocalSave:(saved,rev)=>{
+      if(!mounted.current)return;
+      const pending=drafts()[saved.id];
+      setBatches(items=>[summary(pending?.batch??saved,rev,!!pending),...items.filter(item=>item.id!==saved.id)]);
+      if(currentBatch.current.batch?.id===saved.id){
+        currentBatch.current.revision=rev;setRevision(rev);
+        setDirty(JSON.stringify(currentBatch.current.batch)!==JSON.stringify(saved));
+      }
+      window.dispatchEvent(new Event("word-memory-source-saved"));
+    },
+  });
+  useEffect(()=>{
+    mounted.current=true;const flush=()=>{void autosaver.current?.flushAll();};
+    window.addEventListener('online',flush);window.addEventListener('pagehide',flush);
+    return()=>{mounted.current=false;window.removeEventListener('online',flush);window.removeEventListener('pagehide',flush);flush();};
+  },[]);
+  useEffect(()=>{
+    if(batch&&sharedMemory&&Object.keys(sharedMemory.drafts).length&&!sharedMemory.busy)autosaver.current?.schedule(batch,revision);
+  },[batch?.id,sharedMemory?.drafts,sharedMemory?.busy,sharedMemory?.ready]);
   const [query,setQuery] = useState("");
   const [module,setModule] = useState("全部词库");
   const [selected,setSelected] = useState<string[]>([]);
@@ -141,11 +183,13 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
   },[]);
 
   function persist(next: NotebookBatch, rev = revision) {
+    currentBatch.current={batch:next,revision:rev};
     setBatch(next); setDirty(true); setConflict(false);
     setBatches((items) => [summary(next,rev,true),...items.filter((item) => item.id !== next.id)]);
     try {
       studyStorage.setItem(NOTEBOOK_DRAFT_KEY,JSON.stringify({...drafts(),[next.id]:{batch:next,revision:rev}}));
-      setStatus("本机草稿已保留，记得保存到当前工作区。");
+      setStatus("修改已保留，生词本会自动保存。");
+      autosaver.current?.schedule(next,rev);
     } catch { setStatus("本机草稿空间不足，请立即保存到当前工作区。"); }
   }
   function resetView() { setActiveId(""); setSelected([]); setRemoved(null); setRevealed([]); setReview(false); setConflict(false); setWordOrder(null); setAlphabetical(false); }
@@ -160,12 +204,14 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
     resetView(); setLoading(true);
     const local = drafts()[id];
     if (local) {
-      setBatch(local.batch); setRevision(local.revision); setDirty(true); setStatus("已恢复这次收集的本机草稿。"); setLoading(false); return;
+      currentBatch.current={batch:local.batch,revision:local.revision};
+      setBatch(local.batch); setRevision(local.revision); setDirty(true); setStatus("已恢复这次收集的本机草稿，将自动保存。"); setLoading(false); autosaver.current?.schedule(local.batch,local.revision); return;
     }
     try {
       const response = await appFetch(`/api/notebook?id=${encodeURIComponent(id)}`,{cache:"no-store"});
       if (!response.ok) throw new Error();
       const saved = await response.json() as NotebookDraft;
+      currentBatch.current={batch:saved.batch,revision:saved.revision};
       setBatch(saved.batch); setRevision(saved.revision); setDirty(false); setStatus("已读取工作区生词本。");
     } catch { setStatus("读取失败，请重试；当前收集未改变。"); }
     finally { setLoading(false); }
@@ -173,20 +219,8 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
   useEffect(()=>{if(!planTarget||planTarget.deckId!=='notebook'||!planTarget.batchId)return;void open(planTarget.batchId).then(()=>{setReview(true);onPlanTargetHandled?.();});},[planTarget?.id]);
   async function save() {
     if (!batch) return;
-    if (!validNotebookBatch(batch)) { setStatus("请填写来源和每条生词的英文；每次最多收集 1000 个词。"); return; }
     setSaving(true);
-    try {
-      if(sharedMemory && Object.keys(sharedMemory.drafts).length && !await sharedMemory.save())throw Error("记忆方法未全部保存，请查看页面底部提示。");
-      const response = await appFetch("/api/notebook",{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({batch,revision})});
-      const saved = await response.json();
-      if (!response.ok) { setConflict(response.status===409); throw new Error(saved.error); }
-      setRevision(saved.revision); setDirty(false); setConflict(false);
-      const local = drafts(); delete local[batch.id];
-      try { studyStorage.setItem(NOTEBOOK_DRAFT_KEY,JSON.stringify(local)); } catch {}
-      setBatches((items) => [summary(batch,saved.revision),...items.filter((item) => item.id !== batch.id)]);
-      window.dispatchEvent(new Event("word-memory-source-saved"));
-      setStatus("已保存到当前工作区。");
-    } catch (error) { setStatus(error instanceof Error ? error.message : "工作区保存失败，草稿仍保留。"); }
+    try {autosaver.current?.schedule(batch,currentBatch.current.revision);await autosaver.current?.flush(batch.id);}
     finally { setSaving(false); }
   }
   function add(candidates: Array<Pick<CatalogWord,"word"|"meaning"|"note"|"origin">>,clearEntry=false) {
@@ -195,7 +229,7 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
     if (merged.length > 1000) {setStatus("本次已超过 1000 个词，请另开一次收集。");return false;}
     if (!validNotebookBatch({...batch,words:merged})) {setStatus("合并后内容过长，请减少所选释义或先精简已有内容；本次修改尚未加入。");return false;}
     persist({...batch,words:merged,...(clearEntry?{entryDraft:undefined}:{})}); setSelected([]);
-    setStatus(`已合并所选释义，本次共 ${merged.length} 个词。同词的不同来源记在一起，请保存到当前工作区。`);
+    setStatus(`已合并所选释义，本次共 ${merged.length} 个词，修改会自动保存。`);
     return true;
   }
   function editWord(id: string, field: "word"|"meaning"|"note"|"origin", value: string) {
@@ -281,6 +315,7 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
   }
   useEffect(() => { window.addEventListener("keydown",handleKeyboard); return () => window.removeEventListener("keydown",handleKeyboard); });
 
+  const saveState=batch?saveStates[batch.id]:undefined;
   return <section className={`vocabNotebook${review ? " notebookReviewMode" : " notebookDocumentMode"}${showNotes ? "" : " notebookNotesHidden"}`} onKeyDown={(e) => {e.stopPropagation();handleKeyboard(e.nativeEvent);}}>
     <div className="libraryHead"><div><p className="eyebrow">MY VOCABULARY</p><h1>生词本</h1><p className="quickIntro">像写文档一样逐行收集，先回忆释义，再查词核对。</p></div></div>
     <fieldset disabled={loading || saving} className="notebookControls">
@@ -302,8 +337,9 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
       {testStatus&&<p role="status">{testStatus}</p>}
     </section>}
     {conflict && batch && <button type="button" onClick={() => {setRevision(0);persist({...batch,id:crypto.randomUUID(),source:`${batch.source.slice(0,280)}（本机副本）`},0);}}>将本机草稿另存为新收集</button>}
-    {batch && <fieldset disabled={loading || saving} className="notebookControls">
-      <div className="notebookBatchHead"><label>本次来源<input required maxLength={300} value={batch.source} onChange={(e) => persist({...batch,source:e.target.value})} /></label><label>收集日期<input type="date" value={batch.date} onChange={(e) => persist({...batch,date:e.target.value})} /></label><button className="solid" type="button" onClick={save}>{saving ? "保存中…" : dirty ? "保存到当前工作区 · 有修改" : "保存到当前工作区"}</button></div>
+    {batch && <fieldset disabled={loading} className="notebookControls">
+      <div className="notebookBatchHead"><label>本次来源<input required maxLength={300} value={batch.source} onChange={(e) => persist({...batch,source:e.target.value})} /></label><label>收集日期<input type="date" value={batch.date} onChange={(e) => persist({...batch,date:e.target.value})} /></label><button className="solid" type="button" disabled={saving} onClick={save}>{saving ? "保存中…" : "立即保存"}</button></div>
+      <div className="notebookStatus" role="status" aria-live="polite"><strong>生词本自动保存</strong> · {saveState?.message??(dirty?"草稿已保留，正在准备自动保存…":"当前收集已保存，修改后会自动保存。")}</div>
       <div className="notebookMode"><button type="button" aria-pressed={!review} onClick={() => setReview(false)}>收集与编辑</button><button type="button" aria-pressed={review} onClick={() => {setReview(true);setRevealed([]);}}>遮挡复习</button><span>本次 {batch.words.length} 个生词</span></div>
       <div className="notebookDisplay" role="group" aria-label="生词本显示设置">
         <span>显示内容</span>
@@ -374,7 +410,7 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
         <button type="submit" className="solid" disabled={!rowEntry.word.trim()}>＋ 加入本行</button>
         {(rowEntry.word||rowEntry.meaning)&&<small className="notebookEntryHint">这行已保留为草稿；点击「加入本行」后计入本次收集与词频。</small>}
       </form>}
-      {!!batch.words.length && <div className="notebookListSave"><span>标注、释义和笔记一起保存</span><button className="solid" type="button" onClick={save}>{saving ? "保存中…" : dirty ? "保存全部修改" : "已保存"}</button></div>}
+      {!!batch.words.length && <div className="notebookListSave"><span>{saveState?.message??"标注、释义和笔记会自动保存"}</span>{saveState&&(saveState.phase==='error'||saveState.phase==='conflict')&&<button className="solid" type="button" disabled={saving} onClick={save}>重试保存</button>}</div>}
     </fieldset>}
     {testing && <Practice key={testing.id} deck="notebook" notebook={testing} onClose={()=>setTesting(null)}/>}
   </section>;

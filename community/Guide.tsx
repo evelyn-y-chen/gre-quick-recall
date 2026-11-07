@@ -246,9 +246,9 @@ const groups: GuideGroup[] = [
           '测试操作：A–F 选择选项，U 表示不确定，Enter 提交或继续。提交后显示本轮作答次数及剩余连续答对次数；「上一词回看」只查看已答题和笔记，不重新计分，返回后保留当前题。旧记录未保存总次数时会明确说明。',
           '查找与添加：在搜索框查询各词库，按来源筛选结果。同一单词可勾选多份来源的解释，合并到一个词条下；也可自行添加新词。',
           '选择来源：在「词库来源优先顺序」中上下调整排序。词库无结果时，词典区自动沿用已输入的单词；选择词典释义后仍可修改。',
-          '查阅词典：添加生词时展开「查词典或补充这一个词」，已有生词展开「补查词典」。点击「韦氏词典」或「海词词典」可在新窗口查当前单词。复制需要的释义，返回后选择相应来源，点「从剪贴板粘贴」或手动粘贴；核对后选择追加或替换，来源一同记录，记忆笔记保持不变。填入后请保存本次收集。',
+          '查阅词典：添加生词时展开「查词典或补充这一个词」，已有生词展开「补查词典」。点击「韦氏词典」或「海词词典」可在新窗口查当前单词。复制需要的释义，返回后选择相应来源，点「从剪贴板粘贴」或手动粘贴；核对后选择追加或替换，来源一同记录，记忆笔记保持不变。填入后会随本次收集自动保存。',
           '编辑与复习：编辑模式可修改单词、释义和来源。复习模式逐行揭晓释义与笔记，并支持红黄绿、颜色筛选和快捷键；当前词会滚到屏幕中间。来源以较浅颜色显示，便于阅读释义。',
-          '保存与撤销：选择「保存到当前工作区」保存生词本修改。记忆方法使用对应的「保存全部笔记」。误移除单词时，可选择「撤销移除」。',
+          '自动保存与撤销：生词本的单词、释义、手写回忆、核对结果和共享笔记修改后自动保存；停止输入约片刻后整理为正式收集，登录后自动同步。页面会区分本机保存、账号保存和同步待完成；失败可重试，也可点「立即保存」。切换板块前会继续保存；未填完整的内容保留草稿。误移除单词时，可选择「撤销移除」。',
         ],
         english: [
           'Collect words: create a collection with the article, question or course source and date to keep its context.',
@@ -259,7 +259,7 @@ const groups: GuideGroup[] = [
           'Set source preferences: reorder “词库来源优先顺序”. If the word banks have no match, the dictionary opens with the same query. You can edit a selected dictionary definition.',
           'Look up a word: expand “查词典或补充这一个词” when adding a word, or “补查词典” on an existing entry. Select “韦氏词典” (Merriam-Webster) or “海词词典” (Dict.cn) to open its official entry in a new window. Copy the definition you need, return and select the matching source. Paste with the clipboard button or manually, then append or explicitly replace the definition. Its source is recorded with it; memory notes stay unchanged. Save the collection afterwards.',
           'Edit and review: edit words, meanings and sources in edit mode. Review mode reveals meanings and notes row by row, with ratings, filters and shortcuts. The active word scrolls toward the center. Subdued source labels keep meanings clear.',
-          'Save and undo: select “保存到当前工作区” to save notebook changes. Memory notes use their own Save all control. Select “撤销移除” to undo an accidental removal.',
+          'Autosave and undo: notebook words, meanings, written recall attempts, assessments and shared notes save automatically after a short typing pause. Signed-in work also syncs to the account. The status distinguishes device saving, account saving and pending sync; retry failures or use Save now. Pending edits continue saving when leaving this module; incomplete entries stay in drafts. Use Undo removal to restore an accidentally removed word.',
         ],
       },
       {

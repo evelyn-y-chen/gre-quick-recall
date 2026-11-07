@@ -39,7 +39,7 @@ export default function DictionaryLookup({word, meaning, origin='', onApply}: {w
   finally{if(current===sequence.current)setBusy(false);}
  }
  const options=entry ? [...entry.zh.split("\n").filter(Boolean).map(t=>({id:"zh:"+t,text:t,lang:"中文"})),...entry.en.split("\n").filter(Boolean).map(t=>({id:"en:"+t,text:t,lang:"English"}))] : [];
- function apply(text:string,provider:DictionarySource,append:boolean){try{const next=applyDictionaryDefinition(meaning,origin,text,provider,append);onApply(next.meaning,next.origin);setMessage('释义和来源已填入，记忆笔记保持原样。请保存本次收集。');}catch(e){setMessage(e instanceof Error?e.message:'填入未完成，原内容没有改变。');}}
+ function apply(text:string,provider:DictionarySource,append:boolean){try{const next=applyDictionaryDefinition(meaning,origin,text,provider,append);onApply(next.meaning,next.origin);setMessage('释义和来源已填入，记忆笔记保持原样。');}catch(e){setMessage(e instanceof Error?e.message:'填入未完成，原内容没有改变。');}}
  return <div className="dictionaryLookup"><DictionaryLinks word={word} onSelect={selectSource}/>
   <section className="dictionaryPaste" aria-label="复制词典释义后填入">
    <strong>复制释义 → 填入生词</strong><p>先选择来源，在上方词典页面复制需要的释义，再回到这里粘贴。不会自动抓取网页。</p>
@@ -48,7 +48,7 @@ export default function DictionaryLookup({word, meaning, origin='', onApply}: {w
    <label>粘贴的释义<textarea rows={4} maxLength={4000} value={pasted} placeholder="也可以直接长按或使用键盘粘贴" onChange={e=>{clipboardSequence.current++;setReading(false);setPasted(e.target.value);}}/></label>
    <small>将记录来源：{dictionarySources[source]} · {pasted.length}/4000</small>
    <div className="dictionaryActions"><button type="button" disabled={!word.trim()||!pasted.trim()||reading} onClick={()=>apply(pasted,source,true)}>追加粘贴的释义</button><button type="button" disabled={!word.trim()||!pasted.trim()||reading} onClick={()=>apply(pasted,source,false)}>用粘贴内容替换释义</button></div>
-   <small>追加会保留原释义与来源；替换只修改释义及其来源，不修改记忆笔记。填入后仍需保存收集。</small>
+   <small>追加会保留原释义与来源；替换只修改释义及其来源，不修改记忆笔记。已有生词会随收集自动保存；新增单词请加入本次收集。</small>
   </section>
   {message&&<p role="status">{message}</p>}
   <button type="button" disabled={!word.trim()||busy} onClick={lookup}>{busy?"查词中…":"查词典 · 中英双语"}</button>{entry&&<div className="dictionaryResults">{entry.phonetic&&<p>/{entry.phonetic}/</p>}{!entry.en&&<p>此词暂无英文释义，可选用中文释义。</p>}{!entry.zh&&<p>此词暂无中文释义，可选用英文释义。</p>}{options.map((o,i)=><label key={o.id+String(i)}><input type="checkbox" checked={selected.includes(o.id)} onChange={e=>setSelected(s=>e.target.checked?[...s,o.id]:s.filter(x=>x!==o.id))}/><span><small>{o.lang}</small>{o.text}</span></label>)}<div className="dictionaryActions"><button type="button" disabled={!selected.length} onClick={()=>apply(options.filter(x=>selected.includes(x.id)).map(x=>x.text).join('\n'),'ecdict',true)}>追加所选释义</button><button type="button" disabled={!selected.length} onClick={()=>apply(options.filter(x=>selected.includes(x.id)).map(x=>x.text).join('\n'),'ecdict',false)}>用所选替换释义</button></div><small>词典来源：<a href="https://github.com/skywind3000/ECDICT" target="_blank" rel="noreferrer">ECDICT</a> · <a href={import.meta.env.BASE_URL+"dictionary-v1/LICENSE.txt"} target="_blank" rel="noreferrer">授权说明</a></small></div>}</div>;

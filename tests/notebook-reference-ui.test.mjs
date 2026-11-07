@@ -8,18 +8,22 @@ const original = {
   words: [{ id: 'word-cogent', word: 'cogent', meaning: '手写：有说服力', note: '【全能词】有说服力的\n【A+】证据支持这一结论', origin: 'Day04 · 2.1 · 第1题 B', rating: 'fuzzy' }],
 };
 
+const notebookSavedRecords=new WeakMap();
+
 // Mount the real notebook with isolated IO. SharedWordMemory remains a separate
 // subtree so a collection reference can never silently replace a shared note.
-function notebook({ storage = new Map(), fixture = original, savedCollections = [], failedReads = new Set() } = {}) {
-  const modules = new Map(), calls = [], listeners = new Map();
+function notebook({ storage = new Map(), fixture = original, savedCollections = [], failedReads = new Set(), persistResult = {destination:'device',synced:true}, putHook } = {}) {
+  const modules = new Map(), calls = [], listeners = new Map(), timers=new Map();let timerId=0;
+  if(!notebookSavedRecords.has(storage))notebookSavedRecords.set(storage,new Map([[fixture.id,{batch:structuredClone(fixture),revision:7}],...savedCollections.map(batch=>[batch.id,{batch:structuredClone(batch),revision:5}])]));
+  const records=notebookSavedRecords.get(storage);
   let hooks = [], effects = [], cursor = 0, dirty = false, tree;
   const jsx = (type, props) => ({ type, props: props ?? {} });
   // The real memory provider lives above the notebook. Keep its draft outside
   // the conditional child so toggling that child exercises the same boundary.
   const memory = {
     drafts: {},
-    edit(word, value) { memory.drafts[word] = { text: value, revision: 3 }; dirty = true; },
-    save: async () => true,
+    edit(word, value) { memory.drafts={...memory.drafts,[word]:{text:value,revision:3}};dirty=true; },
+    save: async () => {memory.drafts={};dirty=true;return true;},
   };
   const react = {
     useState(initial) { const i = cursor++; if (!(i in hooks)) hooks[i] = typeof initial === 'function' ? initial() : initial; return [hooks[i], value => { const next = typeof value === 'function' ? value(hooks[i]) : value; if (!Object.is(next, hooks[i])) { hooks[i] = next; dirty = true; } }]; },
@@ -27,30 +31,31 @@ function notebook({ storage = new Map(), fixture = original, savedCollections = 
     useMemo(create, deps) { const i = cursor++, old = hooks[i]; if (!old || deps.some((v, n) => !Object.is(v, old.deps[n]))) hooks[i] = { value: create(), deps }; return hooks[i].value; },
     useEffect(effect, deps) { const i = cursor++, old = hooks[i]; if (!old || !deps || deps.some((v, n) => !Object.is(v, old.deps?.[n]))) { hooks[i] = { deps, cleanup: old?.cleanup }; effects.push(() => { hooks[i].cleanup?.(); hooks[i].cleanup = effect(); }); } },
   };
-  const browser = { innerHeight: 900, matchMedia: () => ({ matches: true }), addEventListener: (name, fn) => listeners.set(name, fn), removeEventListener: name => listeners.delete(name), dispatchEvent() {} };
+  const browser = { setTimeout(fn){const id=++timerId;timers.set(id,fn);return id;},clearTimeout(id){timers.delete(id);}, innerHeight: 900, matchMedia: () => ({ matches: true }), addEventListener: (name, fn) => listeners.set(name, fn), removeEventListener: name => listeners.delete(name), dispatchEvent() {} };
   async function appFetch(url, options) {
     calls.push({ url, ...options });
     if (url === '/api/mind-map') return { ok: true, json: async () => ({ maps: [], tables: [] }) };
-    if (options?.method === 'PUT') return { ok: true, json: async () => ({ revision: 8 }) };
+    if (options?.method === 'PUT') {const payload=JSON.parse(options.body),response=putHook?await putHook(payload):{ok:true,json:async()=>({revision:payload.revision+1})};const result=await response.json();if(response.ok)records.set(payload.batch.id,{batch:structuredClone(payload.batch),revision:result.revision});return {...response,json:async()=>result};}
     if (url.startsWith('/api/notebook?id=')) {
       const id = decodeURIComponent(url.slice('/api/notebook?id='.length));
-      const saved = savedCollections.find(item => item.id === id);
-      return { ok: !!saved && !failedReads.has(id), json: async () => saved && !failedReads.has(id) ? { batch: saved, revision: 5 } : { error: '读取失败' } };
+      const saved = records.get(id);
+      return { ok: !!saved && !failedReads.has(id), json: async () => saved && !failedReads.has(id) ? saved : { error: '读取失败' } };
     }
-    return { ok: true, json: async () => ({ batches: savedCollections.map(item => ({ id: item.id, source: item.source, date: item.date, count: item.words.length, revision: 5 })) }) };
+    return { ok: true, json: async () => ({ batches: [...records.values()].map(({batch:item,revision}) => ({ id: item.id, source: item.source, date: item.date, count: item.words.length, revision })) }) };
   }
   function load(name) {
     if (name === 'react') return react;
     if (name === 'react/jsx-runtime') return { jsx, jsxs: jsx };
     if (name === '../community/storage') return { studyStorage: { getItem: key => storage.get(key) ?? null, setItem: (key, value) => storage.set(key, value) } };
-    if (name === '../community/api') return { appFetch };
+    if (name === '../community/api') return { appFetch,getWorkspaceGeneration:()=>1 };
+    if (name === '../community/workspacePersistence') return {persistLearningWorkspace:async()=>{calls.push({url:'workspace-persist'});return persistResult;}};
     if (name === '../community/learningPlanStore') return { recordLearningPlanWords() {} };
     if (name === '../community/practiceReviewModel') return { reviewDay: () => '2026-10-29' };
     if (name === '../community/Practice') return { default: props => jsx('section', { 'data-notebook-practice': props }) };
     if (name === './SharedWordMemory') return { default: props => jsx('aside', { 'data-shared-word': props.word, 'data-editing': !!props.editing, children: props.editing ? jsx('textarea', { 'aria-label': `${props.word} 的记忆方法`, value: memory.drafts[props.word]?.text ?? '共享记忆：把论据串起来', onChange: e => memory.edit(props.word, e.target.value) }) : memory.drafts[props.word]?.text ?? '共享记忆：把论据串起来' }), useWordMemory: () => memory };
     if (['./DictionaryLinks', './DictionaryLookup', './RevealControls', './NotebookFrequency'].includes(name)) return { default: () => null };
     if (name === './notebookCatalog') return { buildNotebookCatalog: () => [] };
-    assert.ok(['./VocabularyNotebook', './NotebookWrittenRecall', './notebookModel', './studyWordOrder', './notebookPracticeModel', './notebookFrequencyModel'].includes(name), `Unexpected import ${name}`);
+    assert.ok(['./VocabularyNotebook', './NotebookWrittenRecall', './notebookAutosave', './notebookModel', './studyWordOrder', './notebookPracticeModel', './notebookFrequencyModel'].includes(name), `Unexpected import ${name}`);
     if (modules.has(name)) return modules.get(name);
     const exported = {}; modules.set(name, exported);
     const source = fs.readFileSync(new URL(`../app/${name.slice(2)}${['./VocabularyNotebook','./NotebookWrittenRecall'].includes(name) ? '.tsx' : '.ts'}`, import.meta.url), 'utf8');
@@ -59,8 +64,8 @@ function notebook({ storage = new Map(), fixture = original, savedCollections = 
     return exported;
   }
   const model = load('./notebookModel');
-  const savedDraft = JSON.stringify({ [fixture.id]: { batch: fixture, revision: 7 } });
-  if (!storage.has(model.NOTEBOOK_DRAFT_KEY)) storage.set(model.NOTEBOOK_DRAFT_KEY, savedDraft);
+  if (!storage.has(model.NOTEBOOK_DRAFT_KEY)) storage.set(model.NOTEBOOK_DRAFT_KEY, JSON.stringify({ [fixture.id]: { batch: fixture, revision: 7 } }));
+  const savedDraft=storage.get(model.NOTEBOOK_DRAFT_KEY);
   const Component = load('./VocabularyNotebook').default;
   function render() { for (let n = 0; n < 20; n++) { dirty = false; cursor = 0; tree = Component({ words: [], pronounce() {} }); while (effects.length) effects.shift()(); if (!dirty) return; } throw Error('Notebook hook host did not settle'); }
   function nodes(node) { if (!arguments.length) node = tree; if (!node || typeof node !== 'object') return []; if (Array.isArray(node)) return node.flatMap(n => nodes(n)); if (typeof node.type === 'function') return nodes(node.type(node.props)); return [node, ...nodes(node.props?.children)]; }
@@ -72,6 +77,8 @@ function notebook({ storage = new Map(), fixture = original, savedCollections = 
   return {
     ready: async () => { await settle(); const history = nodes().find(n => n.type === 'select' && nodes().some(parent => parent.props?.className === 'notebookHistory' && nodes(parent).includes(n))); assert.ok(history); history.props.onChange({ target: { value: fixture.id } }); await settle(); },
     nodes, text, calls, savedDraft, storage,
+    saved:()=>structuredClone(records.get(fixture.id)),
+    flushTimers:async()=>{const pending=[...timers.values()];timers.clear();for(const fn of pending)fn();await settle();await settle();},
     draft: () => JSON.parse(storage.get(model.NOTEBOOK_DRAFT_KEY)),
     rawDraft: () => storage.get(model.NOTEBOOK_DRAFT_KEY),
     click: async label => { await findButton(label).props.onClick(); await settle(); },
@@ -105,7 +112,7 @@ test('notebook keeps handwritten meaning, editable collection reference and shar
     view.edit('对照释义与收集笔记', '【BB六选二】新增对照笔记');
     const word = view.draft()[original.id].batch.words[0];
     assert.deepEqual(word, { ...original.words[0], note: '【BB六选二】新增对照笔记' });
-    await view.click('保存到当前工作区 · 有修改');
+    await view.click('立即保存');
     const writes = view.calls.filter(call => call.method === 'PUT');
     assert.equal(writes.length, 1);
     assert.deepEqual(JSON.parse(writes[0].body), { batch: { ...original, words: [word] }, revision: 7 });
@@ -214,7 +221,7 @@ test('notebook remembers display choices across reopening without embedding them
     assert.equal(reopened.checked('显示记忆笔记'), true);
     assert.ok(!reopened.nodes().some(n => n.type === 'textarea' && n.props.value === original.words[0].note));
     assert.ok(reopened.nodes().some(n => n.props?.['data-shared-word'] === 'cogent'));
-    assert.equal(reopened.rawDraft(), reopened.savedDraft);
+    assert.deepEqual(reopened.saved().batch, original, 'Autosave may commit the draft while the first editor closes, without changing its contents');
     assert.equal(reopened.calls.filter(call => call.method === 'PUT').length, 0);
   } finally { reopened.close(); }
 });
@@ -378,7 +385,7 @@ test('written recall retains separate attempts, manual judgements and the origin
   await view.click('再写一次');view.editAnswer(2,'有条理的？');await view.click('核对释义');await view.click('错误');
   assert.ok(view.text(view.nodes().find(n=>n.props?.className==='notebookRecallHistory')).includes('我想是有说服力的'));
   const before=structuredClone(view.draft()[original.id].batch);
-  await view.click('保存到当前工作区 · 有修改');
+  await view.click('立即保存');
   const write=view.calls.filter(call=>call.method==='PUT').at(-1);assert.deepEqual(JSON.parse(write.body).batch,before);
   const reopened=notebook({storage:new Map(),fixture:before});
   try{await reopened.ready();assert.equal(reopened.nodes().find(n=>n.type==='textarea'&&n.props['aria-label']==='cogent 第 2 次回忆释义').props.value,'有条理的？');assert.ok(reopened.nodes().some(n=>n.type==='button'&&reopened.text(n)==='错误'&&n.props['aria-pressed']));}
@@ -416,4 +423,40 @@ test('the final entry row survives reopening before it is added, then counts exa
   assert.equal(batch.words.length,2);assert.equal(batch.words[1].word,'lucid');assert.equal(batch.words[1].meaning,'');assert.equal(batch.entryDraft,undefined);
   assert.deepEqual(batch.words[0],original.words[0]);
  }finally{reopened.close();}
+});
+
+test('notebook automatically saves editing, typed recall, assessments and the final pending line without a manual save',async()=>{
+ const view=notebook();
+ try{
+  await view.ready();view.edit('释义','我的新版释义');view.editAnswer(1,'先回忆的答案');await view.click('核对释义');await view.click('正确');view.editEntry('lucid');view.editMemory('自动保存的共享笔记');
+  const before=view.draft()[original.id].batch;
+  assert.equal(view.calls.filter(call=>call.method==='PUT').length,0);
+  await view.flushTimers();
+  assert.equal(view.calls.filter(call=>call.method==='PUT').length,1);assert.deepEqual(view.saved().batch,before);assert.deepEqual(view.draft(),{});assert.deepEqual(view.memoryDraft(),{});
+  assert.ok(view.nodes().some(n=>n.props?.role==='status'&&view.text(n).includes('已自动保存到这台设备')));
+  assert.ok(view.calls.some(call=>call.url==='workspace-persist'));
+ }finally{view.close();}
+});
+
+test('background autosave keeps inputs enabled and includes a newer answer typed before the first write completes',async()=>{
+ let release;const held=new Promise(resolve=>{release=resolve;});let writes=0;
+ const view=notebook({putHook:async payload=>{if(++writes===1)await held;return {ok:true,json:async()=>({revision:payload.revision+1})};}});
+ try{
+  await view.ready();view.editAnswer(1,'第一版');await view.flushTimers();
+  assert.ok(view.nodes().some(n=>n.type==='fieldset'&&n.props.disabled===false&&view.nodes(n).some(child=>child.props?.className==='notebookEntryRow')));
+  view.editAnswer(1,'保存时继续写的第二版');release();await view.flushTimers();await view.flushTimers();
+  assert.equal(view.saved().batch.words[0].recalls[0].answer,'保存时继续写的第二版');assert.equal(view.saved().revision,9);assert.deepEqual(view.draft(),{});
+ }finally{view.close();}
+});
+
+test('a pending account upload is shown as pending, and retry confirms account saving without another collection write',async()=>{
+ const result={destination:'account',synced:false,message:'本机已保存，账号同步待完成'},view=notebook({persistResult:result});
+ try{
+  await view.ready();view.editAnswer(1,'离线时写的释义');await view.flushTimers();
+  assert.equal(view.saved().batch.words[0].recalls[0].answer,'离线时写的释义');
+  assert.ok(view.nodes().some(n=>n.props?.role==='status'&&view.text(n).includes('账号同步待完成')));
+  assert.ok(!view.nodes().some(n=>n.props?.role==='status'&&view.text(n).includes('已自动保存到账号')));
+  const writes=view.calls.filter(call=>call.method==='PUT').length;result.synced=true;await view.click('重试保存');
+  assert.equal(view.calls.filter(call=>call.method==='PUT').length,writes);assert.ok(view.nodes().some(n=>n.props?.role==='status'&&view.text(n).includes('已自动保存到账号')));
+ }finally{view.close();}
 });

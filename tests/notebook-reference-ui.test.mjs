@@ -485,3 +485,52 @@ test('brief meanings can be edited, hidden and reopened with autosave while comp
   assert.equal(reopened.saved().batch.words[0].meaning,original.words[0].meaning);
  }finally{reopened.close();}
 });
+
+test('whole-page recall hides every reference until one check, includes forgotten words and lets mastery be rated afterwards',async()=>{
+ const fixture={...original,words:[original.words[0],{id:'word-lucid',word:'lucid',meaning:'清楚易懂的',note:'透亮的联想',origin:'Day8第2题'},{id:'word-blank',word:'blank',meaning:'空白的',note:'没有回忆答案的词',origin:'Day8第3题'}]};
+ const storage=new Map(),view=notebook({storage,fixture});
+ try{
+  await view.ready();await view.click('整页回忆');
+  const references=()=>view.nodes().filter(n=>n.props?.className==='notebookWholeReference');
+  assert.equal(references().length,3);
+  for(const word of fixture.words)assert.ok(!references().some(n=>view.text(n).includes(word.meaning)));
+  assert.ok(!view.nodes().some(n=>n.props?.['data-shared-word']));
+  assert.ok(!view.nodes().some(n=>n.type==='textarea'&&fixture.words.some(w=>n.props.value===w.meaning||n.props.value===w.note)));
+  assert.ok(!view.nodes().some(n=>n.type==='button'&&view.text(n)==='核对释义'));
+  view.editAnswer(1,'令人信服的');await view.clickAria('lucid 不记得');
+  assert.ok(view.nodes().some(n=>n.props?.['aria-label']==='lucid 不记得'&&n.props['aria-pressed']));
+  assert.equal(view.draft()[fixture.id].batch.words[1].rating,undefined,'Forgotten is a recall choice, not an automatic red rating');
+  assert.ok(view.text(view.nodes().find(n=>n.props?.['aria-label']==='页尾整页回忆操作')).includes('已回忆 2 / 3'));
+  await view.click('统一核对释义');
+  for(const word of fixture.words)assert.ok(references().some(n=>view.text(n).includes(word.meaning)),'All rows reveal, including a blank answer');
+  assert.ok(!view.nodes().some(n=>n.props?.className==='notebookRecallResults'));
+  const saved=view.draft()[fixture.id].batch;
+  assert.equal(saved.recallPhase,'checking');assert.equal(saved.words[0].recalls[0].checked,true);
+  assert.deepEqual(saved.words[1].recalls.map(({answer,checked,forgotten})=>({answer,checked,forgotten})),[{answer:'',checked:true,forgotten:true}]);
+  assert.equal(saved.words[2].recalls,undefined,'A missing answer must not be fabricated');
+  const group=view.nodes().find(n=>n.props?.['aria-label']==='lucid 掌握程度');
+  view.nodes(group).find(n=>n.type==='button'&&view.text(n)==='不认识').props.onClick();
+  await view.flushTimers();
+  assert.equal(view.saved().batch.words[1].rating,'unknown');
+  assert.equal(view.saved().batch.words[0].rating,'fuzzy');
+  await view.click('隐藏释义，继续回忆');assert.ok(references().every(n=>view.text(n)==='参考释义待统一核对'));
+  assert.equal(view.draft()[fixture.id].batch.words[0].recalls[0].answer,'令人信服的');
+  await view.click('统一核对释义');await view.flushTimers();
+  for(let i=0;i<fixture.words.length;i++)assert.equal(view.saved().batch.words[i].meaning,fixture.words[i].meaning);
+ }finally{view.close();}
+ const reopened=notebook({storage,fixture});try{
+  await reopened.ready();assert.ok(reopened.nodes().some(n=>n.props?.className==='notebookWholeReference'&&reopened.text(n).includes('清楚易懂的')));
+  assert.ok(reopened.nodes().some(n=>n.props?.['aria-label']==='lucid 不记得'&&n.props['aria-pressed']));
+  assert.equal(reopened.saved().batch.recallPhase,'checking');
+ }finally{reopened.close();}
+});
+
+test('forgotten choice can be toggled or replaced with a written answer without losing previous text or changing mastery',async()=>{
+ const view=notebook();try{
+  await view.ready();view.editAnswer(1,'我原先写的内容');await view.clickAria('cogent 不记得');
+  let word=view.draft()[original.id].batch.words[0];assert.equal(word.recalls[0].forgotten,true);assert.equal(word.recalls[0].answer,'我原先写的内容');assert.equal(word.rating,'fuzzy');
+  await view.clickAria('cogent 不记得');assert.equal(view.draft()[original.id].batch.words[0].recalls[0].forgotten,undefined);
+  await view.clickAria('cogent 不记得');view.editAnswer(1,'后来想起来了');
+  word=view.draft()[original.id].batch.words[0];assert.equal(word.recalls[0].forgotten,undefined);assert.equal(word.recalls[0].answer,'后来想起来了');assert.equal(word.rating,'fuzzy');
+ }finally{view.close();}
+});

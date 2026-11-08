@@ -40,3 +40,17 @@ test('export and additive historical import preserve every written answer withou
  assert.deepEqual(restored.words[0].recalls,saved.words[0].recalls);
  assert.deepEqual(mergeImportedNotebook(result.payload,incoming).payload,result.payload);
 });
+
+test('whole-page reveal stage and forgotten recalls round-trip through an additive backup without replacing previous records',()=>{
+ const forgotten={id:'forgot-one',answer:'',checked:true,forgotten:true};
+ const saved={...batch,recallPhase:'checking',words:[{...word,recalls:[attempt,forgotten]}]};
+ assert.ok(validNotebookBatch(saved));
+ assert.equal(validNotebookBatch({...saved,recallPhase:'invalid'}),false);
+ assert.equal(validNotebookBatch({...saved,words:[{...word,recalls:[{...forgotten,forgotten:'yes'}]}]}),false);
+ const incoming={version:1,rows:[{key:'vocab-notebook:'+batch.id,value:JSON.stringify(saved),revision:2,updated_at:'2026-11-08T00:00:00Z'}],storage:{}};
+ const current={version:1,rows:[{key:'vocab-notebook:'+batch.id,value:JSON.stringify(batch),revision:3,updated_at:'2026-11-08T01:00:00Z'}],storage:{}};
+ const restored=mergeImportedNotebook(current,incoming).payload;
+ assert.deepEqual(restored.rows[0],current.rows[0]);
+ const copy=JSON.parse(restored.rows[1].value);assert.equal(copy.recallPhase,'checking');assert.deepEqual(copy.words[0].recalls,[attempt,forgotten]);
+ assert.equal(copy.words[0].rating,word.rating);assert.equal(buildNotebookPractice([copy]).terms[0].meaning,word.meaning);
+});

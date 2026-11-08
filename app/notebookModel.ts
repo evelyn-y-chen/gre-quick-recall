@@ -1,9 +1,9 @@
 export type NotebookRating = "unknown" | "fuzzy" | "familiar";
 export type NotebookRecallResult = "correct" | "partial" | "incorrect";
-export type NotebookRecallAttempt = { id: string; answer: string; checked: boolean; result?: NotebookRecallResult };
+export type NotebookRecallAttempt = { id: string; answer: string; checked: boolean; forgotten?: boolean; result?: NotebookRecallResult };
 export const NOTEBOOK_RECALL_LIMIT = 20;
 export type NotebookWord = { id: string; word: string; meaning: string; briefMeaning?: string; note: string; origin: string; rating?: NotebookRating; recalls?: NotebookRecallAttempt[] };
-export type NotebookBatch = { id: string; source: string; date: string; words: NotebookWord[]; entryDraft?: {word:string;meaning:string} };
+export type NotebookBatch = { id: string; source: string; date: string; words: NotebookWord[]; entryDraft?: {word:string;meaning:string}; recallPhase?: "writing"|"checking" };
 export type NotebookDraft = { batch: NotebookBatch; revision: number };
 export type NotebookSummary = { id: string; source: string; date: string; count: number; revision: number; draft?:boolean };
 export const NOTEBOOK_DRAFT_KEY = "gre-vocabulary-notebook-drafts-v1";
@@ -20,12 +20,14 @@ export function validNotebookBatch(value: unknown, complete = true): value is No
   return text(batch.id, 80) && /^[a-zA-Z0-9-]+$/.test(batch.id)
     && text(batch.source, 300) && (!complete || !!batch.source.trim())
     && text(batch.date, 10) && (!complete || /^\d{4}-\d{2}-\d{2}$/.test(batch.date))
+    && (batch.recallPhase === undefined || batch.recallPhase === "writing" || batch.recallPhase === "checking")
     && (batch.entryDraft === undefined || (!!batch.entryDraft && text(batch.entryDraft.word,300) && text(batch.entryDraft.meaning,4000)))
     && Array.isArray(batch.words) && batch.words.length <= 1000
     && batch.words.every((w) => w && text(w.id, 80) && !!w.id && text(w.word, 300) && (!complete || !!w.word.trim())
       && text(w.meaning, 4000) && (w.briefMeaning === undefined || text(w.briefMeaning,500)) && text(w.note, 4000) && text(w.origin, 1000)
       && (w.recalls === undefined || (Array.isArray(w.recalls) && w.recalls.length <= NOTEBOOK_RECALL_LIMIT
         && w.recalls.every((r) => r && text(r.id,80) && !!r.id && text(r.answer,1000) && typeof r.checked === "boolean"
+          && (r.forgotten === undefined || typeof r.forgotten === "boolean")
           && (r.result === undefined || (r.checked && ["correct","partial","incorrect"].includes(r.result))))
         && new Set(w.recalls.map((r) => r.id)).size === w.recalls.length))
       && (w.rating === undefined || ["unknown", "fuzzy", "familiar"].includes(w.rating)))

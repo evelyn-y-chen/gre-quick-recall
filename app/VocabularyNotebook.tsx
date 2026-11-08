@@ -223,6 +223,13 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
     try {autosaver.current?.schedule(batch,currentBatch.current.revision);await autosaver.current?.flush(batch.id);}
     finally { setSaving(false); }
   }
+  function checkAllRecall() {
+    if(!batch)return;
+    persist({...batch,recallPhase:"checking",words:batch.words.map(word=>{
+      const attempts=word.recalls??[],last=attempts.at(-1);
+      return last&&(last.answer.trim()||last.forgotten)?{...word,recalls:[...attempts.slice(0,-1),{...last,checked:true}]}:word;
+    })});
+  }
   function add(candidates: Array<Pick<CatalogWord,"word"|"meaning"|"note"|"origin">>,clearEntry=false) {
     if (!batch) return false;
     const merged=mergeNotebookCandidates(batch.words,candidates,()=>crypto.randomUUID());
@@ -316,7 +323,10 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
   useEffect(() => { window.addEventListener("keydown",handleKeyboard); return () => window.removeEventListener("keydown",handleKeyboard); });
 
   const saveState=batch?saveStates[batch.id]:undefined;
-  return <section className={`vocabNotebook${review ? " notebookReviewMode" : " notebookDocumentMode"}${showNotes ? "" : " notebookNotesHidden"}`} onKeyDown={(e) => {e.stopPropagation();handleKeyboard(e.nativeEvent);}}>
+  const wholeRecall=!review&&!!batch?.recallPhase,checking=batch?.recallPhase==="checking";
+  const recalledCount=batch?.words.filter(word=>{const last=word.recalls?.at(-1);return last&&(last.answer.trim()||last.forgotten);}).length??0;
+  const wholeRecallActions=batch&&<><button type="button" className="solid" disabled={!batch.words.length} onClick={()=>checking?persist({...batch,recallPhase:"writing"}):checkAllRecall()}>{checking?"隐藏释义，继续回忆":"统一核对释义"}</button><span>{checking?"参考释义已显示，请在每个词条底部标记掌握程度。":`已回忆 ${recalledCount} / ${batch.words.length} 词；想不起来可点「不记得」。`}</span></>;
+  return <section className={`vocabNotebook${review ? " notebookReviewMode" : " notebookDocumentMode"}${wholeRecall?" notebookWholeRecall":""}${showNotes ? "" : " notebookNotesHidden"}`} onKeyDown={(e) => {e.stopPropagation();handleKeyboard(e.nativeEvent);}}>
     <div className="libraryHead"><div><p className="eyebrow">MY VOCABULARY</p><h1>生词本</h1><p className="quickIntro">像写文档一样逐行收集，先回忆释义，再查词核对。</p></div></div>
     <fieldset disabled={loading || saving} className="notebookControls">
       <form className="notebookNew" onSubmit={(e) => {e.preventDefault();create();}}>
@@ -340,17 +350,18 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
     {batch && <fieldset disabled={loading} className="notebookControls">
       <div className="notebookBatchHead"><label>本次来源<input required maxLength={300} value={batch.source} onChange={(e) => persist({...batch,source:e.target.value})} /></label><label>收集日期<input type="date" value={batch.date} onChange={(e) => persist({...batch,date:e.target.value})} /></label><button className="solid" type="button" disabled={saving} onClick={save}>{saving ? "保存中…" : "立即保存"}</button></div>
       <div className="notebookStatus" role="status" aria-live="polite"><strong>生词本自动保存</strong> · {saveState?.message??(dirty?"草稿已保留，正在准备自动保存…":"当前收集已保存，修改后会自动保存。")}</div>
-      <div className="notebookMode"><button type="button" aria-pressed={!review} onClick={() => setReview(false)}>收集与编辑</button><button type="button" aria-pressed={review} onClick={() => {setReview(true);setRevealed([]);}}>遮挡复习</button><span>本次 {batch.words.length} 个生词</span></div>
-      <div className="notebookDisplay" role="group" aria-label="生词本显示设置">
+      <div className="notebookMode"><button type="button" aria-pressed={!review&&!wholeRecall} onClick={() => {setReview(false);if(batch.recallPhase)persist({...batch,recallPhase:undefined});}}>收集与编辑</button><button type="button" aria-pressed={wholeRecall} onClick={()=>{setReview(false);if(!batch.recallPhase)persist({...batch,recallPhase:"writing"});}}>整页回忆</button><button type="button" aria-pressed={review} onClick={() => {setReview(true);setRevealed([]);}}>遮挡复习</button><span>本次 {batch.words.length} 个生词</span></div>
+      {wholeRecall&&<div className="notebookWholeToolbar" role="group" aria-label="整页回忆操作">{wholeRecallActions}</div>}
+      {!wholeRecall&&<div className="notebookDisplay" role="group" aria-label="生词本显示设置">
         <span>显示内容</span>
         <label><input type="checkbox" checked={display.showBriefMeaning} onChange={(e) => changeDisplay("showBriefMeaning",e.target.checked)} />显示简短释义</label>
         <label><input type="checkbox" checked={display.showReference} onChange={(e) => changeDisplay("showReference",e.target.checked)} />显示对照释义</label>
         <label><input type="checkbox" checked={display.showMemory} onChange={(e) => changeDisplay("showMemory",e.target.checked)} />显示记忆笔记</label>
         <small>简短释义可直接编辑；隐藏只调整显示，内容会保留。</small>
-      </div>
+      </div>}
       {displayStatus && <p className="notebookHint" role="status">{displayStatus}</p>}
       {!!batch.words.length && <div className="shuffleControls" role="group" aria-label="生词本显示顺序"><button type="button" aria-pressed={!wordOrder&&!alphabetical} onClick={()=>changeWordOrder("original")}>原顺序</button><button type="button" aria-pressed={!!wordOrder&&!alphabetical} onClick={()=>changeWordOrder("shuffle")}>一键打乱</button><button type="button" aria-pressed={alphabetical} onClick={()=>changeWordOrder("alphabetical")}>A–Z 字母排序</button></div>}
-      {!review && <details className="notebookCatalogAdd"><summary>从已有词库选词，或填入词典释义</summary><div className="notebookAddGrid notebookUnifiedAdd">
+      {!review && !wholeRecall && <details className="notebookCatalogAdd"><summary>从已有词库选词，或填入词典释义</summary><div className="notebookAddGrid notebookUnifiedAdd">
         <section className="notebookPanel"><h2>添加生词</h2><div className="notebookSearch"><input aria-label="搜索所有模块的生词" value={query} onChange={(e) => {setQuery(e.target.value);setManual({meaning:"",note:"",origin:"手动补充"});}} placeholder="输入英文、中文释义或来源…" /><select aria-label="筛选词库" value={module} onChange={(e) => setModule(e.target.value)}><option>全部词库</option>{modules.map((m) => <option key={m}>{m}</option>)}</select></div><p className="notebookHint">同一个词可勾选多个来源，释义会合并到一行。{catalogStatus}</p>
           <details className="notebookSourcePreferences"><summary>词库来源优先顺序</summary>
             <p className="notebookHint">排在前面的来源优先显示；同一来源内，完整匹配的单词优先。偏好保存在这台设备。</p>
@@ -374,16 +385,16 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
       </div></details>}
       <div className="notebookListHead"><h2>{review ? "本次生词复习" : "本次生词"}</h2>{review && <RevealControls total={batch.words.length} shown={batch.words.filter((word) => revealed.includes(word.id)).length} showLabel="显示全部释义" onShow={() => setRevealed(batch.words.map((word) => word.id))} onHide={() => setRevealed([])} />}{removed && <button type="button" onClick={() => {const next=[...batch.words];next.splice(removed.index,0,removed.word);persist({...batch,words:next});setRemoved(null);}}>撤销移除 {removed.word.word}</button>}</div>
       {!batch.words.length && <p className="notebookEmpty">从下方第一行开始。只填英文也可以，参考释义可以稍后补充。</p>}
-      {!review && <p className="notebookHint">参考释义可展开查看；在「我写的释义」凭记忆填写，点核对后自行判断。每次回忆单独保留，不改变红黄绿或收集词频。</p>}
+      {wholeRecall?<p className="notebookHint">先滚动填写每个词，想不起来可选「不记得」。写完后在页尾统一核对，参考含义一起显示，再标记每个词条底部的掌握程度；不需要逐词判断对错。填写与核对状态自动保存。</p>:!review && <p className="notebookHint">参考释义可展开查看；在「我写的释义」凭记忆填写，点核对后自行判断。也可选择「整页回忆」，全部写完后统一核对。</p>}
       {review && !!batch.words.length && <div className="shortcutBar notebookShortcuts" aria-label="生词本复习快捷键"><span><kbd>↑</kbd><kbd>←</kbd> 上一词</span><span><kbd>↓</kbd><kbd>→</kbd> 下一词</span><span><kbd>Space</kbd> 发音</span><span><kbd>Enter</kbd> 显示 / 隐藏释义与笔记</span><span><kbd>1</kbd> 不认识</span><span><kbd>2</kbd> 模糊</span><span><kbd>3</kbd> 熟悉</span><span>标注时同时揭晓释义</span></div>}
       {review && !!batch.words.length && <div className="notebookRowHeader" aria-hidden="true"><span>单词</span><div><span>释义</span>{showNotes && <span>{display.showReference && display.showMemory ? "对照与记忆笔记" : display.showReference ? "对照释义" : "记忆笔记"}</span>}<span>词库来源</span></div><span>掌握程度</span></div>}
-      {!review&&!!batch.words.length&&<div className="notebookDocumentHeader" aria-hidden="true"><span>英文 · 词频</span><span>简短释义 · 查词</span><span>我写的释义</span><span>掌握程度</span></div>}
+      {!review&&!!batch.words.length&&<div className="notebookDocumentHeader" aria-hidden="true"><span>英文 · 词频</span><span>{wholeRecall?"统一核对 · 参考释义":"简短释义 · 查词"}</span><span>我写的释义</span><span>掌握程度</span></div>}
       <div className="notebookWords">{displayWords.map((w,index) => <article className={`notebookWord${w.rating ? ` rated-${w.rating}` : ""}${review && activeWord?.id === w.id ? " notebookActive" : ""}`} key={w.id} tabIndex={review ? 0 : undefined} aria-current={review && activeWord?.id === w.id ? "true" : undefined} ref={(node) => {rowRefs.current[w.id]=node;}} onClick={() => setActiveId(w.id)} onFocus={() => setActiveId(w.id)}>
         <div className="notebookWordHead">
           <span className="notebookWordNumber">{index+1}</span>
-          <div className="notebookWordLabel">{review ? <strong className="notebookCardTitle">{w.word}</strong> : <input className="notebookCardTitle" aria-label={`第 ${index+1} 个单词`} maxLength={300} value={w.word} onChange={(e) => editWord(w.id,"word",e.target.value)} />}<NotebookFrequencyBadge word={w.word}/></div>
+          <div className="notebookWordLabel">{review || wholeRecall ? <strong className="notebookCardTitle">{w.word}</strong> : <input className="notebookCardTitle" aria-label={`第 ${index+1} 个单词`} maxLength={300} value={w.word} onChange={(e) => editWord(w.id,"word",e.target.value)} />}<NotebookFrequencyBadge word={w.word}/></div>
           <button className="notebookPronounce" type="button" onClick={() => pronounce(w.word)} aria-label={`朗读生词 ${w.word}`} title="朗读">▶</button>
-          {!review && <button className="notebookRemove" type="button" aria-label={`移除 ${w.word}`} onClick={() => {setRemoved({word:w,index:batch.words.findIndex(word=>word.id===w.id)});persist({...batch,words:batch.words.filter((x) => x.id!==w.id)});}}>移除</button>}
+          {!review && !wholeRecall && <button className="notebookRemove" type="button" aria-label={`移除 ${w.word}`} onClick={() => {setRemoved({word:w,index:batch.words.findIndex(word=>word.id===w.id)});persist({...batch,words:batch.words.filter((x) => x.id!==w.id)});}}>移除</button>}
         </div>
         {review ? <div className="notebookCardReview">
           {display.showBriefMeaning && revealed.includes(w.id) && <p className="notebookBriefPreview"><small>简短释义</small><span>{notebookBriefMeaning(w)||"未填写"}</span></p>}
@@ -391,6 +402,11 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
           {revealed.includes(w.id) && showNotes && <div className="notebookCardNote">{display.showReference && w.note && <section className="notebookCollectionNote"><strong>对照释义与收集笔记</strong><p>{w.note}</p></section>}{display.showMemory && <SharedWordMemory word={w.word}/>}</div>}
           <div className="notebookCardSource"><span>词库来源</span><p>{w.origin || "未填写"}</p></div>
           <details className="notebookCardDictionary"><summary>补查词典</summary><DictionaryLinks word={w.word}/></details>
+        </div> : wholeRecall ? <div className="notebookWholeReference">
+          {checking?<><strong>参考释义</strong><p>{notebookBriefMeaning(w)||"还没有参考释义，可在收集与编辑中补充。"}</p>
+            <details><summary>完整释义、笔记与来源</summary><p>{w.meaning||"未填写完整释义"}</p>{display.showReference&&w.note&&<p>{w.note}</p>}{display.showMemory&&<SharedWordMemory word={w.word}/>}<small>{w.origin||batch.source}</small></details>
+            <DictionaryLinks word={w.word}/>
+          </>:<p className="notebookWholeMasked">参考释义待统一核对</p>}
         </div> : <div className="notebookEditGrid">
           {display.showBriefMeaning && <label className="notebookBriefMeaning">简短释义<textarea aria-label={`${w.word} 简短释义`} rows={2} maxLength={500} value={notebookBriefMeaning(w)} placeholder="用几个字记住大意（选填）" onChange={e=>editWord(w.id,"briefMeaning",e.target.value)}/></label>}
           <details className="notebookReferenceMeaning"><summary>{w.meaning.trim()?"查看／编辑参考释义":"填写参考释义（选填）"}</summary><label>释义<textarea rows={2} maxLength={4000} value={w.meaning} placeholder="参考释义可以留空" onChange={(e) => editWord(w.id,"meaning",e.target.value)} /></label></details>
@@ -401,12 +417,13 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
           <details className="notebookCardDictionary"><summary>补查词典</summary><DictionaryLookup word={w.word} meaning={w.meaning} origin={w.origin} onApply={(meaning,origin) => {if(batch)persist({...batch,words:batch.words.map(item=>item.id===w.id?{...item,meaning,origin}:item)});}} /></details>
           </details>
         </div>}
-        {!review&&<NotebookWrittenRecall word={w} onChange={recalls=>persist({...batch,words:batch.words.map(item=>item.id===w.id?{...item,recalls}:item)})}/>}
-        <div className="notebookRating"><span>掌握程度{!w.rating ? " · 未标注" : ""}</span><div className="trafficLights" role="group" aria-label={`${w.word} 掌握程度`}>
+        {!review&&<NotebookWrittenRecall word={w} wholePage={wholeRecall} onChange={recalls=>persist({...batch,words:batch.words.map(item=>item.id===w.id?{...item,recalls}:item)})}/>}
+        <div className="notebookRating"><span>掌握程度{!w.rating ? " · 未标注" : ""}</span>{wholeRecall&&!checking?<small>统一核对后标记</small>:<div className="trafficLights" role="group" aria-label={`${w.word} 掌握程度`}>
           {([{value:"unknown",label:"不认识",color:"red"},{value:"fuzzy",label:"模糊",color:"yellow"},{value:"familiar",label:"熟悉",color:"green"}] as const).map((r) => <button key={r.value} type="button" className={`${r.color}${w.rating === r.value ? " active" : ""}`} aria-pressed={w.rating === r.value} onClick={() => rateWord(w.id,r.value)}><i /><span>{r.label}</span></button>)}
-        </div></div>
+        </div>}</div>
       </article>)}</div>
-      {!review&&<form className="notebookEntryRow" onSubmit={e=>{e.preventDefault();if(!rowEntry.word.trim())return;if(add([{word:rowEntry.word,meaning:rowEntry.meaning,note:"",origin:batch.source}],true))entryRef.current?.focus();}}>
+      {wholeRecall&&<div className="notebookWholeToolbar notebookWholeFooter" role="group" aria-label="页尾整页回忆操作">{wholeRecallActions}</div>}
+      {!review&&!wholeRecall&&<form className="notebookEntryRow" onSubmit={e=>{e.preventDefault();if(!rowEntry.word.trim())return;if(add([{word:rowEntry.word,meaning:rowEntry.meaning,note:"",origin:batch.source}],true))entryRef.current?.focus();}}>
         <label>下一个单词<input ref={entryRef} aria-label="新一行英文单词" maxLength={300} value={rowEntry.word} placeholder="输入英文…" onChange={e=>persist({...batch,entryDraft:{...rowEntry,word:e.target.value}})}/><NotebookFrequencyBadge word={rowEntry.word}/></label>
         <label>参考释义（选填）<input maxLength={4000} value={rowEntry.meaning} placeholder="可以先留空" onChange={e=>persist({...batch,entryDraft:{...rowEntry,meaning:e.target.value}})}/></label>
         <div className="notebookEntryLookup">{rowEntry.word.trim()?<DictionaryLinks word={rowEntry.word}/>:<span>填入单词后可查韦氏／海词</span>}</div>

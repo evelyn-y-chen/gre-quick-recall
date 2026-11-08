@@ -274,10 +274,10 @@ nav button.active { color: white; background: var(--ink); box-shadow: 0 5px 14px
 .studyShortcutBar { justify-content: center; margin-top: 14px; }
 .quickTable { overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: var(--card); box-shadow: 0 12px 35px rgba(32,56,46,.06); }
 .quickRow { display: grid; grid-template-columns: minmax(190px, .9fr) minmax(280px, 1.5fr) minmax(250px, .9fr); align-items: stretch; min-height: 66px; border-bottom: 1px solid var(--line); background: rgba(255,254,250,.78); transition: background .15s; }
-.equivalentQuickTable .quickRow { grid-template-columns: minmax(170px, .8fr) minmax(170px, .8fr) minmax(230px, 1.2fr) minmax(240px, .9fr); }
+.equivalentQuickTable .quickRow { grid-template-columns: minmax(170px, .8fr) minmax(170px, .8fr) minmax(230px, 1.2fr); }
 .aPlusQuickTable .quickRow { grid-template-columns: minmax(150px, .65fr) minmax(330px, 1.55fr) minmax(210px, .95fr) minmax(240px, .9fr); }
-.gleeQuickTable .quickRow { grid-template-columns: minmax(170px, .7fr) minmax(240px, 1fr) minmax(310px, 1.35fr) minmax(240px, .9fr); }
-.mathQuickTable .quickRow { grid-template-columns: minmax(220px, .9fr) minmax(310px, 1.35fr) minmax(175px, .65fr) minmax(240px, .9fr); }
+.gleeQuickTable .quickRow { grid-template-columns: minmax(170px, .7fr) minmax(240px, 1fr) minmax(310px, 1.35fr); }
+.mathQuickTable .quickRow { grid-template-columns: minmax(220px, .9fr) minmax(310px, 1.35fr) minmax(175px, .65fr); }
 .quickRow.keyboardActive { position: relative; z-index: 1; outline: 2px solid #7390b3; outline-offset: -2px; background: #fffaf7; box-shadow: 0 7px 20px rgba(40,63,97,.11); }
 .quickRow.rated-unknown { box-shadow: inset 3px 0 #df7d70; }
 .quickRow.rated-fuzzy { box-shadow: inset 3px 0 #deb65b; }
@@ -964,7 +964,7 @@ nav button.active { color: white; background: var(--ink); box-shadow: 0 5px 14px
 
 /* Notebook rows share the quick-recall rating controls. */
 .notebookWords { grid-template-columns: minmax(0, 1fr); gap: 0; }
-.notebookWord { display: grid; grid-template-columns: minmax(170px, .8fr) minmax(0, 2.4fr) 230px; gap: 14px; align-items: start; border-radius: 0; border-bottom: 0; padding: 12px; }
+.notebookWord { display: grid; grid-template-columns: minmax(170px, .8fr) minmax(0, 2.4fr); gap: 14px; align-items: start; border-radius: 0; border-bottom: 0; padding: 12px; }
 .notebookWord:first-child { border-radius: 12px 12px 0 0; }
 .notebookWord:last-child { border-bottom: 1px solid var(--line); border-radius: 0 0 12px 12px; }
 .notebookWord:only-child { border-radius: 12px; }
@@ -982,7 +982,7 @@ nav button.active { color: white; background: var(--ink); box-shadow: 0 5px 14px
 .notebookRating .trafficLights button { font-size: 14px; min-height: 40px; padding: 6px 4px; }
 .notebookListSave { display: flex; gap: 12px; align-items: center; justify-content: flex-end; padding-top: 14px; flex-wrap: wrap; }
 @media(max-width: 1150px) {
- .notebookWord { grid-template-columns: minmax(0, 1fr) 230px; }
+ .notebookWord { grid-template-columns: minmax(0, 1fr); }
  .notebookRating { grid-column: 2; grid-row: 1; }
  .notebookWord .notebookEditGrid, .notebookCardReview { grid-column: 1 / -1; }
 }
@@ -1209,7 +1209,7 @@ nav button.active { color: white; background: var(--ink); box-shadow: 0 5px 14px
 
 .aPlusReviewPlan{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:18px 20px;border:1px solid #bdcfc1;border-radius:14px;background:#eff5ee;margin:16px 0;}.aPlusReviewPlan h2{margin:5px 0;font-size:22px;}.aPlusReviewPlan h2 strong{color:#426951;}.aPlusReviewPlan p{font-size:13px;margin:5px 0;color:#627166;}.aPlusReviewPlan .aPlusReviewGuide{flex-basis:100%;font-size:12px;line-height:1.6;}.aPlusReviewPlan details{width:100%;font-size:13px;}.aPlusReviewPlan summary{cursor:pointer;}.aPlusDueWords{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;max-height:230px;overflow:auto;}.aPlusDueWords>span{display:grid;gap:4px;padding:8px 10px;background:white;border-radius:8px;}.aPlusDueWords small{color:#758277;font-size:10px;}
 
-.allWordsMemoryTable .quickRow{grid-template-columns:minmax(150px,.8fr) minmax(180px,1fr) minmax(240px,1.45fr) minmax(210px,.9fr);}
+.allWordsMemoryTable .quickRow{grid-template-columns:minmax(150px,.8fr) minmax(180px,1fr) minmax(240px,1.45fr);}
 .quickGleeMemoryCell{min-width:0;padding:10px 12px;border-right:1px solid var(--line);background:#f0f6ef66;}
 .quickGleeMemoryCell p{margin:0;font-size:13px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere;color:#3d5746;}
 .quickGleeMemoryEmpty{font-size:12px;color:#90998f;}
@@ -1439,7 +1439,7 @@ nav button.active { color: white; background: var(--ink); box-shadow: 0 5px 14px
 .notebookCatalogAdd { margin: 16px 0; border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
 .notebookCatalogAdd > summary { cursor: pointer; font-size: 14px; font-weight: 600; }
 .notebookCatalogAdd .notebookPanel { margin-top: 12px; border: 0; padding: 0; background: transparent; }
-.notebookDocumentHeader, .notebookDocumentMode .notebookWord { display: grid; grid-template-columns: minmax(150px,.85fr) minmax(160px,1.1fr) minmax(220px,1.45fr) 150px; gap: 18px; align-items: start; }
+.notebookDocumentHeader, .notebookDocumentMode .notebookWord { display: grid; grid-template-columns: minmax(150px,.85fr) minmax(160px,1.1fr) minmax(220px,1.45fr); gap: 18px; align-items: start; }
 .notebookDocumentHeader { padding: 12px 14px; background: var(--community-surface,var(--card)); border: 1px solid var(--line); border-bottom: 0; border-radius: 10px 10px 0 0; font-size: 12px; color: var(--muted); }
 .notebookDocumentMode .notebookWord { padding: 16px 14px; border-left-width: 1px; }
 .notebookDocumentMode .notebookWord:first-child { border-radius: 0; }
@@ -1463,6 +1463,17 @@ nav button.active { color: white; background: var(--ink); box-shadow: 0 5px 14px
 .notebookWrittenRecall { min-width: 0; }
 .vocabNotebook .notebookWrittenRecall label { color: var(--ink); font-size: 13px; }
 .notebookRecallActions, .notebookRecallResults { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; }
+.notebookRecallForgot[aria-pressed="true"] { background:var(--community-accent,var(--ink)); border-color:var(--community-accent,var(--ink)); color:var(--community-on,#fff); }
+.notebookWholeToolbar { display:flex; align-items:center; flex-wrap:wrap; gap:12px; margin:12px 0; padding:14px; border:1px solid var(--line); border-radius:10px; background:var(--community-surface,var(--card)); }
+.notebookWholeToolbar span { color:var(--muted); font-size:13px; line-height:1.6; }
+.notebookWholeFooter { margin-top:18px; }
+.notebookWholeReference { min-width:0; }
+.notebookWholeReference > strong { font-size:12px; color:var(--muted); }
+.notebookWholeReference p { white-space:pre-wrap; overflow-wrap:anywhere; font-size:14px; line-height:1.65; margin:6px 0 12px; }
+.notebookWholeReference details { font-size:12px; margin:10px 0; }
+.notebookWholeReference summary { cursor:pointer; color:var(--muted); }
+.notebookWholeReference small, .notebookWholeMasked, .notebookWholeRecall .notebookRating > small { color:var(--muted); font-size:12px; line-height:1.6; }
+.notebookWholeReference small { white-space:pre-wrap; overflow-wrap:anywhere; }
 .vocabNotebook .notebookRecallActions button, .vocabNotebook .notebookRecallResults button { padding: 5px 9px; min-height: 32px; font-size: 12px; }
 .notebookRecallResults button[aria-pressed="true"] { background: var(--community-accent,#283f61); border-color: var(--community-accent,#283f61); color: var(--community-on,#fff); }
 .notebookRecallComparison { margin-top: 10px; padding: 10px; background: var(--community-surface,var(--card)); border: 1px solid var(--line); border-radius: 8px; }

@@ -248,6 +248,7 @@ const groups: GuideGroup[] = [
           '选择来源：在「词库来源优先顺序」中上下调整排序。词库无结果时，词典区自动沿用已输入的单词；选择词典释义后仍可修改。',
           '查阅词典：添加生词时展开「查词典或补充这一个词」，已有生词展开「补查词典」。点击「韦氏词典」或「海词词典」可在新窗口查当前单词。复制需要的释义，返回后选择相应来源，点「从剪贴板粘贴」或手动粘贴；核对后选择追加或替换，来源一同记录，记忆笔记保持不变。填入后会随本次收集自动保存。',
           '编辑与复习：单词旁显示可编辑的「简短释义」，默认取已有释义中的第一条词义；可在「显示内容」里隐藏或显示。简短释义与完整参考、笔记和手写回忆分开保存，不会改写原批注或测试答案。复习模式先遮挡，再逐行揭晓，并支持红黄绿、颜色筛选和快捷键；当前词会滚到屏幕中间。',
+          '整页回忆：先选择「整页回忆」，参考含义和笔记暂时隐藏。逐行写出记得的释义，想不起来可点「不记得」后继续下一词。全部写完后，在顶部或页尾点「统一核对释义」，所有含义一起显示；边滚动核对，边在每个词条底部标记红黄绿即可，无需再逐词判断正确或错误。文字、「不记得」选择和核对状态都会自动保存；「不记得」本身不改掌握程度。',
           '自动保存与撤销：生词本的单词、释义、手写回忆、核对结果和共享笔记修改后自动保存；停止输入约片刻后整理为正式收集，登录后自动同步。页面会区分本机保存、账号保存和同步待完成；失败可重试，也可点「立即保存」。切换板块前会继续保存；未填完整的内容保留草稿。误移除单词时，可选择「撤销移除」。',
         ],
         english: [
@@ -259,6 +260,7 @@ const groups: GuideGroup[] = [
           'Set source preferences: reorder “词库来源优先顺序”. If the word banks have no match, the dictionary opens with the same query. You can edit a selected dictionary definition.',
           'Look up a word: expand “查词典或补充这一个词” when adding a word, or “补查词典” on an existing entry. Select “韦氏词典” (Merriam-Webster) or “海词词典” (Dict.cn) to open its official entry in a new window. Copy the definition you need, return and select the matching source. Paste with the clipboard button or manually, then append or explicitly replace the definition. Its source is recorded with it; memory notes stay unchanged. Save the collection afterwards.',
           'Edit and review: an editable brief meaning appears beside each word, initially using the first existing definition line. Show or hide it in Display content. It saves separately from full references, notes and written recall, without changing original annotations or quiz answers. Review mode masks answers before revealing them row by row, with ratings, filters and shortcuts. The active word scrolls toward the center.',
+          'Whole-page recall: select 整页回忆 to hide reference meanings and notes. Write each meaning or choose 不记得 (I do not remember) and continue. Use 统一核对释义 at the top or bottom to reveal all references together, then scroll through the page and rate mastery at the bottom of each word card. No separate correct/incorrect judgment is required. Answers, forgotten selections and the reveal stage save automatically; choosing forgotten does not change mastery ratings.',
           'Autosave and undo: notebook words, meanings, written recall attempts, assessments and shared notes save automatically after a short typing pause. Signed-in work also syncs to the account. The status distinguishes device saving, account saving and pending sync; retry failures or use Save now. Pending edits continue saving when leaving this module; incomplete entries stay in drafts. Use Undo removal to restore an accidentally removed word.',
         ],
       },

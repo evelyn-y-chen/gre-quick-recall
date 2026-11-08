@@ -391,6 +391,15 @@ main .notebookRecallMark{display:flex;align-items:center;justify-content:space-b
 main .recall-correct .notebookRecallMark>strong{color:#42654f}main .recall-incorrect .notebookRecallMark>strong{color:#8e4c54}main .recall-partial .notebookRecallMark>strong{color:#796029}
 main .notebookRecallLevel{font-size:11px;font-weight:500;border:1px solid var(--line);border-radius:99px;padding:3px 8px;background:var(--card);color:var(--muted)}
 main .notebookRecallStats{display:block;line-height:1.8;margin-top:12px;font-size:12px;color:var(--muted)}
+main .notebookWrongAnswer{margin:10px 0;padding:10px 12px;border:1px dashed var(--line);border-radius:10px;background:var(--card)}
+main .notebookWrongAnswer summary,main .notebookRecallHistory summary{cursor:pointer;line-height:1.8;font-size:12px;color:var(--ink-soft)}
+main .notebookWrongAnswer[open]>label{display:grid;gap:6px;margin-top:10px}
+main .notebookRecallHistory li[data-result=incorrect]>span,main .notebookRecallHistory li[data-result=partial]>span{color:var(--recall-bad)}
+main .notebookNextAttempt{margin-top:12px;min-height:44px}
+main .notebookSubmission{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;padding:24px;margin:24px 0;border:2px solid color-mix(in srgb,var(--ink-soft) 60%,var(--line));border-radius:16px;background:color-mix(in srgb,var(--ink-soft) 5%,var(--card))}
+main .notebookSubmission h3{font-size:19px;margin:0 0 8px}main .notebookSubmission p,main .notebookSubmission small{font-size:13px;line-height:1.8;margin:6px 0;color:var(--muted)}
+main .notebookSubmission>.notebookSubmitButton{min-height:52px;min-width:220px;font-size:16px;font-weight:650;padding:14px 22px;white-space:normal}main .notebookSubmission>p[role=status]{flex-basis:100%}
+@media(max-width:600px){main .notebookSubmission{padding:18px}main .notebookSubmission>.notebookSubmitButton{width:100%;min-width:0}}
 main .notebookRecallComparison{padding:12px;border-radius:10px;background:var(--card);border:1px solid var(--line);margin-top:12px}
 main .notebookRecallResults{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 8px}
 main .notebookRecallResults button{min-height:42px;flex:1;min-width:64px}

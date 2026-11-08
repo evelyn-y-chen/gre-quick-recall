@@ -15,7 +15,7 @@ import DictionaryLookup from "./DictionaryLookup";
 import DictionaryLinks from "./DictionaryLinks";
 import NotebookWrittenRecall from "./NotebookWrittenRecall";
 import NotebookRecallTools from "./NotebookRecallTools";
-import {appendNotebookRecall,hideNotebookRecallReferences,startNotebookRecall} from "./notebookRecallModel";
+import {appendNotebookRecall,hideNotebookRecallReferences,startNotebookRecall,submitNotebookRecall,notebookRecallSubmitted,notebookRecallResult,notebookRecallIsWrong} from "./notebookRecallModel";
 import {createNotebookAutosaver,type NotebookSaveState} from "./notebookAutosave";
 import RevealControls from "./RevealControls";
 import { memo, useEffect, useMemo, useRef, useState, type RefObject } from "react";
@@ -116,6 +116,8 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
   const [date,setDate] = useState(today);
   const [loading,setLoading] = useState(true);
   const [saving,setSaving] = useState(false);
+  const [submissionMessage,setSubmissionMessage]=useState("");
+  const submissionLock=useRef(false);
   const [dirty,setDirty] = useState(false);
   const [status,setStatus] = useState("正在读取生词本…");
   const [conflict,setConflict] = useState(false);
@@ -284,6 +286,23 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
     try {autosaver.current?.schedule(batch,currentBatch.current.revision);await autosaver.current?.flush(batch.id);}
     finally { setSaving(false); }
   }
+  function beginRecall(ids:string[]){
+    if(!batch)return;setReview(false);setActiveId('');setRevealed([]);setSubmissionMessage('');
+    persist(startNotebookRecall(batch,ids,()=>crypto.randomUUID()));
+  }
+  async function submitRecall(){
+    if(!batch||submissionLock.current)return;
+    let next:NotebookBatch;
+    try{next=submitNotebookRecall(batch,()=>crypto.randomUUID());}
+    catch(error){setSubmissionMessage(error instanceof Error?error.message:'请先完成本次判断。');if(batch.recallPhase!=='checking')checkAllRecall();return;}
+    submissionLock.current=true;setSaving(true);setSubmissionMessage('正在提交并保存本次默写结果…');
+    const id=batch.id;persist(next,currentBatch.current.revision);
+    try{
+      autosaver.current?.schedule(next,currentBatch.current.revision);
+      const saved=await autosaver.current?.flush(id);
+      if(mounted.current&&currentBatch.current.batch?.id===id&&currentBatch.current.batch.recallSubmission?.id===next.recallSubmission?.id)setSubmissionMessage(saved?'本次默写结果已提交并保存。开始下一次时，每个词记为第 N＋1 次，原记录保留。':'本次结果已保留；请根据自动保存提示重试尚未完成的同步。');
+    }finally{submissionLock.current=false;if(mounted.current)setSaving(false);}
+  }
   function checkAllRecall() {
     if(!batch)return;
     persist({...batch,recallPhase:"checking",words:batch.words.map(word=>{
@@ -397,13 +416,17 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
     remove:id=>{if(!batch)return;const index=batch.words.findIndex(word=>word.id===id);if(index<0)return;setRemoved({word:batch.words[index],index});persist({...batch,words:batch.words.filter(word=>word.id!==id)});},
     reveal:id=>setRevealed(ids=>ids.includes(id)?ids.filter(value=>value!==id):[...ids,id]),
     applyMeaning:(id,meaning,origin)=>{if(batch)persist({...batch,words:batch.words.map(word=>word.id===id?{...word,meaning,origin}:word)});},
-    again:id=>{if(batch)persist({...batch,words:batch.words.map(word=>word.id===id?appendNotebookRecall(word,()=>crypto.randomUUID()):word)});},
+    again:id=>{if(batch){if(batch.words.find(word=>word.id===id)?.recalls?.at(-1)?.submittedAt)beginRecall([id]);else persist({...batch,words:batch.words.map(word=>word.id===id?appendNotebookRecall(word,()=>crypto.randomUUID()):word)});}},
     recall:(id,recalls)=>{if(batch)persist({...batch,words:batch.words.map(word=>word.id===id?{...word,recalls}:word)});},
   };
   const saveState=batch?saveStates[batch.id]:undefined;
   const wholeRecall=!review&&!!batch?.recallPhase,checking=batch?.recallPhase==="checking";
+  const submitted=!!batch&&notebookRecallSubmitted(batch);
+  const judgedCount=displayWords.filter(word=>notebookRecallResult(word.recalls?.at(-1))).length;
+  const correctCount=displayWords.filter(word=>notebookRecallResult(word.recalls?.at(-1))==='correct').length;
+  const wrongCount=displayWords.filter(word=>notebookRecallIsWrong(word.recalls?.at(-1))).length;
   const recalledCount=displayWords.filter(word=>{const last=word.recalls?.at(-1);return last&&(last.answer.trim()||last.forgotten);}).length??0;
-  const wholeRecallActions=batch&&<><button type="button" className="solid" disabled={!batch.words.length} onClick={()=>checking?persist(hideNotebookRecallReferences(batch)):checkAllRecall()}>{checking?"隐藏释义，继续回忆":"统一核对释义"}</button><span>{checking?"参考释义已显示，请判断正确／错误，再标记掌握程度。":`已回忆 ${recalledCount} / ${displayWords.length} 词；想不起来可点「不记得」。`}</span></>;
+  const wholeRecallActions=batch&&(submitted?<><strong>本次默写已提交</strong><button type="button" onClick={()=>beginRecall(batch.words.map(word=>word.id))}>开始下一次默写</button><span>原答案和判断已保留；错误及模糊的原答案默认隐藏。</span></>:<><button type="button" className="solid" disabled={!batch.words.length} onClick={()=>checking?persist(hideNotebookRecallReferences(batch)):checkAllRecall()}>{checking?"隐藏释义，继续回忆":"统一核对释义"}</button><span>{checking?"参考释义已显示，请判断正确／模糊／错误，再提交本次结果。":`已回忆 ${recalledCount} / ${displayWords.length} 词；想不起来可点「不记得」。`}</span></>);
   return <section className={`vocabNotebook${review ? " notebookReviewMode" : " notebookDocumentMode"}${wholeRecall?" notebookWholeRecall":""}${showNotes ? "" : " notebookNotesHidden"}`} onKeyDown={(e) => {e.stopPropagation();handleKeyboard(e.nativeEvent);}}>
     <div className="libraryHead"><div><p className="eyebrow">MY VOCABULARY</p><h1>生词本</h1><p className="quickIntro">像写文档一样逐行收集，先回忆释义，再查词核对。</p></div></div>
     <fieldset disabled={loading || saving} className="notebookControls">
@@ -470,7 +493,8 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
       {wholeRecall&&batch.recallRound&&<div className="notebookRecallRound"><span>本轮选择 {displayWords.length} / 本次 {batch.words.length} 词</span><button type="button" onClick={()=>persist({...batch,recallRound:undefined})}>返回整次收集</button></div>}
       <div className="notebookWords">{displayWords.map((word,index)=><NotebookWordRow key={word.id} word={word} index={index} review={review} wholeRecall={wholeRecall} checking={checking} active={activeWord?.id===word.id} isRevealed={revealed.includes(word.id)} display={display} source={batch.source} rowRefs={rowRefs} actions={rowActions}/>)}</div>
       {wholeRecall&&<div className="notebookWholeToolbar notebookWholeFooter" role="group" aria-label="页尾整页回忆操作">{wholeRecallActions}</div>}
-      {!!batch.words.length&&<NotebookRecallTools key={batch.id} batch={batch} onStart={ids=>{setReview(false);setActiveId('');setRevealed([]);persist(startNotebookRecall(batch,ids,()=>crypto.randomUUID()));}} onUpdate={next=>persist(next)}/>}
+      {!review&&!!displayWords.length&&<section className={`notebookSubmission${submitted?' isSubmitted':''}`} aria-label="提交本次默写结果"><div><h3>{submitted?'✓ 本次默写已提交':'完成判断后，提交本次默写'}</h3><p>本次 {displayWords.length} 词 · 正确 {correctCount} · 错词 {wrongCount}（含模糊） · 待判断 {displayWords.length-judgedCount} · 正确率 {judgedCount?Math.round(correctCount/judgedCount*100)+'%':'—'}</p><small>提交后保留本次原答案和判断；下一次默写另记次数。</small></div><button type="button" className="solid notebookSubmitButton" disabled={saving||submitted} onClick={()=>void submitRecall()}>{saving?'正在提交…':submitted?'本次结果已提交':'提交本次默写结果'}</button>{submissionMessage&&<p role="status">{submissionMessage}</p>}</section>}
+      {!!batch.words.length&&<NotebookRecallTools key={batch.id} batch={batch} onStart={beginRecall} onUpdate={next=>persist(next)}/>}
       {!review&&!wholeRecall&&<form className="notebookEntryRow" onSubmit={e=>{e.preventDefault();if(!rowEntry.word.trim())return;if(add([{word:rowEntry.word,meaning:rowEntry.meaning,note:"",origin:batch.source}],true))entryRef.current?.focus();}}>
         <label>下一个单词<input ref={entryRef} aria-label="新一行英文单词" maxLength={300} value={rowEntry.word} placeholder="输入英文…" onChange={e=>persist({...batch,entryDraft:{...rowEntry,word:e.target.value}})}/><NotebookFrequencyBadge word={rowEntry.word}/></label>
         <label>参考释义（选填）<input maxLength={4000} value={rowEntry.meaning} placeholder="可以先留空" onChange={e=>persist({...batch,entryDraft:{...rowEntry,meaning:e.target.value}})}/></label>

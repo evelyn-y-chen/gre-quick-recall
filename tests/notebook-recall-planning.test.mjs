@@ -30,6 +30,28 @@ test('starting only wrong words preserves all old answers and references and cre
  assert.equal(model.startNotebookRecall(original,['missing'],id),original);
 });
 
+test('partial answers count as wrong for retries, streaks and accuracy while preserving the original judgment',()=>{
+ const current=word(['correct','partial','incorrect','partial']),stats=model.notebookRecallStats(current);
+ assert.equal(stats.correct,1);assert.equal(stats.wrong,3);assert.equal(stats.correctRate,.25);assert.equal(stats.streak,3);assert.equal(stats.group,'focus');
+ assert.equal(current.recalls.at(-1).result,'partial');
+ assert.deepEqual(model.selectNotebookRecallWords([current],'wrong'),[current]);
+ assert.equal(model.notebookRecallStats(word(['partial','partial'])).group,'prone');
+});
+
+test('submission is explicit, idempotent and restorable; the next selected round becomes N+1 without replacing prior answers',()=>{
+ const original=batch([word(['correct']),{...word(['partial']),id:'two',word:'lucid'}]);
+ const saved=model.submitNotebookRecall(original,id,'2026-11-08T10:00:00Z');
+ assert.ok(validNotebookBatch(saved));assert.ok(model.notebookRecallSubmitted(saved));
+ assert.equal(model.submitNotebookRecall(saved,id),saved);
+ assert.equal(saved.words[0].recalls.length,1);assert.equal(saved.words[1].recalls[0].result,'partial');
+ const next=model.startNotebookRecall(saved,['two'],id);
+ assert.equal(next.words[0],saved.words[0]);assert.equal(next.words[1].recalls.length,2);
+ assert.deepEqual(next.words[1].recalls[0],saved.words[1].recalls[0]);assert.equal(next.words[1].recalls[1].answer,'');
+ assert.equal(next.recallSubmission,undefined);assert.equal(model.notebookRecallSubmitted(next),false);
+ assert.throws(()=>model.submitNotebookRecall(next,id),/未判断/);
+ const invalid={...saved,words:[{...saved.words[0],recalls:[{...saved.words[0].recalls[0],submittedAt:'invalid'}]}]};assert.equal(validNotebookBatch(invalid),false);
+});
+
 test('60 rounds retain at most 20 full answers while preserving lifetime counts, numbering and consecutive errors',()=>{
  let current=word([]);for(let round=0;round<60;round++){
   current=model.appendNotebookRecall(current,id);

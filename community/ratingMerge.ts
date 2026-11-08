@@ -1,6 +1,7 @@
 import type {Snapshot} from './database';
 import {ratingModules,validRatings,type Rating,type Ratings} from '../app/ratingSyncModel';
 import {mergePracticeStorage} from './practiceProgressMerge';
+import {mergeNotebookRecallBatches} from '../app/notebookRecallMerge';
 export const ratingClockKey='gre-rating-modified-v1';
 const storageKeys:Record<string,string>={'qingshan-precise':'gre-qingshan-precise-ratings-v1','qingshan-rare':'gre-qingshan-rare-ratings-v1','zhang-jijing':'gre-zhang-jijing-ratings-v1','zhang-words':'gre-zhang-words-ratings-v1','zhang-pairs':'gre-zhang-pairs-ratings-v1',bb:'gre-bb-ratings-v1',words:'gre-quick-ratings-v1',equivalents:'gre-equivalent-quick-ratings-v1','a-plus':'gre-a-plus-equivalent-quick-ratings-v1',glee:'gre-glee-1500-quick-ratings-v1',math:'gre-math-vocabulary-quick-ratings-v1',lclj:'gre-lclj-quick-ratings-v1','a-plus-words':'gre-a-plus-word-marks-v1'};
 type Stamp={rating:Rating;at:number};
@@ -81,7 +82,12 @@ export function mergeWorkspaceSnapshots(base:Snapshot|undefined,local:Snapshot,r
   if(answers.length)storage[key]=JSON.stringify(answers.reduce((lowest,value)=>planAnswerRank[value]<planAnswerRank[lowest]?value:lowest));
  }
  for(const [source,snapshot] of [['base',base],['local',local],['remote',remote]] as const)if(snapshot)for(const [key,raw] of Object.entries(snapshot.storage))if(isRatingStorage(key)&&key!==ratingClockKey&&!validRatings(parse(raw)))storage[`gre-rating-recovery:${key}:${source}`]=raw;
- const rows=Object.values(mergeMap(baseRows,localRows,remoteRows)),allClocks:Clocks={};
+ const rows=Object.values(mergeMap(baseRows,localRows,remoteRows,()=>false,(key,b,l,r)=>{
+  if(!key.startsWith('vocab-notebook:')||!l||!r)return;
+  try{const merged=mergeNotebookRecallBatches(b?JSON.parse(b.value):undefined,JSON.parse(l.value),JSON.parse(r.value));
+   if(merged)return {value:{...l,value:JSON.stringify(merged),revision:Math.max(l.revision,r.revision)+1,updated_at:l.updated_at>r.updated_at?l.updated_at:r.updated_at}};
+  }catch{/* Keep ordinary conflict protection for malformed or divergent records. */}
+ })),allClocks:Clocks={};
  for(const module of ratingModules){
   const b=moduleValues(base,module),l=moduleValues(local,module),r=moduleValues(remote,module),ratings:Ratings={},times:Record<string,Stamp>={};
   for(const id of new Set([...Object.keys(b),...Object.keys(l),...Object.keys(r)])){

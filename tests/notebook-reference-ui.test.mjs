@@ -480,6 +480,26 @@ test('written recall retains separate attempts, manual judgements and the origin
  }finally{view.close();}
 });
 
+test('a visible submit action commits the current round, hides wrong text by default and starts N+1 with history intact',async()=>{
+ const fixture={...original,recallPhase:'checking',words:[{...original.words[0],recalls:[{id:'first',answer:'需要纠正的原答案',checked:true,result:'partial'}]}]};
+ const view=notebook({fixture});
+ try{
+  await view.ready();
+  const wrong=view.nodes().find(node=>node.props?.className==='notebookWrongAnswer');assert.ok(wrong);assert.notEqual(wrong.props.open,true);
+  assert.ok(view.nodes(wrong).some(node=>node.type==='textarea'&&node.props.value==='需要纠正的原答案'));
+  assert.ok(view.nodes().some(node=>node.props?.className==='notebookRecallStats'&&view.text(node).includes('错误 1 次（含模糊 1 次） · 正确率 0%')));
+  await view.click('提交本次默写结果');
+  const first=view.saved().batch;assert.ok(first.recallSubmission);assert.equal(first.words[0].recalls.length,1);assert.ok(first.words[0].recalls[0].submittedAt);
+  assert.equal(view.nodes().find(node=>node.type==='textarea'&&node.props['aria-label']==='cogent 第 1 次回忆释义').props.readOnly,true);
+  assert.ok(view.nodes().some(node=>node.props?.className==='notebookRecallHistory'&&view.text(node).includes('模糊（计错）')&&view.text(node).includes('需要纠正的原答案')));
+  await view.click('开始下一次默写');
+  const next=view.draft()[fixture.id].batch;
+  assert.equal(next.words[0].recalls.length,2);assert.deepEqual(next.words[0].recalls[0],first.words[0].recalls[0]);
+  assert.ok(view.nodes().some(node=>node.type==='textarea'&&node.props['aria-label']==='cogent 第 2 次回忆释义'&&node.props.value===''));
+  await view.click('提交本次默写结果');assert.ok(view.text(view.nodes().find(node=>node.props?.['aria-label']==='提交本次默写结果')).includes('未判断'));
+ }finally{view.close();}
+});
+
 test('rewriting an answer resets its previous judgement; hide and sort controls retain the draft without counting a new collection',async()=>{
  const view=notebook();
  try{

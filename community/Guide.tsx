@@ -239,6 +239,7 @@ const groups: GuideGroup[] = [
         en: 'Use the vocabulary notebook',
         cn: [
           '收集单词：创建一次收集，填写文章、题目或课程来源及日期，以便回看语境。',
+          '上下切词：收集与编辑、整页回忆和遮挡复习都可用 ↑／↓ 切换当前词，选中框跟随，词条自动滚到屏幕中间。按当前显示顺序移动，到首尾停止。在输入框中保留光标操作，点击词条空白处后再用快捷键。',
           '收集词频：单词旁的小标记「收集 N 次」表示它出现在当前学习空间的多少次生词收集中。相同单词在同次收集中的多个来源只计一次，草稿与已保存版本不重复计数；其他背诵板块也会显示。它是收集次数，不是测试答错次数。',
           '合并测试：展开「多次收集一起测试」，勾选几次收集后开始测试。相同词合并释义和来源，不改动原收集；支持英选中或中选英。缺少释义的词暂不出题，选项不足时提示增加范围。',
           '张巍镇考机经词 7.0 保留原书 DAY 1–7，可按天选择。上下方向键移动带框词条并跟随滚动；Enter 揭晓释义，Space 朗读，1／2／3 标记红黄绿。支持共享笔记、测试、学习清单及账号同步。',
@@ -254,6 +255,7 @@ const groups: GuideGroup[] = [
         ],
         english: [
           'Collect words: create a collection with the article, question or course source and date to keep its context.',
+          'Move between words: use Up/Down in editing, whole-page recall or masked review. The selected outline follows the current display order and scrolls to the center, stopping at either end. Inputs keep their normal cursor controls; click a blank part of the word card to use navigation shortcuts.',
           'Collection frequency: the small “收集 N 次” badge counts how many notebook collections in the current workspace contain that word. Multiple sources within one collection count once, and a draft replaces its saved version. The badge also appears in other study views. This is a collection count, not a count of incorrect test answers.',
           'Combined tests: expand “多次收集一起测试”, select collections, and start. Repeated words combine their definitions and sources without changing the originals. Both English-to-Chinese and Chinese-to-English are available. Words without definitions are skipped; add collections if there are too few distinct answers.',
           'Test controls: A–F selects an option, U marks uncertainty, and Enter confirms or continues. Feedback shows attempts in this run and the remaining consecutive correct answers. Previous-word review is read-only and preserves the current question. Older records without total attempts are labeled explicitly.',

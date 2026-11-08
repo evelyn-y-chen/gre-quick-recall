@@ -12,8 +12,9 @@ const notebookSavedRecords=new WeakMap();
 
 // Mount the real notebook with isolated IO. SharedWordMemory remains a separate
 // subtree so a collection reference can never silently replace a shared note.
-function notebook({ storage = new Map(), fixture = original, savedCollections = [], failedReads = new Set(), persistResult = {destination:'device',synced:true}, putHook } = {}) {
+function notebook({ storage = new Map(), fixture = original, savedCollections = [], failedReads = new Set(), persistResult = {destination:'device',synced:true}, putHook, rowHeights = {} } = {}) {
   const modules = new Map(), calls = [], listeners = new Map(), timers=new Map();let timerId=0;
+  const frames=new Map(),domRows=new Map(),scrolls=[],focuses=[];let frameId=0,overlay=false;
   if(!notebookSavedRecords.has(storage))notebookSavedRecords.set(storage,new Map([[fixture.id,{batch:structuredClone(fixture),revision:7}],...savedCollections.map(batch=>[batch.id,{batch:structuredClone(batch),revision:5}])]));
   const records=notebookSavedRecords.get(storage);
   let hooks = [], effects = [], cursor = 0, dirty = false, tree;
@@ -71,14 +72,22 @@ function notebook({ storage = new Map(), fixture = original, savedCollections = 
     const exported = {}; modules.set(name, exported);
     const source = fs.readFileSync(new URL(`../app/${name.slice(2)}${['./VocabularyNotebook','./NotebookWrittenRecall'].includes(name) ? '.tsx' : '.ts'}`, import.meta.url), 'utf8');
     const compiled = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, jsx: ts.JsxEmit.ReactJSX } }).outputText;
-    new Function('require', 'exports', 'window', 'document', 'requestAnimationFrame', 'cancelAnimationFrame', compiled)(load, exported, browser, { querySelector: () => null }, () => 1, () => {});
+    new Function('require', 'exports', 'window', 'document', 'requestAnimationFrame', 'cancelAnimationFrame', compiled)(load, exported, browser, { querySelector: () => overlay ? {} : null }, fn => {const id=++frameId;frames.set(id,fn);return id;}, id => frames.delete(id));
     return exported;
   }
   const model = load('./notebookModel');
   if (!storage.has(model.NOTEBOOK_DRAFT_KEY)) storage.set(model.NOTEBOOK_DRAFT_KEY, JSON.stringify({ [fixture.id]: { batch: fixture, revision: 7 } }));
   const savedDraft=storage.get(model.NOTEBOOK_DRAFT_KEY);
   const Component = load('./VocabularyNotebook').default;
-  function render() { for (let n = 0; n < 20; n++) { dirty = false; cursor = 0; tree = Component({ words: [], pronounce() {} }); while (effects.length) effects.shift()(); if (!dirty) return; } throw Error('Notebook hook host did not settle'); }
+  function render() { for (let n = 0; n < 20; n++) {
+    dirty = false; cursor = 0; tree = Component({ words: [], pronounce() {} });
+    for(const row of nodes().filter(node=>node.type==='article'&&node.props['data-word-id'])){
+      const id=row.props['data-word-id'];let element=domRows.get(id);
+      if(!element){element={getBoundingClientRect:()=>({height:rowHeights[id]??240}),scrollIntoView:options=>scrolls.push({id,part:'row',...options}),querySelector:()=>({scrollIntoView:options=>scrolls.push({id,part:'head',...options})})};domRows.set(id,element);}
+      element.focus=options=>{focuses.push({id,...options});row.props.onFocus();};row.props.ref(element);
+    }
+    while (effects.length) effects.shift()(); if (!dirty) return;
+  } throw Error('Notebook hook host did not settle'); }
   function nodes(node) { if (!arguments.length) node = tree; if (!node || typeof node !== 'object') return []; if (Array.isArray(node)) return node.flatMap(n => nodes(n)); if (typeof node.type === 'function') return nodes(node.type(node.props)); return [node, ...nodes(node.props?.children)]; }
   function text(node) { if (node == null || typeof node === 'boolean') return ''; if (Array.isArray(node)) return node.map(text).join(''); return typeof node === 'object' ? text(node.props?.children) : String(node); }
   async function settle() { for (let n = 0; n < 8; n++) { await Promise.resolve(); render(); } }
@@ -87,7 +96,17 @@ function notebook({ storage = new Map(), fixture = original, savedCollections = 
   render();
   return {
     ready: async () => { await settle(); const history = nodes().find(n => n.type === 'select' && nodes().some(parent => parent.props?.className === 'notebookHistory' && nodes(parent).includes(n))); assert.ok(history); history.props.onChange({ target: { value: fixture.id } }); await settle(); },
-    nodes, text, calls, savedDraft, storage, rowRenders,
+    nodes, text, calls, savedDraft, storage, rowRenders, scrolls, focuses,
+    flushFrames(){const pending=[...frames.values()];frames.clear();for(const fn of pending)fn();},
+    setOverlay(value){overlay=value;},
+    focusWord(id){const row=nodes().find(node=>node.props?.['data-word-id']===id);assert.ok(row);row.props.onFocus();render();},
+    key(key,{targetType='',viaWindow=false,...options}={}){
+      const target={closest:selector=>targetType&&selector.includes(targetType)?target:null};
+      const event={key,code:key===' '?'Space':key,target,defaultPrevented:false,preventDefault(){this.defaultPrevented=true;},...options};
+      if(viaWindow)listeners.get('keydown')?.(event);
+      else nodes().find(node=>node.type==='section'&&node.props.className?.split(' ').includes('vocabNotebook')).props.onKeyDown({nativeEvent:event,stopPropagation(){}});
+      render();return event;
+    },
     recallTools:()=>nodes().find(node=>node.props?.['data-recall-tools'])?.props['data-recall-tools'],
     startRecall(ids){nodes().find(node=>node.props?.['data-recall-tools']).props['data-recall-tools'].onStart(ids);render();},
     updateRecallBatch(batch){nodes().find(node=>node.props?.['data-recall-tools']).props['data-recall-tools'].onUpdate(batch);render();},
@@ -271,6 +290,60 @@ function selectedNotebookOrder(view) {
   const controls = view.nodes().find(node => node.props?.['aria-label'] === '生词本显示顺序');
   return view.nodes(controls).filter(node => node.type === 'button' && node.props['aria-pressed']).map(view.text);
 }
+
+const currentNotebookWord = view => view.nodes().find(node => node.type === 'article' && node.props['aria-current'] === 'true')?.props['data-word-id'];
+for (const mode of ['收集与编辑', '整页回忆', '遮挡复习']) {
+  test(`notebook arrows navigate and center the selected word in ${mode} without changing answers or ratings`, async () => {
+    const view = notebook({ fixture: sortingFixture, rowHeights: { 'sorting-abate': 1000 } });
+    try {
+      await view.ready(); if (mode !== '收集与编辑') await view.click(mode);
+      view.flushFrames(); view.scrolls.length = 0;
+      const before = view.rawDraft();
+      assert.equal(currentNotebookWord(view), 'sorting-zeta');
+      assert.equal(view.key('ArrowDown').defaultPrevented, true); view.flushFrames();
+      assert.equal(currentNotebookWord(view), 'sorting-lucid');
+      assert.deepEqual(view.scrolls.at(-1), { id: 'sorting-lucid', part: 'row', block: 'center', behavior: 'auto' });
+      assert.deepEqual(view.focuses.at(-1), { id: 'sorting-lucid', preventScroll: true });
+      view.key('ArrowDown', { repeat: true, viaWindow: true }); view.flushFrames();
+      assert.equal(currentNotebookWord(view), 'sorting-abate');
+      assert.equal(view.scrolls.at(-1).part, 'head', 'Tall cards keep their word heading in view');
+      view.key('ArrowDown'); view.flushFrames();
+      assert.equal(currentNotebookWord(view), 'sorting-cogent');
+      const count = view.scrolls.length;
+      view.key('ArrowDown'); view.flushFrames();
+      assert.equal(currentNotebookWord(view), 'sorting-cogent'); assert.equal(view.scrolls.length, count, 'No scrolling past the final word');
+      for (let i = 0; i < 4; i++) { view.key('ArrowUp'); view.flushFrames(); }
+      assert.equal(currentNotebookWord(view), 'sorting-zeta');
+      assert.equal(view.rawDraft(), before, 'Movement must not write a recall result, rating, or collection');
+      assert.equal(view.calls.filter(call => call.method === 'PUT').length, 0);
+    } finally { view.close(); }
+  });
+}
+
+test('notebook movement follows sorted and round-filtered words; typing and dialogs keep their own keys', async () => {
+  const view = notebook({ fixture: sortingFixture });
+  try {
+    await view.ready(); await view.click('A–Z 字母排序');
+    assert.equal(currentNotebookWord(view), 'sorting-abate');
+    view.key('ArrowDown'); view.flushFrames(); assert.equal(currentNotebookWord(view), 'sorting-cogent');
+    for (const targetType of ['input', 'textarea', 'select', '[contenteditable]', "[role='textbox']"]) {
+      assert.equal(view.key('ArrowDown', { targetType }).defaultPrevented, false, targetType);
+      assert.equal(currentNotebookWord(view), 'sorting-cogent');
+    }
+    for (const options of [{isComposing:true},{ctrlKey:true},{metaKey:true},{altKey:true},{shiftKey:true},{defaultPrevented:true}]) {
+      view.key('ArrowDown', options); assert.equal(currentNotebookWord(view), 'sorting-cogent');
+    }
+    view.setOverlay(true); assert.equal(view.key('ArrowDown').defaultPrevented, false); view.setOverlay(false);
+    view.flushFrames(); view.scrolls.length=0;
+    view.focusWord('sorting-lucid'); view.flushFrames(); assert.deepEqual(view.scrolls, [], 'Focusing another answer field must not yank the document while typing');
+    for (const key of ['1','2','3','Enter',' ','ArrowLeft','ArrowRight']) assert.equal(view.key(key).defaultPrevented, false, 'Editing mode only adds Up/Down');
+    view.startRecall(['sorting-zeta','sorting-lucid']); view.flushFrames();
+    assert.deepEqual(displayedNotebookWords(view), ['lucid','zeta']);
+    view.key('ArrowDown'); view.flushFrames(); assert.equal(currentNotebookWord(view), 'sorting-zeta');
+    view.key('ArrowDown'); view.flushFrames(); assert.equal(currentNotebookWord(view), 'sorting-zeta');
+    view.key('ArrowUp'); view.flushFrames(); assert.equal(currentNotebookWord(view), 'sorting-lucid');
+  } finally { view.close(); }
+});
 
 test('notebook A–Z is a display choice in edit and review and never rewrites collection order or learning data', async () => {
   const view = notebook({ fixture: sortingFixture });

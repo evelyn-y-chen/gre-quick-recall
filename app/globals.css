@@ -1063,8 +1063,8 @@ nav button.active { color: white; background: var(--ink); box-shadow: 0 5px 14px
 .ratingCloudSync {display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:14px 0;padding:12px;border:1px solid var(--line);border-radius:12px;background:#f4f7fb;}
 .ratingCloudSync span,.ratingCloudSync small {font-size:14px;color:var(--muted);}
 
-/* Allow the last review row to reach the viewport center as well. */
-.notebookReviewMode { padding-bottom: 50vh; padding-bottom: 50svh; }
+/* Allow the last word to reach the center in every notebook mode. */
+.vocabNotebook { padding-bottom: 50vh; padding-bottom: 50svh; }
 
 .aPlusTest {max-width:1000px;margin:0 auto;}
 .aPlusTest fieldset {border:0;padding:0;margin:16px 0;min-width:0;}

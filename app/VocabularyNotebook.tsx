@@ -68,7 +68,7 @@ const NotebookWordRow=memo(function NotebookWordRow({word:w,index,review,wholeRe
   rowRefs:RefObject<Record<string,HTMLElement|null>>;actions:RefObject<NotebookRowActions>;
 }) {
   const showNotes=display.showReference||display.showMemory;
-  return <article className={`notebookWord${w.recalls?.at(-1)?.result||w.recalls?.at(-1)?.forgotten?` notebookJudged-${w.recalls.at(-1)!.result??'incorrect'}`:""}${w.rating ? ` rated-${w.rating}` : ""}${review && active ? " notebookActive" : ""}`} key={w.id} tabIndex={review ? 0 : undefined} aria-current={review && active ? "true" : undefined} ref={(node) => {rowRefs.current[w.id]=node;}} onClick={() => actions.current.activate(w.id)} onFocus={() => actions.current.activate(w.id)}>
+  return <article className={`notebookWord${w.recalls?.at(-1)?.result||w.recalls?.at(-1)?.forgotten?` notebookJudged-${w.recalls.at(-1)!.result??'incorrect'}`:""}${w.rating ? ` rated-${w.rating}` : ""}${active ? " notebookActive" : ""}`} key={w.id} data-word-id={w.id} tabIndex={active ? 0 : -1} aria-current={active ? "true" : undefined} ref={(node) => {rowRefs.current[w.id]=node;}} onClick={() => actions.current.activate(w.id)} onFocus={() => actions.current.activate(w.id)}>
         <div className="notebookWordHead">
           <span className="notebookWordNumber">{index+1}</span>
           <div className="notebookWordLabel">{review || wholeRecall ? <strong className="notebookCardTitle">{w.word}</strong> : <input className="notebookCardTitle" aria-label={`第 ${index+1} 个单词`} maxLength={300} value={w.word} onChange={(e) => actions.current.edit(w.id,"word",e.target.value)} />}<NotebookFrequencyBadge word={w.word}/></div>
@@ -167,6 +167,7 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
   const entryRef=useRef<HTMLInputElement|null>(null);
   const [activeId,setActiveId] = useState("");
   const rowRefs = useRef<Record<string, HTMLElement | null>>({});
+  const centerRequested = useRef(false);
   const [review,setReview] = useState(false);
   const [revealed,setRevealed] = useState<string[]>([]);
   const [display,setDisplay] = useState(displayPreferences);
@@ -351,7 +352,10 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
   const activeWordId = activeWord?.id;
   const activeWordRevealed = !!activeWordId && revealed.includes(activeWordId);
   useEffect(() => {
-    if (!review || !activeWordId) return;
+    // Editing/focusing another input must not scroll the document mid-answer.
+    // Outside masked review, only an explicit arrow move requests centering.
+    if ((!review && !centerRequested.current) || !activeWordId) return;
+    centerRequested.current=false;
     const frame = requestAnimationFrame(() => {
       const row = rowRefs.current[activeWordId];
       if (!row) return;
@@ -364,20 +368,22 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
   }, [review, activeWordId, activeWordRevealed]);
 
   function handleKeyboard(event: KeyboardEvent) {
-    if(document.querySelector?.(".learningPlanOverlay, .onboardingOverlay, .workspaceMenuOverlay"))return;
+    if(testing||document.querySelector?.(".learningPlanOverlay, .onboardingOverlay, .workspaceMenuOverlay, [role='dialog'][aria-modal='true']"))return;
     const target = event.target as HTMLElement | null;
-    if (!review || !activeWord || !batch || loading || saving || event.isComposing || event.metaKey || event.ctrlKey || event.altKey || target?.closest("input, textarea, select, [contenteditable='true']")) return;
+    if (event.defaultPrevented || !activeWord || !batch || loading || saving || event.isComposing || event.metaKey || event.ctrlKey || event.altKey || event.shiftKey || target?.closest("input, textarea, select, [contenteditable]:not([contenteditable='false']), [role='textbox']")) return;
     if (target?.closest("button, summary, a") && (event.key === "Enter" || event.code === "Space")) return;
-    const backward = event.key === "ArrowUp" || event.key === "ArrowLeft";
-    const forward = event.key === "ArrowDown" || event.key === "ArrowRight";
+    const backward = event.key === "ArrowUp" || review && event.key === "ArrowLeft";
+    const forward = event.key === "ArrowDown" || review && event.key === "ArrowRight";
     if (event.repeat && !backward && !forward) return;
     if (backward || forward) {
       event.preventDefault();
       const index = displayWords.findIndex((w) => w.id === activeWord.id);
       const next = displayWords[Math.max(0, Math.min(displayWords.length - 1, index + (forward ? 1 : -1)))];
+      centerRequested.current=next.id!==activeWord.id;
       setActiveId(next.id); rowRefs.current[next.id]?.focus({preventScroll:true});
       return;
     }
+    if (!review) return;
     if (event.code === "Space") { event.preventDefault(); pronounce(activeWord.word); return; }
     if (event.key === "Enter") { event.preventDefault(); setRevealed((s) => s.includes(activeWord.id) ? s.filter((id) => id !== activeWord.id) : [...s,activeWord.id]); return; }
     const rating = ({"1":"unknown","2":"fuzzy","3":"familiar"} as Record<string,NotebookRating>)[event.key];
@@ -458,11 +464,11 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
       <div className="notebookListHead"><h2>{review ? "本次生词复习" : "本次生词"}</h2>{review && <RevealControls total={batch.words.length} shown={batch.words.filter((word) => revealed.includes(word.id)).length} showLabel="显示全部释义" onShow={() => setRevealed(batch.words.map((word) => word.id))} onHide={() => setRevealed([])} />}{removed && <button type="button" onClick={() => {const next=[...batch.words];next.splice(removed.index,0,removed.word);persist({...batch,words:next});setRemoved(null);}}>撤销移除 {removed.word.word}</button>}</div>
       {!batch.words.length && <p className="notebookEmpty">从下方第一行开始。只填英文也可以，参考释义可以稍后补充。</p>}
       {wholeRecall?<p className="notebookHint">先滚动填写每个词，想不起来可选「不记得」。写完后在页尾统一核对，逐词判断正确／错误，再标记掌握程度。不记得会立即计错并揭晓该词；可以继续滚动填写。填写、判断和统计自动保存。</p>:!review && <p className="notebookHint">参考释义可展开查看；在「我写的释义」凭记忆填写，点核对后自行判断。也可选择「整页回忆」，全部写完后统一核对。</p>}
-      {review && !!batch.words.length && <div className="shortcutBar notebookShortcuts" aria-label="生词本复习快捷键"><span><kbd>↑</kbd><kbd>←</kbd> 上一词</span><span><kbd>↓</kbd><kbd>→</kbd> 下一词</span><span><kbd>Space</kbd> 发音</span><span><kbd>Enter</kbd> 显示 / 隐藏释义与笔记</span><span><kbd>1</kbd> 不认识</span><span><kbd>2</kbd> 模糊</span><span><kbd>3</kbd> 熟悉</span><span>标注时同时揭晓释义</span></div>}
+      {!!batch.words.length && <div className="shortcutBar notebookShortcuts" aria-label={review?"生词本复习快捷键":"生词本移动快捷键"}><span><kbd>↑</kbd>{review&&<kbd>←</kbd>} 上一词</span><span><kbd>↓</kbd>{review&&<kbd>→</kbd>} 下一词</span>{review?<><span><kbd>Space</kbd> 发音</span><span><kbd>Enter</kbd> 显示 / 隐藏释义与笔记</span><span><kbd>1</kbd> 不认识</span><span><kbd>2</kbd> 模糊</span><span><kbd>3</kbd> 熟悉</span><span>标注时同时揭晓释义</span></>:<span>选中词条自动居中；输入时保留光标操作，点击词条空白处后使用。</span>}</div>}
       {review && !!batch.words.length && <div className="notebookRowHeader" aria-hidden="true"><span>单词</span><div><span>释义</span>{showNotes && <span>{display.showReference && display.showMemory ? "对照与记忆笔记" : display.showReference ? "对照释义" : "记忆笔记"}</span>}<span>词库来源</span></div><span>掌握程度</span></div>}
       {!review&&!!batch.words.length&&<div className="notebookDocumentHeader" aria-hidden="true"><span>英文 · 词频</span><span>{wholeRecall?"统一核对 · 参考释义":"简短释义 · 查词"}</span><span>我写的释义</span><span>掌握程度</span></div>}
       {wholeRecall&&batch.recallRound&&<div className="notebookRecallRound"><span>本轮选择 {displayWords.length} / 本次 {batch.words.length} 词</span><button type="button" onClick={()=>persist({...batch,recallRound:undefined})}>返回整次收集</button></div>}
-      <div className="notebookWords">{displayWords.map((word,index)=><NotebookWordRow key={word.id} word={word} index={index} review={review} wholeRecall={wholeRecall} checking={checking} active={review&&activeWord?.id===word.id} isRevealed={revealed.includes(word.id)} display={display} source={batch.source} rowRefs={rowRefs} actions={rowActions}/>)}</div>
+      <div className="notebookWords">{displayWords.map((word,index)=><NotebookWordRow key={word.id} word={word} index={index} review={review} wholeRecall={wholeRecall} checking={checking} active={activeWord?.id===word.id} isRevealed={revealed.includes(word.id)} display={display} source={batch.source} rowRefs={rowRefs} actions={rowActions}/>)}</div>
       {wholeRecall&&<div className="notebookWholeToolbar notebookWholeFooter" role="group" aria-label="页尾整页回忆操作">{wholeRecallActions}</div>}
       {!!batch.words.length&&<NotebookRecallTools key={batch.id} batch={batch} onStart={ids=>{setReview(false);setActiveId('');setRevealed([]);persist(startNotebookRecall(batch,ids,()=>crypto.randomUUID()));}} onUpdate={next=>persist(next)}/>}
       {!review&&!wholeRecall&&<form className="notebookEntryRow" onSubmit={e=>{e.preventDefault();if(!rowEntry.word.trim())return;if(add([{word:rowEntry.word,meaning:rowEntry.meaning,note:"",origin:batch.source}],true))entryRef.current?.focus();}}>

@@ -23,11 +23,11 @@ function loadHandler(file, name, scope) {
   return exports.default;
 }
 
-function environment() {
+function environment(overlaySelector = '.learningPlanOverlay, .onboardingOverlay, .workspaceMenuOverlay') {
   const calls = [];
   let overlay = false;
   const document = {querySelector(selector) {
-    assert.equal(selector, '.learningPlanOverlay, .onboardingOverlay, .workspaceMenuOverlay');
+    assert.equal(selector, overlaySelector);
     return overlay ? {className: 'learningPlanOverlay'} : null;
   }};
   return {
@@ -128,9 +128,9 @@ test('the page study handler cannot answer or grade a background exercise under 
 });
 
 test('notebook review cannot rate a background word while a plan or introduction covers it',()=>{
- const env=environment(),word={id:'nb-1',word:'candid'};
+ const env=environment(".learningPlanOverlay, .onboardingOverlay, .workspaceMenuOverlay, [role='dialog'][aria-modal='true']"),word={id:'nb-1',word:'candid'};
  const handler=loadHandler('app/VocabularyNotebook.tsx','handleKeyboard',{
-  document:env.document,review:true,activeWord:word,batch:{words:[word]},loading:false,saving:false,
+  document:env.document,testing:false,review:true,activeWord:word,batch:{words:[word]},loading:false,saving:false,
   rateWord:env.spy('rate'),pronounce:env.spy('speak'),setActiveId:env.spy('move'),rowRefs:{current:{}},
   setRevealed:()=>env.calls.push(['reveal']),
  });

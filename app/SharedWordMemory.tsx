@@ -1,4 +1,4 @@
-import {studyStorage} from "../community/storage";
+import {exportStorage,studyStorage} from "../community/storage";
 import {appFetch} from "../community/api";
 "use client";
 import {createContext,useContext,useEffect,useRef,useState,type ReactNode} from "react";
@@ -27,7 +27,9 @@ export function SharedWordMemoryProvider({children}:{children:ReactNode}){
  if(!next[word]){next[word]={text:mergeMemoryTexts([records[word]?.text??"",text]),revision:records[word]?.revision??0};changed=true;}
  else if(next[word]){next[word]={...next[word],text:mergeMemoryTexts([next[word].text,text])};changed=true;}
  studyStorage.setItem(marker,text);}
- const keys=Array.from({length:studyStorage.length},(_,i)=>studyStorage.key(i));for(const key of keys){if(key?.startsWith("gre-a-plus-note-draft:"))migrate(key,key.slice("gre-a-plus-note-draft:".length),studyStorage.getItem(key)??"");}
+ // key(i) rebuilds the full storage-key array. Capture one snapshot instead of
+ // repeating that work for every learning record each time the account opens.
+ const legacy=exportStorage();for(const [key,text] of Object.entries(legacy)){if(key.startsWith("gre-a-plus-note-draft:"))migrate(key,key.slice("gre-a-plus-note-draft:".length),text);}
  const words=JSON.parse(studyStorage.getItem("gre-quanneng-vocab-v1-words")??"[]");for(const w of words)migrate(`quanneng:${w.id}`,w.word,w.note??"");
  if(changed)persist(next);
  }catch{}},[loading,records]);

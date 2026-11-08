@@ -60,8 +60,11 @@ export default function useLearningWorkspace(onRestore:()=>void){
  async function protectDevice(){
   const a=active.current,epoch=getWorkspaceGeneration();if(!a||!alive.current)return;
   await awaitWorkspaceApiIdle();if(active.current!==a||getWorkspaceGeneration()!==epoch||!alive.current)return;
-  const payload=exportWorkspace(),change=version.current;
-  await localSerial(async()=>{if(active.current!==a||getWorkspaceGeneration()!==epoch||!alive.current||localSavedKey.current===a.key&&localSavedVersion.current>=change)return;
+  await localSerial(async()=>{if(active.current!==a||getWorkspaceGeneration()!==epoch||!alive.current||localSavedKey.current===a.key&&localSavedVersion.current>=version.current)return;
+   // Capture only when this save reaches the front of the local queue. Rapid
+   // edits can share the latest snapshot instead of exporting and merging a
+   // full database for every keystroke while older writes are still pending.
+   const payload=exportWorkspace(),change=version.current;
    await saveCurrentLocal(a,payload,()=>a.session?{cloudRevision:a.cloudRevision,pending:true,basePayload:a.cloudPayload}:{});
    localSavedVersion.current=change;localSavedKey.current=a.key;
   });

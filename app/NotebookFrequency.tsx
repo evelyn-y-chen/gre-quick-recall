@@ -12,7 +12,13 @@ export function NotebookFrequencyProvider({children}:{children:ReactNode}) {
   useEffect(() => {
     let active = true, request = 0;
     let batches:unknown[] = [];
-    const update = () => { if (active) setCounts(countNotebookFrequency(batches,studyStorage.getItem(NOTEBOOK_DRAFT_KEY))); };
+    const update = () => {
+      if (!active) return;
+      const next=countNotebookFrequency(batches,studyStorage.getItem(NOTEBOOK_DRAFT_KEY));
+      // Typing a meaning or an answer does not change collection frequency.
+      // Preserve context identity so every visible word badge stays untouched.
+      setCounts(previous=>Object.keys(previous).length===Object.keys(next).length&&Object.keys(next).every(key=>previous[key]===next[key])?previous:next);
+    };
     async function refresh() {
       const id = ++request;
       try {

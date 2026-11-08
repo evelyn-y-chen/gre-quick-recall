@@ -79,6 +79,7 @@ function environment() {
       throw Error('Provider did not settle');
     };
     host.counts = () => structuredClone(host.tree.props.value);
+    host.countsIdentity = () => host.tree.props.value;
     host.settle = async () => { for (let n = 0; n < 8; n++) { await Promise.resolve(); if (!host.closed && host.dirty) host.render(); } };
     host.close = () => { for (const hook of host.hooks) hook?.cleanup?.(); host.closed = true; };
     host.render(); return host;
@@ -168,4 +169,21 @@ test('workspace remount drops old counts, unsubscribes listeners, and ignores ol
     newDB.resolve(1); await newView.settle();
     assert.deepEqual(newView.counts(), { 'new-account-word': 3 });
   } finally { newView.close(); }
+});
+
+
+test('typing meanings, written answers and ratings preserves badge context identity until words change',async()=>{
+ const env=environment(),first=collection('first',['cogent','lucid']);
+ const db=env.database([first]);env.runtime.setRuntimeDatabase(db.db);const view=env.mount();
+ try{
+  db.resolve(0);await view.settle();const identity=view.countsIdentity();
+  for(let i=0;i<100;i++){
+   const next=structuredClone(first);next.words[0].meaning='Meaning '+i;
+   next.words[0].recalls=[{id:'attempt',answer:'Answer '+i,checked:false}];next.words[0].rating='familiar';
+   putDraft(env,next);await view.settle();
+   assert.equal(view.countsIdentity(),identity,'Unchanged counts must not rerender every badge');
+  }
+  putDraft(env,collection('first',['cogent','new']));await view.settle();
+  assert.notEqual(view.countsIdentity(),identity);assert.deepEqual(view.counts(),{cogent:1,new:1});
+ }finally{view.close();}
 });

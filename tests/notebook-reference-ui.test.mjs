@@ -25,7 +25,17 @@ function notebook({ storage = new Map(), fixture = original, savedCollections = 
     edit(word, value) { memory.drafts={...memory.drafts,[word]:{text:value,revision:3}};dirty=true; },
     save: async () => {memory.drafts={};dirty=true;return true;},
   };
+  const rowRenders=new Map();
   const react = {
+    memo(component){
+      const cache=new Map();
+      return props=>{
+        const id=props.word.id,previous=cache.get(id);
+        if(previous&&Object.keys(previous.props).length===Object.keys(props).length&&Object.keys(props).every(key=>Object.is(previous.props[key],props[key])))return previous.tree;
+        rowRenders.set(id,(rowRenders.get(id)??0)+1);
+        const tree=component(props);cache.set(id,{props,tree});return tree;
+      };
+    },
     useState(initial) { const i = cursor++; if (!(i in hooks)) hooks[i] = typeof initial === 'function' ? initial() : initial; return [hooks[i], value => { const next = typeof value === 'function' ? value(hooks[i]) : value; if (!Object.is(next, hooks[i])) { hooks[i] = next; dirty = true; } }]; },
     useRef(initial) { const i = cursor++; return hooks[i] ?? (hooks[i] = { current: initial }); },
     useMemo(create, deps) { const i = cursor++, old = hooks[i]; if (!old || deps.some((v, n) => !Object.is(v, old.deps[n]))) hooks[i] = { value: create(), deps }; return hooks[i].value; },
@@ -52,10 +62,11 @@ function notebook({ storage = new Map(), fixture = original, savedCollections = 
     if (name === '../community/learningPlanStore') return { recordLearningPlanWords() {} };
     if (name === '../community/practiceReviewModel') return { reviewDay: () => '2026-10-29' };
     if (name === '../community/Practice') return { default: props => jsx('section', { 'data-notebook-practice': props }) };
+    if (name === './NotebookRecallTools') return {default:props=>jsx('section',{'data-recall-tools':props})};
     if (name === './SharedWordMemory') return { default: props => jsx('aside', { 'data-shared-word': props.word, 'data-editing': !!props.editing, children: props.editing ? jsx('textarea', { 'aria-label': `${props.word} 的记忆方法`, value: memory.drafts[props.word]?.text ?? '共享记忆：把论据串起来', onChange: e => memory.edit(props.word, e.target.value) }) : memory.drafts[props.word]?.text ?? '共享记忆：把论据串起来' }), useWordMemory: () => memory };
     if (['./DictionaryLinks', './DictionaryLookup', './RevealControls', './NotebookFrequency'].includes(name)) return { default: () => null };
     if (name === './notebookCatalog') return { buildNotebookCatalog: () => [] };
-    assert.ok(['./VocabularyNotebook', './NotebookWrittenRecall', './notebookAutosave', './notebookModel', './studyWordOrder', './notebookPracticeModel', './notebookFrequencyModel'].includes(name), `Unexpected import ${name}`);
+    assert.ok(['./VocabularyNotebook', './NotebookWrittenRecall', './notebookAutosave', './notebookModel', './studyWordOrder', './notebookPracticeModel', './notebookFrequencyModel', './notebookRecallModel'].includes(name), `Unexpected import ${name}`);
     if (modules.has(name)) return modules.get(name);
     const exported = {}; modules.set(name, exported);
     const source = fs.readFileSync(new URL(`../app/${name.slice(2)}${['./VocabularyNotebook','./NotebookWrittenRecall'].includes(name) ? '.tsx' : '.ts'}`, import.meta.url), 'utf8');
@@ -76,7 +87,10 @@ function notebook({ storage = new Map(), fixture = original, savedCollections = 
   render();
   return {
     ready: async () => { await settle(); const history = nodes().find(n => n.type === 'select' && nodes().some(parent => parent.props?.className === 'notebookHistory' && nodes(parent).includes(n))); assert.ok(history); history.props.onChange({ target: { value: fixture.id } }); await settle(); },
-    nodes, text, calls, savedDraft, storage,
+    nodes, text, calls, savedDraft, storage, rowRenders,
+    recallTools:()=>nodes().find(node=>node.props?.['data-recall-tools'])?.props['data-recall-tools'],
+    startRecall(ids){nodes().find(node=>node.props?.['data-recall-tools']).props['data-recall-tools'].onStart(ids);render();},
+    updateRecallBatch(batch){nodes().find(node=>node.props?.['data-recall-tools']).props['data-recall-tools'].onUpdate(batch);render();},
     saved:()=>structuredClone(records.get(fixture.id)),
     flushTimers:async()=>{const pending=[...timers.values()];timers.clear();for(const fn of pending)fn();await settle();await settle();},
     draft: () => JSON.parse(storage.get(model.NOTEBOOK_DRAFT_KEY)),
@@ -486,7 +500,7 @@ test('brief meanings can be edited, hidden and reopened with autosave while comp
  }finally{reopened.close();}
 });
 
-test('whole-page recall hides every reference until one check, includes forgotten words and lets mastery be rated afterwards',async()=>{
+test('whole-page recall reveals forgotten words immediately, keeps manual grading after unified check and saves mastery separately',async()=>{
  const fixture={...original,words:[original.words[0],{id:'word-lucid',word:'lucid',meaning:'清楚易懂的',note:'透亮的联想',origin:'Day8第2题'},{id:'word-blank',word:'blank',meaning:'空白的',note:'没有回忆答案的词',origin:'Day8第3题'}]};
  const storage=new Map(),view=notebook({storage,fixture});
  try{
@@ -499,11 +513,14 @@ test('whole-page recall hides every reference until one check, includes forgotte
   assert.ok(!view.nodes().some(n=>n.type==='button'&&view.text(n)==='核对释义'));
   view.editAnswer(1,'令人信服的');await view.clickAria('lucid 不记得');
   assert.ok(view.nodes().some(n=>n.props?.['aria-label']==='lucid 不记得'&&n.props['aria-pressed']));
+  assert.ok(references().some(n=>view.text(n).includes('清楚易懂的')));
+  assert.ok(!references().some(n=>view.text(n).includes(fixture.words[0].meaning)),'Other meanings stay hidden while this word is forgotten');
+  assert.equal(view.draft()[fixture.id].batch.words[1].recalls[0].result,'incorrect');
   assert.equal(view.draft()[fixture.id].batch.words[1].rating,undefined,'Forgotten is a recall choice, not an automatic red rating');
   assert.ok(view.text(view.nodes().find(n=>n.props?.['aria-label']==='页尾整页回忆操作')).includes('已回忆 2 / 3'));
   await view.click('统一核对释义');
   for(const word of fixture.words)assert.ok(references().some(n=>view.text(n).includes(word.meaning)),'All rows reveal, including a blank answer');
-  assert.ok(!view.nodes().some(n=>n.props?.className==='notebookRecallResults'));
+  assert.equal(view.nodes().filter(n=>n.props?.className==='notebookRecallResults').length,2);
   const saved=view.draft()[fixture.id].batch;
   assert.equal(saved.recallPhase,'checking');assert.equal(saved.words[0].recalls[0].checked,true);
   assert.deepEqual(saved.words[1].recalls.map(({answer,checked,forgotten})=>({answer,checked,forgotten})),[{answer:'',checked:true,forgotten:true}]);
@@ -533,4 +550,51 @@ test('forgotten choice can be toggled or replaced with a written answer without 
   await view.clickAria('cogent 不记得');view.editAnswer(1,'后来想起来了');
   word=view.draft()[original.id].batch.words[0];assert.equal(word.recalls[0].forgotten,undefined);assert.equal(word.recalls[0].answer,'后来想起来了');assert.equal(word.rating,'fuzzy');
  }finally{view.close();}
+});
+
+
+test('editing one written answer in a large collection leaves every other word row untouched',async()=>{
+ const fixture=structuredClone(original);
+ fixture.words=Array.from({length:200},(_,index)=>({...structuredClone(original.words[0]),id:'perf-'+index,word:index?'word-'+index:original.words[0].word,recalls:[]}));
+ const view=notebook({fixture});
+ try{
+  await view.ready();view.nodes();const before=new Map(view.rowRenders);
+  for(let i=0;i<10;i++){view.editAnswer(1,'回忆 '+i);view.nodes();}
+  assert.equal(view.rowRenders.get('perf-0')-before.get('perf-0'),10);
+  for(let index=1;index<200;index++)assert.equal(view.rowRenders.get('perf-'+index),before.get('perf-'+index));
+  assert.equal(view.draft()[fixture.id].batch.words[0].recalls[0].answer,'回忆 9');
+  await view.flushTimers();assert.equal(view.saved().batch.words[0].recalls[0].answer,'回忆 9');
+ }finally{view.close();}
+});
+
+test('forgotten reveals an answer and counts one error; correcting the judgement updates the same attempt and keeps the written answer',async()=>{
+ const view=notebook();try{
+  await view.ready();await view.click('整页回忆');view.editAnswer(1,'我的原答案');await view.clickAria('cogent 不记得');
+  let current=view.draft()[original.id].batch.words[0];assert.equal(current.recalls[0].result,'incorrect');assert.equal(current.recalls[0].checked,true);
+  assert.ok(view.nodes().some(node=>node.props?.className==='notebookWholeReference'&&view.text(node).includes(original.words[0].meaning)));
+  assert.ok(view.nodes().some(node=>node.props?.className==='notebookRecallStats'&&view.text(node).includes('错误 1 次')));
+  await view.click('正确');current=view.draft()[original.id].batch.words[0];assert.equal(current.recalls[0].result,'correct');assert.equal(current.recalls[0].forgotten,undefined);assert.equal(current.recalls[0].answer,'我的原答案');
+  assert.ok(view.nodes().some(node=>node.props?.className==='notebookRecallStats'&&view.text(node).includes('过关 1 次 · 错误 0 次')));
+  assert.ok(view.nodes().some(node=>node.props?.className?.includes('notebookJudged-correct')));
+  await view.click('错误');await view.click('错误');
+  assert.ok(view.nodes().some(node=>node.props?.className==='notebookRecallStats'&&view.text(node).includes('过关 0 次 · 错误 1 次')));
+  await view.flushTimers();assert.equal(view.saved().batch.words[0].recalls[0].result,'incorrect');assert.equal(view.saved().batch.words[0].rating,original.words[0].rating);
+ }finally{view.close();}
+});
+
+test('a selected wrong-word round and its reminder autosave and reopen without resetting other words or old answers',async()=>{
+ const fixture={...original,words:[{...original.words[0],recalls:[{id:'correct-old',answer:'旧答案一',checked:true,result:'correct'}]},{id:'lucid-row',word:'lucid',meaning:'清晰的',note:'旧笔记',origin:'来源',recalls:[{id:'wrong-old',answer:'旧答案二',checked:true,result:'incorrect'}]}]};
+ const storage=new Map(),view=notebook({storage,fixture});let saved;
+ try{
+  await view.ready();view.startRecall(['lucid-row']);
+  let draft=view.draft()[fixture.id].batch;assert.deepEqual(draft.recallRound.wordIds,['lucid-row']);assert.deepEqual(draft.words[0],fixture.words[0]);assert.deepEqual(draft.words[1].recalls[0],fixture.words[1].recalls[0]);
+  assert.ok(!view.nodes().some(node=>node.type==='textarea'&&node.props['aria-label']?.startsWith('cogent 第')));
+  await view.clickAria('lucid 不记得');
+  draft=view.draft()[fixture.id].batch;view.updateRecallBatch({...draft,recallReminder:{id:'reminder-one',at:'2026-12-01T01:00:00Z',wordIds:['lucid-row'],label:'重点攻克'}});
+  await view.flushTimers();saved=view.saved().batch;assert.equal(saved.words[1].recalls.length,2);assert.equal(saved.words[1].recalls.at(-1).result,'incorrect');assert.deepEqual(saved.words[0],fixture.words[0]);
+ }finally{view.close();}
+ const reopened=notebook({storage,fixture});try{
+  await reopened.ready();assert.deepEqual(reopened.recallTools().batch,saved);assert.equal(reopened.nodes().filter(node=>node.type==='article').length,1);
+  assert.ok(reopened.nodes().some(node=>node.props?.className==='notebookRecallStats'&&reopened.text(node).includes('连续错 2 次')));
+ }finally{reopened.close();}
 });

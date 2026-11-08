@@ -381,3 +381,37 @@ main :is(.quickTable .quickRow,.zhangTable .zhangRow,.bbEntries .bbEntry,.vocabN
 main :is(.quickTable .quickRow,.zhangTable .zhangRow,.bbEntries .bbEntry,.vocabNotebook .notebookRating)>.trafficLights button {width:100%;min-width:0;min-height:44px;box-sizing:border-box;justify-content:center;padding:7px 6px;white-space:nowrap;font-size:13px;}
 main .vocabNotebook .notebookRating>.trafficLights {margin-top:0;padding-top:0;border-top:0;flex:1 1 300px;}
 @media(max-width:520px){main :is(.quickTable .quickRow,.zhangTable .zhangRow,.bbEntries .bbEntry,.vocabNotebook .notebookRating)>.trafficLights{width:100%;}}
+
+/* Quiet but explicit notebook grading: text, symbol and color work together. */
+main .notebookWrittenRecall{--recall-good:#4e705b;--recall-bad:#9d5c61;--recall-mid:#977941;border:1px solid var(--line);border-radius:14px;padding:14px;min-width:0}
+main .notebookWrittenRecall.recall-correct{border-color:color-mix(in srgb,var(--recall-good) 55%,var(--line));background:color-mix(in srgb,var(--recall-good) 9%,var(--card))}
+main .notebookWrittenRecall.recall-incorrect{border-color:color-mix(in srgb,var(--recall-bad) 55%,var(--line));background:color-mix(in srgb,var(--recall-bad) 9%,var(--card))}
+main .notebookWrittenRecall.recall-partial{border-color:color-mix(in srgb,var(--recall-mid) 55%,var(--line));background:color-mix(in srgb,var(--recall-mid) 9%,var(--card))}
+main .notebookRecallMark{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:12px;font-size:13px}
+main .recall-correct .notebookRecallMark>strong{color:#42654f}main .recall-incorrect .notebookRecallMark>strong{color:#8e4c54}main .recall-partial .notebookRecallMark>strong{color:#796029}
+main .notebookRecallLevel{font-size:11px;font-weight:500;border:1px solid var(--line);border-radius:99px;padding:3px 8px;background:var(--card);color:var(--muted)}
+main .notebookRecallStats{display:block;line-height:1.8;margin-top:12px;font-size:12px;color:var(--muted)}
+main .notebookRecallComparison{padding:12px;border-radius:10px;background:var(--card);border:1px solid var(--line);margin-top:12px}
+main .notebookRecallResults{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 8px}
+main .notebookRecallResults button{min-height:42px;flex:1;min-width:64px}
+main .notebookRecallResults button[aria-pressed=true]{background:var(--ink-soft);border-color:var(--ink-soft);color:var(--card);box-shadow:none}
+main .notebookWholeReference>strong{display:block;color:var(--ink-soft);font-size:13px;letter-spacing:.04em;margin-bottom:10px}
+main .notebookWholeReference>p:not(.notebookWholeMasked){background:color-mix(in srgb,var(--ink-soft) 6%,var(--card));border-inline-start:3px solid color-mix(in srgb,var(--ink-soft) 50%,var(--line));border-radius:0 8px 8px 0;padding:12px 14px;line-height:1.8;white-space:pre-wrap}
+main .notebookWord.notebookJudged-correct{border-inline-start:4px solid #7c9d85}main .notebookWord.notebookJudged-incorrect{border-inline-start:4px solid #bd8a8f}main .notebookWord.notebookJudged-partial{border-inline-start:4px solid #b6a171}
+main .notebookRecallTools{margin:24px 0;padding:22px;border:1px solid var(--line);border-radius:18px;background:var(--card);min-width:0}
+main .notebookRecallOverview{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:16px}
+main .notebookRecallOverview h3{margin:5px 0;font-size:19px}main .notebookRecallOverview small,main .notebookRecallOverview p{font-size:12px;line-height:1.8;color:var(--muted)}
+main .notebookRecallQuick,main .notebookRecallScopes{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 18px}
+main .notebookRecallTools button{min-height:44px;white-space:normal}
+main .notebookRecallScopes button{display:flex;align-items:center;gap:9px;font-size:13px;border-radius:10px}
+main .notebookRecallScopes button span{font-size:11px;opacity:.8}
+main .notebookRecallScopes button[aria-pressed=true]{background:var(--ink-soft);color:var(--card);border-color:var(--ink-soft)}
+main .notebookRecallTools summary{cursor:pointer;line-height:1.8;font-size:13px;color:var(--ink-soft)}
+main .notebookRecallSchedule{display:flex;align-items:end;gap:12px;flex-wrap:wrap;margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
+main .notebookRecallSchedule label{display:grid;gap:6px;font-size:13px;max-width:100%}main .notebookRecallSchedule input{min-width:0;max-width:100%;min-height:44px}
+main .notebookRecallSchedule small{flex-basis:100%;line-height:1.8;font-size:12px;color:var(--muted)}
+main .notebookRecallAppointment,main .notebookRecallRound{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:14px;margin:14px 0;border:1px solid var(--line);border-radius:12px;font-size:13px;background:var(--lime-soft)}
+main .notebookRecallRules{margin-top:16px}main .notebookRecallRules p{font-size:12px;line-height:1.85;color:var(--muted)}
+.notebookReminderItem{display:grid;gap:10px;padding:16px 0;border-top:1px solid var(--community-line)}.notebookReminderItem span,.notebookReminderOverlay small{color:var(--community-muted);font-size:13px;line-height:1.8}
+:root[data-theme=night] main .recall-correct .notebookRecallMark>strong{color:#bcddc5}:root[data-theme=night] main .recall-incorrect .notebookRecallMark>strong{color:#e9c2c6}:root[data-theme=night] main .recall-partial .notebookRecallMark>strong{color:#e6d4a4}
+@media(max-width:600px){main .notebookRecallTools{padding:16px}main .notebookRecallSchedule{align-items:stretch}main .notebookRecallSchedule label,main .notebookRecallSchedule>button{width:100%}main .notebookRecallQuick>button{flex:1 1 140px}}

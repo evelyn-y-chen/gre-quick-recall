@@ -19,7 +19,7 @@ export async function readNotebookFrequencyBatches(): Promise<unknown[]> {
 export async function listNotebookBatches(): Promise<NotebookSummary[]> {
   const row = await getRuntimeDatabase().prepare(`SELECT json_group_array(json_object(
     'id', json_extract(value, '$.id'), 'source', json_extract(value, '$.source'),
-    'date', json_extract(value, '$.date'), 'count', json_array_length(value, '$.words'), 'revision', revision
+    'date', json_extract(value, '$.date'), 'recallReminder', json_extract(value, '$.recallReminder'), 'count', json_array_length(value, '$.words'), 'revision', revision
   )) AS items FROM mind_map_state WHERE key >= ? AND key < ?`).bind(prefix, "vocab-notebook;").first<{ items: string }>();
   return JSON.parse(row?.items ?? "[]");
 }

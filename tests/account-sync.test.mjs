@@ -13,7 +13,7 @@ const snapshot=(note)=>({version:1,rows:[],storage:{note}});
 const deferred=()=>{let resolve;const promise=new Promise(done=>{resolve=done;});return {promise,resolve};};
 function harness(sharedRemote=new Map(),sharedCache=new Map()){
  const slots=[],effects=[],cache=sharedCache,remote=sharedRemote,writes=[];
- let cursor=0,pending=[],authListener,change=()=>{},payload=snapshot('blank'),session=null,offline=false,result,localFailure=()=>false,saveGate=null,readGate=null,apiQueue=Promise.resolve(),apiGeneration=0,cloudAttempts=0;
+ let cursor=0,pending=[],authListener,change=()=>{},payload=snapshot('blank'),session=null,offline=false,result,localFailure=()=>false,saveGate=null,readGate=null,apiQueue=Promise.resolve(),apiGeneration=0,cloudAttempts=0,exports=0;
  const persistence={exports:{}};new Function('exports','module',compile('community/workspacePersistence.ts'))(persistence.exports,persistence);
  const react={
   useState(initial){const i=cursor++;if(!(i in slots))slots[i]=initial;return [slots[i],value=>{slots[i]=typeof value==='function'?value(slots[i]):value;}];},
@@ -23,7 +23,7 @@ function harness(sharedRemote=new Map(),sharedCache=new Map()){
  const auth={onAuthStateChange(fn){authListener=fn;return {data:{subscription:{unsubscribe(){}}}};},async getSession(){return {data:{session}};},async signOut(){session=null;authListener('SIGNED_OUT',null);return {error:null};}};
  const imports={react,
   './cloud':{cloud:{auth},async readCloudWorkspace(s){if(readGate){const held=readGate;readGate=null;held.entered.resolve();await held.release.promise;}if(offline)throw Error('offline');return structuredClone(remote.get(s.user.id)??null);},async saveCloudWorkspace(s,value,expected){cloudAttempts++;if(saveGate){const held=saveGate;saveGate=null;held.entered.resolve();await held.release.promise;}if(offline)throw Error('offline');const latest=remote.get(s.user.id);if((latest?.revision??0)!==expected)throw Object.assign(Error('conflict'),{code:'WORKSPACE_CONFLICT'});const revision=expected+1;remote.set(s.user.id,{revision,payload:structuredClone(value)});writes.push(s.user.id);return revision;}},
-  './database':{exportWorkspace:()=>structuredClone(payload),async openWorkspace(next){payload=structuredClone(next??snapshot('blank'));},onWorkspaceChange(fn){change=fn;}},
+  './database':{exportWorkspace:()=>{exports++;return structuredClone(payload);},async openWorkspace(next){payload=structuredClone(next??snapshot('blank'));},onWorkspaceChange(fn){change=fn;}},
   './localWorkspace':{async readLocalWorkspace(key='local'){return structuredClone(cache.get(key));},async saveLocalWorkspace(value,expected,key='local',metadata={}){if(localFailure(key))throw Error('local save failure');if((cache.get(key)?.revision??0)!==expected)throw Object.assign(Error('cache conflict'),{code:'LOCAL_WORKSPACE_CONFLICT'});const {checkpoint,checkpoints,...rest}=metadata;const previous=cache.get(key);if(previous&&recovery.exports.snapshotContent(previous.payload)===recovery.exports.snapshotContent(value)&&previous.cloudRevision===rest.cloudRevision&&previous.pending===rest.pending&&JSON.stringify(previous.basePayload)===JSON.stringify(rest.basePayload)&&!checkpoint&&!checkpoints?.length)return expected; let history=recovery.exports.appendCheckpoint(cache.get(key)?.history);for(const item of checkpoints??[])history=recovery.exports.appendCheckpoint(history,item);history=recovery.exports.appendCheckpoint(history,checkpoint);cache.set(key,{revision:expected+1,payload:structuredClone(value),...rest,...(history.length?{history:structuredClone(history)}:{})});return expected+1;}},
   './api':{awaitWorkspaceApiIdle:()=>apiQueue,getWorkspaceGeneration:()=>apiGeneration,async switchWorkspace(fn){apiGeneration++;const next=apiQueue.then(fn);apiQueue=next.catch(()=>{});await next;}},'./workspacePlan':planModule.exports,'./ratingMerge':loadTs('community/ratingMerge.ts'),'./workspacePersistence':persistence.exports,'./workspaceRecovery':recovery.exports,'./practiceProgressMerge':loadTs('community/practiceProgressMerge.ts')
  };
@@ -32,7 +32,7 @@ function harness(sharedRemote=new Map(),sharedCache=new Map()){
  function render(){cursor=0;result=module.exports.default(()=>{});const tasks=pending;pending=[];tasks.forEach(fn=>fn());return result;}
  async function settle(){for(let i=0;i<14;i++){render();await new Promise(resolve=>setImmediate(resolve));}return render();}
  function hold(){const entered=deferred(),release=deferred();return {entered,release};}
- return {cache,remote,writes,settle,render,get cloudAttempts(){return cloudAttempts;},get workspace(){return result;},get note(){return payload.storage.note;},get snapshot(){return structuredClone(payload);},get apiGeneration(){return apiGeneration;},persist:(generation=apiGeneration)=>persistence.exports.persistLearningWorkspace(generation),edit(note){payload=snapshot(note);change();},editSnapshot(next){payload=structuredClone(next);change();},queueEdit(note,gate=Promise.resolve()){const epoch=apiGeneration;const next=apiQueue.then(async()=>{await gate;if(epoch!==apiGeneration)throw Error('stale API write');payload=snapshot(note);change();});apiQueue=next.catch(()=>{});return next;},holdCloud(){const gate=hold();saveGate=gate;return {entered:gate.entered.promise,release:gate.release.resolve};},holdRead(){const gate=hold();readGate=gate;return {entered:gate.entered.promise,release:gate.release.resolve};},failLocal(fn){localFailure=fn;},login(id){session={user:{id,email:id+'@example.test'},access_token:id};authListener('SIGNED_IN',session);},setOffline(value){offline=value;},dispose(){effects.forEach(e=>e?.cleanup?.());}};
+ return {cache,remote,writes,settle,render,get snapshotExports(){return exports;},get cloudAttempts(){return cloudAttempts;},get workspace(){return result;},get note(){return payload.storage.note;},get snapshot(){return structuredClone(payload);},get apiGeneration(){return apiGeneration;},persist:(generation=apiGeneration)=>persistence.exports.persistLearningWorkspace(generation),edit(note){payload=snapshot(note);change();},editSnapshot(next){payload=structuredClone(next);change();},queueEdit(note,gate=Promise.resolve()){const epoch=apiGeneration;const next=apiQueue.then(async()=>{await gate;if(epoch!==apiGeneration)throw Error('stale API write');payload=snapshot(note);change();});apiQueue=next.catch(()=>{});return next;},holdCloud(){const gate=hold();saveGate=gate;return {entered:gate.entered.promise,release:gate.release.resolve};},holdRead(){const gate=hold();readGate=gate;return {entered:gate.entered.promise,release:gate.release.resolve};},failLocal(fn){localFailure=fn;},login(id){session={user:{id,email:id+'@example.test'},access_token:id};authListener('SIGNED_IN',session);},setOffline(value){offline=value;},dispose(){effects.forEach(e=>e?.cleanup?.());}};
 }
 test('login reads account data before writing, and logout restores the separate guest workspace',async()=>{
  const h=harness();try{
@@ -375,5 +375,18 @@ test('explicit replacement reports whether account upload completed',async()=>{
   await h.settle();h.remote.set('A',{revision:1,payload:snapshot('baseline')});h.login('A');await h.settle();
   assert.equal(await h.workspace.replace(snapshot('restored')),true);h.setOffline(true);
   assert.equal(await h.workspace.replace(snapshot('offline restored')),false);assert.equal(h.note,'offline restored');assert.equal(h.cache.get('account:A').pending,true);assert.equal(h.remote.get('A').payload.storage.note,'restored');
+ }finally{h.dispose();}
+});
+
+
+test('rapid edits export only the latest local snapshot and retain the final text before cloud sync',async()=>{
+ const h=harness();try{
+  await h.settle();const before=h.snapshotExports;
+  for(let i=0;i<500;i++)h.edit('input '+i);
+  await h.settle();
+  assert.equal(h.cache.get('local').payload.storage.note,'input 499');
+  assert.ok(h.snapshotExports-before<=2,`500 rapid edits exported ${h.snapshotExports-before} whole workspaces`);
+  assert.equal(await h.workspace.flush(),true);
+  assert.equal(h.cache.get('local').payload.storage.note,'input 499');
  }finally{h.dispose();}
 });

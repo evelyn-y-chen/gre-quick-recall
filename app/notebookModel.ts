@@ -1,11 +1,13 @@
 export type NotebookRating = "unknown" | "fuzzy" | "familiar";
 export type NotebookRecallResult = "correct" | "partial" | "incorrect";
-export type NotebookRecallAttempt = { id: string; answer: string; checked: boolean; forgotten?: boolean; result?: NotebookRecallResult };
+export type NotebookRecallAttempt = { id: string; answer: string; checked: boolean; forgotten?: boolean; revealed?:boolean; result?: NotebookRecallResult };
+export type NotebookRecallArchive = {correct:number;incorrect:number;partial:number;streak:number;attempts:number};
+export type NotebookRecallReminder = {id:string;at:string;wordIds:string[];label:string};
 export const NOTEBOOK_RECALL_LIMIT = 20;
-export type NotebookWord = { id: string; word: string; meaning: string; briefMeaning?: string; note: string; origin: string; rating?: NotebookRating; recalls?: NotebookRecallAttempt[] };
-export type NotebookBatch = { id: string; source: string; date: string; words: NotebookWord[]; entryDraft?: {word:string;meaning:string}; recallPhase?: "writing"|"checking" };
+export type NotebookWord = { id: string; word: string; meaning: string; briefMeaning?: string; note: string; origin: string; rating?: NotebookRating; recalls?: NotebookRecallAttempt[]; recallArchive?:NotebookRecallArchive };
+export type NotebookBatch = { id: string; source: string; date: string; words: NotebookWord[]; entryDraft?: {word:string;meaning:string}; recallPhase?: "writing"|"checking"; recallRound?:{id:string;wordIds:string[]};recallReminder?:NotebookRecallReminder };
 export type NotebookDraft = { batch: NotebookBatch; revision: number };
-export type NotebookSummary = { id: string; source: string; date: string; count: number; revision: number; draft?:boolean };
+export type NotebookSummary = { id: string; source: string; date: string; count: number; revision: number; draft?:boolean;recallReminder?:NotebookRecallReminder };
 export const NOTEBOOK_DRAFT_KEY = "gre-vocabulary-notebook-drafts-v1";
 /** A compact cue, independent of full references and the learner's recall answers. */
 export function notebookBriefMeaning(word: Pick<NotebookWord,"meaning"|"briefMeaning">): string {
@@ -17,10 +19,13 @@ export function validNotebookBatch(value: unknown, complete = true): value is No
   if (!value || typeof value !== "object") return false;
   const batch = value as NotebookBatch;
   const text = (s: unknown, max: number) => typeof s === "string" && s.length <= max;
+  const ids=(value:unknown):value is string[]=>Array.isArray(value)&&value.length>0&&value.length<=1000&&value.every(id=>text(id,80)&&!!id)&&new Set(value).size===value.length;
   return text(batch.id, 80) && /^[a-zA-Z0-9-]+$/.test(batch.id)
     && text(batch.source, 300) && (!complete || !!batch.source.trim())
     && text(batch.date, 10) && (!complete || /^\d{4}-\d{2}-\d{2}$/.test(batch.date))
     && (batch.recallPhase === undefined || batch.recallPhase === "writing" || batch.recallPhase === "checking")
+    && (batch.recallRound === undefined || (!!batch.recallRound&&text(batch.recallRound.id,80)&&!!batch.recallRound.id&&ids(batch.recallRound.wordIds)))
+    && (batch.recallReminder === undefined || (!!batch.recallReminder&&text(batch.recallReminder.id,80)&&!!batch.recallReminder.id&&text(batch.recallReminder.at,40)&&Number.isFinite(Date.parse(batch.recallReminder.at))&&ids(batch.recallReminder.wordIds)&&text(batch.recallReminder.label,80)))
     && (batch.entryDraft === undefined || (!!batch.entryDraft && text(batch.entryDraft.word,300) && text(batch.entryDraft.meaning,4000)))
     && Array.isArray(batch.words) && batch.words.length <= 1000
     && batch.words.every((w) => w && text(w.id, 80) && !!w.id && text(w.word, 300) && (!complete || !!w.word.trim())
@@ -28,8 +33,10 @@ export function validNotebookBatch(value: unknown, complete = true): value is No
       && (w.recalls === undefined || (Array.isArray(w.recalls) && w.recalls.length <= NOTEBOOK_RECALL_LIMIT
         && w.recalls.every((r) => r && text(r.id,80) && !!r.id && text(r.answer,1000) && typeof r.checked === "boolean"
           && (r.forgotten === undefined || typeof r.forgotten === "boolean")
+          && (r.revealed === undefined || typeof r.revealed === "boolean")
           && (r.result === undefined || (r.checked && ["correct","partial","incorrect"].includes(r.result))))
         && new Set(w.recalls.map((r) => r.id)).size === w.recalls.length))
+      && (w.recallArchive===undefined || (!!w.recallArchive&&[w.recallArchive.correct,w.recallArchive.incorrect,w.recallArchive.partial,w.recallArchive.streak,w.recallArchive.attempts].every(n=>Number.isSafeInteger(n)&&n>=0&&n<=1_000_000_000)&&w.recallArchive.streak<=w.recallArchive.incorrect&&w.recallArchive.correct+w.recallArchive.incorrect+w.recallArchive.partial<=w.recallArchive.attempts))
       && (w.rating === undefined || ["unknown", "fuzzy", "familiar"].includes(w.rating)))
     && new Set(batch.words.map((w) => w.id)).size === batch.words.length;
 }

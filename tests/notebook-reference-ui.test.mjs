@@ -100,7 +100,7 @@ function notebook({ storage = new Map(), fixture = original, savedCollections = 
   return {
     ready: async () => { await settle(); const history = nodes().find(n => n.type === 'select' && nodes().some(parent => parent.props?.className === 'notebookHistory' && nodes(parent).includes(n))); assert.ok(history); history.props.onChange({ target: { value: fixture.id } }); await settle(); },
     openCollection:async id=>{const history=nodes().find(n=>n.type==='select'&&nodes().some(parent=>parent.props?.className==='notebookHistory'&&nodes(parent).includes(n)));history.props.onChange({target:{value:id}});await settle();},
-    nodes, text, calls, savedDraft, storage, rowRenders, scrolls, focuses,
+    nodes, text, calls, savedDraft, storage, rowRenders, scrolls, focuses,settle,
     flushFrames(){const pending=[...frames.values()];frames.clear();for(const fn of pending)fn();},
     setOverlay(value){overlay=value;},
     focusWord(id){const row=nodes().find(node=>node.props?.['data-word-id']===id);assert.ok(row);row.props.onFocus();render();},
@@ -198,6 +198,8 @@ test('notebook keeps handwritten meaning, editable collection reference and shar
     const meaning = area('释义'), reference = area('对照释义与收集笔记');
     assert.ok(meaning); assert.ok(reference); assert.notEqual(meaning, reference);
     assert.equal(view.nodes(meaning).find(n => n.type === 'textarea').props.value, original.words[0].meaning);
+    assert.equal(view.nodes().filter(n=>n.type==='textarea'&&n.props['aria-label']?.match(/^cogent (简短释义|释义)$/)).length,1);
+    assert.ok(!view.nodes().some(n=>n.props?.className==='notebookReferenceMeaning'));
     assert.equal(view.nodes(reference).find(n => n.type === 'textarea').props.value, original.words[0].note);
     assert.equal(view.nodes().find(n => n.props?.['data-shared-word'] === 'cogent').props['data-editing'], true);
     assert.equal(view.rawDraft(), view.savedDraft, 'Opening and rendering must not rewrite collection data');
@@ -575,6 +577,25 @@ test('rewriting an answer resets its previous judgement; hide and sort controls 
  }finally{view.close();}
 });
 
+test('each added word saves immediately without waiting for the typing timer, including optional empty meanings',async()=>{
+ const view=notebook();try{
+  await view.ready();view.editEntry('lucid');view.submitEntry();await view.settle();
+  assert.equal(view.saved().batch.words.length,2);assert.equal(view.saved().batch.words[1].word,'lucid');assert.equal(view.saved().batch.words[1].meaning,'');
+  assert.equal(view.calls.filter(call=>call.method==='PUT').length,1);assert.deepEqual(view.draft(),{});
+  view.editEntry('abate');view.submitEntry();await view.settle();
+  assert.equal(view.saved().batch.words.length,3);assert.equal(view.calls.filter(call=>call.method==='PUT').length,2);assert.deepEqual(view.draft(),{});
+  assert.ok(view.calls.some(call=>call.url==='workspace-persist'));
+ }finally{view.close();}
+});
+
+test('a failed immediate word save retains the added word in its local draft',async()=>{
+ const view=notebook({putHook:async()=>({ok:false,json:async()=>({error:'暂时无法保存'})})});try{
+  await view.ready();view.editEntry('lucid');view.submitEntry();await view.settle();
+  assert.equal(view.saved().batch.words.length,1);assert.equal(view.draft()[original.id].batch.words[1].word,'lucid');
+  assert.ok(view.nodes().some(n=>n.props?.role==='status'&&view.text(n).includes('暂时无法保存')));
+ }finally{view.close();}
+});
+
 test('the final entry row survives reopening before it is added, then counts exactly once with an optional blank definition',async()=>{
  const storage=new Map(),view=notebook({storage});
  try{
@@ -628,29 +649,46 @@ test('a pending account upload is shown as pending, and retry confirms account s
  }finally{view.close();}
 });
 
-test('brief meanings can be edited, hidden and reopened with autosave while complete annotations stay unchanged',async()=>{
- const storage=new Map(),view=notebook({storage});
+test('one meaning editor preserves existing legacy references until edited, then uses the new meaning everywhere',async()=>{
+ const fixture={...original,words:[{...original.words[0],briefMeaning:'论据有力'}]},storage=new Map(),view=notebook({storage,fixture});
  try{
   await view.ready();
-  assert.equal(view.checked('显示简短释义'),true);
-  const cue=()=>view.nodes().find(n=>n.type==='textarea'&&n.props['aria-label']==='cogent 简短释义');
-  assert.equal(cue().props.value,'有说服力');
-  view.edit('简短释义','论据有力');await view.flushTimers();
-  assert.deepEqual(view.saved().batch.words[0],{...original.words[0],briefMeaning:'论据有力'});
-  const before=view.rawDraft();await view.toggle('显示简短释义',false);
-  assert.equal(cue(),undefined);assert.equal(view.rawDraft(),before);
-  assert.ok(view.nodes().some(n=>n.type==='textarea'&&n.props.value===original.words[0].meaning));
-  await view.toggle('显示简短释义',true);assert.equal(cue().props.value,'论据有力');
-  await view.click('遮挡复习');assert.ok(!view.nodes().some(n=>n.props?.className==='notebookBriefPreview'));
-  await view.click('点击揭晓释义与笔记');assert.ok(view.nodes().some(n=>n.props?.className==='notebookBriefPreview'&&view.text(n).includes('论据有力')));
-  await view.toggle('显示简短释义',false);assert.ok(!view.nodes().some(n=>n.props?.className==='notebookBriefPreview'));
+  const cue=()=>view.nodes().find(n=>n.type==='textarea'&&n.props['aria-label']==='cogent 释义');
+  assert.equal(cue().props.value,'论据有力');
+  assert.equal(view.nodes().filter(n=>n.type==='textarea'&&n.props['aria-label']?.match(/^cogent (简短释义|释义)$/)).length,1);
+  assert.ok(view.nodes().some(n=>n.props?.className==='notebookOriginalMeaning'&&view.text(n).includes(original.words[0].meaning)));
+  assert.equal(view.rawDraft(),view.savedDraft);
+  await view.click('遮挡复习');await view.click('点击揭晓释义与笔记');
+  assert.equal(view.text(view.nodes().find(n=>n.props?.className==='notebookReveal')),'论据有力');
+  assert.ok(!view.nodes().some(n=>n.props?.className==='notebookBriefPreview'));
+  assert.ok(view.nodes().some(n=>n.props?.className==='notebookOriginalMeaning'&&view.text(n).includes(original.words[0].meaning)));
+  await view.click('收集与编辑');
+  view.edit('释义','更有说服力的');await view.flushTimers();
+  assert.equal(view.saved().batch.words[0].meaning,'更有说服力的');assert.equal(view.saved().batch.words[0].briefMeaning,undefined);
+  assert.equal(view.saved().batch.words[0].note,original.words[0].note);
+  const before=view.rawDraft();await view.toggle('显示释义',false);assert.equal(cue(),undefined);assert.equal(view.rawDraft(),before);
+  await view.toggle('显示释义',true);assert.equal(cue().props.value,'更有说服力的');
+  await view.click('默写过关');await view.click('统一批改');
+  assert.ok(view.nodes().some(n=>n.props?.className==='notebookWholeReference'&&view.text(n).includes('更有说服力的')));
  }finally{view.close();}
- const reopened=notebook({storage});try{
-  await reopened.ready();assert.equal(reopened.checked('显示简短释义'),false);
-  await reopened.toggle('显示简短释义',true);
-  assert.equal(reopened.nodes().find(n=>n.type==='textarea'&&n.props['aria-label']==='cogent 简短释义').props.value,'论据有力');
-  assert.equal(reopened.saved().batch.words[0].meaning,original.words[0].meaning);
- }finally{reopened.close();}
+ const reopened=notebook({storage,fixture});try{await reopened.ready();await reopened.click('收集与编辑');assert.equal(reopened.nodes().find(n=>n.type==='textarea'&&n.props['aria-label']==='cogent 释义').props.value,'更有说服力的');}finally{reopened.close();}
+});
+
+test('one definition retains every sense while source headings stay folded and no rendering migrates saved data',async()=>{
+ const fixture={...original,words:[{...original.words[0],meaning:'【来源一】\n有说服力的\n\n【来源二】\n令人信服的'}]},view=notebook({fixture});
+ try{
+  await view.ready();
+  const field=view.nodes().find(n=>n.type==='textarea'&&n.props['aria-label']==='cogent 释义');
+  assert.equal(field.props.value,'有说服力的\n\n令人信服的');
+  assert.equal(view.rawDraft(),view.savedDraft);
+  await view.click('遮挡复习');await view.click('点击揭晓释义与笔记');
+  const reveal=view.text(view.nodes().find(n=>n.props?.className==='notebookReveal'));
+  assert.ok(reveal.includes('有说服力的')&&reveal.includes('令人信服的')&&!reveal.includes('来源一'));
+  await view.click('默写过关');await view.click('统一批改');
+  const reference=view.nodes().find(n=>n.props?.className==='notebookWholeReference');
+  assert.ok(view.text(reference).includes('有说服力的')&&view.text(reference).includes('令人信服的'));
+  assert.equal(view.draft()[fixture.id].batch.words[0].meaning,fixture.words[0].meaning);
+ }finally{view.close();}
 });
 
 test('collection editing has no recall fields, grading or progress; switching modes preserves the selected round',async()=>{

@@ -51,6 +51,7 @@ export function createNotebookAutosaver(ports:Ports){
  function flush(id:string):Promise<boolean>{
   const job=jobs.get(id);if(!job||!current())return Promise.resolve(false);
   clear(job);if(job.task)return job.task;
+  let completed=false;
   const task=Promise.resolve().then(async()=>{
    try{
     assertCurrent();state(job,{phase:'saving',message:'正在自动保存…'});
@@ -66,7 +67,7 @@ export function createNotebookAutosaver(ports:Ports){
      if(!memorySaved){state(job,{phase:'error',message:'生词本已保存，共享记忆笔记尚未全部保存；草稿仍保留，请重试。'});return false;}
      if(version!==job.version)continue;
      job.conflict=false;
-     state(job,{phase:'saved',message:result.destination==='account'?'已自动保存到账号':'已自动保存到这台设备'});return true;
+     state(job,{phase:'saved',message:result.destination==='account'?'已自动保存到账号':'已自动保存到这台设备'});completed=true;return true;
     }
    }catch(error){
     job.conflict=!!error&&typeof error==='object'&&'conflict' in error&&error.conflict===true;
@@ -76,6 +77,9 @@ export function createNotebookAutosaver(ports:Ports){
   }).finally(()=>{
    if(job.task===task)job.task=undefined;
    if(job.conflict||job.lastSaved===JSON.stringify(job.batch))clear(job);
+   // A new word may arrive after the final version check but before the
+   // promise closes. Drain it now, since its explicit flush joined this task.
+   else if(completed&&current())void flush(id);
   });
   job.task=task;return task;
  }

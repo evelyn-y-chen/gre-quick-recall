@@ -20,7 +20,7 @@ import {createNotebookAutosaver,type NotebookSaveState} from "./notebookAutosave
 import RevealControls from "./RevealControls";
 import { memo, useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import { buildNotebookCatalog, type CatalogWord } from "./notebookCatalog";
-import { NOTEBOOK_DRAFT_KEY, hasNotebookSource, mergeNotebookCandidates, notebookBriefMeaning, validNotebookBatch, type NotebookBatch, type NotebookDraft, type NotebookSummary, type NotebookWord, type NotebookRating } from "./notebookModel";
+import { NOTEBOOK_DRAFT_KEY, hasNotebookSource, mergeNotebookCandidates, validNotebookBatch, type NotebookBatch, type NotebookDraft, type NotebookSummary, type NotebookWord, type NotebookRating } from "./notebookModel";
 import type { GleeMindMap } from "./gleeMindMaps";
 import type { GleeTableList } from "./gleeTableLists";
 
@@ -49,6 +49,9 @@ function displayPreferences() {
 }
 const today = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; };
 
+// Source headings stay in the folded original; all definition lines share one editor.
+const notebookDefinition=(word:NotebookWord)=>word.briefMeaning??word.meaning.split(/\r?\n/).filter(line=>!/^【[^】]*】$/.test(line.trim())).join("\n").trim();
+
 type NotebookRowActions = {
   activate:(id:string)=>void;
   pronounce:(word:string)=>void;
@@ -76,19 +79,20 @@ const NotebookWordRow=memo(function NotebookWordRow({word:w,index,review,wholeRe
           {!review && !wholeRecall && <button className="notebookRemove" type="button" aria-label={`移除 ${w.word}`} onClick={() => actions.current.remove(w.id)}>移除</button>}
         </div>
         {review ? <div className="notebookCardReview">
-          {display.showBriefMeaning && isRevealed && <p className="notebookBriefPreview"><small>简短释义</small><span>{notebookBriefMeaning(w)||"未填写"}</span></p>}
-          <button className="notebookReveal" type="button" aria-expanded={isRevealed} onClick={() => actions.current.reveal(w.id)}>{isRevealed ? (w.meaning || "未填写释义").split("\n").map((line,i)=><span key={i} className={/^【.*】$/.test(line.trim())?"notebookMeaningSource":"notebookMeaningLine"}>{line||"\u00a0"}</span>) : "点击揭晓释义与笔记"}</button>
+          <button className="notebookReveal" type="button" aria-expanded={isRevealed} onClick={() => actions.current.reveal(w.id)}>{isRevealed ? (notebookDefinition(w) || "未填写释义").split("\n").map((line,i)=><span key={i} className={/^【.*】$/.test(line.trim())?"notebookMeaningSource":"notebookMeaningLine"}>{line||"\u00a0"}</span>) : "点击揭晓释义与笔记"}</button>
+          {isRevealed&&w.meaning.trim()!==notebookDefinition(w).trim()&&<details className="notebookOriginalMeaning"><summary>原始收集内容</summary><p>{w.meaning}</p></details>}
           {isRevealed && showNotes && <div className="notebookCardNote">{display.showReference && w.note && <section className="notebookCollectionNote"><strong>对照释义与收集笔记</strong><p>{w.note}</p></section>}{display.showMemory && <SharedWordMemory word={w.word}/>}</div>}
           <div className="notebookCardSource"><span>词库来源</span><p>{w.origin || "未填写"}</p></div>
           <details className="notebookCardDictionary"><summary>补查词典</summary><DictionaryLinks word={w.word}/></details>
         </div> : wholeRecall ? <div className="notebookWholeReference">
-          {checking||w.recalls?.at(-1)?.revealed?<><strong>参考释义</strong><p>{notebookBriefMeaning(w)||"还没有参考释义，可在收集与编辑中补充。"}</p>
-            <details><summary>笔记、来源与查词</summary><p>{w.meaning||"未填写完整释义"}</p>{display.showReference&&w.note&&<p>{w.note}</p>}{display.showMemory&&<SharedWordMemory word={w.word}/>}<small>{w.origin||source}</small><DictionaryLinks word={w.word}/></details>
+          {checking||w.recalls?.at(-1)?.revealed?<><strong className="notebookFieldLabel">参考释义</strong><p>{notebookDefinition(w)||"还没有参考释义，可在收集与编辑中补充。"}</p>
+            <details><summary>笔记、来源与查词</summary>{w.meaning.trim()!==notebookDefinition(w).trim()&&<section className="notebookOriginalMeaning"><strong>原始收集内容</strong><p>{w.meaning}</p></section>}{display.showReference&&w.note&&<p>{w.note}</p>}{display.showMemory&&<SharedWordMemory word={w.word}/>}<small>{w.origin||source}</small><DictionaryLinks word={w.word}/></details>
           </>:<p className="notebookWholeMasked">批改后显示释义</p>}
         </div> : <div className="notebookEditGrid">
-          {display.showBriefMeaning && <label className="notebookBriefMeaning">简短释义<textarea aria-label={`${w.word} 简短释义`} rows={2} maxLength={500} value={notebookBriefMeaning(w)} placeholder="用几个字记住大意（选填）" onChange={e=>actions.current.edit(w.id,"briefMeaning",e.target.value)}/></label>}
-          <details className="notebookReferenceMeaning"><summary>{w.meaning.trim()?"查看／编辑参考释义":"填写参考释义（选填）"}</summary><label>释义<textarea rows={2} maxLength={4000} value={w.meaning} placeholder="参考释义可以留空" onChange={(e) => actions.current.edit(w.id,"meaning",e.target.value)} /></label></details>
-          <details className="notebookRowExtras"><summary>笔记、来源与查词</summary><DictionaryLinks word={w.word}/>
+          {display.showBriefMeaning&&<label className="notebookBriefMeaning"><span className="notebookFieldLabel">释义</span><textarea aria-label={`${w.word} 释义`} rows={2} maxLength={4000} value={notebookDefinition(w)} placeholder="填写释义（选填）" onChange={e=>actions.current.edit(w.id,"meaning",e.target.value)}/></label>}
+          <DictionaryLinks word={w.word}/>
+          <details className="notebookRowExtras"><summary>笔记与来源</summary>
+          {w.meaning.trim()!==notebookDefinition(w).trim()&&<section className="notebookOriginalMeaning"><strong>原始收集内容</strong><p>{w.meaning}</p></section>}
           {showNotes && <div className="notebookCardNote">{display.showReference && <label>对照释义与收集笔记<textarea rows={4} maxLength={4000} value={w.note} placeholder="保留词库中的释义、来源或本次收集的补充笔记，与左侧释义分开。" onChange={(e) => actions.current.edit(w.id,"note",e.target.value)} /></label>}{display.showMemory && <SharedWordMemory word={w.word} editing/>}</div>}
           <label>词库来源<textarea rows={1} maxLength={1000} value={w.origin} onChange={(e) => actions.current.edit(w.id,"origin",e.target.value)} /></label>
           <details className="notebookCardDictionary"><summary>补查词典</summary><DictionaryLookup word={w.word} meaning={w.meaning} origin={w.origin} onApply={(meaning,origin) => actions.current.applyMeaning(w.id,meaning,origin)} /></details>
@@ -339,11 +343,12 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
     if (merged.length > 1000) {setStatus("本次已超过 1000 个词，请另开一次收集。");return false;}
     if (!validNotebookBatch({...batch,words:merged})) {setStatus("合并后内容过长，请减少所选释义或先精简已有内容；本次修改尚未加入。");return false;}
     persist({...batch,words:merged,...(clearEntry?{entryDraft:undefined}:{})}); setSelected([]);
+    void autosaver.current?.flush(batch.id);
     setStatus(`已合并所选释义，本次共 ${merged.length} 个词，修改会自动保存。`);
     return true;
   }
   function editWord(id: string, field: "word"|"meaning"|"briefMeaning"|"note"|"origin", value: string) {
-    if (batch) persist({...batch,words:batch.words.map((w) => w.id === id ? {...w,[field]:value} : w)},undefined,`edit:${id}:${field}`);
+    if (batch) persist({...batch,words:batch.words.map((w) => w.id === id ? {...w,[field]:value,...(field==='meaning'?{briefMeaning:undefined}:{})} : w)},undefined,`edit:${id}:${field}`);
   }
   async function startNotebookTest() {
     if (!testCollections.length || testLoading) return;
@@ -492,10 +497,10 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
       {wholeRecall&&<div className="notebookWholeToolbar" role="group" aria-label="整页回忆操作">{wholeRecallActions}</div>}
       {!wholeRecall&&<div className="notebookDisplay" role="group" aria-label="生词本显示设置">
         <span>显示内容</span>
-        <label><input type="checkbox" checked={display.showBriefMeaning} onChange={(e) => changeDisplay("showBriefMeaning",e.target.checked)} />显示简短释义</label>
+        <label><input type="checkbox" checked={display.showBriefMeaning} onChange={(e) => changeDisplay("showBriefMeaning",e.target.checked)} />显示释义</label>
         <label><input type="checkbox" checked={display.showReference} onChange={(e) => changeDisplay("showReference",e.target.checked)} />显示对照释义</label>
         <label><input type="checkbox" checked={display.showMemory} onChange={(e) => changeDisplay("showMemory",e.target.checked)} />显示记忆笔记</label>
-        <small>简短释义可直接编辑；隐藏只调整显示，内容会保留。</small>
+        <small>隐藏只调整显示，内容会保留。</small>
       </div>}
       {displayStatus && <p className="notebookHint" role="status">{displayStatus}</p>}
       {!!batch.words.length && <div className="shuffleControls" role="group" aria-label="生词本显示顺序"><button type="button" aria-pressed={!wordOrder&&!alphabetical} onClick={()=>changeWordOrder("original")}>原顺序</button><button type="button" aria-pressed={!!wordOrder&&!alphabetical} onClick={()=>changeWordOrder("shuffle")}>一键打乱</button><button type="button" aria-pressed={alphabetical} onClick={()=>changeWordOrder("alphabetical")}>A–Z 字母排序</button></div>}

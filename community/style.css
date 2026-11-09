@@ -513,3 +513,33 @@ main .notebookReviewMode .notebookReveal{font-size:19px;font-weight:600;line-hei
  main .notebookWholeRecall .notebookWordHead{grid-column:auto;grid-template-columns:auto minmax(0,1fr) auto;align-items:start}
  main .notebookWholeRecall .notebookCardTitle{font-size:25px}
 }
+
+/* A single definition field shares its first line with the word. */
+main .vocabNotebook .notebookFieldLabel{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+main .vocabNotebook .notebookCardTitle,main .vocabNotebook textarea.notebookCardTitle,main .notebookWholeRecall .notebookCardTitle{font-size:26px;line-height:1.35}
+main .vocabNotebook textarea.notebookCardTitle,main .vocabNotebook .notebookBriefMeaning textarea{padding:8px 10px;font-size:26px;line-height:1.35;min-height:0}
+main .vocabNotebook .notebookBriefMeaning{gap:0;grid-column:auto;align-self:start}
+main .notebookWholeReference>p:not(.notebookWholeMasked){font-size:26px;line-height:1.35}
+main .notebookCollectMode .notebookWordHead{align-items:start}
+main .notebookCollectMode .notebookWord{grid-template-columns:minmax(210px,.8fr) minmax(0,2fr)}
+main .vocabNotebook textarea.notebookCardTitle{padding-inline:0}
+main .notebookWholeRecall .notebookWordHead,main .notebookWholeReference{padding-top:9px}
+main .notebookWholeRecall .notebookWrittenRecall{padding-top:0}
+main .notebookWholeRecall .notebookWrittenRecall>label{gap:0}
+main .notebookWholeRecall .notebookWrittenRecall textarea{font-size:26px;line-height:1.35}
+main .notebookWholeRecall .notebookRecallMark{margin-top:6px;margin-bottom:0;font-size:11px}
+main .notebookCollectMode .notebookWord>.notebookEditGrid>.dictionaryExternal{margin:0;align-self:start}
+main .notebookCollectMode .notebookWord>.notebookEditGrid>.dictionaryExternal .dictionaryExternalLinks{flex-direction:column;gap:6px}
+main .notebookCollectMode .notebookRowExtras{grid-column:1/-1}
+main .notebookOriginalMeaning{font-size:13px;line-height:1.6;margin-top:10px}
+main .notebookOriginalMeaning>p{white-space:pre-wrap;overflow-wrap:anywhere}
+@media(max-width:699px){
+ main .notebookDocumentMode .notebookWord,main .notebookCollectMode .notebookWord{grid-template-columns:minmax(140px,.85fr) minmax(0,1.15fr)}
+ main .notebookDocumentMode .notebookWordHead,main .notebookCollectMode .notebookWordHead{grid-column:1;grid-template-columns:auto minmax(0,1fr);align-items:start}
+ main .notebookDocumentMode .notebookPronounce{grid-column:1;grid-row:2}
+ main .notebookDocumentMode .notebookWordHead .notebookRemove{grid-column:2;grid-row:2;justify-self:start}
+ main .notebookWholeReference{grid-column:2;grid-row:1}
+ main .notebookWholeRecall .notebookWrittenRecall{grid-column:1/-1}
+ main .vocabNotebook.notebookCollectMode .notebookWord .notebookEditGrid{grid-template-columns:minmax(0,1fr)}
+ main .notebookCollectMode .notebookWord>.notebookEditGrid>.dictionaryExternal .dictionaryExternalLinks{flex-direction:row}
+}

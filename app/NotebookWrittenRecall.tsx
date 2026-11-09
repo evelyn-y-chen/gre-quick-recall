@@ -20,12 +20,12 @@ export default function NotebookWrittenRecall({word,onChange,wholePage=false,ref
   function assess(result:NotebookRecallResult) {
     if(current?.checked&&!submitted) {const {forgotten,...rest}=current;onChange([...attempts.slice(0,-1),{...rest,result}]);}
   }
-  const answer=<label>我写的释义 · 第 {number} 次
+  const answer=<label><span className="notebookFieldLabel">我写的释义 · 第 {number} 次</span>
     <textarea aria-label={`${word.word} 第 ${number} 次回忆释义`} rows={2} maxLength={1000} readOnly={submitted} value={current?.answer??""} placeholder="先凭记忆写，再核对…" onChange={e=>edit(e.target.value)}/>
   </label>;
   return <div className={`notebookWrittenRecall${result?` recall-${result}`:''}`}>
-    <div className="notebookRecallMark" aria-live="polite"><strong>{result?`${result==='correct'?'✓':result==='incorrect'?'×':'≈'} ${current?.forgotten?'不记得':labels[result]}${result==='partial'?' · 计错':''}`:current?.checked?'待判断':'待回忆'}{submitted?' · 已提交':''}</strong><span className={`notebookRecallLevel level-${stats.group}`}>{stats.label}</span></div>
     {wrong?<details className="notebookWrongAnswer" key={`${current?.id}:${result}:${submitted}`}><summary>查看{ submitted?'':'／修改'}本次原答案（默认隐藏）</summary>{answer}</details>:answer}
+    <div className="notebookRecallMark" aria-live="polite"><span>第 {number} 次</span><strong>{result?`${result==='correct'?'✓':result==='incorrect'?'×':'≈'} ${current?.forgotten?'不记得':labels[result]}${result==='partial'?' · 计错':''}`:current?.checked?'待判断':'待回忆'}{submitted?' · 已提交':''}</strong><span className={`notebookRecallLevel level-${stats.group}`}>{stats.label}</span></div>
     {!submitted&&!wholePage&&<div className="notebookRecallActions">
       {!wholePage&&<button type="button" disabled={!current?.answer.trim()&&!current?.forgotten} onClick={check}>{current?.checked?"已核对 · 可重新判断":"核对释义"}</button>}
       {!wholePage&&current?.checked&&<button type="button" disabled={!onNewAttempt&&attempts.length>=NOTEBOOK_RECALL_LIMIT} onClick={()=>onNewAttempt?onNewAttempt():onChange([...attempts,{id:crypto.randomUUID(),answer:"",checked:false}])}>再写一次</button>}

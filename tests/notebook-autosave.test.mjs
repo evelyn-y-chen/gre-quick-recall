@@ -7,17 +7,24 @@ const copy=value=>JSON.parse(JSON.stringify(value));
 const fixture=(id='collection-one')=>({id,source:'阅读第1篇',date:'2026-11-07',words:[{id:'word-one',word:'cogent',meaning:'有说服力的',note:'原有笔记',origin:'阅读',rating:'fuzzy'}]});
 const deferred=()=>{let resolve,reject;const promise=new Promise((yes,no)=>{resolve=yes;reject=no;});return {promise,resolve,reject};};
 const turns=async()=>{for(let n=0;n<12;n++)await Promise.resolve();};
-function environment({putGate,network,memory}={}){
+function environment({putGate,network,memory,stateHook}={}){
  let generation=1,timerId=0;const values=new Map(),timers=new Map(),records=new Map(),writes=[],states=[],acknowledged=[],uploads=[];
  const storage={getItem:key=>values.get(key)??null,setItem:(key,value)=>values.set(key,value)};
  const saver=createNotebookAutosaver({storage,generation:1,getGeneration:()=>generation,schedule:fn=>{const id=++timerId;timers.set(id,fn);return id;},cancel:id=>timers.delete(id),
   put:async(batch,revision)=>{writes.push({batch:copy(batch),revision});if(putGate)await putGate(batch,revision,writes.length);const existing=records.get(batch.id);if((existing?.revision??0)!==revision)throw Object.assign(Error('保存冲突'),{conflict:true});records.set(batch.id,{batch:copy(batch),revision:revision+1});return {revision:revision+1};},
   persist:async()=>{uploads.push(copy([...records.values()]));return network?network():{destination:'account',synced:true};},saveMemory:memory,
-  onState:(id,state)=>states.push({id,...state}),onLocalSave:(batch,revision)=>acknowledged.push({batch:copy(batch),revision,drafts:JSON.parse(values.get(NOTEBOOK_DRAFT_KEY)??'{}')}),
+  onState:(id,state)=>{states.push({id,...state});stateHook?.(id,state);},onLocalSave:(batch,revision)=>acknowledged.push({batch:copy(batch),revision,drafts:JSON.parse(values.get(NOTEBOOK_DRAFT_KEY)??'{}')}),
  });
  function edit(batch,revision=records.get(batch.id)?.revision??0){const drafts=JSON.parse(values.get(NOTEBOOK_DRAFT_KEY)??'{}');drafts[batch.id]={batch,revision};values.set(NOTEBOOK_DRAFT_KEY,JSON.stringify(drafts));saver.schedule(batch,revision);}
  return {saver,edit,records,writes,states,values,uploads,acknowledged,timers,seed(batch,revision=7){records.set(batch.id,{batch:copy(batch),revision});},drafts:()=>JSON.parse(values.get(NOTEBOOK_DRAFT_KEY)??'{}'),fireTimers(){const pending=[...timers.values()];timers.clear();for(const fn of pending)fn();},switch(){generation++;}};
 }
+
+test('a new word flushed during the completion callback is saved immediately without a later typing timer',async()=>{
+ const batch=fixture(),latest={...batch,words:[...batch.words,{id:'word-two',word:'lucid',meaning:'清楚的',note:'',origin:'阅读'}]};
+ let env,added=false;env=environment({stateHook:(_id,state)=>{if(state.phase==='saved'&&!added){added=true;env.edit(latest);env.saver.flush(batch.id);}}});
+ env.seed(batch);env.edit(batch);await env.saver.flush(batch.id);await turns();
+ assert.equal(env.writes.length,2);assert.deepEqual(env.records.get(batch.id).batch,latest);assert.deepEqual(env.drafts(),{});assert.equal(env.timers.size,0);
+});
 
 test('a typing pause automatically commits the latest row, written answer and assessment before confirming account sync',async()=>{
  const gate=deferred(),env=environment({network:()=>gate.promise}),batch=fixture();env.seed(batch);

@@ -865,6 +865,12 @@ nav button.active { color: white; background: var(--ink); box-shadow: 0 5px 14px
 .notebookHistory { max-width: 700px; }
 .notebookStatus { font-size: 14px; padding: 12px; border-radius: 9px; background: #eef2f7; color: #283f61; }
 .notebookMode, .notebookListHead { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin: 20px 0; }
+.notebookListHead { scroll-margin-top: 24px; }
+.notebookListHead:focus { outline: none; }
+.notebookUndo { margin-left: auto; }
+.notebookUndoFooter { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 20px 0; }
+.notebookUndoFooter .notebookUndo { margin-left: 0; }
+.notebookUndoFooter small { color: var(--muted); line-height: 1.6; }
 .notebookMode span { margin-left: auto; font-size: 14px; }
 .notebookAddGrid { display: grid; grid-template-columns: minmax(0,1.45fr) minmax(0,1fr); gap: 18px; align-items: start; }
 .notebookPanel, .notebookWord { border: 1px solid var(--line); border-radius: 14px; padding: 18px; background: rgba(255,255,255,.75); min-width: 0; }

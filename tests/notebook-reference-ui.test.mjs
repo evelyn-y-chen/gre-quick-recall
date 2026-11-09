@@ -86,6 +86,8 @@ function notebook({ storage = new Map(), fixture = original, savedCollections = 
       if(!element){element={getBoundingClientRect:()=>({height:rowHeights[id]??240}),scrollIntoView:options=>scrolls.push({id,part:'row',...options}),querySelector:()=>({scrollIntoView:options=>scrolls.push({id,part:'head',...options})})};domRows.set(id,element);}
       element.focus=options=>{focuses.push({id,...options});row.props.onFocus();};row.props.ref(element);
     }
+    const start=nodes().find(node=>node.props?.className==='notebookListHead');
+    if(start?.props.ref)start.props.ref.current={focus:options=>focuses.push({id:'notebook-list',...options}),scrollIntoView:options=>scrolls.push({id:'notebook-list',part:'start',...options})};
     while (effects.length) effects.shift()(); if (!dirty) return;
   } throw Error('Notebook hook host did not settle'); }
   function nodes(node) { if (!arguments.length) node = tree; if (!node || typeof node !== 'object') return []; if (Array.isArray(node)) return node.flatMap(n => nodes(n)); if (typeof node.type === 'function') return nodes(node.type(node.props)); return [node, ...nodes(node.props?.children)]; }
@@ -96,6 +98,7 @@ function notebook({ storage = new Map(), fixture = original, savedCollections = 
   render();
   return {
     ready: async () => { await settle(); const history = nodes().find(n => n.type === 'select' && nodes().some(parent => parent.props?.className === 'notebookHistory' && nodes(parent).includes(n))); assert.ok(history); history.props.onChange({ target: { value: fixture.id } }); await settle(); },
+    openCollection:async id=>{const history=nodes().find(n=>n.type==='select'&&nodes().some(parent=>parent.props?.className==='notebookHistory'&&nodes(parent).includes(n)));history.props.onChange({target:{value:id}});await settle();},
     nodes, text, calls, savedDraft, storage, rowRenders, scrolls, focuses,
     flushFrames(){const pending=[...frames.values()];frames.clear();for(const fn of pending)fn();},
     setOverlay(value){overlay=value;},
@@ -129,6 +132,62 @@ function notebook({ storage = new Map(), fixture = original, savedCollections = 
     close() { for (const hook of hooks) hook?.cleanup?.(); },
   };
 }
+
+test('bulk checking returns to the first word after rendering and undo restores the writing phase and original answers',async()=>{
+ const view=notebook();try{
+  await view.ready();view.flushFrames();view.scrolls.length=0;
+  await view.click('整页回忆');view.editAnswer(1,'有说');view.editAnswer(1,'有说服力');view.flushFrames();
+  assert.equal(view.scrolls.length,0,'Typing does not move the page');
+  const before=structuredClone(view.draft()[original.id].batch);
+  await view.click('统一核对释义');assert.equal(view.scrolls.length,0,'Wait for the updated DOM');view.flushFrames();
+  assert.deepEqual(view.scrolls.at(-1),{id:'notebook-list',part:'start',block:'start',behavior:'auto'});
+  assert.deepEqual(view.focuses.at(-1),{id:'notebook-list',preventScroll:true});
+  assert.equal(view.draft()[original.id].batch.recallPhase,'checking');
+  await view.click('↶ 撤回一步');assert.deepEqual(view.draft()[original.id].batch,before);
+  assert.ok(view.nodes().filter(n=>n.props?.className==='notebookUndo').every(n=>n.props.disabled));
+  await view.flushTimers();assert.deepEqual(view.saved().batch,before);
+ }finally{view.close();}
+});
+
+test('undoing a saved next round restores submitted answers, attempts, reminder and scope using a newer save revision',async()=>{
+ const history=Array.from({length:20},(_,index)=>({id:'old-'+index,answer:'原答案 '+index,checked:true,result:index===19?'partial':'correct'}));
+ const fixture={...original,recallPhase:'checking',recallReminder:{id:'later',at:'2026-12-01T01:00:00Z',wordIds:['word-lucid'],label:'待巩固'},words:[{...original.words[0],recalls:[{id:'correct-one',answer:'有说服力',checked:true,result:'correct'}]},{id:'word-lucid',word:'lucid',meaning:'清楚的',note:'保留笔记',origin:'来源',recalls:history}]};
+ const view=notebook({fixture});try{
+  await view.ready();await view.click('提交本次默写结果');const before=view.saved();
+  view.startRecall(['word-lucid']);view.flushFrames();
+  assert.equal(view.scrolls.at(-1).block,'start');
+  assert.deepEqual(view.draft()[fixture.id].batch.recallRound.wordIds,['word-lucid']);
+  assert.equal(view.draft()[fixture.id].batch.words[1].recallArchive.attempts,1);
+  await view.flushTimers();const newer=view.saved();assert.ok(newer.revision>before.revision);
+  await view.click('↶ 撤回一步');await view.flushTimers();
+  assert.deepEqual(view.saved().batch,before.batch);assert.ok(view.saved().revision>newer.revision);
+  assert.equal(view.saved().batch.words[1].recalls.length,20);assert.equal(view.saved().batch.words[1].recallArchive,undefined);
+ }finally{view.close();}
+});
+
+test('one undo reverses a judgment or a whole typing edit, preserves shared memory, and clears when changing collection',async()=>{
+ const other={...original,id:'other-collection',source:'另一份收集'};
+ const view=notebook({savedCollections:[other]});try{
+  await view.ready();view.editAnswer(1,'旧');view.editAnswer(1,'旧答案');await view.click('核对释义');await view.click('正确');
+  const before=structuredClone(view.draft()[original.id].batch);await view.click('模糊');
+  await view.click('↶ 撤回一步');assert.deepEqual(view.draft()[original.id].batch,before);
+  view.editMemory('共享笔记独立保存');view.editAnswer(1,'新');view.editAnswer(1,'新的完整答案');
+  await view.click('↶ 撤回一步');assert.equal(view.draft()[original.id].batch.words[0].recalls.at(-1).answer,'旧答案');
+  assert.equal(view.memoryDraft().cogent.text,'共享笔记独立保存');
+  await view.openCollection(other.id);assert.ok(view.nodes().filter(n=>n.props?.className==='notebookUndo').every(n=>n.props.disabled));
+  await view.click('↶ 撤回一步');assert.equal(view.recallTools().batch.id,other.id);assert.deepEqual(view.recallTools().batch,other);
+ }finally{view.close();}
+});
+
+test('undo during an older autosave keeps the restored answer as the final saved content',async()=>{
+ let release,writes=0;const held=new Promise(resolve=>{release=resolve;});
+ const view=notebook({putHook:async payload=>{if(++writes===1)await held;return {ok:true,json:async()=>({revision:payload.revision+1})};}});
+ try{
+  await view.ready();view.editAnswer(1,'误写的答案');await view.flushTimers();await view.click('↶ 撤回一步');
+  release();await view.flushTimers();await view.flushTimers();
+  assert.deepEqual(view.saved().batch,original);assert.ok(view.saved().revision>8);
+ }finally{release?.();view.close();}
+});
 
 test('notebook keeps handwritten meaning, editable collection reference and shared memory separate without writes on render', async () => {
   const view = notebook();

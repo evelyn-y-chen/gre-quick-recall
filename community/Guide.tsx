@@ -255,7 +255,7 @@ const groups: GuideGroup[] = [
           '编辑与复习：收集页每词只有一个「释义」编辑框，旁边可直接查韦氏／海词。单词、释义和默写输入按首行对齐。旧版简短释义在修改前仍会保留原始收集内容；编辑统一释义后，复习和测试使用新内容。可以隐藏显示，笔记和回忆记录保持独立。加入单词会立即触发自动保存。',
           '默写过关：与「收集与编辑」分开，用表格逐词填写答案。不会的直接留空；点「统一批改」后，空白自动记为不记得和错误，参考释义一起显示。逐词判断正确／模糊／错误，再提交；可修改判断，错误原答案默认收起。正确率、回忆记录、错词重过和预约都在过关页，切换回编辑不改变记录。',
           '再次与预约过关：页尾可只重过本轮错词或全部再过，也可选未核对／待巩固／易错词／重点攻克／已过关等范围，开始新一轮或预约时间。每词显示判对次数、错误次数、正确率和连续错误；模糊计错，连续错 2 次归为易错词，3 次以上归为重点攻克，另结合至少 3 次判断后的正确率。预约随收集保存，到时打开网站弹窗提醒，点进去可直接开始；关闭网页时不发送系统通知。最近 20 份完整答案保留，更早结果压缩为累计计数。',
-          '核对与重新过关：统一批改、只重过错词或开始下一轮后，自动回到词表第一词。词表开头和页尾的「撤回一步」可恢复当前收集的上一步操作，包括核对、判断、提交、开始新一轮和编辑；同一输入框连续输入作为一步，撤回后同样自动保存。切换收集或离开生词本后清空这一步撤回记录。',
+          '核对与重新过关：统一批改、只重过错词或开始下一轮后，自动回到词表第一词。「撤回一步」恢复上一步操作并自动保存；误撤回可点「取消撤回」。继续编辑、切换收集或离开生词本后清空取消撤回记录。',
           '自动保存与撤销：生词本的单词、释义、手写回忆、核对结果和共享笔记修改后自动保存；停止输入约片刻后整理为正式收集，登录后自动同步。页面会区分本机保存、账号保存和同步待完成；失败可重试，也可点「立即保存」。切换板块前会继续保存；未填完整的内容保留草稿。误移除单词时，可选择「撤销移除」。',
         ],
         english: [
@@ -271,7 +271,7 @@ const groups: GuideGroup[] = [
           'Look up a word: expand “查词典或补充这一个词” when adding a word, or “补查词典” on an existing entry. Select “韦氏词典” (Merriam-Webster) or “海词词典” (Dict.cn) to open its official entry in a new window. Copy the definition you need, return and select the matching source. Paste with the clipboard button or manually, then append or explicitly replace the definition. Its source is recorded with it; memory notes stay unchanged. Save the collection afterwards.',
           'Each collection word has one meaning editor with dictionary links beside it. The word, meaning and dictation input align on their first line. Legacy short meanings retain their original reference until edited; editing the unified meaning updates study and tests consistently. Notes and recall history stay separate. Adding a word triggers an immediate autosave.',
           'Dictation is separate from collection editing. Open 默写过关, write answers in the table and leave forgotten words blank. 统一批改 reveals references and marks blanks as forgotten/incorrect. Judge each answer, then submit; judgments remain editable before submission. Wrong original text is collapsed. History, accuracy, retries and reminders stay on the dictation page. Switching to editing preserves all progress.',
-          'Checking and retries return to the first word. Undo one step appears above and below the word list and restores the current collection’s last check, judgment, submission, new round or edit. Consecutive typing in one field is one step. Undo also autosaves. Switching collections or leaving the notebook clears this undo point.',
+          'Checking and retries return to the first word. Undo restores the previous action and autosaves. Cancel Undo restores the action you just undid. A new edit, switching collections or leaving the notebook clears this redo point.',
           'Autosave and undo: notebook words, meanings, written recall attempts, assessments and shared notes save automatically after a short typing pause. Signed-in work also syncs to the account. The status distinguishes device saving, account saving and pending sync; retry failures or use Save now. Pending edits continue saving when leaving this module; incomplete entries stay in drafts. Use Undo removal to restore an accidentally removed word.',
         ],
       },
@@ -280,7 +280,7 @@ const groups: GuideGroup[] = [
   "en": "One clear Start test entry",
   "cn": [
     "A+ 保留「速刷与笔记／开始测试」里的原有等价词测试，不再额外提供另一套双向释义入口。先选释义，再选等价词；第一步答错或不确定就直接显示答案和笔记，跳过第二步。",
-    "BB 保留一个简单等价词测试：选择 List 范围和顺序后，看单词，从六个词中选同义词。提交后直接看释义、正确词和记忆笔记，不再先做另一轮释义选择。",
+    "BB 等价词测试优先使用同词性干扰项，排除词表中已知的同义、近义和同根变形。安全候选不足时减少选项；提交后显示释义、正确词和记忆笔记。",
     "全能词保留一个「开始测试」入口，可选范围、方向和顺序。测试结果与可继续的题目保存在当前学习空间。",
     "测试是可选的。七天复习一览直接使用词表里的真实红绿灯记录，不要求先参加测试。"
   ],
@@ -347,14 +347,14 @@ const groups: GuideGroup[] = [
         zh: '确认保存状态',
         en: 'Check the save status',
         cn: [
-          '顶部显示「已存到这台设备」时，游客记录已保存在当前浏览器；显示「已保存到账号」时，账号记录已完成云端同步。',
+          '顶部显示「已存到这台设备」时，游客记录已保存在当前浏览器；显示「已保存到账号」时，账号记录已写入云端并读回核验。生词本刷新后会打开上次收集。',
           '编辑区有保存按钮时，先提交编辑，再查看顶部状态。同步异常时，先导出便笺留底，再重试保存。',
-          '新设备的空白记录不会直接覆盖已有云端记录。两台设备标记不同的词会按词合并；同一词以较新的修改时间为准。旧版记录无法判断先后，或同一笔记发生冲突时，会保留本机副本，供导出与核对。',
+          '两台设备请先各刷新一次，启用逐项修改时间。不同单词或同一词不同字段的修改会一起保留；同一字段采用修改时间较晚的内容，上传时间不改变先后。旧页面未见到的新词不会被当成删除。升级前未记录修改时间的冲突仍会保留副本，供核对。',
         ],
         english: [
-          '“已存到这台设备” confirms browser storage for a guest workspace. “已保存到账号” confirms completed cloud sync for an account.',
+          '“已存到这台设备” confirms browser storage for a guest workspace. “已保存到账号” confirms an account upload has been read back and verified. Refreshing the notebook reopens the last collection.',
           'Submit edits wherever a save button is provided, then check the header status. If sync fails, export a backup before retrying.',
-          'Empty records on a new device do not silently replace existing cloud records. Different-word ratings from multiple devices are merged. For the same word, the newer recorded edit wins. Ambiguous older ratings or conflicting notes preserve a local copy for export and review.',
+          'Refresh both devices once to enable field edit times. Different words or fields are retained together; the latest edit wins for the same field regardless of upload time. Missing words in a stale page are not treated as deletions. Conflicting legacy records without edit times retain a local copy for review.',
         ],
       },
       {

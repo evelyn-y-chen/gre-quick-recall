@@ -41,6 +41,7 @@ function mergeSummaries(cloud: NotebookSummary[]) {
 }
 const SOURCE_ORDER_KEY = "gre-notebook-source-order-v1";
 const DISPLAY_KEY = "gre-notebook-display-v1";
+const LAST_OPEN_KEY = "gre-notebook-last-open-v1";
 function displayPreferences() {
   try {
     const saved = JSON.parse(studyStorage.getItem(DISPLAY_KEY) ?? "{}");
@@ -63,6 +64,7 @@ type NotebookRowActions = {
   again:(id:string)=>void;
   recall:(id:string,recalls:NonNullable<NotebookWord["recalls"]>)=>void;
 };
+type NotebookViewPoint={batch:NotebookBatch;review:boolean;recallMode:boolean;activeId:string;revealed:string[]};
 // Unchanged rows retain their word object and stable action ref while a single
 // answer is edited. Large collections no longer rebuild every input per key.
 const NotebookWordRow=memo(function NotebookWordRow({word:w,index,review,wholeRecall,checking,active,isRevealed,display,source,rowRefs,actions}:{
@@ -120,7 +122,8 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
   const [saving,setSaving] = useState(false);
   const [submissionMessage,setSubmissionMessage]=useState("");
   const submissionLock=useRef(false);
-  const [undoPoint,setUndoPoint]=useState<{batch:NotebookBatch;review:boolean;recallMode:boolean;activeId:string;revealed:string[]}|null>(null);
+  const [undoPoint,setUndoPoint]=useState<NotebookViewPoint|null>(null);
+  const [redoPoint,setRedoPoint]=useState<NotebookViewPoint|null>(null);
   const undoEditKey=useRef<string|null>(null);
   const [dirty,setDirty] = useState(false);
   const [status,setStatus] = useState("正在读取生词本…");
@@ -234,7 +237,10 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
         const response = await appFetch("/api/notebook",{cache:"no-store"});
         if (!response.ok) throw new Error();
         const data = await response.json();
-        if (!cancelled) { setBatches(mergeSummaries(data.batches)); setStatus("先填写来源开始收集，或打开以前的收集。"); }
+        if (!cancelled) {
+          const items=mergeSummaries(data.batches);setBatches(items);setStatus("先填写来源开始收集，或打开以前的收集。");
+          const last=studyStorage.getItem(LAST_OPEN_KEY);if(!planTarget&&last&&items.some(item=>item.id===last))await open(last);
+        }
       } catch {
         if (!cancelled) { setBatches(mergeSummaries([])); setStatus("工作区列表读取失败，已显示本机草稿。可刷新页面重试。"); }
       } finally { if (!cancelled) setLoading(false); }
@@ -255,26 +261,36 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
     if(editKey!==false&&previous?.id===next.id&&previous!==next&&(!editKey||undoEditKey.current!==editKey)) {
       setUndoPoint({batch:previous,review,recallMode,activeId,revealed});
     }
+    if(editKey!==false)setRedoPoint(null);
     undoEditKey.current=typeof editKey==='string'?editKey:null;
     currentBatch.current={batch:next,revision:rev};
     setBatch(next); setDirty(true); setConflict(false);
     setBatches((items) => [summary(next,rev,true),...items.filter((item) => item.id !== next.id)]);
     try {
+      studyStorage.setItem(LAST_OPEN_KEY,next.id);
       studyStorage.setItem(NOTEBOOK_DRAFT_KEY,JSON.stringify({...drafts(),[next.id]:{batch:next,revision:rev}}));
       setStatus("修改已保留，生词本会自动保存。");
       autosaver.current?.schedule(next,rev);
     } catch { setStatus("本机草稿空间不足，请立即保存到当前工作区。"); }
   }
-  function resetView() { setActiveId(""); setSelected([]); setRemoved(null); setRevealed([]); setReview(false);setRecallMode(false); setConflict(false); setWordOrder(null); setAlphabetical(false); setUndoPoint(null);undoEditKey.current=null; }
+  function resetView() { setActiveId(""); setSelected([]); setRemoved(null); setRevealed([]); setReview(false);setRecallMode(false); setConflict(false); setWordOrder(null); setAlphabetical(false); setUndoPoint(null);setRedoPoint(null);undoEditKey.current=null; }
   function undoLastStep() {
     if(!undoPoint||undoPoint.batch.id!==currentBatch.current.batch?.id||saving)return;
     const previous=undoPoint;
+    setRedoPoint({batch:currentBatch.current.batch,review,recallMode,activeId,revealed});
     setUndoPoint(null);setRemoved(null);setReview(previous.review);setRecallMode(previous.recallMode);setActiveId(previous.activeId);setRevealed(previous.revealed);
     centerRequested.current=false;setSubmissionMessage('');
     // Restore content through the current save queue/revision, never roll its
     // version backwards or restore any other collection or shared note.
     persist(previous.batch,currentBatch.current.revision,false);
     setStatus('已撤回上一步，本次内容会自动保存。');
+  }
+  function cancelUndo() {
+    if(!redoPoint||redoPoint.batch.id!==currentBatch.current.batch?.id||saving)return;
+    const restored=redoPoint;
+    setUndoPoint({batch:currentBatch.current.batch,review,recallMode,activeId,revealed});setRedoPoint(null);setRemoved(null);
+    setReview(restored.review);setRecallMode(restored.recallMode);setActiveId(restored.activeId);setRevealed(restored.revealed);setSubmissionMessage('');centerRequested.current=false;
+    persist(restored.batch,currentBatch.current.revision,false);setStatus('已取消撤回，恢复后的内容会自动保存。');
   }
   function returnToFirstWord() {
     centerRequested.current=false;setActiveId('');setScrollRequest(value=>value+1);
@@ -290,6 +306,7 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
     resetView(); setLoading(true);
     const local = drafts()[id];
     if (local) {
+      studyStorage.setItem(LAST_OPEN_KEY,id);
       currentBatch.current={batch:local.batch,revision:local.revision};
       setBatch(local.batch);setRecallMode(!!local.batch.recallPhase); setRevision(local.revision); setDirty(true); setStatus("已恢复这次收集的本机草稿，将自动保存。"); setLoading(false); autosaver.current?.schedule(local.batch,local.revision); return local.batch;
     }
@@ -297,6 +314,7 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
       const response = await appFetch(`/api/notebook?id=${encodeURIComponent(id)}`,{cache:"no-store"});
       if (!response.ok) throw new Error();
       const saved = await response.json() as NotebookDraft;
+      studyStorage.setItem(LAST_OPEN_KEY,id);
       currentBatch.current={batch:saved.batch,revision:saved.revision};
       setBatch(saved.batch);setRecallMode(!!saved.batch.recallPhase); setRevision(saved.revision); setDirty(false); setStatus("已读取工作区生词本。");return saved.batch;
     } catch { setStatus("读取失败，请重试；当前收集未改变。"); }
@@ -465,7 +483,7 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
   const correctCount=displayWords.filter(word=>notebookRecallResult(word.recalls?.at(-1))==='correct').length;
   const wrongCount=displayWords.filter(word=>notebookRecallIsWrong(word.recalls?.at(-1))).length;
   const recalledCount=displayWords.filter(word=>{const last=word.recalls?.at(-1);return last&&(last.answer.trim()||last.forgotten);}).length??0;
-  const undoButton=<button className="notebookUndo" type="button" disabled={!undoPoint||undoPoint.batch.id!==batch?.id||loading||saving} onClick={undoLastStep}>↶ 撤回一步</button>;
+  const undoButton=<><button className="notebookUndo" type="button" disabled={!undoPoint||undoPoint.batch.id!==batch?.id||loading||saving} onClick={undoLastStep}>↶ 撤回一步</button>{redoPoint&&redoPoint.batch.id===batch?.id&&<button className="notebookUndo" type="button" disabled={loading||saving} onClick={cancelUndo}>↷ 取消撤回</button>}</>;
   const wholeRecallActions=batch&&(submitted?<><strong>本次默写已提交</strong><button type="button" onClick={()=>beginRecall(batch.words.map(word=>word.id))}>开始下一次默写</button></>:<><button type="button" className="solid" disabled={!batch.words.length} onClick={()=>checking?persist(hideNotebookRecallReferences(batch)):checkAllRecall()}>{checking?"隐藏释义，继续回忆":"统一批改"}</button><span>{checking?"对照释义判断，再提交。":`已填写 ${recalledCount} / ${displayWords.length} 词 · 留空按不记得计错`}</span></>);
   return <section className={`vocabNotebook${review ? " notebookReviewMode" : " notebookDocumentMode"}${wholeRecall?" notebookWholeRecall":!review?" notebookCollectMode":""}${showNotes ? "" : " notebookNotesHidden"}`} onKeyDown={(e) => {e.stopPropagation();handleKeyboard(e.nativeEvent);}}>
     <div className="libraryHead"><div><p className="eyebrow">MY VOCABULARY</p><h1>生词本</h1></div></div>

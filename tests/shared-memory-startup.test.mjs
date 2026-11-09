@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import test from 'node:test';
 import ts from 'typescript';
+import {loadTs} from './helpers/load-ts.mjs';
 
 const compile = file => ts.transpileModule(fs.readFileSync(file, 'utf8'), {
   compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, jsx: ts.JsxEmit.ReactJSX },
@@ -10,8 +11,7 @@ const compile = file => ts.transpileModule(fs.readFileSync(file, 'utf8'), {
 // Run the real provider and in-memory storage. Limit indexed enumeration so a
 // regression fails promptly instead of hanging the test runner for 20 seconds.
 function environment(initial, memories = {}) {
-  const storage = {}, model = {};
-  new Function('exports', compile('community/storage.ts'))(storage);
+  const storage = loadTs('community/storage.ts'), model = {};
   new Function('exports', compile('app/wordMemoryModel.ts'))(model);
   storage.loadStorage(initial);
   let indexedReads = 0, snapshots = 0, current, fail = false;
@@ -93,7 +93,7 @@ test('startup scans a large learning space once and preserves every legacy note 
     assert.deepEqual(drafts.newword, { text: 'Keep pending draft', revision: 2 });
     const after = env.storage.exportStorage();
     for (const [key, value] of Object.entries(initial)) if (key !== draftKey) assert.equal(after[key], value, key);
-    assert.equal(Object.keys(after).length, Object.keys(initial).length + 3, 'Only the three migration markers are added');
+    assert.equal(Object.keys(after).filter(key=>key!=='gre-workspace-field-edits-v1').length, Object.keys(initial).length + 3, 'Only migration markers and edit-time metadata are added');
     const changes = [], stop = env.storage.subscribeStudyStorage(key => changes.push(key));
     await env.value().refresh(); await env.settle();
     assert.deepEqual(changes, [], 'Refreshing an already imported account must not rewrite drafts or notes');

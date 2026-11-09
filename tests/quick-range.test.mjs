@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import test from 'node:test';
 import ts from 'typescript';
+import {loadTs} from './helpers/load-ts.mjs';
 
 const model = {};
 new Function('exports', ts.transpileModule(fs.readFileSync(new URL('../app/quickRangeModel.ts', import.meta.url), 'utf8'), {
@@ -56,6 +57,7 @@ function quickView(name, initialStorage = {}, initialDeck = 'lclj-fill', initial
   };
   const jsx = (type, props) => ({ type, props: props ?? {} });
   function load(importName) {
+    if(importName==='./fieldMerge')return loadTs('community/fieldMerge.ts');
     if (importName === '../community/SelectionChips') {const out={};new Function('exports','require',ts.transpileModule(fs.readFileSync(new URL('../community/SelectionChips.tsx',import.meta.url),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,jsx:ts.JsxEmit.ReactJSX}}).outputText)(out,name=>({jsx,jsxs:jsx}));return out;}
     if (importName === '../community/learningPlanStore') return {recordLearningPlanRatings(){}};
     if (importName === 'react') return react;

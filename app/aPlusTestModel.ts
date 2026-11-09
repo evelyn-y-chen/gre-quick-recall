@@ -1,6 +1,6 @@
 import data from "./aPlusEquivalents.json";
 import synonymPairs from "./equivalents.json";
-import {areQuizWordsConfusable,areQuizMorphologicalVariants,isAmbiguousQuizDistractor,rankQuizDistractors,selectQuizDistractors} from "./quizDistractors";
+import {areQuizWordsConfusable,areQuizMorphologicalVariants,isAmbiguousQuizDistractor,rankQuizPosDistractors,selectQuizDistractors,isQuizPosMismatch} from "./quizDistractors";
 export type Entry = typeof data[number];
 export type TestMode = "single" | "multiple";
 export type Config = {lists:number[];order:"sequential"|"random";mode:TestMode};
@@ -48,7 +48,7 @@ export function makeQuestion(entryId:string,mode:TestMode,early=false,random:()=
  const safeSet=new Set(safe);
  const gloss=(w:string)=>[...new Set((groups.get(w)??[]).map(g=>g.meaning))].join("；");
  const allowed=(w:string)=>(groups.get(w)??[]).every(g=>safeSet.has(g))&&!isAmbiguousQuizDistractor(e,{word:w,meaning:gloss(w)})&&![e.word,...positives].some(answer=>areQuizMorphologicalVariants(answer,w));
- const poolSafe=rankQuizDistractors(e,shuffle(pool.filter(allowed),random).map(word=>({word,meaning:gloss(word)}))).map(item=>item.word);
+ const poolSafe=rankQuizPosDistractors(e,shuffle(pool.filter(allowed),random).map(word=>({word,meaning:gloss(word)}))).map(item=>item.word);
  const required=[...new Set(retryWords)];
  const requiredPositives=required.filter(w=>positives.includes(w)).slice(0,mode==="single"?1:5);
  const requiredNegatives=required.filter(w=>poolSafe.includes(w)).slice(0,6-Math.max(1,requiredPositives.length));
@@ -64,7 +64,7 @@ export function makeQuestion(entryId:string,mode:TestMode,early=false,random:()=
  }
  const options=shuffle([...chosen.map(word=>({word,meaning:gloss(word),correct:true})),...selectedNegatives.map(word=>({word,meaning:gloss(word),correct:false}))],random);
  const meanings=shuffle([e.meaning,...selectQuizDistractors(e,shuffle(safe,random),3).map(x=>x.meaning)],random);
- if(options.length!==6||meanings.length!==4)throw Error("无法生成足够的题目选项");
+ if(options.length<2||meanings.length<2)throw Error("无法生成足够的题目选项");
  return {id:crypto.randomUUID(),entryId,meanings,options,early};
 }
 export function createSession(config:Config,random:()=>number=Math.random,onlyIds?:string[]):Session {
@@ -119,7 +119,7 @@ export function validSession(value:unknown):value is Session {
  if(s.synonymUncertain!==undefined&&typeof s.synonymUncertain!=="boolean")return false;
  if(s.stage==="complete")return s.question===null;
  const q=s.question;
- return !!q&&typeof q.id==="string"&&q.id.length<=80&&s.order.includes(q.entryId)&&typeof q.early==="boolean"&&Array.isArray(q.meanings)&&q.meanings.length===4&&q.meanings.every(m=>typeof m==="string"&&m.length<4000)&&Array.isArray(q.options)&&q.options.length===6&&q.options.every(o=>o&&typeof o.word==="string"&&o.word.length<=300&&typeof o.meaning==="string"&&o.meaning.length<10000&&typeof o.correct==="boolean");
+ return !!q&&typeof q.id==="string"&&q.id.length<=80&&s.order.includes(q.entryId)&&typeof q.early==="boolean"&&Array.isArray(q.meanings)&&(q.meanings.length>=2&&q.meanings.length<=4)&&q.meanings.every(m=>typeof m==="string"&&m.length<4000)&&Array.isArray(q.options)&&(q.options.length>=2&&q.options.length<=6)&&q.options.every(o=>o&&typeof o.word==="string"&&o.word.length<=300&&typeof o.meaning==="string"&&o.meaning.length<10000&&typeof o.correct==="boolean");
 }
 
 export function refreshAmbiguousQuestion(session:Session):Session{
@@ -130,6 +130,6 @@ export function refreshAmbiguousQuestion(session:Session):Session{
  const unsafeMeaning=session.question.meanings.some(meaning=>meaning!==entry.meaning&&isAmbiguousQuizDistractor(entry,{word:"",meaning}));
  const unsafePair=session.question.options.some((option,index)=>!option.correct&&session.question!.options.slice(0,index).some(other=>!other.correct&&(isAmbiguousQuizDistractor(other,option)||areQuizMorphologicalVariants(other.word,option.word))))
   ||session.question.meanings.some((meaning,index)=>session.question!.meanings.slice(0,index).some(other=>isAmbiguousQuizDistractor({word:'meaning-'+index,meaning},{word:'previous-meaning',meaning:other})));
- if(!unsafeMeaning&&!unsafePair&&!session.question.options.some(option=>!option.correct&&((groups.get(option.word)??[]).some(group=>!safe.has(group))||isAmbiguousQuizDistractor(entry,option)||[entry.word,...equivalents(entry)].some(word=>areQuizMorphologicalVariants(word,option.word)))))return session;
+ if(!unsafeMeaning&&!unsafePair&&!session.question.options.some(option=>!option.correct&&((groups.get(option.word)??[]).some(group=>!safe.has(group))||isQuizPosMismatch(entry,option)||isAmbiguousQuizDistractor(entry,option)||[entry.word,...equivalents(entry)].some(word=>areQuizMorphologicalVariants(word,option.word)))))return session;
  return {...session,question:makeQuestion(session.question.entryId,session.config.mode,session.question.early,Math.random,session.progress[session.question.entryId].retryWords),stage:"meaning",meaningChoice:null,selected:[],synonymUncertain:false};
 }

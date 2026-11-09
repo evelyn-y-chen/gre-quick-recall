@@ -13,9 +13,9 @@ const words=[
 ];
 const bb=[
  {id:'b1',list:1,words:[{word:'abate',meaning:'减弱'},{word:'diminish',meaning:'减少'}]},
- {id:'b2',list:2,words:[{word:'abundant',meaning:'丰富的'},{word:'plentiful',meaning:'充足的'}]},
- {id:'b3',list:3,words:[{word:'concise',meaning:'简明的'},{word:'terse',meaning:'简洁的'}]},
- {id:'b4',list:3,words:[{word:'diligent',meaning:'勤奋的'},{word:'industrious',meaning:'勤勉的'}]},
+ {id:'b2',list:2,words:[{word:'collect',meaning:'v. 收集'},{word:'gather',meaning:'v. 聚集'}]},
+ {id:'b3',list:3,words:[{word:'praise',meaning:'v. 称赞'},{word:'laud',meaning:'v. 赞美'}]},
+ {id:'b4',list:3,words:[{word:'conceal',meaning:'v. 隐藏'},{word:'hide',meaning:'v. 掩盖'}]},
 ];
 const runKey=deck=>'lemnota-practice-'+deck;
 const reviewKey=deck=>'lemnota-practice-review-'+deck+'-v1';
@@ -39,6 +39,7 @@ function practice({deck='words',data={}}={}){
  };
  const jsx=(type,props)=>({type,props:props??{}});
  function load(name){
+  if(name==='./fieldMerge')return loadModel('community/fieldMerge.ts');
   if(name==='../app/qingshanCatalog')return loadModel('app/qingshanCatalog.ts');
   if(name==='../app/zhangCatalog')return loadModel('app/zhangCatalog.ts');
   if(name==='react')return react;

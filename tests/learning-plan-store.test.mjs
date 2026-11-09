@@ -99,7 +99,7 @@ test('invalid dates and unreadable settings are never replaced by empty/default 
  withoutThrow(()=>h.recordLearningPlanWords(['beta'],'green','2026-10-32'));assert.deepEqual(h.snapshot(),before);
  assert.throws(()=>h.saveLearningPlanSettings(config({startDay:'2026-02-30'})));assert.deepEqual(h.snapshot(),before);
  for(const raw of ['{broken','null','{"version":2}','{"version":1,"config":{"id":"x"},"paused":false}']){
-  h.restore({...before,[h.LEARNING_PLAN_KEY]:raw});const corrupt=h.snapshot();assert.equal(h.readLearningPlanStore(),null);h.recordLearningPlanRatings('words',{w2:'familiar'});withoutThrow(()=>h.pauseLearningPlan(true));assert.deepEqual(Object.fromEntries(Object.entries(h.snapshot()).filter(([k])=>!k.includes(':study-log:'))),Object.fromEntries(Object.entries(corrupt).filter(([k])=>!k.includes(':study-log:'))));
+  h.restore({...before,[h.LEARNING_PLAN_KEY]:raw});const corrupt=h.snapshot();assert.equal(h.readLearningPlanStore(),null);h.recordLearningPlanRatings('words',{w2:'familiar'});withoutThrow(()=>h.pauseLearningPlan(true));assert.deepEqual(Object.fromEntries(Object.entries(h.snapshot()).filter(([k])=>!k.includes(':study-log:')&&k!=='gre-workspace-field-edits-v1')),Object.fromEntries(Object.entries(corrupt).filter(([k])=>!k.includes(':study-log:')&&k!=='gre-workspace-field-edits-v1')));
  }
 });
 

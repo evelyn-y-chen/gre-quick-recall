@@ -1,9 +1,10 @@
 import initSqlJs,{type Database} from 'sql.js';
 import wasmUrl from 'sql.js/dist/sql-wasm.wasm?url';
 import {setRuntimeDatabase} from '../db/runtime';
-import {exportStorage,loadStorage,setStorageListener} from './storage';
+import {exportStorage,loadStorage,setStorageListener,recordRowEdit} from './storage';
 export type Snapshot={version:1;rows:{key:string;value:string;revision:number;updated_at:string}[];storage:Record<string,string>};
 let db:Database;
+let observedRows=new Map<string,string>();
 let listener=()=>{};
 export function onWorkspaceChange(fn:()=>void){listener=fn;setStorageListener(fn);}
 export function validSnapshot(value:unknown):value is Snapshot{
@@ -16,9 +17,19 @@ export async function openWorkspace(snapshot?:Snapshot){
  const next=new SQL.Database();
  next.run('CREATE TABLE mind_map_state (key TEXT PRIMARY KEY NOT NULL,value TEXT NOT NULL,revision INTEGER NOT NULL DEFAULT 1,updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP)');
  if(snapshot)for(const row of snapshot.rows)next.run('INSERT INTO mind_map_state VALUES (?,?,?,?)',[row.key,row.value,row.revision,row.updated_at]);
- db?.close();db=next;loadStorage(snapshot?.storage);
+ db?.close();db=next;observedRows=new Map(snapshot?.rows.map(row=>[row.key,row.value])??[]);loadStorage(snapshot?.storage);
  setRuntimeDatabase({prepare(query:string){let values:unknown[]=[];
-  const execute=()=>{const statement=db.prepare(query);try{statement.bind(values as any);const results=[];while(statement.step())results.push(statement.getAsObject());if(/^\s*(INSERT|UPDATE|DELETE|REPLACE)\b/i.test(query))listener();return results;}finally{statement.free();}};
+  const execute=()=>{
+   const writing=/^\s*(INSERT|UPDATE|DELETE|REPLACE)\b/i.test(query),deleting=/^\s*DELETE\b/i.test(query);
+   // RETURNING identifies only the rows actually written, including successful
+   // conditional writes. Do not export/scan the full database per keystroke.
+   const sql=writing?query.replace(/\s*;\s*$/,'').replace(/\s+RETURNING\b[\s\S]*$/i,'')+' RETURNING key,value,revision,updated_at':query;
+   const statement=db.prepare(sql);try{
+    statement.bind(values as any);const results=[];while(statement.step())results.push(statement.getAsObject());
+    if(writing&&results.length){for(const row of results){const key=String(row.key),value=deleting?undefined:String(row.value);recordRowEdit(key,observedRows.get(key),value);if(value===undefined)observedRows.delete(key);else observedRows.set(key,value);}listener();}
+    return results;
+   }finally{statement.free();}
+  };
   return {bind(...args:unknown[]){values=args;return this;},async run<T>(){execute();return {success:true} as T;},async first<T>(){return (execute()[0]??null) as T|null;}};
  }});
 }

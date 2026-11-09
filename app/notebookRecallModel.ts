@@ -38,6 +38,13 @@ export function appendNotebookRecall(word:NotebookWord,newId:()=>string):Noteboo
  const attempts=word.recalls??[],discard=attempts.slice(0,Math.max(0,attempts.length+1-NOTEBOOK_RECALL_LIMIT));
  return {...word,...(discard.length?{recallArchive:accumulate(word.recallArchive??empty(),discard)}:{}),recalls:[...attempts.slice(discard.length),{id:newId(),answer:'',checked:false}]};
 }
+/** Compact a merged history once, preserving older judgments in the totals. */
+export function compactNotebookRecalls(batch:NotebookBatch):NotebookBatch{
+ return {...batch,words:batch.words.map(word=>{
+  const attempts=word.recalls??[],count=Math.max(0,attempts.length-NOTEBOOK_RECALL_LIMIT);
+  return count?{...word,recallArchive:accumulate(word.recallArchive??empty(),attempts.slice(0,count)),recalls:attempts.slice(count)}:word;
+ })};
+}
 export function startNotebookRecall(batch:NotebookBatch,ids:string[],newId:()=>string):NotebookBatch{
  const chosen=new Set(ids),wordIds=batch.words.filter(word=>chosen.has(word.id)).map(word=>word.id);
  if(!wordIds.length)return batch;

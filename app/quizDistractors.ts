@@ -1,4 +1,4 @@
-import {quizSenseCatalog,quizSpelling} from './quizSenseCatalog';
+import {quizSenseCatalog,quizSpelling,areKnownQuizEquivalents,quizWordPartsOfSpeech} from './quizSenseCatalog';
 type QuizWord={word:string;meaning:string};
 const spelling=quizSpelling;
 // Exclusion pairs are semantically overlapping or easy to misread in this quiz;
@@ -70,6 +70,9 @@ const meaningFamilies=[
  ['傲慢','骄傲','高傲','自大','自负'],['绝望','无望','不抱希望'],
  ['成功','成就','成果','建树'],['失败','挫败','失利'],
  ['热心','热切','渴望','热望','切望','急切'],
+ ['变化','变动','改变','变幻','易变','多变','动态','不稳定','不稳','波动','反复无常','变化莫测','变幻莫测'],
+ ['活力','活跃','活泼','精力充沛','生机勃勃','充满生气','充满活力'],
+ ['持续','连续','不间断','不断进行','进行中','延续','连贯'],
 
 ];
 const meaningAliases=new Map(meaningFamilies.flatMap(group=>group.map(sense=>[sense,group[0]] as const)));
@@ -103,7 +106,7 @@ function wordMeaningKeys(term:QuizWord):ReadonlySet<string>{
 }
 /** Exclude any overlapping known sense, including senses recorded in another deck. */
 export function isAmbiguousQuizDistractor(answer:QuizWord,candidate:QuizWord){
- if(areQuizWordsConfusable(answer.word,candidate.word))return true;
+ if(areQuizWordsConfusable(answer.word,candidate.word)||areKnownQuizEquivalents(answer.word,candidate.word))return true;
  const left=wordMeaningKeys(answer),right=wordMeaningKeys(candidate);
  for(const sense of right)if(left.has(sense))return true;
  // A gloss can describe the same idea with an extra qualifier, e.g. 恶心做作.
@@ -158,10 +161,21 @@ export function rankQuizDistractors<T extends QuizWord>(answer:T,candidates:T[])
 }
 
 /** Keep selected wrong answers distinct from one another as well as the target. */
+export function isQuizPosMismatch(answer:QuizWord,candidate:QuizWord){
+ const pos=quizWordPartsOfSpeech(answer),other=quizWordPartsOfSpeech(candidate);
+ return !!pos.size&&!!other.size&&![...pos].some(value=>other.has(value));
+}
+export function rankQuizPosDistractors<T extends QuizWord>(answer:T,candidates:T[]):T[]{
+ const pos=quizWordPartsOfSpeech(answer);
+ const ranked=rankQuizDistractors(answer,candidates).map((candidate,index)=>{
+  const other=quizWordPartsOfSpeech(candidate),matches=[...pos].some(value=>other.has(value));return {candidate,index,matches,wrongPos:!!pos.size&&!!other.size&&!matches};
+ }).filter(item=>!item.wrongPos).sort((a,b)=>Number(b.matches)-Number(a.matches)||a.index-b.index);
+ return ranked.map(item=>item.candidate);
+}
 export function selectQuizDistractors<T extends QuizWord>(answer:T,candidates:T[],count:number):T[]{
  if(count<=0)return [];
  const selected:T[]=[];
- for(const candidate of rankQuizDistractors(answer,candidates)){
+ for(const candidate of rankQuizPosDistractors(answer,candidates)){
   if(selected.some(other=>isAmbiguousQuizDistractor(other,candidate)||areQuizMorphologicalVariants(other.word,candidate.word)))continue;
   selected.push(candidate);if(selected.length>=count)break;
  }

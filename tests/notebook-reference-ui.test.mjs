@@ -145,9 +145,33 @@ test('bulk checking returns to the first word after rendering and undo restores 
   assert.deepEqual(view.focuses.at(-1),{id:'notebook-list',preventScroll:true});
   assert.equal(view.draft()[original.id].batch.recallPhase,'checking');
   await view.click('↶ 撤回一步');assert.deepEqual(view.draft()[original.id].batch,before);
-  assert.ok(view.nodes().filter(n=>n.props?.className==='notebookUndo').every(n=>n.props.disabled));
+  assert.ok(view.nodes().filter(n=>n.props?.className==='notebookUndo'&&view.text(n)==='↶ 撤回一步').every(n=>n.props.disabled));
   await view.flushTimers();assert.deepEqual(view.saved().batch,before);
  }finally{view.close();}
+});
+
+test('cancel undo restores the exact batch, grading and view, autosaves, and is cleared by a new edit',async()=>{
+ const view=notebook();try{
+  await view.ready();await view.click('默写过关');view.editAnswer(1,'我的原答案');await view.click('统一批改');
+  const checked=structuredClone(view.draft()[original.id].batch);await view.click('↶ 撤回一步');
+  assert.equal(view.draft()[original.id].batch.recallPhase,'writing');
+  await view.click('↷ 取消撤回');assert.deepEqual(view.draft()[original.id].batch,checked);
+  await view.flushTimers();assert.deepEqual(view.saved().batch,checked);
+  await view.click('↶ 撤回一步');view.editAnswer(1,'新的修改');
+  assert.ok(!view.nodes().some(n=>n.type==='button'&&view.text(n)==='↷ 取消撤回'));
+ }finally{view.close();}
+});
+
+test('refresh reopens the last saved collection automatically instead of showing an empty collection',async()=>{
+ const storage=new Map(),first=notebook({storage});try{
+  await first.ready();first.editEntry('lucid');first.submitEntry();await first.settle();
+  assert.equal(storage.get('gre-notebook-last-open-v1'),original.id);assert.equal(first.saved().batch.words.length,2);
+ }finally{first.close();}
+ const reopened=notebook({storage});try{
+  await reopened.ready();assert.deepEqual(displayedNotebookWords(reopened),['cogent','lucid']);
+  assert.equal(reopened.calls.filter(call=>(call.method??'GET')==='GET'&&call.url.includes('?id=')).length,1,'Automatic restoration already opened the collection');
+  assert.equal(reopened.calls.filter(call=>call.method==='PUT').length,0);
+ }finally{reopened.close();}
 });
 
 test('undoing a saved next round restores submitted answers, attempts, reminder and scope using a newer save revision',async()=>{

@@ -1,7 +1,10 @@
 import type {Snapshot} from './database';
 import {ratingModules,validRatings,type Rating,type Ratings} from '../app/ratingSyncModel';
-import {mergePracticeStorage} from './practiceProgressMerge';
+import {mergePracticeStorage,normalizeClockedPractice} from './practiceProgressMerge';
+import {compactNotebookRecalls} from '../app/notebookRecallModel';
+import {NOTEBOOK_DRAFT_KEY} from '../app/notebookModel';
 import {mergeNotebookRecallBatches} from '../app/notebookRecallMerge';
+import {fieldClockKey,createFieldMerger} from './fieldMerge';
 export const ratingClockKey='gre-rating-modified-v1';
 const storageKeys:Record<string,string>={'qingshan-precise':'gre-qingshan-precise-ratings-v1','qingshan-rare':'gre-qingshan-rare-ratings-v1','zhang-jijing':'gre-zhang-jijing-ratings-v1','zhang-words':'gre-zhang-words-ratings-v1','zhang-pairs':'gre-zhang-pairs-ratings-v1',bb:'gre-bb-ratings-v1',words:'gre-quick-ratings-v1',equivalents:'gre-equivalent-quick-ratings-v1','a-plus':'gre-a-plus-equivalent-quick-ratings-v1',glee:'gre-glee-1500-quick-ratings-v1',math:'gre-math-vocabulary-quick-ratings-v1',lclj:'gre-lclj-quick-ratings-v1','a-plus-words':'gre-a-plus-word-marks-v1'};
 type Stamp={rating:Rating;at:number};
@@ -43,6 +46,7 @@ function choose(base:Value|undefined,local:Value|undefined,remote:Value|undefine
  if(local.rating===base?.rating)return remote;if(remote.rating===base?.rating)return local;
  throw Error(`同一个词的旧版红黄绿记录不同，已保留本机记录。请先导出便笺，再核对 ${module} 的标记。`);
 }
+const rowTime=(value:string|undefined)=>value?(Date.parse(/^\d{4}-\d\d-\d\d \d\d:\d\d:\d\d$/.test(value)?value.replace(' ','T')+'Z':value)||0):0;
 const same=(a:unknown,b:unknown)=>JSON.stringify(a)===JSON.stringify(b);
 type PlanAnswer='red'|'yellow'|'green';
 const planAnswerRank:Record<PlanAnswer,number>={red:0,yellow:1,green:2};
@@ -56,15 +60,17 @@ function isPlanAnswerKey(key:string){
 function planAnswer(raw:string|undefined):PlanAnswer|undefined{
  const value=parse(raw);return value==='red'||value==='yellow'||value==='green'?value:undefined;
 }
-function mergeMap<T>(base:Record<string,T>,local:Record<string,T>,remote:Record<string,T>,preferLocal:(key:string)=>boolean=()=>false,resolve?:(key:string,base:T|undefined,local:T|undefined,remote:T|undefined)=>{value:T|undefined}|undefined):Record<string,T>{
+function mergeMap<T>(base:Record<string,T>,local:Record<string,T>,remote:Record<string,T>,preferLocal:(key:string)=>boolean=()=>false,resolve?:(key:string,base:T|undefined,local:T|undefined,remote:T|undefined)=>{value:T|undefined}|undefined,resolveFirst=false):Record<string,T>{
  const out:Record<string,T>={};for(const key of new Set([...Object.keys(base),...Object.keys(local),...Object.keys(remote)])){
   if(!safeKey(key))throw Error('便笺中有无效记录键，原有记录未被替换。');
-  let value:T|undefined;if(same(local[key],base[key]))value=remote[key];else if(same(remote[key],base[key])||same(local[key],remote[key]))value=local[key];else if(preferLocal(key))value=local[key];else {const resolution=resolve?.(key,base[key],local[key],remote[key]);if(resolution)value=resolution.value;else throw Error('两台设备修改了同一份笔记或设置，已保留本机记录，请导出便笺后核对。');}
+  const first=resolveFirst?resolve?.(key,base[key],local[key],remote[key]):undefined;
+  let value:T|undefined;if(first)value=first.value;else if(same(local[key],base[key]))value=remote[key];else if(same(remote[key],base[key])||same(local[key],remote[key]))value=local[key];else if(preferLocal(key))value=local[key];else {const resolution=resolve?.(key,base[key],local[key],remote[key]);if(resolution)value=resolution.value;else throw Error('两台设备修改了同一份笔记或设置，已保留本机记录，请导出便笺后核对。');}
   if(value!==undefined)out[key]=value;
  }return out;
 }
 /** Preserve concurrent changes to different words; never resolve note conflicts by overwriting. */
 export function mergeWorkspaceSnapshots(base:Snapshot|undefined,local:Snapshot,remote:Snapshot):Snapshot{
+ const fields=createFieldMerger(base?.storage[fieldClockKey],local.storage[fieldClockKey],remote.storage[fieldClockKey]);
  const rowMap=(s:Snapshot|undefined)=>Object.fromEntries((s?.rows??[]).filter(r=>!isRatingRow(r.key)).map(r=>[r.key,r]));
  // Row revisions/timestamps can differ even when the note content is identical.
  const baseRows=rowMap(base),localRows=rowMap(local),remoteRows=rowMap(remote);
@@ -75,19 +81,28 @@ export function mergeWorkspaceSnapshots(base:Snapshot|undefined,local:Snapshot,r
  // and a missed answer remains recorded even if another device reports green.
  // Malformed keys or values retain the ordinary conflict protection below.
  const planKeys=new Set([...new Set(snapshots.flatMap(s=>Object.keys(s?.storage??{})))].filter(key=>isPlanAnswerKey(key)&&snapshots.every(s=>!s||!Object.hasOwn(s.storage,key)||planAnswer(s.storage[key])!==undefined)));
- const plainStorage=(s:Snapshot|undefined)=>Object.fromEntries(Object.entries(s?.storage??{}).filter(([k])=>!isRatingStorage(k)&&!planKeys.has(k)));
- const storage=mergeMap(plainStorage(base),plainStorage(local),plainStorage(remote),key=>key==='lemnota-username'||key==='community-theme'||/^gre-.*(?:selection|lists|sets|categories|range|last-quick-type|study-list|auto-speak|source-order)/.test(key),mergePracticeStorage);
+ const plainStorage=(s:Snapshot|undefined)=>Object.fromEntries(Object.entries(s?.storage??{}).filter(([k])=>k!==fieldClockKey&&!isRatingStorage(k)&&!planKeys.has(k)));
+ function compact(namespace:'rows'|'storage',key:string,raw:string|undefined){
+  if(raw===undefined||!(namespace==='rows'&&key.startsWith('vocab-notebook:')||namespace==='storage'&&key===NOTEBOOK_DRAFT_KEY))return raw;
+  try{const value=JSON.parse(raw),batch=(b:any)=>b&&Array.isArray(b.words)?compactNotebookRecalls(b):b;
+   const next=namespace==='rows'?batch(value):Object.fromEntries(Object.entries(value).map(([id,draft])=>[id,draft&&typeof draft==='object'?{...draft,batch:batch((draft as any).batch)}:draft]));
+   const after=JSON.stringify(next);if(raw!==after)fields.record(namespace,key,raw,after);return after;
+  }catch{return raw;}
+ }
+ const storage=mergeMap(plainStorage(base),plainStorage(local),plainStorage(remote),key=>key==='lemnota-username'||key==='community-theme'||/^gre-.*(?:selection|lists|sets|categories|range|last-quick-type|study-list|auto-speak|source-order)/.test(key),(key,b,l,r)=>fields.enabled?{value:compact('storage',key,normalizeClockedPractice(key,fields.merge('storage',key,b,l,r),l,r))}:mergePracticeStorage(key,b,l,r),fields.enabled);
  for(const key of [...planKeys].sort()){
+  if(fields.enabled){const value=fields.merge('storage',key,base?.storage[key],local.storage[key],remote.storage[key]);if(value!==undefined)storage[key]=value;continue;}
   const answers=snapshots.map(s=>planAnswer(s?.storage[key])).filter((value):value is PlanAnswer=>value!==undefined);
   if(answers.length)storage[key]=JSON.stringify(answers.reduce((lowest,value)=>planAnswerRank[value]<planAnswerRank[lowest]?value:lowest));
  }
  for(const [source,snapshot] of [['base',base],['local',local],['remote',remote]] as const)if(snapshot)for(const [key,raw] of Object.entries(snapshot.storage))if(isRatingStorage(key)&&key!==ratingClockKey&&!validRatings(parse(raw)))storage[`gre-rating-recovery:${key}:${source}`]=raw;
  const rows=Object.values(mergeMap(baseRows,localRows,remoteRows,()=>false,(key,b,l,r)=>{
+  if(fields.enabled){const value=compact('rows',key,fields.merge('rows',key,b?.value,l?.value,r?.value,rowTime(l?.updated_at),rowTime(r?.updated_at))),previous=r??l??b;if(value===undefined||!previous)return {value:undefined};return {value:{...previous,value,revision:Math.max(l?.revision??0,r?.revision??0)+(value!==l?.value&&value!==r?.value?1:0),updated_at:[l?.updated_at,r?.updated_at].filter((v):v is string=>!!v).sort().at(-1)??previous.updated_at}};}
   if(!key.startsWith('vocab-notebook:')||!l||!r)return;
   try{const merged=mergeNotebookRecallBatches(b?JSON.parse(b.value):undefined,JSON.parse(l.value),JSON.parse(r.value));
    if(merged)return {value:{...l,value:JSON.stringify(merged),revision:Math.max(l.revision,r.revision)+1,updated_at:l.updated_at>r.updated_at?l.updated_at:r.updated_at}};
   }catch{/* Keep ordinary conflict protection for malformed or divergent records. */}
- })),allClocks:Clocks={};
+ },fields.enabled)),allClocks:Clocks={};
  for(const module of ratingModules){
   const b=moduleValues(base,module),l=moduleValues(local,module),r=moduleValues(remote,module),ratings:Ratings={},times:Record<string,Stamp>={};
   for(const id of new Set([...Object.keys(b),...Object.keys(l),...Object.keys(r)])){
@@ -99,6 +114,7 @@ export function mergeWorkspaceSnapshots(base:Snapshot|undefined,local:Snapshot,r
   if(Object.keys(times).length)allClocks[module]=times;
  }
  if(Object.keys(allClocks).length)storage[ratingClockKey]=JSON.stringify(allClocks);
+ const fieldMetadata=fields.metadata();if(fieldMetadata)storage[fieldClockKey]=fieldMetadata;
  return {version:1,rows,storage};
 }
 /** Import ratings only. All existing notes, settings and test history stay in place. */

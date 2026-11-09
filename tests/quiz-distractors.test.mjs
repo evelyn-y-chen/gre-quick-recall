@@ -5,6 +5,22 @@ const model=loadModel('app/quizDistractors.ts');
 const {areQuizWordsConfusable,quizMeaningKeys,isAmbiguousQuizDistractor,areQuizMorphologicalVariants,rankQuizDistractors}=model;
 const term=(word,meaning)=>({word,meaning});
 
+test('dynamic excludes volatility and other overlapping change/activity senses, including noun and adjective forms',()=>{
+ const target=term('dynamic','动态的；不断变化的；有活力的');
+ for(const candidate of [term('volatility','易变的；不稳定的；易挥发的'),term('volatile','易变的'),term('variability','变化不定'),term('energetic','精力充沛的'),term('ongoing','进行中的；持续的')])assert.equal(isAmbiguousQuizDistractor(target,candidate),true,candidate.word);
+ assert.ok(!model.selectQuizDistractors(target,[term('volatility','易变的；不稳定的'),term('renouncing','放弃'),term('selective','精挑细选的')],5).some(item=>item.word==='volatility'));
+});
+
+test('explicit source equivalence groups are excluded across decks even with nonmatching printed glosses',()=>{
+ for(const [a,b] of [['dynamic','ongoing'],['abandon','relinquish'],['mitigate','ameliorate'],['false','feigned']])assert.equal(isAmbiguousQuizDistractor(term(a,'当前词义甲'),term(b,'另外词表的释义乙')),true,a+'/'+b);
+});
+
+test('wrong choices prefer the same part of speech and exclude known different POS without confusing word-family changes',()=>{
+ const target=term('pos-target-example','adj. 高大的'),same=term('pos-same-example','adj. 坚固的'),unknown=term('pos-unknown-example','方向'),noun=term('pos-noun-example','n. 道路'),verb=term('pos-verb-example','v. 书写'),adverb=term('pos-adverb-example','adv. 缓慢地');
+ assert.deepEqual(model.selectQuizDistractors(target,[unknown,noun,verb,adverb,same],5),[same,unknown]);
+ assert.equal(isAmbiguousQuizDistractor(term('dynamic','动态的'),term('energetic','adj. 精力充沛的')),true,'Same POS does not make a near synonym safe');
+});
+
 test('manual ambiguity exclusions are symmetric and do not turn lookalikes into synonyms',()=>{
  for(const [left,right] of [['synonymous','like-minded'],['fusty','platitudinous']]){
   assert.equal(areQuizWordsConfusable(left,right),true);

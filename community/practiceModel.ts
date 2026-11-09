@@ -1,4 +1,4 @@
-import {isAmbiguousQuizDistractor,areQuizMorphologicalVariants,selectQuizDistractors} from '../app/quizDistractors';
+import {isAmbiguousQuizDistractor,areQuizMorphologicalVariants,selectQuizDistractors,isQuizPosMismatch} from '../app/quizDistractors';
 export type Term={id:string;word:string;meaning:string;list:number;synonyms?:string[]};
 export type Direction='en-zh'|'zh-en';
 export type Choice={word:string;meaning:string;correct:boolean};
@@ -18,7 +18,7 @@ export function refreshPracticeOptions<T extends {queue:string[];phase:string;di
  const related=relatedWords(term.word,links);
  for (const word of term.synonyms??[]) related.add(normalize(word));
  const positives=run.options.filter(option=>option.correct);
- const unsafe=run.options.some((option,index)=>!option.correct&&(run.options.slice(0,index).some(other=>!other.correct&&(isAmbiguousQuizDistractor(other,option)||areQuizMorphologicalVariants(other.word,option.word)))||related.has(normalize(option.word))||isAmbiguousQuizDistractor(term,option)||areQuizMorphologicalVariants(term.word,option.word)||positives.some(answer=>isAmbiguousQuizDistractor(answer,option)||areQuizMorphologicalVariants(answer.word,option.word))));
+ const unsafe=run.options.some((option,index)=>!option.correct&&(run.options.slice(0,index).some(other=>!other.correct&&(isAmbiguousQuizDistractor(other,option)||areQuizMorphologicalVariants(other.word,option.word)))||related.has(normalize(option.word))||isQuizPosMismatch(term,option)||isAmbiguousQuizDistractor(term,option)||areQuizMorphologicalVariants(term.word,option.word)||positives.some(answer=>isAmbiguousQuizDistractor(answer,option)||areQuizMorphologicalVariants(answer.word,option.word))));
  return unsafe?{...run,options:optionsFor(term,pool,run.direction,links,run.phase==='synonym'),selected:null}:run;
 }
 export type Result={streak:number;errors:number;done:boolean};

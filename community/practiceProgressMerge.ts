@@ -82,6 +82,24 @@ export function mergePracticeStorage(key:string,base:string|undefined,local:stri
  return {value:JSON.stringify(mergeHistory(history(b)?b:{},l,r))};
 }
 
+/** Rebuild derived queues after field-time merging independent words in one run. */
+export function normalizeClockedPractice(key:string,raw:string|undefined,local:string|undefined,remote:string|undefined):string|undefined {
+ if(raw===undefined||!isPracticeStorageKey(key))return raw;
+ const value=parse(raw),l=parse(local),r=parse(remote);
+ if(!object(value))return raw;
+ if(isRecallStorageKey(key)&&!isRecallRun(value)&&Array.isArray(value.order)&&Array.isArray(value.queue)&&object(value.results)&&object(value.config)){
+  const order=value.order as string[],results=value.results as Record<string,{attempts:number;done:boolean;rating:string}>,config=value.config;
+  const queue=[...new Set([...value.queue,...order])].filter(id=>!results[id]?.done&&!(config.retry==='unknown'&&results[id]?.rating==='fuzzy'));
+  const repaired={...value,queue,turn:Object.values(results).reduce((sum,item)=>sum+item.attempts,0),due:Object.fromEntries(Object.entries(object(value.due)?value.due:{}).filter(([id])=>queue.includes(id))),selection:queue.length&&queue[0]===value.queue[0]?value.selection:null};
+  if(isRecallRun(repaired))return JSON.stringify(repaired);
+ }
+ if(isPracticeRunKey(key)&&run(value)&&run(l)&&run(r)&&l.sessionId===r.sessionId){
+  const candidates=[...new Set([...value.queue,...l.queue,...r.queue])],queue=candidates.filter((id,index)=>!value.results[id]?.done||index===0&&value.phase==='feedback');
+  return JSON.stringify({...value,queue});
+ }
+ return raw;
+}
+
 export function practiceProgressSummary(snapshot:Snapshot){
  return Object.entries(snapshot.storage).flatMap(([key,raw])=>{
   const value=parse(raw);

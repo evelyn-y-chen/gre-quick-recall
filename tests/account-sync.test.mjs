@@ -10,6 +10,7 @@ const recovery={exports:{}};new Function('require','module','exports',compile('c
 const planModule={exports:{}};
 planModule.exports=loadTs('community/workspacePlan.ts');
 const snapshot=(note)=>({version:1,rows:[],storage:{note}});
+const fieldClock=loadTs('community/fieldMerge.ts');
 const deferred=()=>{let resolve;const promise=new Promise(done=>{resolve=done;});return {promise,resolve};};
 function harness(sharedRemote=new Map(),sharedCache=new Map()){
  const slots=[],effects=[],cache=sharedCache,remote=sharedRemote,writes=[];
@@ -389,4 +390,21 @@ test('rapid edits export only the latest local snapshot and retain the final tex
   assert.equal(await h.workspace.flush(),true);
   assert.equal(h.cache.get('local').payload.storage.note,'input 499');
  }finally{h.dispose();}
+});
+
+test('four added notebook words survive repeated saves, a stale device edit and account reload',async()=>{
+ const key='vocab-notebook:collection',word=id=>({id,word:id,meaning:'definition',note:'',origin:'A+ 1-20'});
+ const base={version:1,rows:[{key,value:JSON.stringify({id:'collection',source:'A+ 1-20',date:'2026-11-08',words:Array.from({length:5},(_,i)=>word('existing-'+i))}),revision:1,updated_at:'2026-11-09T04:00:00Z'}],storage:{}};
+ const edit=(before,fn,at)=>{const next=structuredClone(before),batch=JSON.parse(next.rows[0].value);fn(batch);next.rows[0].value=JSON.stringify(batch);next.rows[0].revision++;next.rows[0].updated_at=new Date(at).toISOString();const times=fieldClock.readFieldClocks(before.storage[fieldClock.fieldClockKey]);fieldClock.stampFieldChange(times,'rows',key,before.rows[0].value,next.rows[0].value,at,String(at));next.storage[fieldClock.fieldClockKey]=JSON.stringify(times);return next;};
+ const words=s=>JSON.parse(s.rows.find(row=>row.key===key).value).words;
+ const remote=new Map([['A',{revision:1,payload:base}]]),first=harness(remote),second=harness(remote);let reopened;
+ try{
+  await first.settle();first.login('A');await first.settle();await second.settle();second.login('A');await second.settle();
+  const added=edit(base,b=>b.words.push(...Array.from({length:4},(_,i)=>word('added-'+i))),1000);
+  first.editSnapshot(added);assert.equal(await first.workspace.flush(),true);assert.equal(await first.workspace.flush(),true);assert.equal(words(remote.get('A').payload).length,9);
+  const stale=edit(base,b=>b.words[0].note='2 pm note on stale device',2000);second.editSnapshot(stale);assert.equal(await second.workspace.flush(),true);
+  assert.equal(words(remote.get('A').payload).length,9);assert.equal(words(remote.get('A').payload)[0].note,'2 pm note on stale device');
+  second.editSnapshot(edit(stale,b=>b.words[1].meaning='next edit',3000));assert.equal(await second.workspace.flush(),true);assert.equal(words(remote.get('A').payload).length,9);
+  reopened=harness(remote);await reopened.settle();reopened.login('A');await reopened.settle();assert.equal(words(reopened.snapshot).length,9);assert.equal(words(reopened.snapshot)[1].meaning,'next edit');
+ }finally{first.dispose();second.dispose();reopened?.dispose();}
 });

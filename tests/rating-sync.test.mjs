@@ -14,7 +14,7 @@ function ratingView(options={}){
  let hooks=[],effects=[],cursor=0,dirty=false,tree,generation=1,mounted=true;
  let ratings=clone(options.local??{}),db=clone(options.db??{}),persistResult=options.persistResult??{destination:'account',synced:true};
  const timers=new Map(),gets=[],puts=[],persists=[],loaded=[],durable=[];let nextTimer=0;
- const storage={};new Function('exports',compile('../community/storage.ts'))(storage);
+ const storage=loadTs('community/storage.ts');
  storage.loadStorage({'gre-quick-ratings-v1':JSON.stringify(ratings),...(options.storage??{})});
  const react={
   useRef(initial){const i=cursor++;return hooks[i]??(hooks[i]={current:initial});},

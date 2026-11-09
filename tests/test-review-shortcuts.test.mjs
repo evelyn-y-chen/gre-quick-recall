@@ -4,7 +4,7 @@ import path from 'node:path';
 import test from 'node:test';
 import ts from 'typescript';
 
-const terms = ['alpha','bravo','charlie','delta','echo','foxtrot','golf','hotel'].map((word, i) => ({ id: `a${i+1}`, word, meaning: ['甲一含义','乙二含义','丙三含义','丁四含义','戊五含义','己六含义','庚七含义','辛八含义'][i], list: 1, number: i+1, equivalents: [`${word}-syn`,`${word}-equivalent`] }));
+const terms = ['alpha','bravo','charlie','delta','echo','foxtrot','golf','hotel'].map((word, i) => ({ id: `a${i+1}`, word, meaning: ['甲一含义','乙二含义','丙三含义','丁四含义','戊五含义','己六含义','庚七含义','辛八含义'].map(gloss=>'n. '+gloss)[i], list: 1, number: i+1, equivalents: [`${word}-syn`,`${word}-equivalent`] }));
 const bb = Array.from({length:4}, (_,i) => ({id:`b${i+1}`,list:1,volume:'上',number:i+1,words:[{word:terms[i*2].word,meaning:terms[i*2].meaning},{word:terms[i*2+1].word,meaning:terms[i*2+1].meaning}]}));
 
 // Execute the actual components, key handlers, grading models and receipt model.
@@ -132,7 +132,7 @@ for(const kind of ['aplus','practice'])test(`${kind} shortcuts ignore typing, co
 });
 
 for(const deck of ['words','bb'])test(`${deck} A–F and U route through the existing practice result and review scheduler`,async()=>{
- const view=harness('practice',{deck});try{await view.ready();await view.key('f');if(deck==='bb')assert.equal(view.run().selected,5);else assert.equal(view.run().selected,null,'E/F do not invent choices for a four-choice question');await view.key('a');assert.equal(view.run().selected,0);await view.key('u');const result=view.run(),id=result.queue[0];assert.equal(result.phase,'feedback');assert.equal(result.results[id].errors,1);assert.equal(result.results[id].done,false);assert.equal(view.history()[id].level,0);assert.equal(view.history()[id].reviews,1);assert.ok(view.text().includes('本轮第 1 次作答'));assert.ok(view.text().includes('还需连续答对 2 次'));}finally{view.close();}
+ const view=harness('practice',{deck});try{await view.ready();await view.key('f');if(view.run().options.length===6)assert.equal(view.run().selected,5);else assert.equal(view.run().selected,null,'F cannot select a missing option when safety filters reduce the choices');await view.key('a');assert.equal(view.run().selected,0);await view.key('u');const result=view.run(),id=result.queue[0];assert.equal(result.phase,'feedback');assert.equal(result.results[id].errors,1);assert.equal(result.results[id].done,false);assert.equal(view.history()[id].level,0);assert.equal(view.history()[id].reviews,1);assert.ok(view.text().includes('本轮第 1 次作答'));assert.ok(view.text().includes('还需连续答对 2 次'));}finally{view.close();}
 });
 
 

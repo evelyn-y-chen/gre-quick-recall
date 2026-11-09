@@ -95,6 +95,7 @@ function notebook({ storage = new Map(), fixture = original, savedCollections = 
   async function settle() { for (let n = 0; n < 8; n++) { await Promise.resolve(); render(); } }
   function findButton(label) { const button = nodes().find(n => n.type === 'button' && text(n) === label); assert.ok(button, `Missing button ${label}`); return button; }
   function checkbox(label) { const wrapper = nodes().find(n => n.type === 'label' && text(n) === label); const input = wrapper && nodes(wrapper).find(n => n.type === 'input' && n.props.type === 'checkbox'); assert.ok(input, `Missing checkbox ${label}`); return input; }
+  function mode(label){const button=findButton(label);if(!button.props['aria-pressed']){button.props.onClick();render();}}
   render();
   return {
     ready: async () => { await settle(); const history = nodes().find(n => n.type === 'select' && nodes().some(parent => parent.props?.className === 'notebookHistory' && nodes(parent).includes(n))); assert.ok(history); history.props.onChange({ target: { value: fixture.id } }); await settle(); },
@@ -111,7 +112,7 @@ function notebook({ storage = new Map(), fixture = original, savedCollections = 
       render();return event;
     },
     recallTools:()=>nodes().find(node=>node.props?.['data-recall-tools'])?.props['data-recall-tools'],
-    startRecall(ids){nodes().find(node=>node.props?.['data-recall-tools']).props['data-recall-tools'].onStart(ids);render();},
+    startRecall(ids){mode('默写过关');nodes().find(node=>node.props?.['data-recall-tools']).props['data-recall-tools'].onStart(ids);render();},
     updateRecallBatch(batch){nodes().find(node=>node.props?.['data-recall-tools']).props['data-recall-tools'].onUpdate(batch);render();},
     saved:()=>structuredClone(records.get(fixture.id)),
     flushTimers:async()=>{const pending=[...timers.values()];timers.clear();for(const fn of pending)fn();await settle();await settle();},
@@ -123,10 +124,10 @@ function notebook({ storage = new Map(), fixture = original, savedCollections = 
     toggle: async (label, checked) => { checkbox(label).props.onChange({ target: { checked } }); await settle(); },
     selectCollection: async (source, checked = true) => { const wrapper = nodes().find(n => n.type === 'label' && nodes(n).some(child => child.type === 'span' && text(child).startsWith(source))); const input = wrapper && nodes(wrapper).find(n => n.type === 'input' && n.props.type === 'checkbox'); assert.ok(input, `Missing collection ${source}`); input.props.onChange({ target: { checked } }); await settle(); },
     practice: () => nodes().find(n => n.props?.['data-notebook-practice'])?.props['data-notebook-practice'],
-    edit(label, value) { const wrapper = nodes().find(n => n.type === 'label' && text(n).startsWith(label) && nodes(n).some(child => child.type === 'textarea')); assert.ok(wrapper, `Missing textarea label ${label}`); nodes(wrapper).find(n => n.type === 'textarea').props.onChange({ target: { value } }); render(); },
-    editMemory(value) { const input = nodes().find(n => n.type === 'textarea' && n.props['aria-label'] === `${fixture.words[0].word} 的记忆方法`); assert.ok(input); input.props.onChange({ target: { value } }); render(); },
-    editAnswer(number,value) { const input=nodes().find(n=>n.type==='textarea'&&n.props['aria-label']===`${fixture.words[0].word} 第 ${number} 次回忆释义`); assert.ok(input);input.props.onChange({target:{value}});render(); },
-    editEntry(value) { const input=nodes().find(n=>n.type==='input'&&n.props['aria-label']==='新一行英文单词');assert.ok(input);input.props.onChange({target:{value}});render(); },
+    edit(label, value) { mode('收集与编辑');const wrapper = nodes().find(n => n.type === 'label' && text(n).startsWith(label) && nodes(n).some(child => child.type === 'textarea')); assert.ok(wrapper, `Missing textarea label ${label}`); nodes(wrapper).find(n => n.type === 'textarea').props.onChange({ target: { value } }); render(); },
+    editMemory(value) { mode('收集与编辑');const input = nodes().find(n => n.type === 'textarea' && n.props['aria-label'] === `${fixture.words[0].word} 的记忆方法`); assert.ok(input); input.props.onChange({ target: { value } }); render(); },
+    editAnswer(number,value) { mode('默写过关');const input=nodes().find(n=>n.type==='textarea'&&n.props['aria-label']===`${fixture.words[0].word} 第 ${number} 次回忆释义`); assert.ok(input);input.props.onChange({target:{value}});render(); },
+    editEntry(value) { mode('收集与编辑');const input=nodes().find(n=>n.type==='input'&&n.props['aria-label']==='新一行英文单词');assert.ok(input);input.props.onChange({target:{value}});render(); },
     submitEntry() { const form=nodes().find(n=>n.type==='form'&&n.props.className==='notebookEntryRow');assert.ok(form);form.props.onSubmit({preventDefault(){}});render(); },
     memoryDraft: () => structuredClone(memory.drafts),
     close() { for (const hook of hooks) hook?.cleanup?.(); },
@@ -136,10 +137,10 @@ function notebook({ storage = new Map(), fixture = original, savedCollections = 
 test('bulk checking returns to the first word after rendering and undo restores the writing phase and original answers',async()=>{
  const view=notebook();try{
   await view.ready();view.flushFrames();view.scrolls.length=0;
-  await view.click('整页回忆');view.editAnswer(1,'有说');view.editAnswer(1,'有说服力');view.flushFrames();
+  await view.click('默写过关');view.editAnswer(1,'有说');view.editAnswer(1,'有说服力');view.flushFrames();
   assert.equal(view.scrolls.length,0,'Typing does not move the page');
   const before=structuredClone(view.draft()[original.id].batch);
-  await view.click('统一核对释义');assert.equal(view.scrolls.length,0,'Wait for the updated DOM');view.flushFrames();
+  await view.click('统一批改');assert.equal(view.scrolls.length,0,'Wait for the updated DOM');view.flushFrames();
   assert.deepEqual(view.scrolls.at(-1),{id:'notebook-list',part:'start',block:'start',behavior:'auto'});
   assert.deepEqual(view.focuses.at(-1),{id:'notebook-list',preventScroll:true});
   assert.equal(view.draft()[original.id].batch.recallPhase,'checking');
@@ -168,14 +169,14 @@ test('undoing a saved next round restores submitted answers, attempts, reminder 
 test('one undo reverses a judgment or a whole typing edit, preserves shared memory, and clears when changing collection',async()=>{
  const other={...original,id:'other-collection',source:'另一份收集'};
  const view=notebook({savedCollections:[other]});try{
-  await view.ready();view.editAnswer(1,'旧');view.editAnswer(1,'旧答案');await view.click('核对释义');await view.click('正确');
+  await view.ready();view.editAnswer(1,'旧');view.editAnswer(1,'旧答案');await view.click('统一批改');await view.click('正确');
   const before=structuredClone(view.draft()[original.id].batch);await view.click('模糊');
   await view.click('↶ 撤回一步');assert.deepEqual(view.draft()[original.id].batch,before);
   view.editMemory('共享笔记独立保存');view.editAnswer(1,'新');view.editAnswer(1,'新的完整答案');
   await view.click('↶ 撤回一步');assert.equal(view.draft()[original.id].batch.words[0].recalls.at(-1).answer,'旧答案');
   assert.equal(view.memoryDraft().cogent.text,'共享笔记独立保存');
   await view.openCollection(other.id);assert.ok(view.nodes().filter(n=>n.props?.className==='notebookUndo').every(n=>n.props.disabled));
-  await view.click('↶ 撤回一步');assert.equal(view.recallTools().batch.id,other.id);assert.deepEqual(view.recallTools().batch,other);
+  await view.click('↶ 撤回一步');assert.equal(view.nodes().find(n=>n.type==='input'&&n.props.value===other.source).props.value,other.source);assert.equal(view.recallTools(),undefined);
  }finally{view.close();}
 });
 
@@ -185,7 +186,7 @@ test('undo during an older autosave keeps the restored answer as the final saved
  try{
   await view.ready();view.editAnswer(1,'误写的答案');await view.flushTimers();await view.click('↶ 撤回一步');
   release();await view.flushTimers();await view.flushTimers();
-  assert.deepEqual(view.saved().batch,original);assert.ok(view.saved().revision>8);
+  assert.deepEqual(view.saved().batch,{...original,recallPhase:'writing'});assert.ok(view.saved().revision>8);
  }finally{release?.();view.close();}
 });
 
@@ -342,7 +343,7 @@ const sortingFixture = {
 function displayedNotebookWords(view) {
   return view.nodes().filter(node => node.type === 'article' && node.props.className?.split(' ').includes('notebookWord')).map(row => {
     const heading = view.nodes(row).find(node => node.props?.className === 'notebookCardTitle');
-    return heading.type === 'input' ? heading.props.value : view.text(heading);
+    return heading.props.value ?? view.text(heading);
   });
 }
 function selectedNotebookOrder(view) {
@@ -351,7 +352,7 @@ function selectedNotebookOrder(view) {
 }
 
 const currentNotebookWord = view => view.nodes().find(node => node.type === 'article' && node.props['aria-current'] === 'true')?.props['data-word-id'];
-for (const mode of ['收集与编辑', '整页回忆', '遮挡复习']) {
+for (const mode of ['收集与编辑', '默写过关', '遮挡复习']) {
   test(`notebook arrows navigate and center the selected word in ${mode} without changing answers or ratings`, async () => {
     const view = notebook({ fixture: sortingFixture, rowHeights: { 'sorting-abate': 1000 } });
     try {
@@ -522,13 +523,13 @@ test('written recall retains separate attempts, manual judgements and the origin
   await view.ready();
   assert.ok(!view.nodes().some(n=>n.props?.className==='notebookRecallComparison'));
   view.editAnswer(1,'我想是有说服力的');
-  await view.click('核对释义');
-  assert.ok(view.nodes().some(n=>n.props?.className==='notebookRecallComparison'&&view.text(n).includes(original.words[0].meaning)));
+  await view.click('统一批改');
+  assert.ok(view.nodes().some(n=>n.props?.className==='notebookWholeReference'&&view.text(n).includes('有说服力')));
   await view.click('正确');
   const first=view.draft()[original.id].batch.words[0];
   assert.equal(first.recalls[0].answer,'我想是有说服力的');assert.equal(first.recalls[0].result,'correct');
   assert.equal(first.meaning,original.words[0].meaning);assert.equal(first.note,original.words[0].note);assert.equal(first.rating,'fuzzy');
-  await view.click('再写一次');view.editAnswer(2,'有条理的？');await view.click('核对释义');await view.click('错误');
+  view.startRecall(['word-cogent']);view.editAnswer(2,'有条理的？');await view.click('统一批改');await view.click('错误');
   assert.ok(view.text(view.nodes().find(n=>n.props?.className==='notebookRecallHistory')).includes('我想是有说服力的'));
   const before=structuredClone(view.draft()[original.id].batch);
   await view.click('立即保存');
@@ -562,7 +563,7 @@ test('a visible submit action commits the current round, hides wrong text by def
 test('rewriting an answer resets its previous judgement; hide and sort controls retain the draft without counting a new collection',async()=>{
  const view=notebook();
  try{
-  await view.ready();view.editAnswer(1,'手写释义');await view.click('核对释义');await view.click('模糊');
+  await view.ready();view.editAnswer(1,'手写释义');await view.click('统一批改');await view.click('模糊');
   view.editAnswer(1,'改写后的释义');
   const word=view.draft()[original.id].batch.words[0];
   assert.equal(word.recalls[0].checked,false);assert.equal(word.recalls[0].result,undefined);
@@ -594,7 +595,7 @@ test('the final entry row survives reopening before it is added, then counts exa
 test('notebook automatically saves editing, typed recall, assessments and the final pending line without a manual save',async()=>{
  const view=notebook();
  try{
-  await view.ready();view.edit('释义','我的新版释义');view.editAnswer(1,'先回忆的答案');await view.click('核对释义');await view.click('正确');view.editEntry('lucid');view.editMemory('自动保存的共享笔记');
+  await view.ready();view.edit('释义','我的新版释义');view.editAnswer(1,'先回忆的答案');await view.click('统一批改');await view.click('正确');view.editEntry('lucid');view.editMemory('自动保存的共享笔记');
   const before=view.draft()[original.id].batch;
   assert.equal(view.calls.filter(call=>call.method==='PUT').length,0);
   await view.flushTimers();
@@ -609,7 +610,7 @@ test('background autosave keeps inputs enabled and includes a newer answer typed
  const view=notebook({putHook:async payload=>{if(++writes===1)await held;return {ok:true,json:async()=>({revision:payload.revision+1})};}});
  try{
   await view.ready();view.editAnswer(1,'第一版');await view.flushTimers();
-  assert.ok(view.nodes().some(n=>n.type==='fieldset'&&n.props.disabled===false&&view.nodes(n).some(child=>child.props?.className==='notebookEntryRow')));
+  assert.ok(view.nodes().some(n=>n.type==='fieldset'&&n.props.disabled===false&&view.nodes(n).some(child=>child.props?.['aria-label']==='cogent 第 1 次回忆释义')));
   view.editAnswer(1,'保存时继续写的第二版');release();await view.flushTimers();await view.flushTimers();
   assert.equal(view.saved().batch.words[0].recalls[0].answer,'保存时继续写的第二版');assert.equal(view.saved().revision,9);assert.deepEqual(view.draft(),{});
  }finally{view.close();}
@@ -652,65 +653,43 @@ test('brief meanings can be edited, hidden and reopened with autosave while comp
  }finally{reopened.close();}
 });
 
-test('whole-page recall reveals forgotten words immediately, keeps manual grading after unified check and saves mastery separately',async()=>{
- const fixture={...original,words:[original.words[0],{id:'word-lucid',word:'lucid',meaning:'清楚易懂的',note:'透亮的联想',origin:'Day8第2题'},{id:'word-blank',word:'blank',meaning:'空白的',note:'没有回忆答案的词',origin:'Day8第3题'}]};
- const storage=new Map(),view=notebook({storage,fixture});
- try{
-  await view.ready();await view.click('整页回忆');
-  const references=()=>view.nodes().filter(n=>n.props?.className==='notebookWholeReference');
-  assert.equal(references().length,3);
-  for(const word of fixture.words)assert.ok(!references().some(n=>view.text(n).includes(word.meaning)));
-  assert.ok(!view.nodes().some(n=>n.props?.['data-shared-word']));
-  assert.ok(!view.nodes().some(n=>n.type==='textarea'&&fixture.words.some(w=>n.props.value===w.meaning||n.props.value===w.note)));
-  assert.ok(!view.nodes().some(n=>n.type==='button'&&view.text(n)==='核对释义'));
-  view.editAnswer(1,'令人信服的');await view.clickAria('lucid 不记得');
-  assert.ok(view.nodes().some(n=>n.props?.['aria-label']==='lucid 不记得'&&n.props['aria-pressed']));
-  assert.ok(references().some(n=>view.text(n).includes('清楚易懂的')));
-  assert.ok(!references().some(n=>view.text(n).includes(fixture.words[0].meaning)),'Other meanings stay hidden while this word is forgotten');
-  assert.equal(view.draft()[fixture.id].batch.words[1].recalls[0].result,'incorrect');
-  assert.equal(view.draft()[fixture.id].batch.words[1].rating,undefined,'Forgotten is a recall choice, not an automatic red rating');
-  assert.ok(view.text(view.nodes().find(n=>n.props?.['aria-label']==='页尾整页回忆操作')).includes('已回忆 2 / 3'));
-  await view.click('统一核对释义');
-  for(const word of fixture.words)assert.ok(references().some(n=>view.text(n).includes(word.meaning)),'All rows reveal, including a blank answer');
+test('collection editing has no recall fields, grading or progress; switching modes preserves the selected round',async()=>{
+ const fixture={...original,words:[original.words[0],{id:'second',word:'lucid',meaning:'清楚的',note:'笔记',origin:'来源'}]};
+ const view=notebook({fixture});try{
+  await view.ready();assert.equal(view.recallTools(),undefined);
+  assert.ok(!view.nodes().some(n=>n.props?.className?.startsWith('notebookWrittenRecall')||n.props?.['aria-label']==='提交本次默写结果'));
+  view.startRecall(['second']);await view.click('统一批改');const before=structuredClone(view.draft()[fixture.id].batch);
+  await view.click('收集与编辑');assert.equal(view.nodes().filter(n=>n.type==='article').length,2);assert.equal(view.recallTools(),undefined);
+  assert.ok(!view.nodes().some(n=>n.props?.className?.startsWith('notebookWrittenRecall')));
+  assert.deepEqual(view.draft()[fixture.id].batch,before);
+  await view.click('默写过关');assert.deepEqual(JSON.parse(JSON.stringify(view.recallTools().batch)),before);assert.equal(view.nodes().filter(n=>n.type==='article').length,1);
+ }finally{view.close();}
+});
+
+test('blank answers become forgotten errors only after bulk checking, reveal references, and allow correction without changing mastery',async()=>{
+ const fixture={...original,words:[original.words[0],{id:'word-lucid',word:'lucid',meaning:'清楚易懂的',note:'笔记',origin:'来源'}]};
+ const storage=new Map(),view=notebook({storage,fixture});try{
+  await view.ready();await view.click('默写过关');view.editAnswer(1,'令人信服的');
+  assert.ok(!view.nodes().some(n=>n.type==='button'&&view.text(n)==='不记得'));
+  assert.equal(view.draft()[fixture.id].batch.words[1].recalls,undefined);
+  await view.click('统一批改');let saved=view.draft()[fixture.id].batch;
+  assert.equal(saved.words[1].recalls[0].forgotten,true);assert.equal(saved.words[1].recalls[0].result,'incorrect');assert.equal(saved.words[1].rating,undefined);
+  assert.ok(view.nodes().some(n=>n.props?.className==='notebookWholeReference'&&view.text(n).includes('清楚易懂的')));
   assert.equal(view.nodes().filter(n=>n.props?.className==='notebookRecallResults').length,2);
-  const saved=view.draft()[fixture.id].batch;
-  assert.equal(saved.recallPhase,'checking');assert.equal(saved.words[0].recalls[0].checked,true);
-  assert.deepEqual(saved.words[1].recalls.map(({answer,checked,forgotten})=>({answer,checked,forgotten})),[{answer:'',checked:true,forgotten:true}]);
-  assert.equal(saved.words[2].recalls,undefined,'A missing answer must not be fabricated');
-  const group=view.nodes().find(n=>n.props?.['aria-label']==='lucid 掌握程度');
-  view.nodes(group).find(n=>n.type==='button'&&view.text(n)==='不认识').props.onClick();
-  await view.flushTimers();
-  assert.equal(view.saved().batch.words[1].rating,'unknown');
-  assert.equal(view.saved().batch.words[0].rating,'fuzzy');
-  await view.click('隐藏释义，继续回忆');assert.ok(references().every(n=>view.text(n)==='参考释义待统一核对'));
-  assert.equal(view.draft()[fixture.id].batch.words[0].recalls[0].answer,'令人信服的');
-  await view.click('统一核对释义');await view.flushTimers();
-  for(let i=0;i<fixture.words.length;i++)assert.equal(view.saved().batch.words[i].meaning,fixture.words[i].meaning);
+  await view.click('正确');await view.flushTimers();
+  assert.equal(view.saved().batch.words[0].recalls[0].result,'correct');assert.equal(view.saved().batch.words[0].rating,'fuzzy');
+  await view.click('隐藏释义，继续回忆');await view.click('统一批改');await view.flushTimers();
+  assert.equal(view.saved().batch.words[1].recalls.length,1);assert.equal(view.saved().batch.words[1].recalls[0].result,'incorrect');
  }finally{view.close();}
- const reopened=notebook({storage,fixture});try{
-  await reopened.ready();assert.ok(reopened.nodes().some(n=>n.props?.className==='notebookWholeReference'&&reopened.text(n).includes('清楚易懂的')));
-  assert.ok(reopened.nodes().some(n=>n.props?.['aria-label']==='lucid 不记得'&&n.props['aria-pressed']));
-  assert.equal(reopened.saved().batch.recallPhase,'checking');
- }finally{reopened.close();}
+ const reopened=notebook({storage,fixture});try{await reopened.ready();assert.equal(reopened.saved().batch.words[1].recalls[0].forgotten,true);}finally{reopened.close();}
 });
-
-test('forgotten choice can be toggled or replaced with a written answer without losing previous text or changing mastery',async()=>{
- const view=notebook();try{
-  await view.ready();view.editAnswer(1,'我原先写的内容');await view.clickAria('cogent 不记得');
-  let word=view.draft()[original.id].batch.words[0];assert.equal(word.recalls[0].forgotten,true);assert.equal(word.recalls[0].answer,'我原先写的内容');assert.equal(word.rating,'fuzzy');
-  await view.clickAria('cogent 不记得');assert.equal(view.draft()[original.id].batch.words[0].recalls[0].forgotten,undefined);
-  await view.clickAria('cogent 不记得');view.editAnswer(1,'后来想起来了');
-  word=view.draft()[original.id].batch.words[0];assert.equal(word.recalls[0].forgotten,undefined);assert.equal(word.recalls[0].answer,'后来想起来了');assert.equal(word.rating,'fuzzy');
- }finally{view.close();}
-});
-
 
 test('editing one written answer in a large collection leaves every other word row untouched',async()=>{
  const fixture=structuredClone(original);
  fixture.words=Array.from({length:200},(_,index)=>({...structuredClone(original.words[0]),id:'perf-'+index,word:index?'word-'+index:original.words[0].word,recalls:[]}));
  const view=notebook({fixture});
  try{
-  await view.ready();view.nodes();const before=new Map(view.rowRenders);
+  await view.ready();await view.click('默写过关');view.nodes();const before=new Map(view.rowRenders);
   for(let i=0;i<10;i++){view.editAnswer(1,'回忆 '+i);view.nodes();}
   assert.equal(view.rowRenders.get('perf-0')-before.get('perf-0'),10);
   for(let index=1;index<200;index++)assert.equal(view.rowRenders.get('perf-'+index),before.get('perf-'+index));
@@ -719,13 +698,13 @@ test('editing one written answer in a large collection leaves every other word r
  }finally{view.close();}
 });
 
-test('forgotten reveals an answer and counts one error; correcting the judgement updates the same attempt and keeps the written answer',async()=>{
+test('a checked blank counts one error; correcting its judgment updates the same attempt',async()=>{
  const view=notebook();try{
-  await view.ready();await view.click('整页回忆');view.editAnswer(1,'我的原答案');await view.clickAria('cogent 不记得');
+  await view.ready();await view.click('默写过关');await view.click('统一批改');
   let current=view.draft()[original.id].batch.words[0];assert.equal(current.recalls[0].result,'incorrect');assert.equal(current.recalls[0].checked,true);
   assert.ok(view.nodes().some(node=>node.props?.className==='notebookWholeReference'&&view.text(node).includes(original.words[0].meaning)));
   assert.ok(view.nodes().some(node=>node.props?.className==='notebookRecallStats'&&view.text(node).includes('错误 1 次')));
-  await view.click('正确');current=view.draft()[original.id].batch.words[0];assert.equal(current.recalls[0].result,'correct');assert.equal(current.recalls[0].forgotten,undefined);assert.equal(current.recalls[0].answer,'我的原答案');
+  await view.click('正确');current=view.draft()[original.id].batch.words[0];assert.equal(current.recalls[0].result,'correct');assert.equal(current.recalls[0].forgotten,undefined);assert.equal(current.recalls[0].answer,'');
   assert.ok(view.nodes().some(node=>node.props?.className==='notebookRecallStats'&&view.text(node).includes('过关 1 次 · 错误 0 次')));
   assert.ok(view.nodes().some(node=>node.props?.className?.includes('notebookJudged-correct')));
   await view.click('错误');await view.click('错误');
@@ -741,7 +720,7 @@ test('a selected wrong-word round and its reminder autosave and reopen without r
   await view.ready();view.startRecall(['lucid-row']);
   let draft=view.draft()[fixture.id].batch;assert.deepEqual(draft.recallRound.wordIds,['lucid-row']);assert.deepEqual(draft.words[0],fixture.words[0]);assert.deepEqual(draft.words[1].recalls[0],fixture.words[1].recalls[0]);
   assert.ok(!view.nodes().some(node=>node.type==='textarea'&&node.props['aria-label']?.startsWith('cogent 第')));
-  await view.clickAria('lucid 不记得');
+  await view.click('统一批改');
   draft=view.draft()[fixture.id].batch;view.updateRecallBatch({...draft,recallReminder:{id:'reminder-one',at:'2026-12-01T01:00:00Z',wordIds:['lucid-row'],label:'重点攻克'}});
   await view.flushTimers();saved=view.saved().batch;assert.equal(saved.words[1].recalls.length,2);assert.equal(saved.words[1].recalls.at(-1).result,'incorrect');assert.deepEqual(saved.words[0],fixture.words[0]);
  }finally{view.close();}

@@ -48,6 +48,18 @@ export function notebookRecallSubmitted(batch:NotebookBatch){
  const words=new Map(batch.words.map(word=>[word.id,word]));
  return saved.wordIds.every(id=>{const last=words.get(id)?.recalls?.at(-1);return last?.submittedAt===saved.at&&!!notebookRecallResult(last);});
 }
+/** A blank answer means forgotten only when the learner checks the round. */
+export function checkNotebookRecall(batch:NotebookBatch,newId:()=>string):NotebookBatch{
+ const scope=batch.recallRound?new Set(batch.recallRound.wordIds):null;
+ return {...batch,recallPhase:'checking',words:batch.words.map(word=>{
+  if(scope&&!scope.has(word.id))return word;
+  const attempts=word.recalls??[],last=attempts.at(-1);
+  const checked=last&&(last.answer.trim()||last.checked&&notebookRecallResult(last))
+   ?{...last,checked:true,revealed:true}
+   :{id:last?.id??newId(),answer:last?.answer??'',checked:true,revealed:true,forgotten:true,result:'incorrect' as const};
+  return {...word,recalls:last?[...attempts.slice(0,-1),checked]:[checked]};
+ })};
+}
 /** Commit the selected round once; starting the next round appends new answers. */
 export function submitNotebookRecall(batch:NotebookBatch,newId:()=>string,at=new Date().toISOString()):NotebookBatch{
  if(notebookRecallSubmitted(batch))return batch;

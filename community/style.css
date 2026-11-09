@@ -424,3 +424,92 @@ main .notebookRecallRules{margin-top:16px}main .notebookRecallRules p{font-size:
 .notebookReminderItem{display:grid;gap:10px;padding:16px 0;border-top:1px solid var(--community-line)}.notebookReminderItem span,.notebookReminderOverlay small{color:var(--community-muted);font-size:13px;line-height:1.8}
 :root[data-theme=night] main .recall-correct .notebookRecallMark>strong{color:#bcddc5}:root[data-theme=night] main .recall-incorrect .notebookRecallMark>strong{color:#e9c2c6}:root[data-theme=night] main .recall-partial .notebookRecallMark>strong{color:#e6d4a4}
 @media(max-width:600px){main .notebookRecallTools{padding:16px}main .notebookRecallSchedule{align-items:stretch}main .notebookRecallSchedule label,main .notebookRecallSchedule>button{width:100%}main .notebookRecallQuick>button{flex:1 1 140px}}
+
+/* Notebook: words and meanings lead; secondary tools stay in disclosures. */
+main .vocabNotebook .libraryHead{margin-bottom:12px}
+main .notebookNewCollection,main .notebookHelp{margin:8px 0;font-size:13px;color:var(--muted)}
+main .notebookNewCollection>summary,main .notebookHelp>summary{cursor:pointer;line-height:1.6}
+main .notebookHelp p{font-size:13px;line-height:1.65;max-width:70ch}
+main .vocabNotebook .notebookHistory{max-width:none}
+main .vocabNotebook .notebookNew,main .vocabNotebook .notebookBatchHead{margin:10px 0;gap:10px}
+main .vocabNotebook .notebookStatus{padding:7px 10px;font-size:12px;margin:8px 0;background:transparent;border:0}
+main .notebookCombinedTest{margin:8px 0;padding:0;border:0;background:transparent}
+main .notebookCombinedTest>details>summary{font-size:13px;color:var(--muted);cursor:pointer}
+main .notebookMode,main .notebookListHead{gap:8px;margin:12px 0}
+main .notebookListHead h2{font-size:18px;margin:0}
+main .notebookQuickHint{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin:8px 0 12px}
+main .notebookWholeToolbar{padding:8px 10px;gap:10px;margin:10px 0}
+main .notebookWholeToolbar span{font-size:12px}
+main .vocabNotebook .notebookCardTitle{display:block;font-size:27px;font-weight:750;line-height:1.25;letter-spacing:-.02em;padding:0;color:var(--ink)}
+main .vocabNotebook input.notebookCardTitle{padding:5px 6px;font-size:25px}
+main .notebookWordLabel{min-width:0}
+main .notebookWordLabel>.notebookFrequencyBadge{margin-top:5px;font-size:10px;opacity:.8}
+main .notebookDocumentHeader,main .notebookDocumentMode .notebookWord{grid-template-columns:minmax(145px,.7fr) minmax(0,1fr) minmax(0,1.1fr);gap:12px}
+main .notebookDocumentHeader{font-size:12px;padding:10px 14px}
+main .vocabNotebook .notebookDocumentHeader>span:last-child{display:block}
+main .vocabNotebook .notebookWords{gap:0}
+main .notebookDocumentMode .notebookWord{padding:14px;border-radius:0;border-bottom:0}
+main .notebookDocumentMode .notebookWord:last-child{border-bottom:1px solid var(--line);border-radius:0 0 10px 10px}
+main .notebookWordHead{margin-bottom:0}
+main .notebookDocumentMode .notebookWordHead{gap:8px}
+main .notebookWholeReference>strong{font-size:11px;margin:0 0 5px;color:var(--muted);font-weight:500}
+main .notebookWholeReference>p:not(.notebookWholeMasked){font-size:20px;font-weight:650;line-height:1.55;margin:0 0 8px;padding:0;border:0;background:transparent;border-radius:0;color:var(--ink)}
+main .notebookWholeReference>details{margin:6px 0 0}
+main .notebookWholeReference .notebookWholeMasked{font-size:12px;margin:5px 0;color:var(--muted)}
+main .notebookWrittenRecall{padding:10px 12px;border:0;border-radius:8px;background:color-mix(in srgb,var(--ink-soft) 3%,var(--card))}
+main .notebookRecallMark{gap:6px;margin-bottom:6px;font-size:12px}
+main .vocabNotebook .notebookWrittenRecall label{font-size:11px;gap:5px;color:var(--muted)}
+main .vocabNotebook .notebookWrittenRecall textarea{font-size:18px;font-weight:550;min-height:60px;padding:8px 10px;line-height:1.45;color:var(--ink)}
+main .notebookRecallComparison{padding:0;margin-top:8px;border:0;background:transparent}
+main .notebookRecallResults{gap:6px;margin:6px 0 0}
+main .vocabNotebook .notebookRecallResults button{min-height:40px;font-size:13px;padding:6px 10px}
+main .notebookRecallHistory{margin-top:6px}
+main .notebookRecallHistory>summary{font-size:11px;line-height:1.5}
+main .notebookRecallStats{font-size:11px;line-height:1.5;margin-top:7px}
+main .notebookWrongAnswer{margin:6px 0;padding:7px 9px}
+main .notebookNextAttempt{min-height:40px;margin-top:8px;font-size:12px}
+main .vocabNotebook .notebookRating{gap:8px;margin-top:0;padding-top:8px;min-height:0}
+main .vocabNotebook .notebookRating>span{font-size:11px}
+main .vocabNotebook .notebookRating>.trafficLights{flex:0 1 360px;gap:6px}
+main .vocabNotebook .notebookRating .trafficLights button{min-height:40px;padding:6px 10px;font-size:13px}
+main .notebookSubmission{padding:14px 16px;margin:14px 0;gap:12px;border-width:1px;border-radius:10px}
+main .notebookSubmission h3{font-size:17px;margin:0 0 4px}
+main .notebookSubmission p{font-size:12px;line-height:1.6;margin:3px 0}
+main .notebookSubmission>.notebookSubmitButton{min-height:44px;font-size:14px;padding:10px 16px;min-width:180px}
+main .notebookRecallTools{padding:14px 16px;margin:14px 0;border-radius:10px}
+main .notebookRecallOverview{gap:6px;margin-bottom:8px}
+main .notebookRecallOverview h3{font-size:17px}
+main .notebookRecallQuick{margin:8px 0 12px}
+main .notebookUndoFooter{margin:12px 0}
+main .notebookCollectMode .notebookWord,main .notebookCollectMode .notebookDocumentHeader{grid-template-columns:minmax(155px,.65fr) minmax(0,2fr)}
+main .notebookCollectMode .notebookWord{border-inline-start:1px solid var(--line)}
+main .vocabNotebook.notebookCollectMode .notebookWord .notebookEditGrid{display:grid;grid-template-columns:1fr auto;gap:8px 14px}
+main .notebookCollectMode .notebookBriefMeaning{grid-column:1/-1}
+main .vocabNotebook .notebookBriefMeaning textarea{min-height:52px;font-size:20px;font-weight:600;line-height:1.5;padding:8px 10px}
+main .notebookCollectMode .notebookRowExtras{grid-column:auto}
+main .notebookCollectMode .notebookRowExtras[open],main .notebookCollectMode .notebookReferenceMeaning[open]{grid-column:1/-1}
+main .vocabNotebook textarea.notebookCardTitle{font-size:25px;line-height:1.25;min-height:0;padding:5px 6px;resize:vertical;overflow-wrap:anywhere}
+main .notebookBriefPreview{font-size:19px;font-weight:600;line-height:1.55}
+main .notebookReviewMode .notebookReveal{font-size:19px;font-weight:600;line-height:1.55}
+@media(max-width:1000px){
+ main .notebookDocumentHeader{display:none}
+ main .notebookDocumentMode .notebookWord{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+ main .notebookDocumentMode .notebookWordHead{grid-column:1/-1;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center}
+ main .notebookDocumentMode .notebookRating{grid-column:1/-1}
+ main .notebookCollectMode .notebookWord{grid-template-columns:minmax(130px,.7fr) minmax(0,2fr)}
+ main .notebookCollectMode .notebookWordHead{grid-column:auto;grid-template-columns:auto minmax(0,1fr) auto}
+}
+@media(max-width:600px){
+ main .notebookDocumentMode .notebookWord,main .notebookCollectMode .notebookWord{grid-template-columns:minmax(0,1fr);padding:12px;gap:10px}
+ main .notebookCollectMode .notebookWordHead{grid-template-columns:auto minmax(0,1fr) auto auto}
+ main .vocabNotebook .notebookCardTitle,main .vocabNotebook input.notebookCardTitle{font-size:25px}
+ main .notebookWholeReference>p:not(.notebookWholeMasked){font-size:19px}
+ main .vocabNotebook .notebookRating>.trafficLights{flex-basis:100%}
+ main .vocabNotebook .notebookRating .trafficLights button,main .vocabNotebook .notebookRecallResults button{min-height:44px}
+}
+@media(min-width:700px) and (max-width:1000px){
+ main .notebookWholeRecall .notebookWord,main .notebookWholeRecall .notebookDocumentHeader{grid-template-columns:minmax(135px,.8fr) minmax(0,1fr) minmax(0,1.5fr)}
+ main .notebookWholeRecall .notebookDocumentHeader{display:grid}
+ main .notebookWholeRecall .notebookWordHead{grid-column:auto;grid-template-columns:auto minmax(0,1fr) auto;align-items:start}
+ main .notebookWholeRecall .notebookCardTitle{font-size:25px}
+}

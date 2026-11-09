@@ -30,6 +30,20 @@ test('starting only wrong words preserves all old answers and references and cre
  assert.equal(model.startNotebookRecall(original,['missing'],id),original);
 });
 
+test('bulk checking treats untouched and whitespace-only answers as forgotten exactly once, within the selected scope',()=>{
+ const blank=word(),spaces={...word(),id:'spaces',recalls:[{id:'whitespace',answer:'  \n ',checked:false}]},outside={...word(['correct']),id:'outside'};
+ const source={...batch([blank,spaces,outside]),recallRound:{id:'round',wordIds:['one','spaces']}};
+ const checked=model.checkNotebookRecall(source,id),again=model.checkNotebookRecall(checked,id);
+ for(const current of checked.words.slice(0,2)){
+  assert.equal(current.recalls.length,1);assert.equal(current.recalls[0].forgotten,true);assert.equal(current.recalls[0].result,'incorrect');assert.equal(current.recalls[0].revealed,true);
+  assert.equal(model.notebookRecallStats(current).wrong,1);assert.equal(current.rating,'fuzzy');
+ }
+ assert.equal(checked.words[2],outside);assert.deepEqual(again,checked);assert.ok(validNotebookBatch(checked));
+ assert.equal(source.words[0].recalls.length,0);
+ const regraded={...checked,words:checked.words.map((w,i)=>i? w:{...w,recalls:[{...w.recalls[0],forgotten:undefined,result:'correct'}]})};
+ assert.equal(model.checkNotebookRecall(regraded,id).words[0].recalls[0].result,'correct','Repeated checking preserves an explicit correction');
+});
+
 test('partial answers count as wrong for retries, streaks and accuracy while preserving the original judgment',()=>{
  const current=word(['correct','partial','incorrect','partial']),stats=model.notebookRecallStats(current);
  assert.equal(stats.correct,1);assert.equal(stats.wrong,3);assert.equal(stats.correctRate,.25);assert.equal(stats.streak,3);assert.equal(stats.group,'focus');

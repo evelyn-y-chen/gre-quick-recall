@@ -173,32 +173,40 @@ export default function APlusTest({pronounce,initialLists}:{pronounce:(word:stri
 }
 export function Question({session,disabled,active=true,pronounce,onMeaning,onGrade,onNext}:{session:Session;disabled:boolean;active?:boolean;pronounce:(w:string)=>void;onMeaning:(m:string)=>void;onGrade:(words:string[],uncertain?:boolean)=>void;onNext:()=>void}) {
  const q=session.question!,e=byId.get(q.entryId)!,p=session.progress[e.id];
- const [meaning,setMeaning]=useState(""),[selected,setSelected]=useState<string[]>([]),[uncertain,setUncertain]=useState(false);
+ const [answer,setAnswer]=useState({meaning:"",selected:[] as string[],uncertain:false});
+ const latestAnswer=useRef(answer);
+ const {meaning,selected,uncertain}=answer;
+ function choose(next:typeof answer){latestAnswer.current=next;setAnswer(next);}
  const locked=useRef(false);
  const feedback=session.stage==="feedback",meaningStage=session.stage==="meaning",meaningOK=session.meaningChoice===e.meaning;
  const skipped=feedback&&session.synonymSkipped===true;
  const missed=skipped?[]:q.options.filter(o=>o.correct&&!session.selected.includes(o.word)),extra=skipped?[]:q.options.filter(o=>!o.correct&&session.selected.includes(o.word));
- const allOK=meaningOK&&!missed.length&&!extra.length;
+ const allOK=meaningOK&&!session.synonymUncertain&&!missed.length&&!extra.length;
  const canSubmit=active&&!disabled&&(feedback|| (meaningStage?!!meaning:uncertain||selected.length>0));
  useEffect(()=>{locked.current=false;},[session.stage]);
  function submit(){
-  if(!canSubmit||locked.current)return;locked.current=true;
-  if(feedback)onNext();else if(meaningStage)onMeaning(meaning);else onGrade(selected,uncertain);
+  const picked=latestAnswer.current;
+  if(!active||disabled||locked.current||!(feedback||(meaningStage?picked.meaning:picked.uncertain||picked.selected.length)))return;
+  locked.current=true;
+  if(feedback)onNext();else if(meaningStage)onMeaning(picked.meaning);else onGrade(picked.selected,picked.uncertain);
  }
  function selectOption(index:number){
   if(!active||disabled||feedback||locked.current)return;
-  if(meaningStage){if(q.meanings[index]!==undefined)setMeaning(q.meanings[index]);return;}
+  const picked=latestAnswer.current;
+  if(meaningStage){if(q.meanings[index]!==undefined)choose({...picked,meaning:q.meanings[index]});return;}
   const option=q.options[index];if(!option)return;
-  setUncertain(false);setSelected(values=>session.config.mode==="single"?[option.word]:values.includes(option.word)?values.filter(word=>word!==option.word):[...values,option.word]);
+  const words=picked.selected;
+  choose({...picked,uncertain:false,selected:session.config.mode==="single"?[option.word]:words.includes(option.word)?words.filter(word=>word!==option.word):[...words,option.word]});
  }
- function markUncertain(){if(!active||disabled||feedback||locked.current)return;if(meaningStage)setMeaning("不确定");else{setUncertain(true);setSelected([]);}}
+ function markUncertain(){if(!active||disabled||feedback||locked.current)return;const picked=latestAnswer.current;choose(meaningStage?{...picked,meaning:"不确定"}:{...picked,uncertain:true,selected:[]});}
  function handleKey(event:KeyboardEvent){
-  if(!active||event.repeat||event.isComposing||event.ctrlKey||event.metaKey||event.altKey||event.shiftKey)return;
+  if(!active||event.defaultPrevented||event.isComposing||event.ctrlKey||event.metaKey||event.altKey)return;
   const target=event.target as HTMLElement|null;
   if(target?.closest("textarea, select, input:not([type='radio']):not([type='checkbox']), [contenteditable='true'], a, summary"))return;
   const key=event.key.toLowerCase();
-  if(!feedback&&!disabled&&(key==='u'||/^[a-f]$/.test(key))){if(target?.closest('input'))return;event.preventDefault();key==='u'?markUncertain():selectOption(key.charCodeAt(0)-97);return;}
-  if(event.key!=="Enter"||target?.closest('[data-native-enter]')||target?.closest('[data-uncertain][aria-pressed="false"]')||!canSubmit)return;
+  if(event.repeat){if(key==='enter')event.preventDefault();return;}
+  if(!feedback&&!disabled&&(key==='u'||/^[a-f]$/.test(key))){event.preventDefault();key==='u'?markUncertain():selectOption(key.charCodeAt(0)-97);return;}
+  if(event.shiftKey||event.key!=="Enter"||target?.closest('button')&&!target.closest('.aPlusQuestion')||target?.closest('[data-native-enter]')||target?.closest('[data-uncertain][aria-pressed="false"]'))return;
   event.preventDefault();submit();
  }
  useEffect(()=>{window.addEventListener("keydown",handleKey);return()=>window.removeEventListener("keydown",handleKey);});
@@ -215,7 +223,7 @@ export function Question({session,disabled,active=true,pronounce,onMeaning,onGra
      const picked=feedback?session.selected.includes(o.word):selected.includes(o.word);
      const state=feedback?(o.correct?(picked?"correct":"missed"):(picked?"incorrect":"neutral")):(picked?"selected":"");
      return <div className={`aPlusChoiceTile ${state}`} key={o.word}>
-      <label className="aPlusChoiceLabel"><input type={session.config.mode==="single"?"radio":"checkbox"} name={`syn-${q.id}`} checked={picked} disabled={feedback} onChange={()=>selectOption(i)} aria-keyshortcuts={String.fromCharCode(65+i)}/><span className="aPlusChoiceLetter">{String.fromCharCode(65+i)}</span><strong>{o.word}</strong>{feedback&&<small className="aPlusChoiceResult">{o.correct?(picked?"选对":"漏选"):(picked?"误选":"干扰项")}</small>}</label>
+      <label className="aPlusChoiceLabel"><input type={session.config.mode==="single"?"radio":"checkbox"} name={`syn-${q.id}`} checked={picked} disabled={feedback} onChange={()=>selectOption(i)} aria-keyshortcuts={String.fromCharCode(65+i)}/><span className="aPlusChoiceLetter">{String.fromCharCode(65+i)}</span><strong>{o.word}</strong>{feedback&&<small className="aPlusChoiceResult">{o.correct?(picked?"你选的 · 正确":"正确答案 · 漏选"):(picked?"你选的 · 误选":"干扰项")}</small>}</label>
       {feedback&&<div className="aPlusChoiceExplanation"><p className="aPlusChoiceGloss">{o.meaning}</p><button data-native-enter className="aPlusOptionSpeak" type="button" aria-label={`朗读 ${o.word}`} onClick={()=>pronounce(o.word)}>▶</button></div>}
      </div>;
     })}</div>

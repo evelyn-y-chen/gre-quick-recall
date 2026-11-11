@@ -1,6 +1,6 @@
 import type {Snapshot} from './database';
 import {ratingModules,validRatings,type Rating,type Ratings} from '../app/ratingSyncModel';
-import {mergePracticeStorage,normalizeClockedPractice} from './practiceProgressMerge';
+import {aPlusSessionRow,aPlusTestDraft,isPracticeRunKey,mergePracticeStorage,normalizeClockedAPlus,normalizeClockedPractice} from './practiceProgressMerge';
 import {compactNotebookRecalls} from '../app/notebookRecallModel';
 import {NOTEBOOK_DRAFT_KEY} from '../app/notebookModel';
 import {mergeNotebookRecallBatches} from '../app/notebookRecallMerge';
@@ -89,7 +89,14 @@ export function mergeWorkspaceSnapshots(base:Snapshot|undefined,local:Snapshot,r
    const after=JSON.stringify(next);if(raw!==after)fields.record(namespace,key,raw,after);return after;
   }catch{return raw;}
  }
- const storage=mergeMap(plainStorage(base),plainStorage(local),plainStorage(remote),key=>key==='lemnota-username'||key==='community-theme'||/^gre-.*(?:selection|lists|sets|categories|range|last-quick-type|study-list|auto-speak|source-order)/.test(key),(key,b,l,r)=>fields.enabled?{value:compact('storage',key,normalizeClockedPractice(key,fields.merge('storage',key,b,l,r),l,r))}:mergePracticeStorage(key,b,l,r),fields.enabled);
+ const storage=mergeMap(plainStorage(base),plainStorage(local),plainStorage(remote),key=>key==='lemnota-username'||key==='community-theme'||/^gre-.*(?:selection|lists|sets|categories|range|last-quick-type|study-list|auto-speak|source-order)/.test(key),(key,b,l,r)=>{
+  if(!fields.enabled)return mergePracticeStorage(key,b,l,r);
+  if(key===aPlusTestDraft)return {value:fields.merge('storage',key,b,l,r,0,0,true)};
+  const value=fields.merge('storage',key,b,l,r);
+  const normalized=normalizeClockedPractice(key,value,l,r,isPracticeRunKey(key)?fields.merge('storage',key,b,l,r,0,0,true):value);
+  if(value!==undefined&&normalized!==undefined&&value!==normalized&&isPracticeRunKey(key))fields.record('storage',key,value,normalized);
+  return {value:compact('storage',key,normalized)};
+ },fields.enabled);
  for(const key of [...planKeys].sort()){
   if(fields.enabled){const value=fields.merge('storage',key,base?.storage[key],local.storage[key],remote.storage[key]);if(value!==undefined)storage[key]=value;continue;}
   const answers=snapshots.map(s=>planAnswer(s?.storage[key])).filter((value):value is PlanAnswer=>value!==undefined);
@@ -97,7 +104,13 @@ export function mergeWorkspaceSnapshots(base:Snapshot|undefined,local:Snapshot,r
  }
  for(const [source,snapshot] of [['base',base],['local',local],['remote',remote]] as const)if(snapshot)for(const [key,raw] of Object.entries(snapshot.storage))if(isRatingStorage(key)&&key!==ratingClockKey&&!validRatings(parse(raw)))storage[`gre-rating-recovery:${key}:${source}`]=raw;
  const rows=Object.values(mergeMap(baseRows,localRows,remoteRows,()=>false,(key,b,l,r)=>{
-  if(fields.enabled){const value=compact('rows',key,fields.merge('rows',key,b?.value,l?.value,r?.value,rowTime(l?.updated_at),rowTime(r?.updated_at))),previous=r??l??b;if(value===undefined||!previous)return {value:undefined};return {value:{...previous,value,revision:Math.max(l?.revision??0,r?.revision??0)+(value!==l?.value&&value!==r?.value?1:0),updated_at:[l?.updated_at,r?.updated_at].filter((v):v is string=>!!v).sort().at(-1)??previous.updated_at}};}
+  if(fields.enabled){
+   const lt=rowTime(l?.updated_at),rt=rowTime(r?.updated_at),merged=fields.merge('rows',key,b?.value,l?.value,r?.value,lt,rt);
+   const value=key===aPlusSessionRow?normalizeClockedAPlus(merged,l?.value,r?.value,fields.merge('rows',key,b?.value,l?.value,r?.value,lt,rt,true)):compact('rows',key,merged);
+   if(key===aPlusSessionRow&&merged!==undefined&&value!==undefined&&merged!==value)fields.record('rows',key,merged,value);
+   const previous=r??l??b;if(value===undefined||!previous)return {value:undefined};
+   return {value:{...previous,value,revision:Math.max(l?.revision??0,r?.revision??0)+(value!==l?.value&&value!==r?.value?1:0),updated_at:[l?.updated_at,r?.updated_at].filter((v):v is string=>!!v).sort().at(-1)??previous.updated_at}};
+  }
   if(!key.startsWith('vocab-notebook:')||!l||!r)return;
   try{const merged=mergeNotebookRecallBatches(b?JSON.parse(b.value):undefined,JSON.parse(l.value),JSON.parse(r.value));
    if(merged)return {value:{...l,value:JSON.stringify(merged),revision:Math.max(l.revision,r.revision)+1,updated_at:l.updated_at>r.updated_at?l.updated_at:r.updated_at}};

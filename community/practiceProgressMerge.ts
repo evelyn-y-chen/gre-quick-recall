@@ -82,8 +82,20 @@ export function mergePracticeStorage(key:string,base:string|undefined,local:stri
  return {value:JSON.stringify(mergeHistory(history(b)?b:{},l,r))};
 }
 
-/** Rebuild derived queues after field-time merging independent words in one run. */
-export function normalizeClockedPractice(key:string,raw:string|undefined,local:string|undefined,remote:string|undefined):string|undefined {
+const choiceStage:Record<string,number>={meaning:0,synonym:1,synonyms:1,feedback:2,complete:3};
+// A+ increments turn on submit; the general test increments on Next.
+const aPlusStage:Record<string,number>={feedback:0,meaning:1,synonyms:2,complete:3};
+function currentBranch<T extends {turn:number}>(local:T,remote:T,preferred:T,position:(run:T)=>number){
+ const difference=local.turn-remote.turn||position(local)-position(remote);
+ return difference>0?local:difference<0?remote:preferred;
+}
+function retainPassed<T extends {done:boolean}>(merged:Record<string,T>,...branches:Record<string,T>[]):Record<string,T>{
+ const results={...merged};
+ for(const branch of branches)for(const [id,result] of Object.entries(branch))if(safe(id)&&(!results[id]||result.done&&!results[id].done))results[id]=result;
+ return results;
+}
+/** Keep the visible question together, even as results for different words merge. */
+export function normalizeClockedPractice(key:string,raw:string|undefined,local:string|undefined,remote:string|undefined,preferred=raw):string|undefined {
  if(raw===undefined||!isPracticeStorageKey(key))return raw;
  const value=parse(raw),l=parse(local),r=parse(remote);
  if(!object(value))return raw;
@@ -93,11 +105,34 @@ export function normalizeClockedPractice(key:string,raw:string|undefined,local:s
   const repaired={...value,queue,turn:Object.values(results).reduce((sum,item)=>sum+item.attempts,0),due:Object.fromEntries(Object.entries(object(value.due)?value.due:{}).filter(([id])=>queue.includes(id))),selection:queue.length&&queue[0]===value.queue[0]?value.selection:null};
   if(isRecallRun(repaired))return JSON.stringify(repaired);
  }
- if(isPracticeRunKey(key)&&run(value)&&run(l)&&run(r)&&l.sessionId===r.sessionId){
-  const candidates=[...new Set([...value.queue,...l.queue,...r.queue])],queue=candidates.filter((id,index)=>!value.results[id]?.done||index===0&&value.phase==='feedback');
-  return JSON.stringify({...value,queue});
+ if(isPracticeRunKey(key)){
+  const whole=parse(preferred);
+  if(!run(value)||!run(whole)||!run(l)||!run(r)||!l.sessionId||l.sessionId!==r.sessionId)return preferred;
+  const active=currentBranch(l,r,whole,run=>choiceStage[run.phase]),head=active.queue[0];
+  const results=retainPassed(value.results,l.results,r.results);
+  const keepFeedback=active.phase==='feedback'&&!!active.results[head]&&(!results[head]?.done||active.results[head].done);
+  if(keepFeedback)results[head]=active.results[head];
+  const queue=[...new Set([...active.queue,...l.queue,...r.queue])].filter(id=>!results[id]?.done||id===head&&keepFeedback);
+  const question=queue[0]===head&&(active.phase!=='feedback'||keepFeedback)?{}:{options:[],selected:null,phase:'meaning',meaningOK:false,meaningSelection:null,feedbackStep:undefined,uncertain:false};
+  const counts=object(value.attemptCounts)?value.attemptCounts:{};
+  return JSON.stringify({...active,queue,results,lookback:value.lookback,attemptCounts:keepFeedback&&object(active.attemptCounts)?{...counts,[head]:active.attemptCounts[head]}:value.attemptCounts,...question});
  }
  return raw;
+}
+
+export const aPlusSessionRow='a-plus-test-session:v1';
+export const aPlusTestDraft='gre-a-plus-test-draft-v1';
+type APlusRun={id:string;turn:number;stage:string;progress:Record<string,{done:boolean}>;[key:string]:unknown};
+function aPlusRun(value:unknown):value is APlusRun{
+ return object(value)&&typeof value.id==='string'&&whole(value.turn)&&typeof value.stage==='string'&&Object.hasOwn(aPlusStage,value.stage)&&object(value.progress)&&Object.values(value.progress).every(p=>object(p)&&typeof p.done==='boolean');
+}
+export function normalizeClockedAPlus(raw:string|undefined,local:string|undefined,remote:string|undefined,preferred:string|undefined){
+ const merged=parse(raw),l=parse(local),r=parse(remote),active=parse(preferred);
+ if(!aPlusRun(active)||!object(merged)||!aPlusRun(l)||!aPlusRun(r))return preferred;
+ const sameRound=l.id===r.id;
+ const question=sameRound?currentBranch(l,r,active,run=>aPlusStage[run.stage]):active;
+ const progress=sameRound&&aPlusRun(merged)?retainPassed(merged.progress,l.progress,r.progress):question.progress;
+ return JSON.stringify({...question,progress,reviewHistory:merged.reviewHistory,lookback:sameRound?merged.lookback:question.lookback});
 }
 
 export function practiceProgressSummary(snapshot:Snapshot){

@@ -19,7 +19,7 @@ export function refreshPracticeOptions<T extends {queue:string[];phase:string;di
  for (const word of term.synonyms??[]) related.add(normalize(word));
  const positives=run.options.filter(option=>option.correct);
  const unsafe=run.options.some((option,index)=>!option.correct&&(run.options.slice(0,index).some(other=>!other.correct&&(isAmbiguousQuizDistractor(other,option)||areQuizMorphologicalVariants(other.word,option.word)))||related.has(normalize(option.word))||isQuizPosMismatch(term,option)||isAmbiguousQuizDistractor(term,option)||areQuizMorphologicalVariants(term.word,option.word)||positives.some(answer=>isAmbiguousQuizDistractor(answer,option)||areQuizMorphologicalVariants(answer.word,option.word))));
- return unsafe?{...run,options:optionsFor(term,pool,run.direction,links,run.phase==='synonym'),selected:null}:run;
+ return unsafe||!run.options.length||run.selected!==null&&!run.options[run.selected]?{...run,options:optionsFor(term,pool,run.direction,links,run.phase==='synonym'),selected:null}:run;
 }
 export type Result={streak:number;errors:number;done:boolean};
 export function grade(previous:Result|undefined,correct:boolean):Result{const errors=(previous?.errors??0)+(correct?0:1),streak=correct?(previous?.streak??0)+1:0;return {streak,errors,done:correct&&(errors===0||streak>=2)};}

@@ -123,6 +123,7 @@ export function validSession(value:unknown):value is Session {
 }
 
 export function refreshAmbiguousQuestion(session:Session):Session{
+ if(session.question&&session.stage!=="feedback"&&session.progress[session.question.entryId].done)return advanceSession({...session,stage:"feedback"});
  if(session.stage==="synonyms"&&session.question&&session.meaningChoice!==byId.get(session.question.entryId)!.meaning)return chooseMeaning({...session,stage:"meaning"},session.meaningChoice??"不确定");
  if(!session.question||!["meaning","synonyms"].includes(session.stage))return session;
  const safe=new Set(distractorGroups(session.question.entryId));

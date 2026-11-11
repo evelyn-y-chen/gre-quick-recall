@@ -55,7 +55,7 @@ export function createFieldMerger(baseRaw:string|undefined,localRaw:string|undef
  const enabled=Object.keys(local).length>0||Object.keys(remote).length>0;
  function stamp(clocks:FieldClocks,path:Path,value:unknown){const s=clocks[pathKey(path)];return s?.hash===hash(value)?s:undefined;}
  function keep(path:Path,value:unknown,s:Stamp|undefined){if(s)out[pathKey(path)]={...s,hash:hash(value)};return value;}
- function merge(path:Path,b:unknown,l:unknown,r:unknown,lf:number,rf:number):unknown{
+ function merge(path:Path,b:unknown,l:unknown,r:unknown,lf:number,rf:number,whole=false):unknown{
   const ls=stamp(local,path,l),rs=stamp(remote,path,r),newest=later(ls,rs);
   if(same(l,r))return keep(path,l,newest);
   // Deletion is an edit too. An old device missing an unseen item is not a deletion.
@@ -64,7 +64,7 @@ export function createFieldMerger(baseRaw:string|undefined,localRaw:string|undef
    if(deleted){const newer=later(deleted,existing);if(newer===deleted)return keep(path,missing,deleted);}
    if(!deleted)return keep(path,present,existing);
   }
-  const atomic=path.at(-2)==='results'||path.at(-2)==='recalls'||['recallArchive','recallRound','recallSubmission','recallReminder','config'].includes(path.at(-1)??'')||object(l)&&object(r)&&typeof l.sessionId==='string'&&typeof r.sessionId==='string'&&l.sessionId!==r.sessionId;
+  const atomic=whole||['results','progress','lookback','recalls'].includes(path.at(-2)??'')||['recallArchive','recallRound','recallSubmission','recallReminder','config'].includes(path.at(-1)??'')||object(l)&&object(r)&&typeof l.sessionId==='string'&&typeof r.sessionId==='string'&&l.sessionId!==r.sessionId;
   if(!atomic&&object(l)&&object(r)){
    const before=object(b)?b:{},result:Record<string,unknown>={};
    for(const key of [...new Set([...Object.keys(before),...Object.keys(l),...Object.keys(r)])].sort())if(safe(key)){
@@ -94,8 +94,8 @@ export function createFieldMerger(baseRaw:string|undefined,localRaw:string|undef
   // choice; existing recovery checkpoints retain the prior versions.
   return canonical(l)>=canonical(r)?l:r;
  }
- return {enabled,merge(namespace:Namespace,key:string,b:string|undefined,l:string|undefined,r:string|undefined,localTime=0,remoteTime=0){
-  const bv=decode(b),lv=decode(l),rv=decode(r),value=merge([namespace,key],bv.value,lv.value,rv.value,localTime,remoteTime);
+ return {enabled,merge(namespace:Namespace,key:string,b:string|undefined,l:string|undefined,r:string|undefined,localTime=0,remoteTime=0,whole=false){
+  const bv=decode(b),lv=decode(l),rv=decode(r),value=merge([namespace,key],bv.value,lv.value,rv.value,localTime,remoteTime,whole);
   if(value===undefined)return undefined;
   return lv.json||rv.json?JSON.stringify(value):String(value);
  },record(namespace:Namespace,key:string,before:string,after:string){let at=1;for(const stamp of Object.values(out))at=Math.max(at,stamp.at+1);stampFieldChange(out,namespace,key,before,after,at,'compact:'+hash(after));},metadata:()=>Object.keys(out).length?JSON.stringify(Object.fromEntries(Object.keys(out).sort().map(key=>[key,out[key]]))):undefined};

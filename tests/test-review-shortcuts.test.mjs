@@ -79,9 +79,10 @@ function harness(kind, {deck='words', mode='single', data={}, notebook, persiste
   async function settle(){for(let n=0;n<12;n++){await Promise.resolve();if(dirty)render();}}
   function findButton(label){const found=nodes().find(node=>node.type==='button'&&text(node).includes(label));assert.ok(found,`Missing button ${label}`);return found;}
   async function click(label){const button=findButton(label);assert.ok(!button.props.disabled,`Disabled ${label}`);button.props.onClick({preventDefault(){},stopPropagation(){}});render();await settle();}
-  async function key(key, extra={}){let prevented=false;const target={closest:()=>null};const event={key,code:key,repeat:false,isComposing:false,ctrlKey:false,metaKey:false,altKey:false,shiftKey:false,target,preventDefault(){prevented=true;},stopImmediatePropagation(){},...extra};for(const callback of [...events.get('keydown')??[]])callback(event);render();await settle();return prevented;}
+  function dispatchKey(key, extra={}){const target={closest:()=>null};const event={key,code:key,repeat:false,isComposing:false,ctrlKey:false,metaKey:false,altKey:false,shiftKey:false,defaultPrevented:false,target,preventDefault(){this.defaultPrevented=true;},stopImmediatePropagation(){},...extra};for(const callback of [...events.get('keydown')??[]])callback(event);return event.defaultPrevented;}
+  async function key(key,extra={}){const prevented=dispatchKey(key,extra);render();await settle();return prevented;}
   render();
-  return {settle,click,key,nodes,text,io,learning,storage,persists,closed:()=>closed,setGeneration(value){generation=value;},setPersistence(fn){persistImpl=fn;},async select(label,value){const node=nodes().find(node=>node.type==='select'&&node.props['aria-label']===label);assert.ok(node);node.props.onChange({target:{value}});render();await settle();},model:aPlusModel,initial:()=>structuredClone(seed),run:()=>JSON.parse(storage.get('lemnota-practice-'+practiceScope)??'null'),history:()=>JSON.parse(storage.get('lemnota-practice-review-'+practiceScope+'-v1')??'null'),recallRun:()=>JSON.parse(storage.get('lemnota-recall-'+practiceScope+'-v1')??'null'),currentAPlus:()=>structuredClone(io.at(-1)?.session??seed),async ready(){await settle();await click(kind==='aplus'?'继续上次测试':'开始新测试');},close(){for(const host of instances.values())for(const hook of host.hooks)hook?.cleanup?.();}};
+  return {settle,click,key,async keysBeforePaint(events){for(const [key,extra] of events)dispatchKey(key,extra);render();await settle();},nodes,text,io,learning,storage,persists,closed:()=>closed,setGeneration(value){generation=value;},setPersistence(fn){persistImpl=fn;},async select(label,value){const node=nodes().find(node=>node.type==='select'&&node.props['aria-label']===label);assert.ok(node);node.props.onChange({target:{value}});render();await settle();},model:aPlusModel,initial:()=>structuredClone(seed),run:()=>JSON.parse(storage.get('lemnota-practice-'+practiceScope)??'null'),history:()=>JSON.parse(storage.get('lemnota-practice-review-'+practiceScope+'-v1')??'null'),recallRun:()=>JSON.parse(storage.get('lemnota-recall-'+practiceScope+'-v1')??'null'),currentAPlus:()=>structuredClone(io.at(-1)?.session??seed),async ready(){await settle();await click(kind==='aplus'?'继续上次测试':'开始新测试');},close(){for(const host of instances.values())for(const hook of host.hooks)hook?.cleanup?.();}};
 }
 
 for(const mode of ['single','multiple'])test(`A+ ${mode} keyboard A–F selects visible answers, U keeps existing uncertain grading`,async()=>{
@@ -123,11 +124,37 @@ for(const kind of ['aplus','practice'])test(`${kind} previous-word history is re
 for(const kind of ['aplus','practice'])test(`${kind} shortcuts ignore typing, composition, modifiers and repeated keydown`,async()=>{
  const view=harness(kind);try{
   await view.ready();const storage=[...view.storage];
-  for(const extra of [{repeat:true},{isComposing:true},{ctrlKey:true},{metaKey:true},{altKey:true},{shiftKey:true},{target:{closest:selector=>selector.includes('textarea')?{}:null}}]){
+  for(const extra of [{repeat:true},{isComposing:true},{ctrlKey:true},{metaKey:true},{altKey:true},{target:{closest:selector=>selector.includes('textarea')?{}:null}}]){
    for(const key of ['a','u','Enter'])await view.key(key,extra);
   }
   assert.equal(view.io.length,0);assert.deepEqual([...view.storage],storage);
   await view.key('a');if(kind==='aplus')assert.ok(view.nodes().some(node=>node.type==='button'&&node.props['aria-keyshortcuts']==='A'&&node.props['aria-pressed']===true));else assert.equal(view.run().selected,0);
+ }finally{view.close();}
+});
+
+for(const kind of ['aplus','practice'])test(`${kind} submits the latest uppercase letter even before repaint and never requeues a first correct answer`,async()=>{
+ const view=harness(kind);try{
+  await view.ready();
+  if(kind==='aplus'){
+   const i=view.currentAPlus().question.meanings.indexOf(terms[0].meaning);
+   await view.keysBeforePaint([[String.fromCharCode(65+i),{shiftKey:true}],['Enter']]);
+   assert.equal(view.currentAPlus().stage,'synonyms');
+  }
+  const before=kind==='aplus'?view.currentAPlus():view.run(),options=kind==='aplus'?before.question.options:before.options;
+  const correct=options.findIndex(o=>o.correct),wrong=options.findIndex(o=>!o.correct);
+  await view.key(String.fromCharCode(97+wrong));
+  const target={closest:selector=>kind==='aplus'&&selector==='input'?{}:null};
+  await view.keysBeforePaint([[String.fromCharCode(65+correct),{shiftKey:true,target}],['Enter',{target}]]);
+  const after=kind==='aplus'?view.currentAPlus():view.run(),id=kind==='aplus'?before.question.entryId:before.queue[0];
+  assert.equal(kind==='aplus'?after.stage:after.phase,'feedback');
+  assert.equal((kind==='aplus'?after.progress:after.results)[id].done,true);
+  assert.deepEqual(after.selected,kind==='aplus'?[options[correct].word]:correct);
+  assert.ok(view.text().includes('你选的'));
+  assert.equal(await view.key('Enter',{repeat:true}),true,'Held Enter cannot invoke the next button natively');
+  await view.key('Enter');
+  const next=kind==='aplus'?view.currentAPlus():view.run();
+  assert.notEqual(kind==='aplus'?next.question?.entryId:next.queue[0],id);
+  if(kind==='practice')assert.ok(!next.queue.includes(id));
  }finally{view.close();}
 });
 

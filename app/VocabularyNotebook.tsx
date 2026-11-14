@@ -393,10 +393,12 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
     finally { setTestLoading(false); }
   }
 
-  function rateWord(id: string, rating: NotebookRating, toggle = false) {
+  function rateWord(id: string, rating: NotebookRating) {
     const word=batch?.words.find(w=>w.id===id);
-    if(word&&!(toggle&&word.rating===rating))recordLearningPlanWords([word.word],rating==="familiar"?"green":rating==="fuzzy"?"yellow":"red",reviewDay(),batch!.words.map(w=>w.word));
-    if (batch) persist({...batch,words:batch.words.map((w) => w.id === id ? {...w,rating:toggle && w.rating === rating ? undefined : rating} : w)});
+    if (!batch||!word) return;
+    recordLearningPlanWords([word.word],rating==="familiar"?"green":rating==="fuzzy"?"yellow":"red",reviewDay(),batch.words.map(w=>w.word));
+    if (word.rating!==rating) persist({...batch,words:batch.words.map(w=>w.id===id?{...w,rating}:w)});
+    if (review) setRevealed(ids=>ids.includes(id)?ids:[...ids,id]);
   }
 
   const displayWords = useMemo(() => {
@@ -462,7 +464,7 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
     if (event.code === "Space") { event.preventDefault(); pronounce(activeWord.word); return; }
     if (event.key === "Enter") { event.preventDefault(); setRevealed((s) => s.includes(activeWord.id) ? s.filter((id) => id !== activeWord.id) : [...s,activeWord.id]); return; }
     const rating = ({"1":"unknown","2":"fuzzy","3":"familiar"} as Record<string,NotebookRating>)[event.key];
-    if (rating) { event.preventDefault(); rateWord(activeWord.id,rating,false); setRevealed((s) => s.includes(activeWord.id) ? s : [...s,activeWord.id]); }
+    if (rating) { event.preventDefault(); rateWord(activeWord.id,rating); }
   }
   useEffect(() => { window.addEventListener("keydown",handleKeyboard); return () => window.removeEventListener("keydown",handleKeyboard); });
 
@@ -563,7 +565,7 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
       </div></details>}
       <div className="notebookListHead" ref={listStart} tabIndex={-1}><h2>{review ? "遮挡复习" : wholeRecall?"默写过关表":"本次生词"}</h2>{undoButton}{review && <RevealControls total={batch.words.length} shown={batch.words.filter((word) => revealed.includes(word.id)).length} showLabel="显示全部释义" onShow={() => setRevealed(batch.words.map((word) => word.id))} onHide={() => setRevealed([])} />}{removed && <button type="button" onClick={() => {const next=[...batch.words];next.splice(removed.index,0,removed.word);persist({...batch,words:next});setRemoved(null);}}>撤销移除 {removed.word.word}</button>}</div>
       {!batch.words.length && <p className="notebookEmpty">从下方第一行开始。只填英文也可以，参考释义可以稍后补充。</p>}
-      {!!batch.words.length && <div className="notebookQuickHint"><span>↑↓ 切词</span>{wholeRecall&&<span>{checking?'对照释义 → 判断 → 提交':'先写释义 → 统一批改；不会的留空'}</span>}{review&&<span>Enter 揭晓 · Space 发音 · 1/2/3 标记</span>}</div>}
+      {!!batch.words.length && <div className="notebookQuickHint"><span>↑↓ 切词</span>{wholeRecall&&<span>{checking?'对照释义 → 判断 → 提交':'先写释义 → 统一批改；不会的留空'}</span>}{review&&<span>Enter 揭晓 · Space 发音 · 1/2/3 标记并揭晓</span>}</div>}
       {review && !!batch.words.length && <div className="notebookRowHeader" aria-hidden="true"><span>单词</span><div><span>释义</span>{showNotes && <span>{display.showReference && display.showMemory ? "对照与记忆笔记" : display.showReference ? "对照释义" : "记忆笔记"}</span>}<span>词库来源</span></div><span>掌握程度</span></div>}
       {!review&&!!batch.words.length&&<div className="notebookDocumentHeader" aria-hidden="true"><span>单词</span><span>{wholeRecall?"参考释义":"释义与笔记"}</span>{wholeRecall&&<span>我的释义与批改</span>}</div>}
       {wholeRecall&&batch.recallRound&&<div className="notebookRecallRound"><span>本轮选择 {displayWords.length} / 本次 {batch.words.length} 词</span><button type="button" onClick={()=>persist({...batch,recallRound:undefined})}>返回整次收集</button></div>}

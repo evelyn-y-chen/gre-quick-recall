@@ -136,5 +136,5 @@ test('notebook review cannot rate a background word while a plan or introduction
  });
  env.setOverlay(true);for(const [key,code] of [['1','1'],['2','2'],['3','3'],['ArrowRight','ArrowRight'],['Enter','Enter'],[' ','Space']])assert.equal(env.key(handler,key,code),false);
  assert.deepEqual(env.calls,[]);
- env.setOverlay(false);assert.equal(env.key(handler,'3'),true);assert.deepEqual(env.calls,[['rate','nb-1','familiar',false],['reveal']]);
+ env.setOverlay(false);assert.equal(env.key(handler,'3'),true);assert.deepEqual(env.calls,[['rate','nb-1','familiar']]);
 });

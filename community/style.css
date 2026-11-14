@@ -440,6 +440,12 @@ main .notebookListHead h2{font-size:18px;margin:0}
 main .notebookQuickHint{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin:8px 0 12px}
 main .notebookWholeToolbar{padding:8px 10px;gap:10px;margin:10px 0}
 main .notebookWholeToolbar span{font-size:12px}
+main .notebookRatingScope{padding:12px 14px;margin:10px 0;border:1px solid var(--community-line);border-radius:10px;background:var(--community-surface)}
+main .notebookRatingScope .selectionChips{margin:0 0 10px}
+main .notebookRatingScope .selectionChipGrid{grid-template-columns:repeat(4,minmax(0,1fr))}
+main .notebookRatingScopeActions{display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px}
+main .notebookRatingScopeActions small{font-size:12px;line-height:1.6;color:var(--community-muted)}
+@media(max-width:520px){main .notebookRatingScope .selectionChipGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 main .vocabNotebook .notebookCardTitle{display:block;font-size:27px;font-weight:750;line-height:1.25;letter-spacing:-.02em;padding:0;color:var(--ink)}
 main .vocabNotebook input.notebookCardTitle{padding:5px 6px;font-size:25px}
 main .notebookWordLabel{min-width:0}

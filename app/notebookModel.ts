@@ -1,4 +1,10 @@
 export type NotebookRating = "unknown" | "fuzzy" | "familiar";
+export const NOTEBOOK_RATINGS = [
+  {id:"unknown",label:"不认识",color:"red"},
+  {id:"fuzzy",label:"模糊",color:"yellow"},
+  {id:"familiar",label:"熟悉",color:"green"},
+] as const;
+export const NOTEBOOK_RATING_SCOPES = [...NOTEBOOK_RATINGS,{id:"unrated",label:"未标注"}] as const;
 export type NotebookRecallResult = "correct" | "partial" | "incorrect";
 export type NotebookRecallAttempt = { id: string; answer: string; checked: boolean; forgotten?: boolean; revealed?:boolean; result?: NotebookRecallResult; submittedAt?:string };
 export type NotebookRecallArchive = {correct:number;incorrect:number;partial:number;streak:number;attempts:number};

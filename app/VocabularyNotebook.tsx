@@ -4,6 +4,7 @@ import {recordLearningPlanWords} from "../community/learningPlanStore";
 import {reviewDay} from "../community/practiceReviewModel";
 import {appFetch,getWorkspaceGeneration} from "../community/api";
 import {persistLearningWorkspace} from "../community/workspacePersistence";
+import SelectionChips from "../community/SelectionChips";
 "use client";
 
 import SharedWordMemory,{useWordMemory} from "./SharedWordMemory";
@@ -20,7 +21,7 @@ import {createNotebookAutosaver,type NotebookSaveState} from "./notebookAutosave
 import RevealControls from "./RevealControls";
 import { memo, useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import { buildNotebookCatalog, type CatalogWord } from "./notebookCatalog";
-import { NOTEBOOK_DRAFT_KEY, hasNotebookSource, mergeNotebookCandidates, validNotebookBatch, type NotebookBatch, type NotebookDraft, type NotebookSummary, type NotebookWord, type NotebookRating } from "./notebookModel";
+import { NOTEBOOK_DRAFT_KEY, NOTEBOOK_RATINGS, NOTEBOOK_RATING_SCOPES, hasNotebookSource, mergeNotebookCandidates, validNotebookBatch, type NotebookBatch, type NotebookDraft, type NotebookSummary, type NotebookWord, type NotebookRating } from "./notebookModel";
 import type { GleeMindMap } from "./gleeMindMaps";
 import type { GleeTableList } from "./gleeTableLists";
 
@@ -42,6 +43,7 @@ function mergeSummaries(cloud: NotebookSummary[]) {
 const SOURCE_ORDER_KEY = "gre-notebook-source-order-v1";
 const DISPLAY_KEY = "gre-notebook-display-v1";
 const LAST_OPEN_KEY = "gre-notebook-last-open-v1";
+const allRatingScopes = NOTEBOOK_RATING_SCOPES.map(scope=>scope.id);
 function displayPreferences() {
   try {
     const saved = JSON.parse(studyStorage.getItem(DISPLAY_KEY) ?? "{}");
@@ -102,7 +104,7 @@ const NotebookWordRow=memo(function NotebookWordRow({word:w,index,review,wholeRe
         </div>}
         {wholeRecall&&<NotebookWrittenRecall word={w} wholePage referenceVisible={checking||!!w.recalls?.at(-1)?.revealed} onNewAttempt={()=>actions.current.again(w.id)} onChange={recalls=>actions.current.recall(w.id,recalls)}/>}
         {(review||wholeRecall)&&<div className="notebookRating"><span>掌握程度{!w.rating ? " · 未标注" : ""}</span>{wholeRecall&&!checking?<small>批改后标记</small>:<div className="trafficLights" role="group" aria-label={`${w.word} 掌握程度`}>
-          {([{value:"unknown",label:"不认识",color:"red"},{value:"fuzzy",label:"模糊",color:"yellow"},{value:"familiar",label:"熟悉",color:"green"}] as const).map((r) => <button key={r.value} type="button" className={`${r.color}${w.rating === r.value ? " active" : ""}`} aria-pressed={w.rating === r.value} onClick={() => actions.current.rate(w.id,r.value)}><i /><span>{r.label}</span></button>)}
+          {NOTEBOOK_RATINGS.map(r => <button key={r.id} type="button" className={`${r.color}${w.rating === r.id ? " active" : ""}`} aria-pressed={w.rating === r.id} onClick={() => actions.current.rate(w.id,r.id)}><i /><span>{r.label}</span></button>)}
         </div>}</div>}
       </article>;
 });
@@ -181,6 +183,7 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
   const [scrollRequest,setScrollRequest]=useState(0);
   const [review,setReview] = useState(false);
   const [recallMode,setRecallMode]=useState(false);
+  const [recallRatingScopes,setRecallRatingScopes]=useState<string[]>(allRatingScopes);
   const [revealed,setRevealed] = useState<string[]>([]);
   const [display,setDisplay] = useState(displayPreferences);
   const [displayStatus,setDisplayStatus] = useState("");
@@ -273,7 +276,7 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
       autosaver.current?.schedule(next,rev);
     } catch { setStatus("本机草稿空间不足，请立即保存到当前工作区。"); }
   }
-  function resetView() { setActiveId(""); setSelected([]); setRemoved(null); setRevealed([]); setReview(false);setRecallMode(false); setConflict(false); setWordOrder(null); setAlphabetical(false); setUndoPoint(null);setRedoPoint(null);undoEditKey.current=null; }
+  function resetView() { setActiveId(""); setSelected([]); setRemoved(null); setRevealed([]); setReview(false);setRecallMode(false);setRecallRatingScopes(allRatingScopes); setConflict(false); setWordOrder(null); setAlphabetical(false); setUndoPoint(null);setRedoPoint(null);undoEditKey.current=null; }
   function undoLastStep() {
     if(!undoPoint||undoPoint.batch.id!==currentBatch.current.batch?.id||saving)return;
     const previous=undoPoint;
@@ -478,13 +481,23 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
   };
   const saveState=batch?saveStates[batch.id]:undefined;
   const wholeRecall=!review&&recallMode,checking=batch?.recallPhase==="checking";
+  const {ratingScopeOptions,recallRatingIds}=useMemo(()=>{
+    const counts={unknown:0,fuzzy:0,familiar:0,unrated:0},ids:string[]=[];
+    const selected=new Set(recallRatingScopes);
+    for(const word of batch?.words??[]){
+      const scope=word.rating??"unrated";
+      counts[scope]++;
+      if(selected.has(scope))ids.push(word.id);
+    }
+    return {ratingScopeOptions:NOTEBOOK_RATING_SCOPES.map(scope=>({id:scope.id,label:scope.label,detail:`${counts[scope.id]} 词`})),recallRatingIds:ids};
+  },[batch?.words,recallRatingScopes]);
   const submitted=!!batch&&notebookRecallSubmitted(batch);
   const judgedCount=displayWords.filter(word=>notebookRecallResult(word.recalls?.at(-1))).length;
   const correctCount=displayWords.filter(word=>notebookRecallResult(word.recalls?.at(-1))==='correct').length;
   const wrongCount=displayWords.filter(word=>notebookRecallIsWrong(word.recalls?.at(-1))).length;
   const recalledCount=displayWords.filter(word=>{const last=word.recalls?.at(-1);return last&&(last.answer.trim()||last.forgotten);}).length??0;
   const undoButton=<><button className="notebookUndo" type="button" disabled={!undoPoint||undoPoint.batch.id!==batch?.id||loading||saving} onClick={undoLastStep}>↶ 撤回一步</button>{redoPoint&&redoPoint.batch.id===batch?.id&&<button className="notebookUndo" type="button" disabled={loading||saving} onClick={cancelUndo}>↷ 取消撤回</button>}</>;
-  const wholeRecallActions=batch&&(submitted?<><strong>本次默写已提交</strong><button type="button" onClick={()=>beginRecall(batch.words.map(word=>word.id))}>开始下一次默写</button></>:<><button type="button" className="solid" disabled={!batch.words.length} onClick={()=>checking?persist(hideNotebookRecallReferences(batch)):checkAllRecall()}>{checking?"隐藏释义，继续回忆":"统一批改"}</button><span>{checking?"对照释义判断，再提交。":`已填写 ${recalledCount} / ${displayWords.length} 词 · 留空按不记得计错`}</span></>);
+  const wholeRecallActions=batch&&(submitted?<><strong>本次默写已提交</strong><button type="button" disabled={saving||!recallRatingIds.length} onClick={()=>beginRecall(recallRatingIds)}>开始下一次默写{recallRatingIds.length!==batch.words.length?` · ${recallRatingIds.length} 词`:""}</button></>:<><button type="button" className="solid" disabled={!batch.words.length} onClick={()=>checking?persist(hideNotebookRecallReferences(batch)):checkAllRecall()}>{checking?"隐藏释义，继续回忆":"统一批改"}</button><span>{checking?"对照释义判断，再提交。":`已填写 ${recalledCount} / ${displayWords.length} 词 · 留空按不记得计错`}</span></>);
   return <section className={`vocabNotebook${review ? " notebookReviewMode" : " notebookDocumentMode"}${wholeRecall?" notebookWholeRecall":!review?" notebookCollectMode":""}${showNotes ? "" : " notebookNotesHidden"}`} onKeyDown={(e) => {e.stopPropagation();handleKeyboard(e.nativeEvent);}}>
     <div className="libraryHead"><div><p className="eyebrow">MY VOCABULARY</p><h1>生词本</h1></div></div>
     <fieldset disabled={loading || saving} className="notebookControls">
@@ -512,6 +525,10 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
       <div className="notebookBatchHead"><label>本次来源<input required maxLength={300} value={batch.source} onChange={(e) => persist({...batch,source:e.target.value},undefined,'source')} /></label><label>收集日期<input type="date" value={batch.date} onChange={(e) => persist({...batch,date:e.target.value},undefined,'date')} /></label><button className="solid" type="button" disabled={saving} onClick={save}>{saving ? "保存中…" : "立即保存"}</button></div>
       <div className="notebookStatus" role="status" aria-live="polite"><strong>生词本自动保存</strong> · {saveState?.message??(dirty?"草稿已保留，正在准备自动保存…":"当前收集已保存，修改后会自动保存。")}</div>
       <div className="notebookMode"><button type="button" aria-pressed={!review&&!wholeRecall} onClick={() => {setReview(false);setRecallMode(false);}}>收集与编辑</button><button type="button" aria-pressed={wholeRecall} onClick={()=>{setReview(false);setRecallMode(true);if(!batch.recallPhase)persist(hideNotebookRecallReferences(batch));}}>默写过关</button><button type="button" aria-pressed={review} onClick={() => {setReview(true);setRevealed([]);}}>遮挡复习</button><span>{batch.words.length} 词</span></div>
+      {wholeRecall&&!!batch.words.length&&<section className="notebookRatingScope" aria-label="按掌握程度开始默写">
+        <SelectionChips label="按掌握程度选词" options={ratingScopeOptions} selected={recallRatingScopes} onChange={setRecallRatingScopes} disabled={saving}/>
+        <div className="notebookRatingScopeActions"><button type="button" className="solid" disabled={saving||!recallRatingIds.length} onClick={()=>beginRecall(recallRatingIds)}>开始所选 {recallRatingIds.length} 词默写</button><small>沿用「遮挡复习」的标注，可多选。点开始后，只默写所选的词。</small></div>
+      </section>}
       {wholeRecall&&<div className="notebookWholeToolbar" role="group" aria-label="整页回忆操作">{wholeRecallActions}</div>}
       {!wholeRecall&&<div className="notebookDisplay" role="group" aria-label="生词本显示设置">
         <span>显示内容</span>

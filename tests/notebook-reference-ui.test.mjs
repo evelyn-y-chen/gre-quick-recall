@@ -63,6 +63,13 @@ function notebook({ storage = new Map(), fixture = original, savedCollections = 
     if (name === '../community/learningPlanStore') return { recordLearningPlanWords() {} };
     if (name === '../community/practiceReviewModel') return { reviewDay: () => '2026-10-29' };
     if (name === '../community/Practice') return { default: props => jsx('section', { 'data-notebook-practice': props }) };
+    if (name === '../community/SelectionChips') {
+      const exported={};
+      const source=fs.readFileSync(new URL('../community/SelectionChips.tsx',import.meta.url),'utf8');
+      const compiled=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,jsx:ts.JsxEmit.ReactJSX}}).outputText;
+      new Function('require','exports',compiled)(load,exported);
+      return exported;
+    }
     if (name === './NotebookRecallTools') return {default:props=>jsx('section',{'data-recall-tools':props})};
     if (name === './SharedWordMemory') return { default: props => jsx('aside', { 'data-shared-word': props.word, 'data-editing': !!props.editing, children: props.editing ? jsx('textarea', { 'aria-label': `${props.word} 的记忆方法`, value: memory.drafts[props.word]?.text ?? '共享记忆：把论据串起来', onChange: e => memory.edit(props.word, e.target.value) }) : memory.drafts[props.word]?.text ?? '共享记忆：把论据串起来' }), useWordMemory: () => memory };
     if (['./DictionaryLinks', './DictionaryLookup', './RevealControls', './NotebookFrequency'].includes(name)) return { default: () => null };
@@ -172,6 +179,37 @@ test('refresh reopens the last saved collection automatically instead of showing
   assert.equal(reopened.calls.filter(call=>(call.method??'GET')==='GET'&&call.url.includes('?id=')).length,1,'Automatic restoration already opened the collection');
   assert.equal(reopened.calls.filter(call=>call.method==='PUT').length,0);
  }finally{reopened.close();}
+});
+
+test('dictation combines masked-review ratings, fixes the round scope and supports selecting all again',async()=>{
+ const fixture={...original,words:[
+  {...original.words[0],id:'red',word:'red-word',rating:'unknown'},
+  {...original.words[0],id:'yellow',word:'yellow-word',rating:'fuzzy'},
+  {...original.words[0],id:'green',word:'green-word',rating:'familiar',recalls:[{id:'previous',answer:'Keep this',checked:true,result:'incorrect'}]},
+  {...original.words[0],id:'none',word:'unrated-word',rating:undefined},
+ ]};
+ const view=notebook({fixture});try{
+  await view.ready();await view.click('遮挡复习');
+  assert.ok(!view.nodes().some(n=>n.props['aria-label']==='按掌握程度开始默写'));
+  await view.click('默写过关');await view.click('全不选');
+  assert.ok(view.nodes().find(n=>n.type==='button'&&view.text(n)==='开始所选 0 词默写').props.disabled);
+  await view.click('不认识1 词');await view.click('模糊1 词');
+  assert.deepEqual(displayedNotebookWords(view),['red-word','yellow-word','green-word','unrated-word']);
+  await view.click('开始所选 2 词默写');
+  assert.deepEqual(displayedNotebookWords(view),['red-word','yellow-word']);
+  let stored=view.draft()[fixture.id].batch;
+  assert.deepEqual(stored.recallRound.wordIds,['red','yellow']);
+  assert.deepEqual(stored.words[2],fixture.words[2]);
+  await view.click('统一批改');
+  await view.click('熟悉'); // Change a selected word's rating while judging it.
+  assert.deepEqual(displayedNotebookWords(view),['red-word','yellow-word']);
+  await view.click('提交本次默写结果');
+  stored=view.saved().batch;
+  assert.deepEqual(stored.recallSubmission.wordIds,['red','yellow']);
+  assert.deepEqual(stored.words[2],fixture.words[2]);
+  await view.click('全选');await view.click('开始下一次默写');
+  assert.deepEqual(view.draft()[fixture.id].batch.recallRound.wordIds,['red','yellow','green','none']);
+ }finally{view.close();}
 });
 
 test('undoing a saved next round restores submitted answers, attempts, reminder and scope using a newer save revision',async()=>{

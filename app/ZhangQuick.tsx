@@ -26,15 +26,17 @@ const ratingsList: Array<{ value: Filter; label: string; color: string }> = [
 
 export default function ZhangQuick({deck,pronounce,planTarget,onPlanTargetHandled}:{deck:ZhangDeck;pronounce:(word:string)=>void;planTarget?:PlanNavigation|null;onPlanTargetHandled?:()=>void}) {
  const {title,entries,intro}=zhangDecks[deck];
+ const isPairs = deck === 'zhang-pairs';
  const [ratings,setRatings]=useState<Record<string,Rating>>(()=>readSavedRatings(studyStorage,zhangRatingKeys[deck])??{});
  const [testing,setTesting]=useState(false),[hideNotes,setHideNotes]=useState(false),[hideRelated,setHideRelated]=useState(false);
+ const [revealedEquivalents, setRevealedEquivalents] = useState(() => new Set<string>());
  const onRate=(id:string,rating:Rating)=>{recordLearningPlanRatings(deck,{[id]:rating});setRatings(current=>({...current,[id]:rating}));};
  useEffect(()=>writeSavedRatings(studyStorage,zhangRatingKeys[deck],ratings),[ratings,deck]);
   const groups = useMemo(() => [...new Set(entries.map(groupOf))], [entries]);
   const storageKey = `gre-${deck}-selection-v1`;
   const [range, setRange] = useState<{ key: string; selection: string[]; ready: boolean }>({ key: storageKey, selection: groups.slice(0, 1), ready: false });
   const selection = range.key === storageKey ? range.selection : groups.slice(0, 1);
-  useEffect(()=>{if(!planTarget||planTarget.deckId!==deck)return;const group=entries.find(e=>e.list===planTarget.list)?.group;if(group&&groups.includes(group)){setRange({key:storageKey,selection:[group],ready:true});setQuery('');setFilters([]);setOrder(null);setAlphabetical(false);setActiveId(null);}if(planTarget.method==='test')setTesting(true);onPlanTargetHandled?.();},[planTarget?.id,deck]);
+  useEffect(()=>{if(!planTarget||planTarget.deckId!==deck)return;const group=entries.find(e=>e.list===planTarget.list)?.group;if(group&&groups.includes(group)){setRange({key:storageKey,selection:[group],ready:true});setQuery('');setFilters([]);setOrder(null);setAlphabetical(false);setActiveId(null);setRevealedEquivalents(new Set());}if(planTarget.method==='test')setTesting(true);onPlanTargetHandled?.();},[planTarget?.id,deck]);
   const ready = range.key === storageKey && range.ready;
   const [query, setQuery] = useState("");
   const [filters, setFilters] = useState<Filter[]>([]);
@@ -77,6 +79,7 @@ export default function ZhangQuick({deck,pronounce,planTarget,onPlanTargetHandle
     (!filters.length || filters.includes(snapshot[entry.id] ?? "unrated"))
     && (!keyword || [entry.word, entry.meaning, entry.english, entry.synonyms, entry.exampleEnglish, entry.exampleChinese].filter(Boolean).join(" ").toLocaleLowerCase().includes(keyword)),
   );
+  const visibleWithEquivalents = isPairs ? [] : visible.filter((entry) => entry.synonyms);
   const active = visible.find((entry) => entry.id === activeId) ?? visible[0];
   const counts = scoped.reduce((total, entry) => {
     total[ratings[entry.id] ?? "unrated"] += 1;
@@ -99,6 +102,14 @@ export default function ZhangQuick({deck,pronounce,planTarget,onPlanTargetHandle
     setActiveId(id);
     setRevealed((current) => current.includes(id) ? current.filter((value) => value !== id) : [...current, id]);
   }
+  function toggleEquivalents(id: string) {
+    setActiveId(id);
+    setRevealedEquivalents((current) => {
+      const next = new Set(current);
+      if (!next.delete(id)) next.add(id);
+      return next;
+    });
+  }
   function rate(id: string, value: Rating) {
     setActiveId(id);
     onRate(id, value);
@@ -109,6 +120,7 @@ export default function ZhangQuick({deck,pronounce,planTarget,onPlanTargetHandle
     setSnapshot({ ...ratings });
     setActiveId(null);
     setRevealed([]);
+    setRevealedEquivalents(new Set());
   }
   function shuffle() {
     const ids = entries.map((entry) => entry.id);
@@ -125,6 +137,7 @@ export default function ZhangQuick({deck,pronounce,planTarget,onPlanTargetHandle
       if (document.querySelector?.(".learningPlanOverlay, .onboardingOverlay, .workspaceMenuOverlay, .practiceOverlay")) return;
       const target = event.target as HTMLElement | null;
       if (!active || event.isComposing || event.metaKey || event.ctrlKey || event.altKey || target?.closest("input, textarea, select, [contenteditable='true'], summary")) return;
+      if ((event.key === "Enter" || event.code === "Space") && target?.closest("[data-equivalent-reveal]")) return;
       const isArrow = event.key.startsWith("Arrow");
       if (event.repeat && !isArrow) return;
       if (isArrow && ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
@@ -172,17 +185,34 @@ export default function ZhangQuick({deck,pronounce,planTarget,onPlanTargetHandle
     <div className="shuffleControls" role="group" aria-label="词表显示顺序"><button className={!order&&!alphabetical?"active":""} aria-pressed={!order&&!alphabetical} onClick={()=>{setOrder(null);setAlphabetical(false);setActiveId(null);}}>原顺序</button><button className={order&&!alphabetical?"active":""} aria-pressed={!!order&&!alphabetical} onClick={shuffle}>一键打乱</button><button className={alphabetical?"active":""} aria-pressed={alphabetical} onClick={()=>{setOrder(null);setAlphabetical(true);setActiveId(null);}}>A–Z 字母排序</button></div>
     <p className="quickCount">词库 {entries.length} 条 · 当前范围 {scoped.length} 条 · 正在显示 {visible.length} 条 · 当前：{active?.word ?? "无匹配词"}</p>
     <div className="shortcutBar"><span><kbd>↑</kbd><kbd>↓</kbd> 上 / 下一词</span><span><kbd>Space</kbd> 发音</span><span><kbd>Enter</kbd> 揭晓 / 遮挡</span><span><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> 红 / 黄 / 绿</span></div>
-    <div className="shuffleControls"><button aria-pressed={hideRelated} onClick={()=>setHideRelated(!hideRelated)}>{hideRelated?'显示等价词':'隐藏等价词'}</button><button aria-pressed={hideNotes} onClick={()=>setHideNotes(!hideNotes)}>{hideNotes?'显示共享笔记':'隐藏共享笔记'}</button></div>
+    <div className="shuffleControls">
+      {isPairs ? <button aria-pressed={hideRelated} onClick={()=>setHideRelated(!hideRelated)}>{hideRelated?'显示等价词':'隐藏等价词'}</button> :
+        <div data-equivalent-reveal><RevealControls
+          total={visibleWithEquivalents.length}
+          shown={visibleWithEquivalents.filter((entry) => revealedEquivalents.has(entry.id)).length}
+          showLabel="显示当前等价词"
+          hideLabel="隐藏全部等价词"
+          onShow={() => setRevealedEquivalents(new Set(visibleWithEquivalents.map((entry) => entry.id)))}
+          onHide={() => setRevealedEquivalents(new Set())}
+        /></div>}
+      <button aria-pressed={hideNotes} onClick={()=>setHideNotes(!hideNotes)}>{hideNotes?'显示共享笔记':'隐藏共享笔记'}</button>
+    </div>
     <div className={`zhangTable ${deck==='zhang-pairs'?'zhangPairs':''}`} role="table" aria-label={title}>
      <div className="zhangRow zhangHeader" role="row"><span>单词{deck!=='zhang-pairs'?' / 音标':''}</span><span>中文释义{deck!=='zhang-pairs'?' / 英文解释':''}</span><span>等价词</span>{deck!=='zhang-pairs'&&<span>例句</span>}<span>掌握程度</span></div>
-     {visible.map(entry=><div className={`zhangRow ${entry.id===active?.id?'keyboardActive':''}`} role="row" aria-current={entry.id===active?.id?"true":undefined} key={entry.id} ref={el=>{rows.current[entry.id]=el;}}>
+     {visible.map(entry=>{
+      const equivalentsShown = revealedEquivalents.has(entry.id);
+      return <div className={`zhangRow ${entry.id===active?.id?'keyboardActive':''}`} role="row" aria-current={entry.id===active?.id?"true":undefined} key={entry.id} ref={el=>{rows.current[entry.id]=el;}}>
       <div><button className="quickWord" onClick={()=>{setActiveId(entry.id);pronounce(entry.word);}}><strong>{entry.word}</strong></button><NotebookFrequencyBadge word={entry.word}/>{entry.phonetic&&<small>{entry.phonetic}</small>}<small>{entry.group} · 第 {entry.number} 个</small><small>PDF 第 {entry.page} 页</small></div>
       <div><button className={`quickMeaning ${revealed.includes(entry.id)?"revealed":""}`} aria-expanded={revealed.includes(entry.id)} onClick={()=>reveal(entry.id)}>{revealed.includes(entry.id)?entry.meaning:'点击揭晓中文释义'}</button>{revealed.includes(entry.id)&&entry.english&&<p lang="en">{entry.english}</p>}</div>
-      <div>{hideRelated?<span className="muted">已隐藏</span>:entry.synonyms||'—'}</div>
+      <div>{isPairs ? (hideRelated ? <span className="muted">已隐藏</span> : entry.synonyms || '—') : entry.synonyms ?
+        <button type="button" className={`quickMeaning${equivalentsShown ? ' revealed' : ''}`} data-equivalent-reveal aria-expanded={equivalentsShown} onClick={() => toggleEquivalents(entry.id)}>
+          {equivalentsShown ? entry.synonyms : '点击揭晓等价词'}
+        </button> : '—'}</div>
       {deck!=='zhang-pairs'&&<div>{revealed.includes(entry.id)?<><p lang="en">{entry.exampleEnglish||'—'}</p><p>{entry.exampleChinese}</p></>:<span className="muted">揭晓释义后显示例句</span>}</div>}
       <div className="trafficLights" role="group" aria-label={`${entry.word} 掌握程度`}>{ratingsList.slice(0,3).map(({value,label,color})=><button key={value} className={`${ratings[entry.id]===value?'active ':''}${color}`} aria-pressed={ratings[entry.id]===value} onClick={()=>rate(entry.id,value as Rating)}><i/><span>{label}</span></button>)}</div>
       {!hideNotes&&revealed.includes(entry.id)&&<div className="zhangShared"><SharedWordMemory word={entry.word}/></div>}
-     </div>)}
+     </div>;
+     })}
     </div>
     {!visible.length&&<p>当前范围没有词条，请调整分组或颜色筛选。</p>}
   </div>;

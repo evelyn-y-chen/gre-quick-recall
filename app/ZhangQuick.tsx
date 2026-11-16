@@ -110,10 +110,13 @@ export default function ZhangQuick({deck,pronounce,planTarget,onPlanTargetHandle
       return next;
     });
   }
-  function rate(id: string, value: Rating) {
+  function rate({ id, synonyms }: Entry, value: Rating) {
     setActiveId(id);
     onRate(id, value);
     setRevealed((current) => current.includes(id) ? current : [...current, id]);
+    if (!isPairs && synonyms) {
+      setRevealedEquivalents((current) => current.has(id) ? current : new Set(current).add(id));
+    }
   }
   function changeSelection(next: string[]) {
     setRange({ key: storageKey, selection: next, ready: true });
@@ -152,7 +155,7 @@ export default function ZhangQuick({deck,pronounce,planTarget,onPlanTargetHandle
       } else if (event.code === "Space") {
         event.preventDefault(); pronounce(active.word);
       } else if (["1", "2", "3"].includes(event.key)) {
-        event.preventDefault(); rate(active.id, (["unknown", "fuzzy", "familiar"] as Rating[])[Number(event.key) - 1]);
+        event.preventDefault(); rate(active, (["unknown", "fuzzy", "familiar"] as Rating[])[Number(event.key) - 1]);
       }
     }
     window.addEventListener("keydown", keydown);
@@ -209,7 +212,7 @@ export default function ZhangQuick({deck,pronounce,planTarget,onPlanTargetHandle
           {equivalentsShown ? entry.synonyms : '点击揭晓等价词'}
         </button> : '—'}</div>
       {deck!=='zhang-pairs'&&<div>{revealed.includes(entry.id)?<><p lang="en">{entry.exampleEnglish||'—'}</p><p>{entry.exampleChinese}</p></>:<span className="muted">揭晓释义后显示例句</span>}</div>}
-      <div className="trafficLights" role="group" aria-label={`${entry.word} 掌握程度`}>{ratingsList.slice(0,3).map(({value,label,color})=><button key={value} className={`${ratings[entry.id]===value?'active ':''}${color}`} aria-pressed={ratings[entry.id]===value} onClick={()=>rate(entry.id,value as Rating)}><i/><span>{label}</span></button>)}</div>
+      <div className="trafficLights" role="group" aria-label={`${entry.word} 掌握程度`}>{ratingsList.slice(0,3).map(({value,label,color})=><button key={value} className={`${ratings[entry.id]===value?'active ':''}${color}`} aria-pressed={ratings[entry.id]===value} onClick={()=>rate(entry,value as Rating)}><i/><span>{label}</span></button>)}</div>
       {!hideNotes&&revealed.includes(entry.id)&&<div className="zhangShared"><SharedWordMemory word={entry.word}/></div>}
      </div>;
      })}

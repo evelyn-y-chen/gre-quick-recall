@@ -210,12 +210,15 @@ export default function QuickCapture({identity,account,started,onLogin,onSaved}:
  }
  if(!open)return null;
  const panel=<div className={`communityModal quickCaptureOverlay${floating?' quickCaptureFloating':''}`}><section role="dialog" aria-labelledby="quick-capture-title" onKeyDown={e=>{e.stopPropagation();if(e.key==='Escape'&&!busy){e.preventDefault();dismiss();}if((e.metaKey||e.ctrlKey)&&e.key==='Enter'){e.preventDefault();void save();}}}>
-  <button className="modalClose" type="button" disabled={busy} aria-label="收起快速收词并保留草稿" onClick={dismiss}>×</button>
-  <h2 id="quick-capture-title">快速收词</h2>
-  <p className="captureAccount">{account?`当前账号 · ${account}`:blocked?'请登录账号后收录':'当前为便笺模式 · 保存到这台设备'}{!account&&<button type="button" onClick={()=>{dismiss();onLogin();}}>登录</button>}</p>
+  <header>
+   <button className="modalClose" type="button" disabled={busy} aria-label="收起快速收词并保留草稿" onClick={dismiss}>×</button>
+   <h2 id="quick-capture-title">快速收词</h2>
+   <p className="captureAccount">{account?`当前账号 · ${account}`:blocked?'请登录账号后收录':'当前为便笺模式 · 保存到这台设备'}{!account&&<button type="button" onClick={()=>{dismiss();onLogin();}}>登录</button>}</p>
+  </header>
+  <div className="captureBody">
   {pictureInPicture()&&<button className="captureFloat" type="button" disabled={busy} onClick={()=>floating?closeFloating():void floatCard()}>{floating?'移回 Inkling 页面':'浮到其他网页上 ↗'}</button>}
   {draft.cards.length>1&&<label>待收录<select value={draft.active} disabled={busy} onChange={e=>store({...draftRef.current,active:e.target.value})}>{draft.cards.map((c,i)=><option value={c.id} key={c.id}>{c.word||`待填写英文 ${i+1}`}</option>)}</select></label>}
-  {card&&<form ref={form} onSubmit={e=>{e.preventDefault();void save();}}>
+  {card&&<form id="quick-capture-form" ref={form} onSubmit={e=>{e.preventDefault();void save();}}>
    <label>英文<div className="captureInputLine"><input ref={wordInput} maxLength={300} value={card.word} placeholder="输入或粘贴单词" onChange={e=>update({word:e.target.value})} disabled={busy}/><button type="button" disabled={busy} onClick={()=>void paste('word')}>粘贴英文</button></div></label>
    <label>释义<textarea ref={meaningInput} rows={3} maxLength={4000} value={card.meaning} placeholder="选填，可复制原文或海词释义" onChange={e=>update({meaning:e.target.value})} disabled={busy}/></label>
    <div className="captureActions"><button type="button" disabled={busy} onClick={()=>void paste('meaning')}>粘贴释义</button>{card.word.trim()&&<a href={`https://dict.cn/${encodeURIComponent(card.word.trim())}`} target="_blank" rel="noopener noreferrer" onClick={()=>update({origin:[...new Set([card.origin,'海词词典'].filter(Boolean))].join('\n')})}>海词查词 ↗</a>}</div>
@@ -223,9 +226,10 @@ export default function QuickCapture({identity,account,started,onLogin,onSaved}:
    <label>本批收录到<select value={card.target} disabled={busy||blocked} onChange={e=>changeDestination({target:e.target.value,...(!e.target.value&&card.target?{collectionId:crypto.randomUUID()}:{})})}><option value="">＋ 新建收集</option>{card.target&&!batches.some(b=>b.id===card.target)&&<option value={card.target}>上次收集（暂无详情）</option>}{batches.map(b=><option value={b.id} key={b.id}>{b.date} · {b.source}（{b.count} 词）</option>)}</select></label>
    {!card.target&&<div className="captureNewCollection"><label>收集名称<input maxLength={300} value={card.source} placeholder={`${card.date} 随手收词`} onChange={e=>changeDestination({source:e.target.value})} disabled={busy||blocked}/></label><label>日期<input type="date" required value={card.date} onChange={e=>changeDestination({date:e.target.value})} disabled={busy||blocked}/></label></div>}
    <details><summary>来源与快捷键</summary><label>释义来源<input maxLength={1000} value={card.origin} onChange={e=>update({origin:e.target.value})} disabled={busy}/></label><p>在 Inkling 页面复制后，按 Option＋Shift＋W 收英文，按 Option＋Shift＋M 收释义。</p><p>⌘Enter 完成收录 · Esc 保留草稿并收起</p></details>
-   <footer><span>{completedCards.length} 条待收录 · 草稿已保留</span><button className="primary" disabled={busy||blocked||!completedCards.length} type="submit">{busy?'正在保存…':`完成并收录${completedCards.length?` ${completedCards.length} 条`:''}`}</button></footer>
   </form>}
   {message&&<p role="status">{message}</p>}<button type="button" hidden={!message.includes('列表')} onClick={()=>void loadBatches()}>重试读取收集</button>
+  </div>
+  {card&&<footer><span>{completedCards.length} 条待收录 · 草稿已保留</span><button className="primary" disabled={busy||blocked||!completedCards.length} type="submit" form="quick-capture-form">{busy?'正在保存…':`完成并收录${completedCards.length?` ${completedCards.length} 条`:''}`}</button></footer>}
  </section></div>;
  return floating?createPortal(panel,floating.document.body):panel;
 }

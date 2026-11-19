@@ -1,0 +1,19 @@
+.quickCaptureOverlay{z-index:1300}
+.quickCaptureOverlay>section{width:min(540px,100%);padding:26px;box-sizing:border-box}
+.quickCaptureOverlay h2{margin:0 36px 20px 0;font-size:24px}
+.quickCaptureOverlay form{display:grid;gap:15px;margin-bottom:0}
+.quickCaptureOverlay label{display:grid;gap:7px;font-weight:600}
+.quickCaptureOverlay :is(input,textarea,select){width:100%;min-width:0;box-sizing:border-box;margin:0;padding:10px 12px;border:1px solid var(--community-line);border-radius:8px;background:var(--community-bg);color:var(--community-text);font:inherit;font-size:16px;line-height:1.5}
+.quickCaptureOverlay input[placeholder="先复制单词，再填到这里"]{font-size:22px;font-weight:700}
+.captureInputLine{display:flex;gap:8px;align-items:stretch}
+.captureInputLine input{flex:1}
+.captureInputLine button{flex-shrink:0}
+.captureActions,.quickCaptureOverlay footer{display:flex;gap:12px;align-items:center;justify-content:space-between}
+.captureActions a{color:var(--community-accent);font-size:14px}
+.captureNewCollection{display:grid;grid-template-columns:1fr 150px;gap:12px}
+.quickCaptureOverlay details{font-size:13px;color:var(--community-muted)}
+.quickCaptureOverlay details label{margin-top:10px}
+.quickCaptureOverlay details p{font-size:12px;line-height:1.65}
+.quickCaptureOverlay footer{border-top:1px solid var(--community-line);padding-top:14px}
+.quickCaptureOverlay footer span{color:var(--community-muted);font-size:12px}
+@media(max-width:540px){.quickCaptureOverlay>section{padding:22px 18px}.captureNewCollection{grid-template-columns:1fr}.captureInputLine button{padding:8px;font-size:12px}}

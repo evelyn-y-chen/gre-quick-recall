@@ -15,6 +15,9 @@ export type NotebookBatch = { id: string; source: string; date: string; words: N
 export type NotebookDraft = { batch: NotebookBatch; revision: number };
 export type NotebookSummary = { id: string; source: string; date: string; count: number; revision: number; draft?:boolean;recallReminder?:NotebookRecallReminder };
 export const NOTEBOOK_DRAFT_KEY = "gre-vocabulary-notebook-drafts-v1";
+export const CAPTURE_EVENT='inkling-quick-capture';
+export const CAPTURE_FLUSH_EVENT='inkling-notebook-before-capture';
+export const CAPTURE_SAVED_EVENT='inkling-notebook-captured';
 /** A compact cue, independent of full references and the learner's recall answers. */
 export function notebookBriefMeaning(word: Pick<NotebookWord,"meaning"|"briefMeaning">): string {
   if (word.briefMeaning !== undefined) return word.briefMeaning;

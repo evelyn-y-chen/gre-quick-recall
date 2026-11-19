@@ -18,6 +18,7 @@ import NotebookWrittenRecall from "./NotebookWrittenRecall";
 import NotebookRecallTools from "./NotebookRecallTools";
 import {appendNotebookRecall,hideNotebookRecallReferences,startNotebookRecall,checkNotebookRecall,submitNotebookRecall,notebookRecallSubmitted,notebookRecallResult,notebookRecallIsWrong} from "./notebookRecallModel";
 import {createNotebookAutosaver,type NotebookSaveState} from "./notebookAutosave";
+import {CAPTURE_FLUSH_EVENT,CAPTURE_SAVED_EVENT} from './notebookModel';
 import RevealControls from "./RevealControls";
 import { memo, useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import { buildNotebookCatalog, type CatalogWord } from "./notebookCatalog";
@@ -166,6 +167,22 @@ export default function VocabularyNotebook({ words, pronounce,planTarget,onPlanT
     mounted.current=true;const flush=()=>{void autosaver.current?.flushAll();};
     window.addEventListener('online',flush);window.addEventListener('pagehide',flush);
     return()=>{mounted.current=false;window.removeEventListener('online',flush);window.removeEventListener('pagehide',flush);flush();};
+  },[]);
+  useEffect(()=>{
+    const beforeCapture=(event:Event)=>{
+      const pending=(event as CustomEvent<Promise<unknown>[]>).detail;
+      pending.push(autosaver.current!.flushAll());
+    };
+    const captured=(event:Event)=>{
+      const saved=(event as CustomEvent<NotebookDraft>).detail;
+      setBatches(items=>[summary(saved.batch,saved.revision),...items.filter(item=>item.id!==saved.batch.id)]);
+      if(currentBatch.current.batch?.id===saved.batch.id){
+        currentBatch.current=saved;setBatch(saved.batch);setRevision(saved.revision);setDirty(false);
+        setUndoPoint(null);setRedoPoint(null);setStatus('快捷收词已加入，本次收集已更新。');
+      }
+    };
+    window.addEventListener(CAPTURE_FLUSH_EVENT,beforeCapture);window.addEventListener(CAPTURE_SAVED_EVENT,captured);
+    return()=>{window.removeEventListener(CAPTURE_FLUSH_EVENT,beforeCapture);window.removeEventListener(CAPTURE_SAVED_EVENT,captured);};
   },[]);
   useEffect(()=>{
     if(batch&&sharedMemory&&Object.keys(sharedMemory.drafts).length&&!sharedMemory.busy)autosaver.current?.schedule(batch,revision);

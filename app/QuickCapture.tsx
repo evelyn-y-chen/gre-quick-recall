@@ -51,9 +51,8 @@ export default function QuickCapture({identity,onSaved}:{identity:string;onSaved
   try{const latest=readCaptureDraft(window.localStorage.getItem(key));draftRef.current=latest;setDraft(latest);loaded.current=true;receive();}catch(e){setMessage(e instanceof Error?e.message:'草稿读取失败。');}
   const launch=()=>show();
   const changed=(e:StorageEvent)=>{if(e.key!==key||busyRef.current)return;try{const next=readCaptureDraft(e.newValue);draftRef.current=next;setDraft(next);}catch{setMessage('另一窗口的草稿未能读取，请保留当前内容。');}};
-  function keys(e:KeyboardEvent){if(e.isComposing||e.repeat||!e.ctrlKey||!e.shiftKey||!['Digit1','Digit2'].includes(e.code))return;e.preventDefault();e.stopImmediatePropagation();show();}
-  window.addEventListener('hashchange',receive);window.addEventListener(CAPTURE_EVENT,launch);window.addEventListener('storage',changed);window.addEventListener('keydown',keys,true);
-  return()=>{window.removeEventListener('hashchange',receive);window.removeEventListener(CAPTURE_EVENT,launch);window.removeEventListener('storage',changed);window.removeEventListener('keydown',keys,true);};
+  window.addEventListener('hashchange',receive);window.addEventListener(CAPTURE_EVENT,launch);window.addEventListener('storage',changed);
+  return()=>{window.removeEventListener('hashchange',receive);window.removeEventListener(CAPTURE_EVENT,launch);window.removeEventListener('storage',changed);};
  },[key]);
  useEffect(()=>{
   if(!open)return;
@@ -120,7 +119,7 @@ export default function QuickCapture({identity,onSaved}:{identity:string;onSaved
    <div className="captureActions"><button type="button" disabled={busy} onClick={()=>void paste('meaning')}>粘贴释义</button>{card.word.trim()&&<a href={`https://dict.cn/${encodeURIComponent(card.word.trim())}`} target="_blank" rel="noopener noreferrer" onClick={()=>update({origin:[...new Set([card.origin,'海词词典'].filter(Boolean))].join('\n')})}>海词查词 ↗</a>}</div>
    <label>收录到<select value={card.target} disabled={busy} onChange={e=>update({target:e.target.value})}><option value="">＋ 新建收集</option>{card.target&&!batches.some(b=>b.id===card.target)&&<option value={card.target}>上次收集（读取中）</option>}{batches.map(b=><option value={b.id} key={b.id}>{b.date} · {b.source}（{b.count} 词）</option>)}</select></label>
    {!card.target&&<div className="captureNewCollection"><label>收集名称<input maxLength={300} value={card.source} placeholder={`${card.date} 随手收词`} onChange={e=>update({source:e.target.value})} disabled={busy}/></label><label>日期<input type="date" required value={card.date} onChange={e=>update({date:e.target.value})} disabled={busy}/></label></div>}
-   <details><summary>来源与快捷键</summary><label>释义来源<input maxLength={1000} value={card.origin} onChange={e=>update({origin:e.target.value})} disabled={busy}/></label><p>复制后按 Control＋Shift＋1 收英文，Control＋Shift＋2 收释义。电脑快捷键需要先配置对应的 Mac 快捷指令。</p><p>⌘Enter 收录并收起 · Esc 保留草稿并收起</p></details>
+   <details><summary>来源与快捷键</summary><label>释义来源<input maxLength={1000} value={card.origin} onChange={e=>update({origin:e.target.value})} disabled={busy}/></label><p>复制后运行 Mac 的「Inkling 收英文」或「Inkling 收释义」。按键组合可在对应快捷指令的详细信息里设置。</p><p>⌘Enter 收录并收起 · Esc 保留草稿并收起</p></details>
    <footer><span>输入自动保留草稿</span><button className="primary" disabled={busy} type="submit">{busy?'正在保存…':'收录并收起'}</button></footer>
   </form>}
   {message&&<p role="status">{message}</p>}<button type="button" hidden={!message.includes('列表')} onClick={()=>void loadBatches()}>重试读取收集</button>

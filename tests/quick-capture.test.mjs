@@ -62,3 +62,15 @@ test('adding a meaning preserves existing attempts and word order while making n
  assert.deepEqual(previous.batch.words[0],word);
  assert.throws(()=>model.captureIntoBatch(card,null,newId),/收集/);
 });
+
+test('one collection receives all reviewed words in order and retries keep the same contents',()=>{
+ let draft=receive(model.emptyCapture(),'word','candid');
+ draft=receive(draft,'meaning','坦率的');
+ draft=receive(draft,'word','lucid');
+ draft=receive(draft,'meaning','清晰的');
+ const destination={...draft.cards[1],source:'阅读随手收词'};
+ const next=model.capturesIntoBatch(draft.cards,destination,null,newId);
+ assert.equal(next.batch.source,'阅读随手收词');
+ assert.deepEqual(next.batch.words.map(word=>[word.word,word.meaning]),[['candid','【未填写来源】\n坦率的'],['lucid','【未填写来源】\n清晰的']]);
+ assert.deepEqual(model.capturesIntoBatch(draft.cards,destination,next,newId),next);
+});

@@ -1,19 +1,26 @@
-.quickCaptureOverlay{z-index:1300}
-.quickCaptureOverlay>section{width:min(540px,100%);padding:26px;box-sizing:border-box}
-.quickCaptureOverlay h2{margin:0 36px 20px 0;font-size:24px}
-.quickCaptureOverlay form{display:grid;gap:15px;margin-bottom:0}
+.communityModal.quickCaptureOverlay{z-index:1300;align-items:flex-start;justify-content:flex-end;background:transparent;pointer-events:none;padding:clamp(12px,3vh,26px) clamp(12px,3vw,32px)}
+.communityModal.quickCaptureOverlay>section{width:min(424px,100%);max-height:calc(100dvh - 52px);padding:22px;box-sizing:border-box;border:1px solid var(--community-line);pointer-events:auto;overscroll-behavior:contain;box-shadow:0 16px 48px #172a3b2e}
+.communityModal.quickCaptureOverlay h2{margin:0 36px 10px 0;font-size:22px}
+.quickCaptureOverlay .captureAccount{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 14px;padding:7px 10px;border-radius:8px;background:var(--community-soft);color:var(--community-text);overflow-wrap:anywhere;font-size:13px}
+.quickCaptureOverlay .captureAccount button{flex:none;padding:4px 10px}
+.communityModal.quickCaptureOverlay .captureFloat{padding:5px 10px;margin:0 0 12px;color:var(--community-accent)}
+.communityModal.quickCaptureOverlay form{display:grid;gap:12px;margin:12px 0 0}
 .quickCaptureOverlay label{display:grid;gap:7px;font-weight:600}
 .quickCaptureOverlay :is(input,textarea,select){width:100%;min-width:0;box-sizing:border-box;margin:0;padding:10px 12px;border:1px solid var(--community-line);border-radius:8px;background:var(--community-bg);color:var(--community-text);font:inherit;font-size:16px;line-height:1.5}
-.quickCaptureOverlay input[placeholder="先复制单词，再填到这里"]{font-size:22px;font-weight:700}
+.quickCaptureOverlay .captureInputLine input{font-size:20px;font-weight:700}
 .captureInputLine{display:flex;gap:8px;align-items:stretch}
 .captureInputLine input{flex:1}
 .captureInputLine button{flex-shrink:0}
 .captureActions,.quickCaptureOverlay footer{display:flex;gap:12px;align-items:center;justify-content:space-between}
 .captureActions a{color:var(--community-accent);font-size:14px}
+.quickCaptureOverlay .captureNext{justify-self:start}
+.quickCaptureOverlay button:disabled{opacity:.5;cursor:default}
 .captureNewCollection{display:grid;grid-template-columns:1fr 150px;gap:12px}
 .quickCaptureOverlay details{font-size:13px;color:var(--community-muted)}
 .quickCaptureOverlay details label{margin-top:10px}
 .quickCaptureOverlay details p{font-size:12px;line-height:1.65}
 .quickCaptureOverlay footer{border-top:1px solid var(--community-line);padding-top:14px}
 .quickCaptureOverlay footer span{color:var(--community-muted);font-size:12px}
-@media(max-width:540px){.quickCaptureOverlay>section{padding:22px 18px}.captureNewCollection{grid-template-columns:1fr}.captureInputLine button{padding:8px;font-size:12px}}
+@media(max-width:540px){.communityModal.quickCaptureOverlay{align-items:flex-end}.communityModal.quickCaptureOverlay>section{max-height:88dvh;padding:18px}.captureNewCollection{grid-template-columns:1fr}.captureInputLine button{padding:8px;font-size:12px}}
+.communityModal.quickCaptureFloating{padding:0;align-items:stretch;pointer-events:auto}
+.communityModal.quickCaptureFloating>section{width:100%;max-width:none;max-height:none;padding:16px 18px;border:0;border-radius:0;box-shadow:none}

@@ -1,28 +1,29 @@
 .communityModal.quickCaptureOverlay{z-index:1300;align-items:flex-start;justify-content:flex-end;background:transparent;pointer-events:none;padding:clamp(12px,3vh,26px) clamp(12px,3vw,32px)}
-.communityModal.quickCaptureOverlay>section{display:flex;flex-direction:column;width:min(424px,100%);max-height:calc(100dvh - 52px);padding:18px 20px;overflow:hidden;box-sizing:border-box;border:1px solid var(--community-line);pointer-events:auto;box-shadow:0 16px 48px #172a3b2e}
+.communityModal.quickCaptureOverlay>section{display:flex;flex-direction:column;width:min(380px,100%);max-height:calc(100dvh - 52px);padding:14px 16px;overflow:hidden;box-sizing:border-box;border:1px solid var(--community-line);pointer-events:auto;box-shadow:0 16px 48px #172a3b2e}
 .quickCaptureOverlay header,.quickCaptureOverlay footer{flex:none}
-.quickCaptureOverlay .captureBody{min-height:0;overflow:auto;overscroll-behavior:contain;padding:2px 4px 6px}
-.communityModal.quickCaptureOverlay h2{margin:0 36px 10px 0;font-size:22px}
-.quickCaptureOverlay .captureAccount{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 10px;padding:7px 10px;border-radius:8px;background:var(--community-soft);color:var(--community-text);overflow-wrap:anywhere;font-size:13px}
+.quickCaptureOverlay .captureBody{min-height:0;overflow:auto;overscroll-behavior:contain;padding:3px 3px 5px}
+.quickCaptureOverlay .captureHeader{display:flex;align-items:center;gap:6px;margin-bottom:5px}
+.communityModal.quickCaptureOverlay h2{margin:0 auto 0 0;font-size:19px}
+.communityModal.quickCaptureOverlay .captureClose{padding:0 8px;min-height:36px;border:0;font-size:22px;line-height:1}
+.quickCaptureOverlay .captureAccount{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 6px;padding:5px 8px;border-radius:7px;background:var(--community-soft);color:var(--community-text);overflow-wrap:anywhere;font-size:12px}
 .quickCaptureOverlay .captureAccount button{flex:none;padding:4px 10px}
-.communityModal.quickCaptureOverlay .captureFloat{padding:5px 10px;margin:0 0 12px;color:var(--community-accent)}
-.communityModal.quickCaptureOverlay form{display:grid;gap:12px;margin:12px 0 0}
-.quickCaptureOverlay label{display:grid;gap:7px;font-weight:600}
-.quickCaptureOverlay :is(input,textarea,select){width:100%;min-width:0;box-sizing:border-box;margin:0;padding:10px 12px;border:1px solid var(--community-line);border-radius:8px;background:var(--community-bg);color:var(--community-text);font:inherit;font-size:16px;line-height:1.5}
-.quickCaptureOverlay .captureInputLine input{font-size:20px;font-weight:700}
-.captureInputLine{display:flex;gap:8px;align-items:stretch}
-.captureInputLine input{flex:1}
-.captureInputLine button{flex-shrink:0}
-.captureActions,.quickCaptureOverlay footer{display:flex;gap:12px;align-items:center;justify-content:space-between}
-.captureActions a{color:var(--community-accent);font-size:14px}
-.quickCaptureOverlay .captureNext{justify-self:start}
+.communityModal.quickCaptureOverlay .captureFloat{padding:4px 8px;color:var(--community-accent);white-space:nowrap}
+.communityModal.quickCaptureOverlay form{display:grid;gap:9px;margin:0}
+.communityModal.quickCaptureOverlay label,.quickCaptureOverlay .captureMeaning{display:grid;gap:4px;font-weight:600}
+.quickCaptureOverlay :is(input,textarea,select){width:100%;min-width:0;box-sizing:border-box;margin:0;padding:7px 9px;border:1px solid var(--community-line);border-radius:8px;background:var(--community-bg);color:var(--community-text);font:inherit;font-size:16px;line-height:1.4}
+.quickCaptureOverlay .captureWord{font-size:19px;font-weight:700}
+.quickCaptureOverlay .captureMeaningLabel,.quickCaptureOverlay footer{display:flex;gap:8px;align-items:center;justify-content:space-between}
+.quickCaptureOverlay .captureMeaningLabel a{color:var(--community-accent);font-size:12px;font-weight:400}
+.communityModal.quickCaptureOverlay .captureNext{padding:7px 12px;min-height:38px}
 .quickCaptureOverlay button:disabled{opacity:.5;cursor:default}
-.captureNewCollection{display:grid;grid-template-columns:1fr 150px;gap:12px}
-.quickCaptureOverlay details{font-size:13px;color:var(--community-muted)}
-.quickCaptureOverlay details label{margin-top:10px}
-.quickCaptureOverlay details p{font-size:12px;line-height:1.65}
-.quickCaptureOverlay footer{border-top:1px solid var(--community-line);padding-top:10px;margin-top:5px}
+.captureNewCollection{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,142px);gap:8px}
+.quickCaptureOverlay .captureSettings{min-width:0;border-top:1px solid var(--community-line);padding-top:7px;color:var(--community-muted);font-size:12px}
+.quickCaptureOverlay .captureSettings summary{cursor:pointer}
+.quickCaptureOverlay .captureSettings summary span{float:right;max-width:65%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.quickCaptureOverlay .captureSettings label{margin-top:8px}
+.communityModal.quickCaptureOverlay .captureMessage{margin:4px 0 0;font-size:12px;line-height:1.45}
+.quickCaptureOverlay footer{border-top:1px solid var(--community-line);padding-top:7px;margin-top:3px}
 .quickCaptureOverlay footer span{color:var(--community-muted);font-size:12px}
-@media(max-width:540px){.communityModal.quickCaptureOverlay{align-items:flex-end}.communityModal.quickCaptureOverlay>section{max-height:88dvh;padding:18px}.captureNewCollection{grid-template-columns:1fr}.captureInputLine button{padding:8px;font-size:12px}}
+@media(max-width:540px){.communityModal.quickCaptureOverlay{align-items:flex-end}.communityModal.quickCaptureOverlay>section{max-height:88dvh;padding:12px 14px}.captureNewCollection{grid-template-columns:1fr}}
 .communityModal.quickCaptureFloating{padding:0;align-items:stretch;pointer-events:auto}
-.communityModal.quickCaptureFloating>section{width:100%;max-width:none;max-height:none;padding:16px 18px;border:0;border-radius:0;box-shadow:none}
+.communityModal.quickCaptureFloating>section{width:100%;max-width:none;max-height:none;border:0;border-radius:0;box-shadow:none}
